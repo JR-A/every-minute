@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- 빈 자동 스캔 - servlet-context.xml에 Controller를 자동 스캔
+	         설정해서 아래 설정에서는 Controller 자동 스캔 제외-->
+	<context:component-scan base-package="kr.spring">
+		<!-- Controller를 스캔 대상에서 제외시킴 -->
+		<context:exclude-filter type="annotation" 
+		       expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>         
+	
+	<context:property-placeholder 
+	                 location="classpath:config/jdbc.properties"/>
+	<!-- 커넥션 풀을 이용한 DataSource 설정 -->
+	<bean id="dataSource" 
+	             class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/> 
+		<property name="url" value="${jdbc.url}"/>  
+		<property name="username" value="${jdbc.username}"/> 
+		<property name="password" value="${jdbc.password}"/>
+		<!-- 최대 커넥션 개수 -->
+		<property name="maxActive" value="50"/>
+		<!-- 접속이 없을 경우 최대 유지 커넥션 개수 -->
+		<property name="maxIdle" value="30"/>
+		<!-- 접속이 없을 경우  최소 유지 커넥션 개수 -->
+		<property name="minIdle" value="20"/>
+		<!-- 최대 대기시간(초) : 초과시 연결 실패 오류 발생 -->
+		<property name="maxWait" value="5"/>                                        
+	</bean>
+	
+	<!-- JDBC 기반 트랜잭션 관리자 설정 -->
+	<bean id="transactionManager"
+	  class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+	  p:dataSource-ref="dataSource"/>
+	
+	<!-- 선언적 트랙잭션 처리 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*"/>
+			<tx:method name="update*"/>
+			<tx:method name="delete*"/>
+			<tx:method name="select*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public * kr.spring..*ServiceImpl.*(..))" 
+		      id="servicePublicMethod"/>
+		<aop:advisor advice-ref="txAdvice" 
+		             pointcut-ref="servicePublicMethod"/>      
+	</aop:config>
+	
+	<!-- mybatis 설정 -->
+	<bean id="sqlSessionFactory"
+	      class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="typeAliasesPackage" value="kr.spring.member.vo,
+		                                           kr.spring.board.vo"/>	
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.spring.member.dao,
+		                                    kr.spring.board.dao"/>
+	</bean>
+	
+</beans>
