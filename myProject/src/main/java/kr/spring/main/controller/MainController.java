@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
-	@RequestMapping("/main/main.do")
+	@RequestMapping("/main/main_board.do")
 	public String getMain() {
-		return "main";
+		return "main_board";
 	}
 }
 

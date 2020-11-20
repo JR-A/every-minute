@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="freeBoardList" extends="main_board">
+    	<put-attribute name="title" value="게시판 목록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardList.jsp"/>  
+    </definition>
+    <definition name="freeBoardWrite" extends="main_board">
+    	<put-attribute name="title" value="글쓰기"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardWrite.jsp"/>  
+    </definition>
+    <definition name="freeBoardView" extends="main_board">
+    	<put-attribute name="title" value="게시판 상세 정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardView.jsp"/>  
+    </definition>
+    <definition name="freeBoardModify" extends="main_board">
+    	<put-attribute name="title" value="글 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardModify.jsp"/>  
+    </definition>
+</tiles-definitions>
+
+
+
+
+
+
+

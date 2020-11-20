@@ -13,8 +13,14 @@
 	<div id="main_header">
 		<tiles:insertAttribute name="header"/>
 	</div>
+	<div id="main_nav">
+		<tiles:insertAttribute name="navigation"/>
+	</div>
 	<div id="main_body">
 		<tiles:insertAttribute name="body"/>
+	</div>
+	<div id="main_right">
+		<tiles:insertAttribute name="right"/>
 	</div>
 	<div id="main_footer">
 		<tiles:insertAttribute name="footer"/>
@@ -22,6 +28,10 @@
 </div>
 </body>
 </html>
+
+
+
+
 
 
 

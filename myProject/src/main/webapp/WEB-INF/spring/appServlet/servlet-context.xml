@@ -23,21 +23,37 @@
 		<beans:property name="order" value="2"/>
 	</beans:bean>
 	
+	<!-- @Controller 오토스캔 -->
 	<context:component-scan 
-	               base-package="kr.spring.main.controller"/>
+	               base-package="kr.spring.board.customboard.controller"/>
+	<context:component-scan 
+	               base-package="kr.spring.board.freeboard.controller"/>
+	<context:component-scan 
+	               base-package="kr.spring.board.infoboard.controller"/>
+	<context:component-scan 
+	               base-package="kr.spring.bookstore.controller" />
+	<context:component-scan 
+	               base-package="kr.spring.main.controller" />
 	<context:component-scan 
 	               base-package="kr.spring.member.controller" />
 	<context:component-scan 
-	               base-package="kr.spring.board.controller"/>               
-	
+	               base-package="kr.spring.message.controller" />           
+	<context:component-scan 
+	               base-package="kr.spring.timetable.controller" /> 
+	               
 	<!-- tiles 설정 -->
 	<beans:bean id="tilesConfigurer"
 	 class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
 				<beans:value>/WEB-INF/tiles-def/main.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/main_board.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/member.xml</beans:value>
-				<beans:value>/WEB-INF/tiles-def/board.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/freeBoard.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/infoBoard.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/customBoard.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/timetable.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/bookStore.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>
