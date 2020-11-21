@@ -299,4 +299,6 @@ li, a{
 	list-style: none;
 }
 
-
+.error-color{
+	color:#ff0000;
+}

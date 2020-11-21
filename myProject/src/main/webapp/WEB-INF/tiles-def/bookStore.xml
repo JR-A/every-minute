@@ -17,10 +17,6 @@
     	<put-attribute name="title" value="게시판 상세 정보"/>
     	<put-attribute name="body" value="/WEB-INF/views/bookStore/boardView.jsp"/>  
     </definition>
-    <definition name="bookStoreModify" extends="main">
-    	<put-attribute name="title" value="글 수정"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/boardModify.jsp"/>  
-    </definition>
 </tiles-definitions>
 
 

@@ -6,20 +6,20 @@
 
 <tiles-definitions>
     <definition name="freeBoardList" extends="main_board">
-    	<put-attribute name="title" value="게시판 목록"/>
-    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardList.jsp"/>  
+    	<put-attribute name="title" value="자유게시판 목록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/freeBoardList.jsp"/>  
     </definition>
     <definition name="freeBoardWrite" extends="main_board">
-    	<put-attribute name="title" value="글쓰기"/>
-    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardWrite.jsp"/>  
+    	<put-attribute name="title" value="자유게시판 글쓰기"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/freeBoardWrite.jsp"/>  
     </definition>
     <definition name="freeBoardView" extends="main_board">
-    	<put-attribute name="title" value="게시판 상세 정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardView.jsp"/>  
+    	<put-attribute name="title" value="자유게시판 글 상세"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/freeBoardView.jsp"/>  
     </definition>
     <definition name="freeBoardModify" extends="main_board">
-    	<put-attribute name="title" value="글 수정"/>
-    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/boardModify.jsp"/>  
+    	<put-attribute name="title" value="자유게시판 글 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/freeBoard/freeBoardModify.jsp"/>  
     </definition>
 </tiles-definitions>
 

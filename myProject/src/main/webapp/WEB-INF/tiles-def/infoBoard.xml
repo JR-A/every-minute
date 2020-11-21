@@ -7,19 +7,19 @@
 <tiles-definitions>
     <definition name="infoBoardList" extends="main_board">
     	<put-attribute name="title" value="게시판 목록"/>
-    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/boardList.jsp"/>  
+    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/infoBoardList.jsp"/>  
     </definition>
     <definition name="infoBoardWrite" extends="main_board">
     	<put-attribute name="title" value="글쓰기"/>
-    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/boardWrite.jsp"/>  
+    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/infoBoardWrite.jsp"/>  
     </definition>
     <definition name="infoBoardView" extends="main_board">
     	<put-attribute name="title" value="게시판 상세 정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/boardView.jsp"/>  
+    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/infoBoardView.jsp"/>  
     </definition>
     <definition name="infoBoardModify" extends="main_board">
     	<put-attribute name="title" value="글 수정"/>
-    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/boardModify.jsp"/>  
+    	<put-attribute name="body" value="/WEB-INF/views/infoBoard/infoBoardModify.jsp"/>  
     </definition>
 </tiles-definitions>
 

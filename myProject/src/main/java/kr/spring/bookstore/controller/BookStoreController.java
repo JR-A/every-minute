@@ -1,14 +1,14 @@
-package kr.spring.timetable.controller;
+package kr.spring.bookstore.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class TimeTableController {
+public class BookStoreController {
 	
 	//게시판 폼 호출
-	@RequestMapping("/timetable/timetableView.do")
+	@RequestMapping("/bookStore/bookStoreList.do")
 	public String getMain() {
-		return "timetableView";
+		return "bookStoreList";
 	}
 }

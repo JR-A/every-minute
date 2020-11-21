@@ -62,13 +62,23 @@
 	<!-- mybatis 설정 -->
 	<bean id="sqlSessionFactory"
 	      class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="typeAliasesPackage" value="kr.spring.member.vo,
-		                                           kr.spring.board.vo"/>	
+		<property name="dataSource" ref="dataSource"/>								
+		<property name="typeAliasesPackage" value="kr.spring.board.customBoard.vo,
+												   kr.spring.board.freeboard.vo,
+												   kr.spring.board.infoboard.vo,
+												   kr.spring.bookstore.vo,
+												   kr.spring.member.vo, 
+		                                           kr.spring.message.vo,
+		                                           kr.spring.timetable.vo"/> <!-- vo하위의 자바빈 모두 스캔하여 알리아스처리 -->	  
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="kr.spring.member.dao,
-		                                    kr.spring.board.dao"/>
+		<property name="basePackage" value="kr.spring.board.customboard.dao,
+		                                    kr.spring.board.freeboard.dao,
+		                                    kr.spring.board.infoboard.dao,
+		                                    kr.spring.bookstore.dao,
+		                                    kr.spring.member.dao,
+		                                    kr.spring.message.dao,
+		                                    kr.spring.timetable.dao"/>
 	</bean>
 	
 </beans>

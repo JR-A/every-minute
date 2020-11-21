@@ -4,9 +4,9 @@
 	<div class="wrap">
 		<div class="group">
 			<ul>
-				<li><a href="" class="new">자유게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/freeBoard/freeBoardList.do" class="new">자유게시판</a></li>
 				<span>|</span>
-				<li><a href="" class="new">정보게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/infoBoard/infoBoardList.do" class="new">정보게시판</a></li>
 				<span>|</span>
 				<li><a href="" class="new">취뽀</a></li>
 				<span>|</span>
