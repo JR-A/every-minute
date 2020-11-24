@@ -31,7 +31,8 @@ CREATE TABLE Member_detail(
  modify_date DATE DEFAULT SYSDATE NOT NULL, /*멤버 수정일*/
  photo BLOB,        /*프로필사진 파일*/
  photoname VARCHAR2(100),    /*프로필 사진이름*/
-
+ authkey VARCHAR2(15) , /*이메일 인증키*/
+ authstatus NUMBER(1,0) DEFAULT 0, /*0이면로그인불가 1이면가능 */
 CONSTRAINT member_detail_pk PRIMARY KEY (mem_num),
 CONSTRAINT member_detail_fk FOREIGN KEY(mem_num) REFERENCES Member (mem_num),
 CONSTRAINT member_uk UNIQUE (email, nickname)
@@ -246,6 +247,7 @@ CREATE TABLE Timetable(
 	t_name VARCHAR2(50) DEFAULT '시간표' NOT NULL,
 	reg_date DATE DEFAULT SYSDATE NOT NULL,
 	modify_date DATE DEFAULT SYSDATE NOT NULL,
+	isPrimary NUMBER DEFAULT 0 NOT NULL,
 
 	CONSTRAINT timetable_pk PRIMARY KEY (t_num),
 	CONSTRAINT timetable_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
@@ -253,15 +255,15 @@ CREATE TABLE Timetable(
 
 CREATE TABLE Subject(
 	sub_num NUMBER NOT NULL,
-	sub_category VARCHAR2(10) NOT NULL,
+	sub_category VARCHAR2(20) NOT NULL,
 	sub_name VARCHAR2(100) NOT NULL,
-	prof_name VARCHAR2(10) NOT NULL,
+	prof_name VARCHAR2(50) NOT NULL,
 	sub_credit NUMBER DEFAULT 3 NOT NULL ,
-	sub_time VARCHAR2(15) NOT NULL,
-	sub_classRoom VARCHAR2(15) NOT NULL,
+	sub_time VARCHAR2(50) NOT NULL,
+	sub_classRoom VARCHAR2(50) NOT NULL,
 	sub_capacity NUMBER DEFAULT 100 NOT NULL ,
 	sub_online NUMBER(1) DEFAULT 0 NOT NULL ,	/*사이버강의여부 0:대면강의, 1:사이버강의*/
-	sub_remark VARCHAR2(100),
+	sub_remark VARCHAR2(300),
 
 	CONSTRAINT subject_pk PRIMARY KEY (sub_num)
 );
@@ -281,9 +283,9 @@ CREATE TABLE CustomSubject(
 	csub_num NUMBER NOT NULL,
 	t_num NUMBER NOT NULL,
 	csub_name VARCHAR2(100) NOT NULL,
-	prof_name VARCHAR2(10),
-	csub_time VARCHAR2(15),
-	csub_classRoom VARCHAR2(15),
+	prof_name VARCHAR2(50),
+	csub_time VARCHAR2(50),
+	csub_classRoom VARCHAR2(50),
 
 	CONSTRAINT customSubject_pk PRIMARY KEY (csub_num),
 	CONSTRAINT customSubject_fk FOREIGN KEY (t_num) REFERENCES Timetable (t_num)

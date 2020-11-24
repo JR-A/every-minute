@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="wrap">
       <div id="logo">
-        <a href="/"><img src="https://everytime.kr/images/new/nav.logo.png"></a>
+        <a href="${pageContext.request.contextPath}/main/main_board.do"><img src="https://everytime.kr/images/new/nav.logo.png"></a>
         <p><span class="name multiple">에브리미닛</span><span class="subname">Ezen대학교</span></p>
       </div>
       <div id="account">
