@@ -6,44 +6,54 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
+		//콤보박스에서 학기 선택시 이벤트 연결
+		$('#semesters').change(function(){
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/getListBySemester.do',
+				type: 'post',
+				data: {semester: $("#semesters option:selected").val()},
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					$('#timetableList').empty();
+					$(data).each(function(index,item){
+						var output = '';
+						output += '<li><a href="${pageContext.request.contextPath}/timetable/createTimetable.do?t_num=' + item.t_num + '"';	
+						if(item.isPrimary == 1){
+							output += ' class="primary"';
+						}
+						output += '>' + item.t_name + '</a></li>';	
+						$('#timetableList').append(output);
+					});
+					$('#timetableList').append('<li class="extension"><a id="create">새 시간표 만들기</a></li>');
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+		});
+		
+		
+		//ajax로 만들어질 미래의 버튼이므로 on으로 연결
 		//새 시간표 만들기 버튼 클릭이벤트 연결
-		$('#create').click(function(){
-			
+		$(document).on('click','#create',function(){	
 			//서버와 ajax 비동기 통신
 			$.ajax({
 				url: '${pageContext.request.contextPath}/timetable/createTimetable.do',
 				type: 'post',
 				data: {semester: $("#semesters option:selected").val()},
 				dataType: 'json',
-				async: false,
 				cache: false,
 				timetout: 30000,
 				success: function(data){
 					alert(data.semester + "학기 시간표 추가 성공!");
-					window.location.reload();//ajax호출하고싶음 "/timetable/createdTimetableView.do"
-					//추가된 시간표 보여주기
-					/*
-					$.ajax({
-						url: '${pageContext.request.contextPath}/timetable/createdTimetableView.do}',
-						type: 'post',
-						data: {t_num: data.t_num, semester: $("#semesters option:selected").val()},
-						dataType: 'json',
-						async: false,
-						cache: false,
-						timeout: 30000,
-						success: function(param){
-							$('#menu > ol').children(":last").before('<li><a href="${pageContext.request.contextPath}/timetable/createTimetable.do?t_num=${param.t_num}" class="primary">${param.t_name}</a></li>');
-						},
-						error: function(request,status,error){
-							alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
-						}
-					})
-					*/
+					$('#semesters').change();		//콤보박스 change이벤트 발생시키기 -> 현재 선택된 학기로 시간표 불러오기
 				},
 				error: function(request,status,error){
 					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
 				}
-			})
+			});
 		});
 	});
 </script>
@@ -98,12 +108,13 @@
 			</div>
 		</div>
 		<div class="menu">
-			<ol>
+			<ol id="timetableList">
 				<%-- 시간표가 존재하면 목록 불러오기 --%>
 				<c:if test="${timetableCount > 0}">
 				<c:forEach var="timetable" items="${timetableList}">
 				<li>
-					<a href="${pageContext.request.contextPath}/timetable/createTimetable.do?t_num=${timetable.t_num}" class="primary">${timetable.t_name}</a>
+					<a href="${pageContext.request.contextPath}/timetable/createTimetable.do?t_num=${timetable.t_num}" 
+					<c:if test="${timetable.isPrimary == 1}">class="primary"</c:if>>${timetable.t_name}</a>
 				</li>
 				</c:forEach>
 				</c:if>

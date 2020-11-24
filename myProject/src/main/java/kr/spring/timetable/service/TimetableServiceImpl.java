@@ -22,7 +22,12 @@ public class TimetableServiceImpl implements TimetableService {
 		timetableMapper.insertTimetable(timetable);
 		return t_num;
 	}
-
+	
+	@Override
+	public int selectTimetableCountOfUser(TimetableVO timetable) {
+		return timetableMapper.selectTimetableCountOfUser(timetable);
+	}
+	
 	@Override
 	public int selectRowCount(TimetableVO timetable) {
 		return timetableMapper.selectRowCount(timetable);
@@ -37,5 +42,7 @@ public class TimetableServiceImpl implements TimetableService {
 	public TimetableVO selectTimetable(TimetableVO timetable) {
 		return timetableMapper.selectTimetable(timetable);
 	}
+
+
 
 }

@@ -44,10 +44,18 @@ public class TimetableAjaxController {
 			log.debug("<<시간표 생성>> : " + member.getId() + ", " + semester);
 		}
 		
-		//시간표 생성, DB에 추가
+		//시간표 생성
 		timetable.setMem_num(member.getMem_num());	
 		timetable.setSemester(semester);
 		
+		//해당 학기에 유저가 생성한 시간표가 0개이면(처음 생성한 시간표이면) 기본시간표로 지정
+		int count = timetableService.selectTimetableCountOfUser(timetable);
+		if(count == 0) {
+			timetable.setIsPrimary(1);
+		}else {
+			timetable.setIsPrimary(0);
+		}
+	
 		int t_num = timetableService.insertTimetable(timetable);	//시간표 추가
 		
 		map.put("t_num", Integer.toString(t_num));
@@ -56,25 +64,28 @@ public class TimetableAjaxController {
 		return map;
 	}
 	
-	//새로 추가된 시간표 보여주기
-	@RequestMapping("/timetable/createdTimetableView.do")
+	//학기 선택시 시간표 목록 보여주기
+	@RequestMapping("/timetable/getListBySemester.do")
 	@ResponseBody
-	public Map<String, String> getList(@RequestParam("t_num") String t_num, HttpSession session) {
-		Map<String, String> map = new HashMap<String, String>();
-		
+	public List<TimetableVO> getListWhenComboClicked(@RequestParam("semester") String semester, HttpSession session){
 		TimetableVO timetable = new TimetableVO();
-		timetable.setT_num(Integer.parseInt(t_num));
 		
-		//시간표 불러오기
-		TimetableVO vo = timetableService.selectTimetable(timetable);
+		//세션에 저장된 회원 정보 반환
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		
+		//로그처리
 		if(log.isDebugEnabled()) {
-			log.debug("<<생성된 TimetableVO>> : "+ vo);	
+			log.debug("<<학기 선택>> : " + member.getId() + ", " + semester);
 		}
 		
-		//데이터 저장
-		map.put("t_num", Integer.toString(vo.getT_num()));
-		map.put("t_name", vo.getT_name());
+		timetable.setMem_num(member.getMem_num());	
+		timetable.setSemester(semester);
 		
-		return map;
+		List<TimetableVO> list = timetableService.selectList(timetable);
+		
+		System.out.println(list);
+		
+		return list;
 	}
+	
 }

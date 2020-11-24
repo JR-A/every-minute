@@ -9,6 +9,7 @@ public class TimetableVO {
 	private String t_name;		//default: '시간표'
 	private Date reg_date;		//default: SYSDATE
 	private Date modify_date;	//default: SYSDATE
+	private int isPrimary;		//default: 0
 	
 	//Getters and Setters
 	public int getT_num() {
@@ -47,11 +48,17 @@ public class TimetableVO {
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
 	}
+	public int getIsPrimary() {
+		return isPrimary;
+	}
+	public void setIsPrimary(int isPrimary) {
+		this.isPrimary = isPrimary;
+	}
 	
 	@Override
 	public String toString() {
 		return "TimetableVO [t_num=" + t_num + ", mem_num=" + mem_num + ", semester=" + semester + ", t_name=" + t_name
-				+ ", reg_date=" + reg_date + ", modify_date=" + modify_date + "]";
+				+ ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", isPrimary=" + isPrimary + "]";
 	}
 	
 }

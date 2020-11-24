@@ -8,6 +8,7 @@ import kr.spring.timetable.vo.TimetableVO;
 
 public interface TimetableService {
 	public int insertTimetable(TimetableVO timetable);
+	public int selectTimetableCountOfUser(TimetableVO timetable);
 	public int selectRowCount(TimetableVO timetable);
 	public List<TimetableVO> selectList(TimetableVO timetable);
 	public TimetableVO selectTimetable(TimetableVO timetable);
