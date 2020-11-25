@@ -3,8 +3,66 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.board.freeboard.dao.FreeBoardMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
+ <select id ="selectList" parameterType="map" resultType="freeBoardVO">
 
+	SELECT
+	*
+	FROM(SELECT
+		a.*,
+		rownum rnum	
+		
+		FROM(SELECT
+				* 
+			 FROM freeBoard f JOIN member m 
+			 ON f.mem_num=m.mem_num
+			  		<where>
+			 		 	<if test="keyword != '' and keyfield =='title'">
+			 		 		f.title LIKE '%' || #{keyword} || '%'
+			 		 	</if>
+			 		 	<if test="keyword != '' and keyfield =='content'">
+			 		 		f.content LIKE '%' || #{keyword} || '%' 
+			 		 	</if>
+			 		 	<if test="keyword != '' and keyfield =='all'">
+			 		 		f.title LIKE '%' || #{keyword} || '%' or
+			 		 		f.content LIKE '%' || #{keyword} || '%'
+			 		 	</if>
+			 		 </where>
+				ORDER BY f.post_num DESC)a)
 
+<![CDATA[
+	WHERE rnum >= #{start} AND rnum <= #{end}
+]]>
+</select>
 
+<select id="selectRowCount" parameterType="map" resultType="integer">
+			
+			SELECT
+			COUNT(*)
+			FROM freeboard f JOIN member m
+			ON f.mem_num = m.mem_num
+			<where>
+			 		 	<if test="keyword != '' and keyfield =='title'">
+			 		 		f.title LIKE '%' || #{keyword} || '%'
+			 		 	</if>
+			 		 	<if test="keyword != '' and keyfield =='content'">
+			 		 		f.content LIKE '%' || #{keyword} || '%' 
+			 		 	</if>
+			 		 	<if test="keyword != '' and keyfield =='all'">
+			 		 		f.title LIKE '%' || #{keyword} || '%' or
+			 		 		f.content LIKE '%' || #{keyword} || '%'
+			 		 	</if>
+			 		 </where>
+</select>
 
+<update id = "updateBoard" parameterType="freeBoardVO">
+	UPDATE freeboard SET
+	<if test="filename!=''">
+	uploadfile=#{uploadfile},
+	filename=#{filenmae},
+	</if>
+	title=#{title},
+	content=#{content},
+	modify_date=SYSDATE
+	WHERE post_num=#{post_num}
+</update>
 </mapper>

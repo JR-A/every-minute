@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/*자유게시판 */
+div.free_post{
+	color:pink;
+	padding:15px;
+	border-style: groove;
+}
+div.page-main-style > article img.picture{
+	float:left;
+	margin: 0 10px 15px 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+h3.fid{
+	margin-bottom:5px;
+}
+time.large{
+	padding-top:5px;
+}
