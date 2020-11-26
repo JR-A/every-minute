@@ -288,14 +288,11 @@ ol {
 	    color: #a6a6a6;
 	    font-size: 12px;
 	}
+
 	aside > div.menu > ol > li:hover{
 	    background-color: #f8f8f8;
 	}
-	aside > div.menu > ol > li.active > a {
-	    color: #c62917;
-	    font-weight: bold;
-	    background-color: #f8f8f8;
-	}
+	
 	aside > div.menu > ol > li.extension {
 	    border-top: 1px solid #e3e3e3;
 	}
@@ -336,6 +333,19 @@ ol {
 	    position: relative;
 	    width: 100%;
 	    overflow: auto;
+	}
+
+	#subjects {
+		height: 320px;
+	    display: block;
+	    position: absolute;
+	    z-index: 99;
+	    bottom: 0;
+	    width: 100%;
+	    border-top: 1px solid #d6d6d6;
+	    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+	    background-color: #fff;
+	    overflow: hidden;
 	}
 }
 
@@ -423,7 +433,11 @@ ol {
 	}
 }
 
-
+.active{
+	    color: #c62917 !important;
+	    font-weight: bold;
+	    background-color: #f8f8f8;
+}
 .bold { font-weight: bold !important; }
 .floatLeft { float: left !important; }
 .floatRight { float: right !important; }

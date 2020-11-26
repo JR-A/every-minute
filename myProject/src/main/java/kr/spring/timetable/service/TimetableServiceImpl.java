@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.spring.timetable.dao.TimetableMapper;
+import kr.spring.timetable.vo.SubjectVO;
 import kr.spring.timetable.vo.TimetableVO;
 
 @Service("timetableService")
@@ -29,19 +30,31 @@ public class TimetableServiceImpl implements TimetableService {
 	}
 	
 	@Override
-	public int selectRowCount(TimetableVO timetable) {
-		return timetableMapper.selectRowCount(timetable);
-	}
-
-	@Override
 	public List<TimetableVO> selectList(TimetableVO timetable) {
 		return timetableMapper.selectList(timetable);
 	}
 
 	@Override
-	public TimetableVO selectTimetable(TimetableVO timetable) {
-		return timetableMapper.selectTimetable(timetable);
+	public TimetableVO selectTimetable(int t_num) {
+		return timetableMapper.selectTimetable(t_num);
 	}
+	
+	@Override
+	public int selectSubjectCountOfTimetable(int t_num) {
+		return timetableMapper.selectSubjectCountOfTimetable(t_num);
+	}
+	
+	@Override
+	public List<SubjectVO> selectSubjectOfTimetable(int t_num) {
+		return timetableMapper.selectSubjectOfTimetable(t_num);
+	}
+
+	@Override
+	public TimetableVO selectPrimaryTimetable(TimetableVO timetable) {
+		return timetableMapper.selectPrimaryTimetable(timetable);
+	}
+
+
 
 
 

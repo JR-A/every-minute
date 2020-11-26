@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <!-- jstl의 core 라이브러리 사용 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- 시간 포맷 등 -->
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/timetable.container.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
+
 	$(document).ready(function(){
-		
+
 		//콤보박스에서 학기 선택시 이벤트 연결
-		$('#semesters').change(function(){
+		$('#semester').change(function(){
+			$('#semesterSelectForm').submit();
+			/*
 			$.ajax({
-				url: '${pageContext.request.contextPath}/timetable/getListBySemester.do',
+				//url: '${pageContext.request.contextPath}/timetable/getListBySemester.do',
+				url: '${pageContext.request.contextPath}/timetable/timetableView.do',
 				type: 'post',
-				data: {semester: $("#semesters option:selected").val()},
+				data: {semester: $("#semester option:selected").val()},
 				dataType: 'json',
 				cache: false,
 				timeout: 30000,
@@ -19,11 +24,11 @@
 					$('#timetableList').empty();
 					$(data).each(function(index,item){
 						var output = '';
-						output += '<li><a href="${pageContext.request.contextPath}/timetable/createTimetable.do?t_num=' + item.t_num + '"';	
+						output += '<li><a href="${pageContext.request.contextPath}/timetable/timetableView.do?semester='+ item.semester +'&t_num=' + item.t_num + '"';	
 						if(item.isPrimary == 1){
-							output += ' class="primary"';
+							output += ' class="primary active"';
 						}
-						output += '>' + item.t_name + '</a></li>';	
+						output += '>' + item.t_name + '</a></li>';
 						$('#timetableList').append(output);
 					});
 					$('#timetableList').append('<li class="extension"><a id="create">새 시간표 만들기</a></li>');
@@ -32,6 +37,7 @@
 					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
 				}
 			});
+			*/
 		});
 		
 		
@@ -42,67 +48,57 @@
 			$.ajax({
 				url: '${pageContext.request.contextPath}/timetable/createTimetable.do',
 				type: 'post',
-				data: {semester: $("#semesters option:selected").val()},
+				data: {semester: $("#semester option:selected").val()},
 				dataType: 'json',
 				cache: false,
 				timetout: 30000,
 				success: function(data){
 					alert(data.semester + "학기 시간표 추가 성공!");
-					$('#semesters').change();		//콤보박스 change이벤트 발생시키기 -> 현재 선택된 학기로 시간표 불러오기
+					$('#semester').change();		//콤보박스 change이벤트 발생시키기 -> 현재 선택된 학기로 시간표 불러오기  => 선택된 학기의, 해당 시간표정보
 				},
 				error: function(request,status,error){
 					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
 				}
 			});
 		});
+		
 	});
 </script>
-<script>
-    var timetableGridInfo = [
-    	{"no":"1","rows":[108,120],"hidden":false},
-    	{"no":"2","rows":[120,132],"hidden":false},
-    	{"no":"3","rows":[132,144],"hidden":false},
-    	{"no":"4","rows":[144,156],"hidden":false},
-    	{"no":"5","rows":[156,168],"hidden":false},
-    	{"no":"6","rows":[168,180],"hidden":false},
-    	{"no":"7","rows":[180,192],"hidden":false},
-    	{"no":"8","rows":[192,204],"hidden":false},
-    	{"no":"9","rows":[204,216],"hidden":false},
-    	{"no":"10","rows":[216,228],"hidden":false},
-    	{"no":"11","rows":[228,240],"hidden":false},
-    	{"no":"12","rows":[240,252],"hidden":false}]
-</script>
+
 <div id="container" class="timetable" style="height: 800px;">
 	<hr>
 	<aside>
-		<form class="select">
-			<select name="semesters" id="semesters">
-				<option value="2020-2">2020년 2학기</option>
-				<option value="2020-1">2020년 1학기</option>
-				<option value="2019-2">2019년 2학기</option>
-				<option value="2019-1">2019년 1학기</option>
-				<option value="2018-2">2018년 2학기</option>
-				<option value="2018-1">2018년 1학기</option>
-				<option value="2017-2">2017년 2학기</option>
-				<option value="2017-1">2017년 1학기</option>
-				<option value="2016-2">2016년 2학기</option>
-				<option value="2016-1">2016년 1학기</option>
-				<option value="2015-2">2015년 2학기</option>
-				<option value="2015-1">2015년 1학기</option>
+		<form id="semesterSelectForm" class="select" action="${pageContext.request.contextPath}/timetable/timetableView.do">
+			<select name="semester" id="semester">
+				<option value="2020-2" <c:if test="${semester=='2020-2'}">selected</c:if>>2020년 2학기</option>
+				<option value="2020-1" <c:if test="${semester=='2020-1'}">selected</c:if>>2020년 1학기</option>
+				<option value="2019-2" <c:if test="${semester=='2019-2'}">selected</c:if>>2019년 2학기</option>
+				<option value="2019-1" <c:if test="${semester=='2019-1'}">selected</c:if>>2019년 1학기</option>
+				<option value="2018-2" <c:if test="${semester=='2018-2'}">selected</c:if>>2018년 2학기</option>
+				<option value="2018-1" <c:if test="${semester=='2018-1'}">selected</c:if>>2018년 1학기</option>
+				<option value="2017-2" <c:if test="${semester=='2017-2'}">selected</c:if>>2017년 2학기</option>
+				<option value="2017-1" <c:if test="${semester=='2017-1'}">selected</c:if>>2017년 1학기</option>
+				<option value="2016-2" <c:if test="${semester=='2016-2'}">selected</c:if>>2016년 2학기</option>
+				<option value="2016-1" <c:if test="${semester=='2016-1'}">selected</c:if>>2016년 1학기</option>
+				<option value="2015-2" <c:if test="${semester=='2017-2'}">selected</c:if>>2015년 2학기</option>
+				<option value="2015-1" <c:if test="${semester=='2017-1'}">selected</c:if>>2015년 1학기</option>
 			</select>
 		</form>
 		<div class="title">
 			<a class="haburger"></a>
-			<h1 id="tableName">시간표</h1>
+			<h1 id="tableName">${timetable.t_name}</h1>
 			<div class="description">
 				<ul class="info">
-					<li style="display:none;">
-						<span id="tableCredit">0</span>
-						" 학점"
+					<li>
+						<span id="tableCredit">${timetableCredit} 학점</span>
 					</li>
 					<li>
-						<time id="tableUpdateAt">19/12/23 00:40</time>
-						" 변경"
+						<time id="tableUpdateAt">
+						<c:if test="${timetable.modify_date == null}">방금 변경</c:if>
+						<c:if test="${timetable.modify_date != null}">
+						<fmt:formatDate value="${timetable.modify_date}" var="formattedDate" type="date" pattern="MM/dd HH:mm"/>${formattedDate} 변경
+						</c:if>
+						</time>
 					</li>
 				</ul>
 			</div>
@@ -112,8 +108,8 @@
 				<%-- 시간표가 존재하면 목록 불러오기 --%>
 				<c:if test="${timetableCount > 0}">
 				<c:forEach var="timetable" items="${timetableList}">
-				<li>
-					<a href="${pageContext.request.contextPath}/timetable/createTimetable.do?t_num=${timetable.t_num}" 
+				<li id="${timetable.t_num}" <c:if test="${timetable.t_num == selectedT_num}">class="active"</c:if>>
+					<a  href="${pageContext.request.contextPath}/timetable/timetableView.do?semester=${timetable.semester}&t_num=${timetable.t_num}" 
 					<c:if test="${timetable.isPrimary == 1}">class="primary"</c:if>>${timetable.t_name}</a>
 				</li>
 				</c:forEach>
@@ -151,76 +147,29 @@
 								</c:forEach>
 							</div>
 						</th>
+						<c:forEach var="i" begin="0" end="4">
 						<td>
-							<div class="cols" style="width:113px;">
-							
+							<c:if test="${timetableSubjectCount > 0}">	
+							<div class="cols" style="width: 149px;">
+								<c:forEach var="item" items="${timesList}">
+								<c:if test="${item.day==i}">
+									<div class="subject color${item.color}" style="height:${(item.endtime-item.starttime+1)*60+1}px; top: ${(item.starttime-1)*60}px;">
+										<ul class="status" style="display: none;">
+											<li title="삭제" class="del"></li>
+										</ul>
+										<h3>${item.sub_name}</h3><p><em>${item.prof_name}</em><span>${item.classRoom}</span></p>
+									</div>
+								</c:if>
+								</c:forEach>
 							</div>
+							</c:if>
 							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
+								<c:forEach var="j" begin="0" end="11">
 									<div class="grid"></div>
 								</c:forEach>
 							</div>
 						</td>
-						<td>
-							<div class="cols" style="width:113px;">
-							
-							</div>
-							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
-									<div class="grid"></div>
-								</c:forEach>
-							</div>
-						</td>
-						<td>
-							<div class="cols" style="width:113px;">
-							
-							</div>
-							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
-									<div class="grid"></div>
-								</c:forEach>
-							</div>
-						</td>
-						<td>
-							<div class="cols" style="width:113px;">
-							
-							</div>
-							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
-									<div class="grid"></div>
-								</c:forEach>
-							</div>
-						</td>
-						<td>
-							<div class="cols" style="width:113px;">
-							
-							</div>
-							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
-									<div class="grid"></div>
-								</c:forEach>
-							</div>
-						</td>
-						<td style="display:none;">
-							<div class="cols" style="width:113px;">
-							
-							</div>
-							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
-									<div class="grid"></div>
-								</c:forEach>
-							</div>
-						</td>
-						<td style="display:none;">
-							<div class="cols" style="width:113px;">
-							
-							</div>
-							<div class="grids">
-								<c:forEach var="i" begin="0" end="11">
-									<div class="grid"></div>
-								</c:forEach>
-							</div>
-						</td>
+						</c:forEach>
 						<th>
 							<div class="times">
 								<div class="time">오전 9시</div>
@@ -286,22 +235,22 @@
 		</dl>
 		<div class="clearBothOnly"></div>
 		<div class="submit"><input type="submit" value="저장" class="button"></div>
-		<div class="subjects" style="display:none;">
+		<div id="subjects">
 			<div class="list">
 				<div class="thead"></div>
 				<table>
 					<thead>
 						<tr>
-							<th>과목번호<div>과목번호</div></th>
-							<th>이수구분<div>이수구분</div></th>
-							<th>과목명<div>과목명</div></th>
-							<th>교수명<div>교수명</div></th>
-							<th>학점<div>학점</div></th>
-							<th>시간<div>시간</div></th>
-							<th>강의실<div>강의실</div></th>
-							<th>정원<div>정원</div></th>
-							<th>사이버강의<div>사이버강의</div></th>
-							<th>비고<div>비고</div></th>
+							<th>과목번호</th>
+							<th>이수구분</th>
+							<th>과목명</th>
+							<th>교수명</th>
+							<th>학점</th>
+							<th>시간</th>
+							<th>강의실</th>
+							<th>정원</th>
+							<th>사이버강의</th>
+							<th>비고</th>
 						</tr>
 					</thead>
 					<tbody>

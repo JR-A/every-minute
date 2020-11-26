@@ -64,28 +64,7 @@ public class TimetableAjaxController {
 		return map;
 	}
 	
-	//학기 선택시 시간표 목록 보여주기
-	@RequestMapping("/timetable/getListBySemester.do")
-	@ResponseBody
-	public List<TimetableVO> getListWhenComboClicked(@RequestParam("semester") String semester, HttpSession session){
-		TimetableVO timetable = new TimetableVO();
-		
-		//세션에 저장된 회원 정보 반환
-		MemberVO member = (MemberVO)session.getAttribute("user");
-		
-		//로그처리
-		if(log.isDebugEnabled()) {
-			log.debug("<<학기 선택>> : " + member.getId() + ", " + semester);
-		}
-		
-		timetable.setMem_num(member.getMem_num());	
-		timetable.setSemester(semester);
-		
-		List<TimetableVO> list = timetableService.selectList(timetable);
-		
-		System.out.println(list);
-		
-		return list;
-	}
+	//시간표 선택시 시간표 보여주기
+	
 	
 }
