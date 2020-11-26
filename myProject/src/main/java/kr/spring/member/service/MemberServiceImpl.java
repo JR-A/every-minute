@@ -1,5 +1,7 @@
 package kr.spring.member.service;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -57,5 +59,48 @@ public class MemberServiceImpl implements MemberService {
 	public void updateProfile(MemberVO member) {
 		memberMapper.updateProfile(member);
 	}
+
+	@Override
+	public void updateAuthKey(Map<String, String> map) {
+		memberMapper.updateAuthKey(map);
+		
+	}
+
+	@Override
+	public void updateAuthStatus(Map<String,String> map) {
+		memberMapper.updateAuthStatus(map);
+		
+	}
+
+	@Override
+	public MemberVO selectCheckEmail(String email) {
+		return memberMapper.selectCheckEmail(email);
+		
+	}
+
+	@Override
+	public MemberVO selectCheckNickname(String nickname) {
+		return memberMapper.selectCheckNickname(nickname);
+		
+	}
+
+	@Override
+	public String selectAuth(String id) {
+		return memberMapper.selectAuth(id);
+	}
+
+	@Override
+	public void changeNickname(MemberVO member) {
+		 memberMapper.changeNickname(member);
+		
+	}
+
+
+	@Override
+	public void emailUpdate(Map<String, String> map) {
+		memberMapper.emailUpdate(map);
+		
+	}
+	
 	
 }

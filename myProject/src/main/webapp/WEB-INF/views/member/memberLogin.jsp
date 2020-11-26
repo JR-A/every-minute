@@ -7,23 +7,42 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('#form').submit(function(){
+			if($('#id').val()==''){
+			$('#message_id').text('아이디를 입력해주세요').css('color','red');
+			$('#id').focus();
+			return false;	
+		}
+		if($('#passwd').val()==''){
+			$('#message_passwd').text('비밀번호를 입력해주세요').css('color','red');
+			$('#passwd').focus();
+			return false;
+	
+		}				
+		});	
+	});
+</script>
 </head>
 <body>
 <div>
 	<h2>로그인</h2>
-	<form:form action="memberLogin.do" commandName="memberVO">
+	<form:form id="form" action="memberLogin.do" commandName="memberVO">
 		<%-- 필드가 없는 에러 표시 --%>
 		<form:errors element="div" cssClass="error-color"/>
 		<ul>
 			<li>
 				<label for="id">아이디</label>
 				<form:input path="id"/>
-				<form:errors path="id" cssClass="error-color"/> <%-- 아이디 유효성체크(입력여부) --%>
+				<span id="message_id"></span>
 			</li>
 			<li>
 				<label for="passwd">비밀번호</label>
 				<form:password path="passwd"/>
-				<form:errors path="passwd" cssClass="error-color"/>
+				<span id="message_passwd"></span>
 			</li>
 		</ul>
 		<div class="align-center">

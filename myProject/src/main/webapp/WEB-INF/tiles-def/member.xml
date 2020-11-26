@@ -6,20 +6,24 @@
 
 <tiles-definitions>
     <definition name="memberView" extends="main">
-    	<put-attribute name="title" value="회원상세정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/member/memberView.jsp"/>  
-    </definition>
-    <definition name="memberModify" extends="main">
-    	<put-attribute name="title" value="회원정보수정"/>
-    	<put-attribute name="body" value="/WEB-INF/views/member/memberModify.jsp"/>  
-    </definition>
-    <definition name="memberChangePassword" extends="main">
-    	<put-attribute name="title" value="비밀번호변경"/>
-    	<put-attribute name="body" value="/WEB-INF/views/member/memberChangePassword.jsp"/>  
+    	<put-attribute name="title" value="회원정보"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/mypage.jsp"/>   
     </definition>
     <definition name="memberDelete" extends="main">
     	<put-attribute name="title" value="회원탈퇴"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberDelete.jsp"/>  
+    </definition>
+    <definition name="memberChangeE" extends="main">
+    	<put-attribute name="title" value="이메일변경"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberChangeEmail.jsp"/>  
+    </definition>
+    <definition name="memberChangeEmailSend" extends="main">
+    	<put-attribute name="title" value="메일전송완료"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/emailChangeMessage.jsp"/>  
+    </definition>
+    <definition name="memberChangeNick" extends="main">
+    	<put-attribute name="title" value="닉네임변경"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberChangeNickname.jsp"/>  
     </definition>
 </tiles-definitions>
 
