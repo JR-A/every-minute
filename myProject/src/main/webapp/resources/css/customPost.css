@@ -1,0 +1,134 @@
+@charset "UTF-8";
+/*======= 제목&소제목 =======*/
+#container > div.wrap {
+    float: none;
+    position: relative;
+    left: 25px;
+    margin-top: 25px;
+    width: 780px;
+}
+#container > div.title {
+    margin-bottom: -20px;
+    padding: 15px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+}
+#container > div.wrap {
+    float: right;
+    width: 780px;
+}
+/*======= 검색 =======*/
+#container > div.articles > div.pagination > form.search {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 8px 25px 8px 5px;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+    background: transparent url(/images/new/container.articles.pagination.search.png) no-repeat right 10px center;
+    background-size: 16px 16px;
+}
+
+/*======= 게시글 목록 =======*/
+#container > div.articles > article img.picture.medium {
+    margin: 0 5px 5px 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+#container > div.articles > article img.picture {
+    float: left;
+}
+#container > div.articles > article > a.article {
+    display: block;
+    padding: 15px;
+}
+#container > div.articles > article h3.medium {
+    float: left;
+    max-width: 90px;
+    margin: 0 10px 5px 0;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+#container > div.articles > article p.medium {
+    margin-bottom: 5px;
+    max-height: 100px;
+    line-height: 20px;
+    white-space: normal;
+    overflow: hidden;
+    color: #4c4c4c;
+    font-size: 14px;
+}
+#container > div.articles > article p {
+    word-break: break-all;
+}
+#container > div.articles > article h3 {
+    color: #292929;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#container > div.articles > article span.category, #container > div.articles > article time {
+    color: #a6a6a6;
+    letter-spacing: 0;
+}
+
+/* 이미지 */
+#container > div.articles > article img.picture.medium {
+    margin: 0 5px 5px 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+#container > div.articles > article img.picture {
+    float: left;
+}
+
+/*======= Common =======*/
+aside.none {
+    display: none;
+}
+aside {
+    float: left;
+    width: 325px;
+}
+body, div, nav, aside, article, h1, h2, h3, h4, ol, ul, li, dl, dt, dd, p, span, form, th, td, input, textarea, select, pre, address {
+    color: #666;
+    font-family: "맑은 고딕", 돋움, tahoma;
+    _font-family: 돋움, tahoma;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+}
+#container > div.articles > article > a.article {
+    display: block;
+    padding: 15px;
+}
+div, nav, aside, article, figure {
+    display: block;
+}
+img, input, select, textarea {
+    vertical-align: middle;
+}
+img {
+    border: 0;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: #666;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+user agent stylesheet form {
+    display: block;
+    margin-top: 0em;
+}
+user agent stylesheet
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+}
