@@ -14,4 +14,6 @@ public interface TimetableService {
 	public int selectSubjectCountOfTimetable(int t_num);
 	public List<SubjectVO> selectSubjectOfTimetable(int t_num);
 	public TimetableVO selectPrimaryTimetable(TimetableVO timetable);
+	public List<SubjectVO> selectSubjectList();
+	public SubjectVO selectSubject(int sub_num);
 }

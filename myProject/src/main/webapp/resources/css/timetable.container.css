@@ -54,11 +54,12 @@ body {
 table {
 	margin: 0px auto;
     display: table;
-    border-collapse: separate;
+    border-collapse: collapse;
     box-sizing: border-box;
     text-indent: initial;
     border-spacing: 2px;
     border-color: grey;
+    border: none;
 }
 
 table td, table th {
@@ -66,7 +67,7 @@ table td, table th {
     padding: 0;
 }
 
-#bottom {
+#main_footer {
 	display: none;
 }
 
@@ -218,6 +219,7 @@ ol {
 	padding: 0 25px 0 50px; border-radius: 20px; background-position: 25px center;
 }
 
+.color0 { background-color: grey; }
 .color1 { background-color: #f2e8e8; }
 .color2 { background-color: #ffe9e9; }
 .color3 { background-color: #eff9cc; }
@@ -341,13 +343,83 @@ ol {
 	    position: absolute;
 	    z-index: 99;
 	    bottom: 0;
-	    width: 100%;
+	    width: 67%;
 	    border-top: 1px solid #d6d6d6;
 	    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
 	    background-color: #fff;
-	    overflow: hidden;
+	    overflow: visible;
+	}
+
+	#subjects > a.close {
+	    position: fixed;
+	    right: 270px;
+	    bottom: 314px;
+	    display: inline-block;
+	    margin-right: 8px;
+	    padding: 0 12px;
+	    line-height: 32px;
+	    border-radius: 16px;
+	    color: #fff;
+	    font-size: 13px;
+	    font-weight: bold;
+	    background-color: #c62917;
+	    cursor: pointer;
+	    z-index:99;
+	}
+	#subjects .list {
+	    height: 100%;
+	    position: relative;
+	    overflow-x: hidden;
+	    overflow-y: auto;
+	}
+	#subjects table {
+	    width: 100%;
+	    border-collapse: collapse;
+	    border: none;
+	}
+	
+	#subjects > div.list > table > tbody > tr:hover {
+	  background-color: #fff;
 	}
 }
+
+@media only screen and (min-width: 641px) and (max-width: 1366px) {
+	#container table.tablehead tr td {
+		font-size: 13px;
+	}
+	#container table.tablehead tr th,
+	#container table.tablebody tr th,
+	#container table.tablebody tr th div {
+		width: 60px;
+	}
+	#container table.tablebody tr th div.hours div.hour {
+		font-size: 13px;
+	}
+	#container table.tablebody tr th div.times div.time,
+	#container table.tablebody tr td div.grids div.grid {
+		height: 50px; line-height: 50px; font-size: 12px;
+	}
+	#container table.tablebody tr th div.times div.time.small,
+	#container table.tablebody tr td div.grids div.grid.small {
+		height: 25px; line-height: 25px;
+	}
+	#container table.tablebody tr td h3 {
+		margin: 7px 7px 0 7px; font-size: 12px; line-height: 13px;
+	}
+	#container table.tablebody tr td p {
+		margin: 0 7px 7px 7px; line-height: 12px;
+	}
+	#container table.tablebody tr td p em {
+		font-size: 11px;
+	}
+	#container table.tablebody tr td p span {
+		font-size: 11px;
+	}
+	#container table.tablebody tr td ul.status {
+		margin: 7px 7px 0 0;
+	}
+}
+
 
 @media only screen and (min-width: 1367px) {
 	#container table.tablehead tr td {
@@ -394,49 +466,26 @@ ol {
 	#container table.tablebody tr td ul.status {
 		margin: 10px 10px 0 0;
 	}
+	
 }
 
-@media only screen and (min-width: 641px) and (max-width: 1366px) {
-	#container table.tablehead tr td {
-		font-size: 13px;
-	}
-	#container table.tablehead tr th,
-	#container table.tablebody tr th,
-	#container table.tablebody tr th div {
-		width: 60px;
-	}
-	#container table.tablebody tr th div.hours div.hour {
-		font-size: 13px;
-	}
-	#container table.tablebody tr th div.times div.time,
-	#container table.tablebody tr td div.grids div.grid {
-		height: 50px; line-height: 50px; font-size: 12px;
-	}
-	#container table.tablebody tr th div.times div.time.small,
-	#container table.tablebody tr td div.grids div.grid.small {
-		height: 25px; line-height: 25px;
-	}
-	#container table.tablebody tr td h3 {
-		margin: 7px 7px 0 7px; font-size: 12px; line-height: 13px;
-	}
-	#container table.tablebody tr td p {
-		margin: 0 7px 7px 7px; line-height: 12px;
-	}
-	#container table.tablebody tr td p em {
-		font-size: 11px;
-	}
-	#container table.tablebody tr td p span {
-		font-size: 11px;
-	}
-	#container table.tablebody tr td ul.status {
-		margin: 7px 7px 0 0;
-	}
+.subjectTr {
+    border-bottom: 1px solid #ededed !important;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+.subjectTd {
+    padding: 5px 8px;
+    line-height: 20px;
+    color: #4c4c4c;
+    font-size: 13px;
+    word-wrap: break-word;
 }
 
-.active{
-	    color: #c62917 !important;
-	    font-weight: bold;
-	    background-color: #f8f8f8;
+.active > a{
+	color: #c62917 !important;
+	font-weight: bold;
+	background-color: #f8f8f8;
 }
 .bold { font-weight: bold !important; }
 .floatLeft { float: left !important; }

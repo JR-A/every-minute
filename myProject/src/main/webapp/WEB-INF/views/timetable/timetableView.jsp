@@ -11,35 +11,7 @@
 		//콤보박스에서 학기 선택시 이벤트 연결
 		$('#semester').change(function(){
 			$('#semesterSelectForm').submit();
-			/*
-			$.ajax({
-				//url: '${pageContext.request.contextPath}/timetable/getListBySemester.do',
-				url: '${pageContext.request.contextPath}/timetable/timetableView.do',
-				type: 'post',
-				data: {semester: $("#semester option:selected").val()},
-				dataType: 'json',
-				cache: false,
-				timeout: 30000,
-				success: function(data){
-					$('#timetableList').empty();
-					$(data).each(function(index,item){
-						var output = '';
-						output += '<li><a href="${pageContext.request.contextPath}/timetable/timetableView.do?semester='+ item.semester +'&t_num=' + item.t_num + '"';	
-						if(item.isPrimary == 1){
-							output += ' class="primary active"';
-						}
-						output += '>' + item.t_name + '</a></li>';
-						$('#timetableList').append(output);
-					});
-					$('#timetableList').append('<li class="extension"><a id="create">새 시간표 만들기</a></li>');
-				},
-				error: function(request,status,error){
-					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
-				}
-			});
-			*/
 		});
-		
 		
 		//ajax로 만들어질 미래의 버튼이므로 on으로 연결
 		//새 시간표 만들기 버튼 클릭이벤트 연결
@@ -51,15 +23,101 @@
 				data: {semester: $("#semester option:selected").val()},
 				dataType: 'json',
 				cache: false,
-				timetout: 30000,
+				timeout: 30000,
 				success: function(data){
-					alert(data.semester + "학기 시간표 추가 성공!");
-					$('#semester').change();		//콤보박스 change이벤트 발생시키기 -> 현재 선택된 학기로 시간표 불러오기  => 선택된 학기의, 해당 시간표정보
+					$('#semester').change();	//콤보박스 change이벤트 발생시키기 -> 현재 선택된 학기의 시간표목록 불러오기
 				},
 				error: function(request,status,error){
 					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
 				}
 			});
+		});
+		
+		//수업 목록에서 검색 버튼 클릭시
+		$('#buttonSearch').click(function(){
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/loadSubjects.do',
+				type: 'post',
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					var height = $('#container').height() - $('#subjects').height() + $('#main_footer').height();
+					$('#subjects').css("display", "block");
+					$('#container').css("height", height);
+					
+					$(data).each(function(index,item){
+						var output = '';
+						output += '<tr id='+ item.sub_num +' class="subjectTr">';
+						output +=	'<td class="subjectTd">'+ item.sub_num +'</td>';
+						output +=	'<td class="subjectTd">'+ item.sub_category +'</td>';
+						output +=   '<td class="subjectTd">'+ item.sub_name +'</td>';
+						output += 	'<td class="subjectTd">'+ item.prof_name +'</td>';
+						output += 	'<td class="subjectTd">'+ item.sub_credit +'</td>';
+						output +=	'<td class="subjectTd">'+ item.sub_time +'</td>';
+						output +=	'<td class="subjectTd">'+ item.sub_classRoom +'</td>';
+						output +=	'<td class="subjectTd">'+ item.sub_capacity +'</td>';
+						if(item.sub_online==1){
+							output +=	'<td class="subjectTd">O</td>';
+						}else{
+							output +=	'<td class="subjectTd">X</td>';
+						}
+						output +=	'<td class="subjectTd">'+ item.sub_remark + '</td>';
+						output += '</tr>';
+						
+						$('#subjectList').append(output);
+					});
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+		});	
+		//수업목록의 닫기버튼 클릭시
+		$(document).on('click','a.close',function(){
+			var height = $('#container').height() + $('#subjects').height() - $('#main_footer').height();
+			$('#subjects').css("display", "none");
+			$('#container').css("height", height);
+		});
+		
+		
+		//수업 목록에서 마우스오버시 이벤트 연결
+		//이미 수업이 추가된 시간표에는 정상작동하지만, 과목 추가되지 않은 시간표에서는 동작하지 않음
+		$(document).on('mouseover','#subjectList>tr',function(){
+			//미리보기
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/previewSubject.do',
+				type: 'post',
+				data: {sub_num: $(this).attr('id')},
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					for(var i=0; i<5; i++){
+						$(data).each(function(index,item){
+							if(item.day == i){
+								var output = '';
+								output += '<div class="preview subject color0" style="height:'+ ((item.endtime - item.starttime + 1)*60 + 1) +'px;';
+								output += ' top:'+ (item.starttime-1)*60 +'px;">';
+								output += 	'<ul class="status" style="display: none;">';
+								output += 		'<li title="삭제" class="del"></li>';
+								output += 	'</ul>';
+								output += 	'<h3>' + item.sub_name +'</h3><p><em>' + item.prof_name + '</em><span>' + item.classRoom +'</span></p>';
+								output += '</div>';
+								$('#day'+i+' .cols').append(output);
+							}
+						});
+					}
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+			
+		});
+		//수업목록에서 마우스아웃시 이벤트 연결
+		$(document).on('mouseout','#subjectList>tr',function(){
+			$('.preview').remove();
 		});
 		
 	});
@@ -148,7 +206,7 @@
 							</div>
 						</th>
 						<c:forEach var="i" begin="0" end="4">
-						<td>
+						<td id="day${i}">
 							<c:if test="${timetableSubjectCount > 0}">	
 							<div class="cols" style="width: 149px;">
 								<c:forEach var="item" items="${timesList}">
@@ -194,9 +252,9 @@
 			</div>
 		</div>
 	</div>
-	<ul class="floating">
-		<li class="button search">수업 목록에서 검색</li>
-		<li class="button custom">직접 추가</li>
+	<ul id="floating" class="floating">
+		<li id="buttonSearch" class="button search">수업 목록에서 검색</li>
+		<li id="buttonCustom" class="button custom">직접 추가</li>
 	</ul>
 	<form id="customsubjects" style="display:none; left:539.5px">
 		<input type="hidden" name="id">
@@ -235,41 +293,32 @@
 		</dl>
 		<div class="clearBothOnly"></div>
 		<div class="submit"><input type="submit" value="저장" class="button"></div>
-		<div id="subjects">
-			<div class="list">
-				<div class="thead"></div>
-				<table>
-					<thead>
-						<tr>
-							<th>과목번호</th>
-							<th>이수구분</th>
-							<th>과목명</th>
-							<th>교수명</th>
-							<th>학점</th>
-							<th>시간</th>
-							<th>강의실</th>
-							<th>정원</th>
-							<th>사이버강의</th>
-							<th>비고</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>0</td>
-							<td>교선</td>
-							<td class="bold">한자의원리</td>
-							<td>황수연</td>
-							<td>3</td>
-							<td>월78,금2</td>
-							<td>C719,C719</td>
-							<td>90</td>
-							<td>0</td>
-							<td class="small"></td>
-						</tr>
-					</tbody>
-					<tfoot><tr><td colspan="14"></td></tr></tfoot>
-				</table>
-			</div>
-		</div>
 	</form>
+
+</div>
+<div id="subjects" style="display:none;">
+	<a class="close">닫기</a>
+	<div class="list">
+		<table>
+			<thead>
+				<tr>
+					<th>과목번호</th>
+					<th>이수구분</th>
+					<th>과목명</th>
+					<th>교수명</th>
+					<th>학점</th>
+					<th>시간</th>
+					<th>강의실</th>
+					<th>정원</th>
+					<th>사이버강의</th>
+					<th>비고</th>
+				</tr>
+			</thead>
+	
+			<tbody id="subjectList">
+				
+			</tbody>
+			<tfoot><tr><td colspan="14"></td></tr></tfoot>
+		</table>
+	</div>
 </div>

@@ -17,7 +17,7 @@ public interface TimetableMapper {
 	public int selectTimetableCountOfUser(TimetableVO timetable);
 	
 	//유저의 해당학기에 시간표 추가하기
-	@Insert("INSERT INTO Timetable (t_num, mem_num, semester, isPrimary) VALUES (#{t_num}, #{mem_num}, #{semester}, #{isPrimary})")
+	@Insert("INSERT INTO Timetable (t_num, mem_num, semester, t_name, isPrimary) VALUES (#{t_num}, #{mem_num}, #{semester}, #{t_name}, #{isPrimary})")
 	public void insertTimetable(TimetableVO timetable);
 	
 	//유저의 해당학기의 시간표들의 정보
@@ -42,4 +42,11 @@ public interface TimetableMapper {
 	@Select("SELECT * FROM Timetable t WHERE mem_num=#{mem_num} AND semester LIKE #{semester} and isPrimary=1")
 	public TimetableVO selectPrimaryTimetable(TimetableVO timetable);
 	
+	//과목 목록 가져오기
+	@Select("SELECT * FROM Subject ORDER BY sub_num")
+	public List<SubjectVO> selectSubjectList();
+	
+	//과목 번호로 과목 정보 가져오기
+	@Select("SELECT * FROM Subject WHERE sub_num=#{sub_num}")
+	public SubjectVO selectSubject(int sub_num);
 }

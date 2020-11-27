@@ -19,6 +19,8 @@
 	<!-- Service 등록 -->
 	<beans:bean id="mailService" class="kr.spring.mail.service.MailSendServiceImpl"/>
 	
+	<!-- 시간표에 보여주기 위해 사용하는 공용클래스 -->
+	<beans:bean id="timesMaker" class="kr.spring.timetable.common.TimesMaker"/>
 	
 	<!-- popup창 호출시 tiles를 이용하지 않고 JSP를 호출해야 하는 경우 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

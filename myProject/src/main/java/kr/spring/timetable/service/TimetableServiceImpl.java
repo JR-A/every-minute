@@ -54,8 +54,14 @@ public class TimetableServiceImpl implements TimetableService {
 		return timetableMapper.selectPrimaryTimetable(timetable);
 	}
 
+	@Override
+	public List<SubjectVO> selectSubjectList() {
+		return timetableMapper.selectSubjectList();
+	}
 
-
-
+	@Override
+	public SubjectVO selectSubject(int sub_num) {
+		return timetableMapper.selectSubject(sub_num);
+	}
 
 }
