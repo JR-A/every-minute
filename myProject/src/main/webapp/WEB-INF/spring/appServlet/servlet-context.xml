@@ -104,14 +104,27 @@
 		</interceptor>
 		 -->
 		<interceptor>
-			<mapping path="/infoBoard/update.do"/> <!-- 동민 수정 -->
-			<mapping path="/infoBoard/delete.do"/> <!-- 동민 수정 -->
+			<mapping path="/infoBoard/update.do"/> 
+			<mapping path="/infoBoard/delete.do"/> 
 			<beans:bean class="kr.spring.interceptor.WriterCheckInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/freeBoard/update.do"/>
 			<mapping path="/freeBoard/delete.do"/>
 			<beans:bean class="kr.spring.interceptor.FreeCheckInterceptior"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/main/main_board.do"/>
+			<mapping path="/freeBoard/detail.do"/>
+			<mapping path="/infoBoard/infoBoardList.do"/>
+			<mapping path="/infoBoard/write.do"/>
+			<mapping path="/infoBoard/detail.do"/>
+			<mapping path="/customBoard/createCustomBoard.do"/>
+			<mapping path="/customBoard/customPostList.do"/>
+			<mapping path="/customBoard/freeBoardWrite.do"/>
+			<mapping path="/customBoard/customPostDetail.do"/>
+			<mapping path="/customBoard/customPostWrite.do"/>
+			<beans:bean class="kr.spring.interceptor.CustomBoardListInterceptor"/>
 		</interceptor>
 	</interceptors>
 	<!-- BLOB 타입 이미지 표시 -->
