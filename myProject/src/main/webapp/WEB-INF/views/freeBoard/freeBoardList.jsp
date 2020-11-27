@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
 
 	<div class="page-main-style">
-	<h1><a href="${pageContext.request.contextPath}/freeBoard/freeBoardList.do">자유게시판</a></h1>
+	<h2 class="title"><a href="${pageContext.request.contextPath}/freeBoard/freeBoardList.do">자유게시판</a></h2>
  	<form action="freeBoardList.do" id="search_form" method="get">
 		<ul class="search">
 			<!-- 검색시 1부터3까지 select 기능 -->
@@ -31,18 +31,27 @@
 	</c:if>
 
 	<c:if test="${count > 0}">
-		<article>
 			<c:forEach var="freeboard" items="${list}">
-				<div class="free_post">
+				<article class="free_post">
 					<a href="detail.do?post_num=${freeboard.post_num}">
-						<h3 class="free_title">${freeboard.title}</h3>
+						<h2><a href="detail.do?post_num=${freeboard.post_num}">${freeboard.title}</a></h2>
 						<p class="small">${freeboard.content}</p>
-						<time class="large"><fmt:formatDate value="${freeboard.reg_date}" pattern="MM/dd HH:MM"/></time> 익명
+						<time class="small"><fmt:formatDate value="${freeboard.modify_date}" pattern="MM/dd HH:MM"/></time>
+				<c:if test="${0 eq freeboard.anonymous}">
+						${freeboard.id}
+				</c:if>
+				<c:if test="${1 eq freeboard.anonymous}">
+						익명
+				</c:if>
 					</a>
-				</div>
+						
+						<div class="comments"></div>
+			
+			</article>
 			</c:forEach>
-			  <%request.setAttribute("toDay", new java.util.Date());%>
-		</article>
+			
+	
+
 		<div class="align-center">${pagingHtml}</div>
 
 	</c:if>

@@ -12,5 +12,5 @@ public interface FreeBoardService {
 	public FreeBoardVO selectBoard(Integer post_num);
 	public void updateBoard (FreeBoardVO board);
 	public void deleteBoard(Integer post_num);
-	
+
 }

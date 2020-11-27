@@ -1,21 +1,127 @@
 @charset "UTF-8";
 
-/*자유게시판 */
-div.free_post{
-	color:pink;
-	padding:15px;
-	border-style: groove;
+/*==========페이지 기본 스타일 시작======*/
+.page-main-style{
+	width:100%;
+	margin:0 auto;
 }
-div.page-main-style > article img.picture{
-	float:left;
-	margin: 0 10px 15px 0;
+.one-page{
+	width:600px;
+	margin:0 auto;
+}
+/*==========페이지 기본 스타일 끝 ======*/
+
+
+/*======== 게시판 디자인 시작 ========*/
+.title {
+    padding: 15px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+}
+.free_post {
+    margin-bottom: -1px;
+    box-sizing: border-box;
+    border: 1px solid #e3e3e3;
+    background-color: #fff;
+    display: block;
+    padding: 15px;
+}
+.free_post > h2 {
+	margin: 0;
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-weight: 400;
+    color: #292929;
+}
+.free_post > .small {
+	margin-bottom: 5px;
+    max-height: 30px;
+    line-height: 15px;
+    white-space: normal;
+    overflow: hidden;
+    font-size: 12px;
+    color: #a6a6a6;
+}
+
+.page-main-style-detail {
+	margin-bottom: -1px;
+    box-sizing: border-box;
+    border: 1px solid #e3e3e3;
+    background-color: #fff;
+}
+
+a.article2 {
+    display: block;
+    padding: 15px;
+}
+/*======== 게시판 디자인 끝 ========*/
+
+/*======== Mypage 추가 시작 ========*/
+article img.picture.large {
+    margin: 0 10px 15px 0;
     width: 40px;
     height: 40px;
     border-radius: 8px;
 }
-h3.fid{
-	margin-bottom:5px;
+article img.picture {
+    float: left;
 }
-time.large{
-	padding-top:5px;
+article div.profile {
+    float: left;
+    margin-bottom: 15px;
+    height: 40px;
 }
+article h3.large {
+	margin: 0px;
+    height: 20px;
+    max-width: 200px;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+article time.large {
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+article ul.status {
+    float: right;
+}
+article hr {
+    clear: both;
+    height: 0;
+    border: 0;
+}
+/*======== Mypage 추가 끝 ========*/
+
+/*============= 수정폼 시작 ==============*/
+.board_title {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    border: 0;
+    color: #292929;
+    font-size: 16px;
+    font-weight: bold;
+    outline:none
+}
+.board_p {
+    padding: 15px;
+    margin: 0px;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #fff;
+}
+.board_p > textarea {
+	width: 100%;
+	height: 350px;
+    border: 0;
+    color: #292929;
+    font-size: 14px;
+    resize: none;
+    outline:none
+    
+}
+/*============= 수정폼 끝 ==============*/

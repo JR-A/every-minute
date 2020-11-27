@@ -58,8 +58,9 @@
 	UPDATE freeboard SET
 	<if test="filename!=''">
 	uploadfile=#{uploadfile},
-	filename=#{filenmae},
+	filename=#{filename},
 	</if>
+	anonymous=#{anonymous},
 	title=#{title},
 	content=#{content},
 	modify_date=SYSDATE

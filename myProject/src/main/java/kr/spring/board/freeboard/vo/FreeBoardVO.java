@@ -3,6 +3,7 @@ package kr.spring.board.freeboard.vo;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Arrays;
+import java.util.Map;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -20,7 +21,7 @@ public class FreeBoardVO {
 	private Date modify_date;
 	private byte[] uploadfile;
 	private String filename;
-	private int anonumous;
+	private int anonymous;
 	private String id;
 	//이미지 업로드 파일 처리
 	public void setUpload(MultipartFile upload)throws IOException{
@@ -34,10 +35,18 @@ public class FreeBoardVO {
 	public String toString() {
 		return "FreeBoardVO [post_num=" + post_num + ", mem_num=" + mem_num + ", title=" + title + ", content="
 				+ content + ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", filename=" + filename
-				+ ", anonumous=" + anonumous + ", id=" + id + "]";
+				+ ", anonyumous=" + anonymous + ", id=" + id + "]";
 	}
 
 
+
+	public int getAnonymous() {
+		return anonymous;
+	}
+
+	public void setAnonymous(int anonymous) {
+		this.anonymous = anonymous;
+	}
 
 	public String getId() {
 		return id;
@@ -50,13 +59,14 @@ public class FreeBoardVO {
 	}
 
 
-
 	public int getPost_num() {
 		return post_num;
 	}
+
 	public void setPost_num(int post_num) {
 		this.post_num = post_num;
 	}
+
 	public int getMem_num() {
 		return mem_num;
 	}
@@ -99,13 +109,7 @@ public class FreeBoardVO {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public int getAnonumous() {
-		return anonumous;
-	}
-	public void setAnonumous(int anonumous) {
-		this.anonumous = anonumous;
-	}
-	
+
 	
 }
 

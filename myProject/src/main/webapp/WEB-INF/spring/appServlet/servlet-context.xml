@@ -108,6 +108,11 @@
 			<mapping path="/infoBoard/delete.do"/> <!-- 동민 수정 -->
 			<beans:bean class="kr.spring.interceptor.WriterCheckInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/freeBoard/update.do"/>
+			<mapping path="/freeBoard/delete.do"/>
+			<beans:bean class="kr.spring.interceptor.FreeCheckInterceptior"/>
+		</interceptor>
 	</interceptors>
 	<!-- BLOB 타입 이미지 표시 -->
 	<beans:bean id="imageView" class="kr.spring.view.ImageView"/>

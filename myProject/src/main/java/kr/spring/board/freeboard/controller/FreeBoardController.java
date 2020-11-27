@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
+import kr.spring.board.freeboard.service.ReplyService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
-
+import kr.spring.board.freeboard.vo.ReplyVO;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.PagingUtil;
 import oracle.sql.DATE;
@@ -34,10 +35,21 @@ public class FreeBoardController {
 	@Resource
 	FreeBoardService freeBoardService;
 	
+	@Resource
+	ReplyService replyService;
+	
 	//자바빈(VO) 초기화
 	@ModelAttribute
 	public FreeBoardVO initCommand() {
 		return new FreeBoardVO();
+	}
+	
+
+	//자바빈(VO) 초기화
+	@ModelAttribute
+	public ReplyVO initCommand2() {
+		return new ReplyVO();
+	
 	}
 	
 	//자유게시판 글 목록
@@ -87,43 +99,57 @@ public class FreeBoardController {
 //글 등록 폼
 		@RequestMapping(value="/freeBoard/freeBoardWrite.do",method=RequestMethod.GET)
 		public String form() {
+		
 			return "freeBoardWrite";
 		}
 	//글 등록 처리
 		@RequestMapping(value="/freeBoard/freeBoardWrite.do",method=RequestMethod.POST)
 		public String submit(@Valid FreeBoardVO freeBoardVO,BindingResult result,
 							 HttpServletRequest request,
-							 HttpSession session) {
+							 HttpSession session,Model model) {
 			if(log.isDebugEnabled()) {
 				log.debug("<<게시판 글 저장>>:"+freeBoardVO);
+				
 			}
 			//유효성 체크 결과 오류가 있으면 폼 호출
 			if(result.hasErrors()) {
 				return "freeBoardWrite";
 			}
+		
+	
 			//회원 번호 셋팅
 			MemberVO vo = (MemberVO)session.getAttribute("user");
 			freeBoardVO.setMem_num(vo.getMem_num());
+			
 			//글쓰기
 			freeBoardService.insertBoard(freeBoardVO);
 			
+			
+			
+			
 			return "redirect:/freeBoard/freeBoardList.do";
 			
-}
+}		
+		
+		
 		
 		//글 상세
 		@RequestMapping("/freeBoard/detail.do")
-		public ModelAndView process(@RequestParam int post_num) {
+		public ModelAndView process(@RequestParam int post_num,Model model) {
 			
 			if(log.isDebugEnabled()) {
 				log.debug("<<글 상세>>:"+post_num);
 
 			}
+		
+			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
 			
-			FreeBoardVO Freeboard = freeBoardService.selectBoard(post_num);
+			//댓글 처리
 			
-			
-			return new ModelAndView("freeBoardView","freeboard",Freeboard);
+			List <ReplyVO> replyList = replyService.selectReply(freeboard.getPost_num());
+			model.addAttribute("replyList",replyList);
+	
+			return new ModelAndView("freeBoardView","freeboard",freeboard);
 		}
 		//이미지 출력
 		@RequestMapping("/freeBoard/imageView.do")
@@ -147,7 +173,7 @@ public class FreeBoardController {
 			
 			FreeBoardVO freeboardVO = freeBoardService.selectBoard(post_num);
 			model.addAttribute("freeboardVO",freeboardVO);
-			
+		
 			return "freeBoardModify";
 		}
 		
