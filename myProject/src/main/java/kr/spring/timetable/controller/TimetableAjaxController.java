@@ -54,16 +54,11 @@ public class TimetableAjaxController {
 		//시간표 생성
 		timetable.setMem_num(member.getMem_num());	
 		timetable.setSemester(semester);
+		timetable.setIsPrimary(0);
 		
-		//해당 학기에 유저가 생성한 시간표가 0개이면(처음 생성한 시간표이면) 기본시간표로 지정
 		int count = timetableService.selectTimetableCountOfUser(timetable);
-		if(count == 0) {
-			timetable.setIsPrimary(1);
-		}else {
-			timetable.setIsPrimary(0);
-		}
-		count++;
-		timetable.setT_name("시간표"+count);	//기본 시간표이름 (더 생각해보기)
+		
+		timetable.setT_name("시간표"+(count + 1));	//기본 시간표이름 (더 생각해보기)
 		int t_num = timetableService.insertTimetable(timetable);	//시간표 추가
 		
 		map.put("t_num", Integer.toString(t_num));

@@ -40,6 +40,9 @@ public class TimetableController {
 		int tableCredit = 0;
 		int subjectCnt = 0;
 		int selectedT_num = 0;
+		//해당 학기의 시간표 목록
+		List<TimetableVO> timetableList = null;
+		List<TimesVO> timesList = null;
 		
 		//세션에 저장된 회원 정보 반환
 		MemberVO member = (MemberVO)session.getAttribute("user");
@@ -53,9 +56,16 @@ public class TimetableController {
 		if(log.isDebugEnabled()) {
 			log.debug("<<timetableCount>> : "+ count);	
 		}
-		//해당 학기의 시간표 목록
-		List<TimetableVO> timetableList = null;
-		List<TimesVO> timesList = null;
+
+		//시간표가 존재하지 않는 경우 기본시간표 생성
+		if(count <= 0) {	
+			timetable.setIsPrimary(1);
+			
+			timetable.setT_name("시간표1");
+			timetableService.insertTimetable(timetable);	//시간표 추가
+			count++;
+		}
+		//시간표가 존재하는 경우
 		if(count > 0) {
 			timetableList = timetableService.selectList(timetable);
 			
@@ -71,8 +81,9 @@ public class TimetableController {
 					subjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
 					timesList = timesMaker.makeTimesVO(subjectList);
 				}
-			}else {	// t_num 정보가 존재하지 않으면 기본시간표정보, 기본시간표의 과목
+			}else {	// t_num 정보가 존재하지 않으면 기본시간표정보, 기본시간표의 과목 가져오기
 				vo = timetableService.selectPrimaryTimetable(timetable);
+				
 				subjectCnt = timetableService.selectSubjectCountOfTimetable(vo.getT_num());
 				if(subjectCnt > 0) {
 					subjectList = timetableService.selectSubjectOfTimetable(vo.getT_num());

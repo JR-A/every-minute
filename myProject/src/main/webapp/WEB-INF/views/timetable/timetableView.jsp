@@ -206,9 +206,9 @@
 							</div>
 						</th>
 						<c:forEach var="i" begin="0" end="4">
-						<td id="day${i}">
-							<c:if test="${timetableSubjectCount > 0}">	
+						<td id="day${i}">	
 							<div class="cols" style="width: 149px;">
+							<c:if test="${timetableSubjectCount > 0}">
 								<c:forEach var="item" items="${timesList}">
 								<c:if test="${item.day==i}">
 									<div class="subject color${item.color}" style="height:${(item.endtime-item.starttime+1)*60+1}px; top: ${(item.starttime-1)*60}px;">
@@ -219,8 +219,8 @@
 									</div>
 								</c:if>
 								</c:forEach>
-							</div>
 							</c:if>
+							</div>
 							<div class="grids">
 								<c:forEach var="j" begin="0" end="11">
 									<div class="grid"></div>
