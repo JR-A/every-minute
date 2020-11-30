@@ -2,8 +2,11 @@ package kr.spring.timetable.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import kr.spring.timetable.vo.SubjectVO;
 import kr.spring.timetable.vo.TimetableVO;
@@ -49,4 +52,16 @@ public interface TimetableMapper {
 	//과목 번호로 과목 정보 가져오기
 	@Select("SELECT * FROM Subject WHERE sub_num=#{sub_num}")
 	public SubjectVO selectSubject(int sub_num);
+	
+	//시간표에 과목 추가
+	@Insert("INSERT INTO Timetable_Subject (ts_num, t_num, sub_num) VALUES(timetableSubject_seq.nextval, #{t_num}, #{sub_num})")
+	public void insertSubject(@Param("t_num") int t_num, @Param("sub_num") int sub_num);
+
+	//수정시간 반영
+	@Update("UPDATE Timetable SET modify_date=SYSDATE WHERE t_num=#{t_num}")
+	public void updateModifyDate(int t_num);
+	
+	//시간표에서 과목 삭제
+	@Delete("DELETE FROM Timetable_Subject WHERE t_num=#{t_num} and sub_num=#{sub_num}")
+	public void deleteSubject(@Param("t_num") int t_num, @Param("sub_num") int sub_num);
 }

@@ -9,6 +9,11 @@ div, nav, aside, article, figure {
     display: block;
 }
 
+div.subject{
+	letter-spacing: -0.7px;
+	
+}
+
 div#main_body{
 	width: 100%;
 	padding: 5px 5px 10px 5px;
@@ -139,6 +144,13 @@ ol {
 #container table.tablebody tr td div.cols div.subject p em {
 	margin-right: 5px; color: #737373; font-weight: bold;
 }
+#container table.tablebody tr td p em {
+    font-size: 11px;
+}
+em {
+    font-style: normal;
+    font-weight: bold;
+}
 #container table.tablebody tr td div.cols div.subject p span {
 	color: #737373;
 }
@@ -166,9 +178,8 @@ ol {
 	background-image: url('../images/container.timetable.edit.png');
 }
 #container table.tablebody tr td ul.status li.del {
-	background-image: url('../images/container.timetable.del.png');
+	background-image: url('https://everytime.kr/images/container.timetable.del.png');
 }
-
 #container div.nontimes {
 	margin-top: 8px; border: 1px solid #d6d6d6;
 }
@@ -423,7 +434,7 @@ ol {
 
 @media only screen and (min-width: 1367px) {
 	#container table.tablehead tr td {
-		font-size: 14px;
+		font-size: 12px;
 	}
 	#container table.tablehead tr th,
 	#container table.tablebody tr th,
@@ -434,7 +445,7 @@ ol {
 	#container table.tablebody tr td div.grids div.grid {
 		height: 60px; 
 		line-height: 60px; 
-		font-size: 13px;
+		font-size: 12px;
 	}
 	#container table.tablebody tr th div.times div.time:first-child,
 	#container table.tablebody tr td div.grids div.grid:first-child {
@@ -446,19 +457,22 @@ ol {
 		line-height: 30px;
 	}
 	#container table.tablebody tr th div.hours div.hour {
-		font-size: 14px;
+		font-size: 12px;
 	}
 	#container table.tablebody tr th div.hours div.hour:first-child {
 		border-top:none;
 	}
 	#container table.tablebody tr td h3 {
-		margin: 10px 10px 0 10px; font-size: 14px; line-height: 20px;
+		margin: 10px 10px 0 10px; 
+		font-size: 13px; 
+		line-height: 17px;
 	}
 	#container table.tablebody tr td p {
 		margin: 0 10px 10px 10px; line-height: 15px;
 	}
 	#container table.tablebody tr td p em {
 		font-size: 12px;
+		
 	}
 	#container table.tablebody tr td p span {
 		font-size: 12px;
@@ -478,7 +492,7 @@ ol {
     padding: 5px 8px;
     line-height: 20px;
     color: #4c4c4c;
-    font-size: 13px;
+    font-size: 12px;
     word-wrap: break-word;
 }
 

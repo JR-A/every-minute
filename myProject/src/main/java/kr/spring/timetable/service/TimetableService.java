@@ -1,6 +1,8 @@
 package kr.spring.timetable.service;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import kr.spring.timetable.vo.SubjectVO;
@@ -16,4 +18,7 @@ public interface TimetableService {
 	public TimetableVO selectPrimaryTimetable(TimetableVO timetable);
 	public List<SubjectVO> selectSubjectList();
 	public SubjectVO selectSubject(int sub_num);
+	public void insertSubject(int t_num, int sub_num);
+	public void updateModifyDate(int t_num);
+	public void deleteSubject(@Param("t_num") int t_num, @Param("sub_num") int sub_num);
 }

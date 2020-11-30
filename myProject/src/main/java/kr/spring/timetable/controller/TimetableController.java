@@ -33,7 +33,8 @@ public class TimetableController {
 	//게시판 폼 호출
 	@RequestMapping("/timetable/timetableView.do")
 	public ModelAndView getList(@RequestParam(value="semester", defaultValue="2020-2") String semester,
-								@RequestParam(value="t_num", defaultValue="") String t_num, HttpSession session) {
+								@RequestParam(value="t_num", defaultValue="") String t_num,
+								HttpSession session) {
 
 		TimetableVO vo = null;
 		List<SubjectVO> subjectList = null;
@@ -114,7 +115,7 @@ public class TimetableController {
 		
 		mav.addObject("timesList", timesList);	//시간표매핑
 		mav.addObject("selectedT_num", selectedT_num);	//선택된 시간표번호
-
+		
 		return mav;
 	}
 	

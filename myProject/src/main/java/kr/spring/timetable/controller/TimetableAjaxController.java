@@ -91,4 +91,84 @@ public class TimetableAjaxController {
 		
 		return timesList;
 	}
+	
+	//과목 추가하기
+	@RequestMapping("/timetable/insertSubject.do")
+	@ResponseBody
+	public Map<String, Object> insertSubject(@RequestParam(value="sub_num") String sub_num, 
+											 @RequestParam(value="t_num") String t_num){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<TimesVO> originTimesList = new ArrayList<TimesVO>();
+		List<SubjectVO> originSubjectList = new ArrayList<SubjectVO>();
+		
+		List<TimesVO> newTimesList = new ArrayList<TimesVO>();
+		List<SubjectVO> newSubjectList = new ArrayList<SubjectVO>();
+		
+		//선택된 과목의 시간매핑
+		SubjectVO subject = timetableService.selectSubject(Integer.parseInt(sub_num));
+		newSubjectList.add(subject);
+		newTimesList = timesMaker.makeTimesVO(newSubjectList);
+		
+		//시간표의 기존 과목들 시간매핑
+		int cnt = timetableService.selectSubjectCountOfTimetable(Integer.parseInt(t_num));
+		if(cnt > 0) {
+			originSubjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
+			originTimesList = timesMaker.makeTimesVO(originSubjectList);
+		}
+		
+		//이미 추가한 과목인 경우
+		for(int i=0; i<originSubjectList.size(); i++) {
+			if(subject.getSub_num() == originSubjectList.get(i).getSub_num()) {
+				map.put("result", "duplicated");
+				return map;
+			}
+		}
+		
+		//겹치는 시간이 있는 경우
+		for(int i=0; i<newTimesList.size(); i++) {
+			for(int j=0; j<originTimesList.size(); j++) {
+				//요일이 같고
+				if( newTimesList.get(i).getDay() == originTimesList.get(j).getDay()) {
+					//시간이 겹치는 경우
+					int newStarttime = newTimesList.get(i).getStarttime();
+					int newEndtime = newTimesList.get(i).getEndtime();
+					
+					int starttime = originTimesList.get(j).getStarttime();
+					int endtime = originTimesList.get(j).getEndtime();
+					
+					if( (starttime <= newStarttime && newStarttime <= endtime) || (starttime <= newEndtime && newEndtime <= endtime) ) {
+						map.put("result", "overlapped");
+						return map;
+					}
+				}
+			}
+		}
+		
+		//시간표에 과목 추가
+		timetableService.insertSubject(Integer.parseInt(t_num), Integer.parseInt(sub_num));
+		//수정시간 반영
+		timetableService.updateModifyDate(Integer.parseInt(t_num));
+		
+		map.put("result", "success");
+		map.put("timesList", newTimesList);
+		
+		return map;
+	}
+	
+	
+	//과목 삭제하기
+	@RequestMapping("/timetable/deleteSubject.do")
+	@ResponseBody
+	public Map<String, String> deleteSubject(@RequestParam(value="sub_num") String sub_num, 
+			 				  @RequestParam(value="t_num") String t_num) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		//과목을 삭제
+		timetableService.deleteSubject(Integer.parseInt(t_num), Integer.parseInt(sub_num));
+		
+		map.put("result", "success");
+		
+		return map;
+	}
 }

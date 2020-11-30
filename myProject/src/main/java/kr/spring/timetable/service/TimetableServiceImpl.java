@@ -64,4 +64,19 @@ public class TimetableServiceImpl implements TimetableService {
 		return timetableMapper.selectSubject(sub_num);
 	}
 
+	@Override
+	public void insertSubject(int t_num, int sub_num) {
+		timetableMapper.insertSubject(t_num, sub_num);
+	}
+
+	@Override
+	public void updateModifyDate(int t_num) {
+		timetableMapper.updateModifyDate(t_num);
+	}
+
+	@Override
+	public void deleteSubject(int t_num, int sub_num) {
+		timetableMapper.deleteSubject(t_num, sub_num);
+	}
+
 }

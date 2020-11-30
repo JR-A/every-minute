@@ -11,7 +11,6 @@ public class TimesVO {
 	String prof_name;
 	int color;		//0~30
 	
-	
 	public int getColor() {
 		return color;
 	}
@@ -63,8 +62,9 @@ public class TimesVO {
 	
 	@Override
 	public String toString() {
-		return "TimesVO [sub_num=" + sub_num + ", day=" + day + ", starttime=" + starttime + ", endtime=" + endtime
-				+ ", classRoom=" + classRoom + ", prof_name=" + prof_name + "]";
+		return "TimesVO [sub_num=" + sub_num + ", sub_name=" + sub_name + ", day=" + day
+				+ ", starttime=" + starttime + ", endtime=" + endtime + ", classRoom=" + classRoom + ", prof_name="
+				+ prof_name + ", color=" + color + "]";
 	}
 
 }

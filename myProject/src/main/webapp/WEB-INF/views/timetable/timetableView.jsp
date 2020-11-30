@@ -33,7 +33,7 @@
 			});
 		});
 		
-		//수업 목록에서 검색 버튼 클릭시
+		//수업 목록에서 검색 버튼 클릭시 수업 목록 열기
 		$('#buttonSearch').click(function(){
 			$.ajax({
 				url: '${pageContext.request.contextPath}/timetable/loadSubjects.do',
@@ -73,7 +73,7 @@
 				}
 			});
 		});	
-		//수업목록의 닫기버튼 클릭시
+		//수업목록의 닫기버튼 클릭시 목록 닫기
 		$(document).on('click','a.close',function(){
 			var height = $('#container').height() + $('#subjects').height() - $('#main_footer').height();
 			$('#subjects').css("display", "none");
@@ -81,10 +81,9 @@
 		});
 		
 		
-		//수업 목록에서 마우스오버시 이벤트 연결
-		//이미 수업이 추가된 시간표에는 정상작동하지만, 과목 추가되지 않은 시간표에서는 동작하지 않음
+		//수업 목록에서 마우스오버시 미리보기
 		$(document).on('mouseover','#subjectList>tr',function(){
-			//미리보기
+	
 			$.ajax({
 				url: '${pageContext.request.contextPath}/timetable/previewSubject.do',
 				type: 'post',
@@ -115,9 +114,92 @@
 			});
 			
 		});
-		//수업목록에서 마우스아웃시 이벤트 연결
+		//수업목록에서 마우스아웃시 미리보기 삭제
 		$(document).on('mouseout','#subjectList>tr',function(){
 			$('.preview').remove();
+		});
+		
+		//수업 목록에서 클릭시 시간표에 수업 추가
+		$(document).on('click','#subjectList>tr',function(){
+
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/insertSubject.do',
+				type: 'post',
+				data: {sub_num: $(this).attr('id'), t_num: $('.active').attr('id') },
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					if(data.result == 'success'){
+						var semester =  $("#semester option:selected").val();
+						var t_num = $('.active').attr('id');
+						
+						window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
+						/* ajax로 보여주기...일단보류
+						for(var i=0; i<5; i++){
+							$(data).timesList.each(function(index,item){
+								if(item.day == i){
+									var output = '';
+									output += '<div class="subject color10" style="height:'+ ((item.endtime - item.starttime + 1)*60 + 1) +'px;';
+									output += ' top:'+ (item.starttime-1)*60 +'px;">';
+									output += 	'<ul class="status" style="display: none;">';
+									output += 		'<li title="삭제" class="del"></li>';
+									output += 	'</ul>';
+									output += 	'<h3>' + item.sub_name +'</h3><p><em>' + item.prof_name + '</em><span>' + item.classRoom +'</span></p>';
+									output += '</div>';
+									$('#day'+i+' .cols').append(output);
+								}
+							});
+						}*/
+					}else if(data.result == 'duplicated'){
+						alert('이미 추가한 수업입니다!');
+					}else if(data.result == 'overlapped'){
+						alert('같은 시간에 이미 수업이 있습니다!');
+					}else{
+						alert('수업 추가시 에러발생!');
+					}
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+		});
+		
+		
+		//과목에 마우스오버시 삭제버튼 노출
+		$(document).on('mouseover','.subject',function(){
+			$(this).children(".status").css("display", "block");
+		});
+		
+		//과목에 마우스아웃시 삭제버튼 숨김
+		$(document).on('mouseout','.subject',function(){
+			$(this).children(".status").css("display", "none");
+		});
+		
+		//과목의 삭제버튼 클릭시 과목 삭제
+		$(document).on('click','.del',function(){
+			var ans = confirm('이 수업을 삭제하시겠습니까?');
+			
+			if(ans){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/timetable/deleteSubject.do',
+					type: 'post',
+					data: {sub_num: $(this).closest("div").attr('id'), t_num: $('.active').attr('id') },
+					dataType: 'json',
+					cache: false,
+					timeout: 30000,
+					success: function(data){
+						if(data.result == 'success'){
+							var semester =  $("#semester option:selected").val();
+							var t_num = $('.active').attr('id');
+							window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
+						}
+					},
+					error: function(request,status,error){
+						alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+					}
+				});
+			}
 		});
 		
 	});
@@ -211,7 +293,7 @@
 							<c:if test="${timetableSubjectCount > 0}">
 								<c:forEach var="item" items="${timesList}">
 								<c:if test="${item.day==i}">
-									<div class="subject color${item.color}" style="height:${(item.endtime-item.starttime+1)*60+1}px; top: ${(item.starttime-1)*60}px;">
+									<div id="${item.sub_num}" class="subject color${item.color}" style="height:${(item.endtime-item.starttime+1)*60+1}px; top: ${(item.starttime-1)*60}px;">
 										<ul class="status" style="display: none;">
 											<li title="삭제" class="del"></li>
 										</ul>
