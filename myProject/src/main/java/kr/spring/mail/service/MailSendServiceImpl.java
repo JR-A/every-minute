@@ -92,4 +92,26 @@ public class MailSendServiceImpl implements MailService {
           return authKey;
     }
 
+
+ // 메일에 아이디/패스워드 보내기
+    public void sendIdPasswd(String email,String id,String passwd) {
+
+
+        //인증메일 보내기
+        try {
+            MailUtils sendMail = new MailUtils(mailSender);
+            sendMail.setSubject("에브리미닛 아이디/비밀번호 입니다!");
+            sendMail.setText(new StringBuffer().append("아이디:"+id)
+            .append("<br>")
+            .append("비밀번호:"+passwd)
+            .toString());
+            sendMail.setFrom("pk1pkpk@gmail.com", "관리자");
+            sendMail.setTo(email);
+            sendMail.send();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 }

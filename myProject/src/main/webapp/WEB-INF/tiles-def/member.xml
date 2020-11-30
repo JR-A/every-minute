@@ -25,6 +25,10 @@
     	<put-attribute name="title" value="닉네임변경"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberChangeNickname.jsp"/>  
     </definition>
+    <definition name="memberChangePasswd" extends="main">
+    	<put-attribute name="title" value="비밀번호 변경"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/memberChangePassword.jsp"/>  
+    </definition>
 </tiles-definitions>
 
 

@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>비밀번호 변경성공</title>
 </head>
 <body>
-	이메일 변경이 완료되었습니다 !
-	 <h1><a href="${pageContext.request.contextPath}/member/memberLogin.do">로그인</a></h1> 
+ 비밀번호를 변경했습니다 다시 로그인 해주세요!
+  <h1><a href="${pageContext.request.contextPath}/member/memberLogin.do">로그인</a></h1> 
 </body>
 </html>

@@ -44,6 +44,10 @@ public interface MemberMapper {
 	@Update("UPDATE member SET auth=0 WHERE mem_num=#{mem_num}")
 	public void deleteMember(Integer mem_num);
 	
+	//비밀번호 변경
+	@Update("UPDATE member_detail SET passwd=#{passwd} WHERE mem_num=#{mem_num}")
+	public void changePasswd(Map<String,String> map);
+	
 	//닉네임 변경 
 	@Update("UPDATE Member_detail SET nickname=#{nickname} WHERE mem_num=#{mem_num}")
 	public void changeNickname(MemberVO member);
@@ -70,4 +74,12 @@ public interface MemberMapper {
 	//이메일 인증성공시 authstatus  1 로 변환해서 로그인
 	@Update("UPDATE member_detail SET authstatus=1  WHERE email=#{email} AND authkey=#{authKey}")
 	public void updateAuthStatus(Map<String,String> map);
+
+	//아이디/비밀번호찾기 이메일로 아이디,패스워드를 불러옴
+	@Select("SELECT id,passwd FROM member_detail d join member m ON d.mem_num=m.mem_num WHERE d.email=#{email}")
+	public MemberVO findId(MemberVO member); 
+
+	//이메일로 mem_num 찾기
+	@Select("SELECT mem_num from member_detail WHERE email=#{email}")
+	public Integer findMem_num(MemberVO member);
 }

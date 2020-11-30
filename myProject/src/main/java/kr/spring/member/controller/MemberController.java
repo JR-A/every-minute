@@ -198,11 +198,37 @@ public class MemberController {
 		return null;
 	}
 	
+	//비밀번호 변경폼
+	@RequestMapping(value="/member/changePasswd.do",method=RequestMethod.GET)
+	public String changePasswdForm() {
+			return "memberChangePasswd";
+		}
+		
 	//비밀번호 변경
-	@RequestMapping("/member/changePasswd.do")
-	public String changePass() {
-		return null;
-	}
+	@RequestMapping(value="/member/changePasswd.do",method=RequestMethod.POST)
+	public String changePasswd(MemberVO memberVO,@RequestParam("changePasswd") String changePasswd,BindingResult result,HttpSession session) {
+		
+		MemberVO member=  (MemberVO)session.getAttribute("user");	
+		
+
+		
+		if(member.getPasswd().equals(memberVO.getPasswd())) {
+			
+			if(member.getPasswd().equals(changePasswd)) {
+				result.reject("samePass");
+				return "memberChangePasswd";
+			}
+			
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("passwd", changePasswd);
+			map.put("mem_num",String.valueOf(member.getMem_num()));
+			memberService.changePasswd(map);
+			session.invalidate();
+			return "member/passwordChangeComplete";
+		}
+			result.reject("passwrong");
+			return "memberChangePasswd";
+		}
 	
 	//이메일 변경폼
 	@RequestMapping(value="/member/changeEmail.do",method=RequestMethod.GET)
@@ -255,7 +281,8 @@ public class MemberController {
 	
 	//닉네임 변경
 	@RequestMapping(value="/member/changeNickname.do",method=RequestMethod.POST)
-	public String changeNick(MemberVO memberVO,HttpSession session) {
+	public String changeNick(MemberVO memberVO,HttpSession session,BindingResult result) {
+		
 		
 		MemberVO member = (MemberVO)session.getAttribute("user");
 		member.setNickname(memberVO.getNickname());
@@ -315,4 +342,28 @@ public class MemberController {
 					return "memberDelete";
 
 			}
+
+			//아이디/비밀번호 찾기폼 
+			 @RequestMapping(value="/member/findId.do" ,method=RequestMethod.GET)
+			 public String findIdForm(){
+				 
+
+			    
+			    return "member/memberFindId";
+			 }
+			
+			 //아이디/비밀번호 찾기
+			 @RequestMapping(value="/member/findId.do" ,method=RequestMethod.POST)
+			 public String findId(@Valid MemberVO memberVO,BindingResult result){
+				 	
+				 
+				 if(memberService.findMem_num(memberVO)!=null) {
+				 MemberVO member =memberService.findId(memberVO);
+				 mss.sendIdPasswd(memberVO.getEmail(), member.getId(), member.getPasswd());
+				 return "member/memberFindcomplete";
+				 }
+			     
+				 result.reject("wrongE");
+			    return "member/memberFindId";
+			 }
 }

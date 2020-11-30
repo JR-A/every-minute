@@ -103,4 +103,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
+	@Override
+	public MemberVO findId(MemberVO member) {
+		return memberMapper.findId(member);
+	}
+
+	@Override
+	public Integer findMem_num(MemberVO member) {
+		return memberMapper.findMem_num(member);
+	}
+
+	@Override
+	public void changePasswd(Map<String,String> map) {
+		memberMapper.changePasswd(map);
+		
+	}
+
 }

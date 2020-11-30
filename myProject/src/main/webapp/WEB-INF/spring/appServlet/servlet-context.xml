@@ -93,18 +93,19 @@
 	</beans:bean>
 
 	<interceptors>
-	    <!-- 
+	    
 		<interceptor>
+			<mapping path="/main/main_board.do"/>
 			<mapping path="/member/myPage.do"/>
-			<mapping path="/member/update.do"/>
-			<mapping path="/member/changePassword.do"/>
-			<mapping path="/member/delete.do"/>
+			<mapping path="/member/deleteMember.do"/>
+			<mapping path="/member/changeNickname.do"/>
+			<mapping path="/member/changePasswd.do"/>
 			<mapping path="/board/write.do"/>
 			<mapping path="/board/update.do"/>
 			<mapping path="/board/delete.do"/>
 			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
-		 -->
+		
 		<interceptor>
 			<mapping path="/infoBoard/update.do"/> 
 			<mapping path="/infoBoard/delete.do"/> 
@@ -129,6 +130,10 @@
 			<beans:bean class="kr.spring.interceptor.CustomBoardListInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+	
+
+	
 	<!-- BLOB 타입 이미지 표시 -->
 	<beans:bean id="imageView" class="kr.spring.view.ImageView"/>
 	

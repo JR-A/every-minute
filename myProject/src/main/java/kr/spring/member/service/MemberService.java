@@ -23,4 +23,7 @@ public interface MemberService {
 	public String selectAuth(String id);
 	public void changeNickname(MemberVO member);
 	public void emailUpdate(Map<String,String> map);
+	public MemberVO findId(MemberVO member);
+	public Integer findMem_num(MemberVO member);
+	public void changePasswd(Map<String,String> map);
 }

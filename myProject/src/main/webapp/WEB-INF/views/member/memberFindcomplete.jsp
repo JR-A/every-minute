@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>메일전송완료</title>
 </head>
 <body>
-	이메일 변경이 완료되었습니다 !
-	 <h1><a href="${pageContext.request.contextPath}/member/memberLogin.do">로그인</a></h1> 
+ 입력하신 이메일로 아이디/비밀번호가 전송됬습니다.
+<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'">
 </body>
 </html>

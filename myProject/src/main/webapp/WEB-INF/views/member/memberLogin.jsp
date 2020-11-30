@@ -17,12 +17,16 @@ $(document).ready(function(){
 			$('#id').focus();
 			return false;	
 		}
-		if($('#passwd').val()==''){
+		
+			$('#message_id').text('')
+			
+			if($('#passwd').val()==''){
 			$('#message_passwd').text('비밀번호를 입력해주세요').css('color','red');
 			$('#passwd').focus();
 			return false;
 	
 		}				
+			$('#message_passwd').text('')	
 		});	
 	});
 </script>
@@ -48,6 +52,7 @@ $(document).ready(function(){
 		<div class="align-center">
 			<input type="submit" value="로그인">
 			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'">
+			<a href="${pageContext.request.contextPath}/member/findId.do"><b>아이디/비밀번호 찾기</b></a>
 		</div>
 	</form:form>
 </div>
