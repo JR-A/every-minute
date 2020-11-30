@@ -7,6 +7,15 @@
     margin-top: 25px;
     width: 780px;
 }
+#container > div.wrap > #alert {
+	color:red;
+    float: left;
+}
+#container > div.title > h1 > a {
+    color: #292929;
+    font-size: 22px;
+    font-weight: bold;
+}
 #container > div.title {
     margin-bottom: -20px;
     padding: 15px;
@@ -18,15 +27,18 @@
     width: 780px;
 }
 /*======= 검색 =======*/
-#container > div.articles > div.pagination > form.search {
+.pagination > form.search > select {
     float: left;
-    margin-top: 5px;
-    margin-left: 5px;
-    padding: 8px 25px 8px 5px;
-    border: 1px solid #a6a6a6;
-    border-radius: 3px;
-    background: transparent url(/images/new/container.articles.pagination.search.png) no-repeat right 10px center;
-    background-size: 16px 16px;
+    margin-right: 5px;
+    height: 19px;
+    line-height: 19px;
+    border: 0;
+    color: #737373;
+    font-size: 12px;
+    background-color: transparent;
+}
+.pagination{
+	padding:0px;
 }
 
 /*======= 게시글 목록 =======*/
@@ -35,6 +47,12 @@
     width: 20px;
     height: 20px;
     border-radius: 4px;
+}
+.imgStyle {
+    margin: 0 10px 15px 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
 }
 #container > div.articles > article img.picture {
     float: left;
@@ -86,9 +104,58 @@
     float: left;
 }
 
+/*======= 글 작성 ========*/
+#container > div.articles > form.write p {
+    padding: 15px;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #fff;
+}
+#container > div.articles > form.write textarea {
+    width: 100%;
+    height: 90px;
+    border: 0;
+    color: #292929;
+    font-size: 14px;
+    resize: none;
+}
+
+#container > div.articles > form.write ul.option li.hashtag {
+    float: left;
+    background-image: url(/images/customBoard/hashtag.png);
+}
+#container > div.articles > form.write ul.option li.attach {
+    float: left;
+    background-image: url(/images/customBoard/upload.png);
+}
+#container > div.articles > form.write ul.option li.anonym {
+    background-image: url(/images/customBoard/anonymous0.png);
+}
+#container > div.articles > form.write ul.option li.anonym.active {
+    float: right;
+    margin-right: 15px;
+    background-image: url(/images/new/customBoard/anonymous1.png);
+}
+#container > div.articles > form.write ul.option li.submit {
+    float: right;
+    background-color: #c62917;
+    background-image: url(/images/customBoard/writeSubmit.png);
+}
+#container > div.articles > form.write ul.option li {
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 40px 40px;
+    cursor: pointer;
+}
+#searchArticleForm{
+	border:0px;
+	
+}
 /*======= Common =======*/
-aside.none {
-    display: none;
+form {
+    display: block;
+    margin-top: 0em;
 }
 aside {
     float: left;
@@ -131,4 +198,7 @@ user agent stylesheet
 a:-webkit-any-link {
     color: -webkit-link;
     cursor: pointer;
+}
+div, nav, aside, article, figure {
+    display: block;
 }

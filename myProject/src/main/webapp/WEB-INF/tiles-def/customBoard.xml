@@ -5,10 +5,9 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <definition name="createCustomBoard" extends="main_board">
+    <definition name="createCustomBoard" extends="create_board">
     	<put-attribute name="title" value="게시판 생성"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/createCustomBoard.jsp"/>  
-    	<put-attribute name="right" value=""/>
     </definition>
     <definition name="customPostList" extends="main_board">
     	<put-attribute name="title" value="글 목록"/>
@@ -23,7 +22,7 @@
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/customPostView.jsp"/>  
     </definition>
     <definition name="customPostWrite" extends="main_board">
-    	<put-attribute name="title" value="글 쓰기"/>
+    	<put-attribute name="title" value="글 작성"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/customPostWrite.jsp"/>  
     </definition>
 </tiles-definitions>

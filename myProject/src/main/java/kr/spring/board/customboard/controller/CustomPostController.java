@@ -68,7 +68,7 @@ public class CustomPostController {
 		if(log.isDebugEnabled()) {
 			log.debug("<<Custom게시판-게시판 정보>> : " + boardInfo);
 		}
-		
+
 		List<CustomPostVO> postList = null; //게시글 목록
 
 		if(log.isDebugEnabled()) {
@@ -84,6 +84,8 @@ public class CustomPostController {
 			}
 		}
 
+		//customBoard.anonymous가 1이면 전체 익명 - 0이면 실명
+		
 		ModelAndView mav = new ModelAndView();
 
 		mav.setViewName("customPostList");
@@ -105,17 +107,21 @@ public class CustomPostController {
 		if(log.isDebugEnabled()) {
 			log.debug("<<사용자 생성 게시글 상세>> post_num:" + post_num + " board_num:" +board_num);
 		}
-		
+
 		//게시판 title, subtitle
 		CustomBoardVO boardInfo = customPostService.selectBoardInfo(board_num); //게시판 정보
 		if(log.isDebugEnabled()) {
 			log.debug("<<Custom게시판-글 상세>> : " + boardInfo);
 		}
-		
+
 		//게시글 자바빈 반환
 		CustomPostVO customPost = customPostService.selectCustomPost(board_num); //게시글 정보
 		String id = customPostService.selectPostWriter(post_num);
-
+		
+		if(log.isDebugEnabled()) {
+			log.debug("<<Custom게시글 작성자>> : " + id);
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		// view 이름
 		mav.setViewName("customPostView");
@@ -142,36 +148,38 @@ public class CustomPostController {
 
 	//글 등록
 	@RequestMapping(value="/customBoard/customPostWrite.do",method=RequestMethod.GET)
-	public String form() {
+	public String form(@RequestParam int board_num, Model model) {
+
+		//게시판 title, subtitle
+		CustomBoardVO boardInfo = customPostService.selectBoardInfo(board_num); //게시판 정보
+		if(log.isDebugEnabled()) {
+			log.debug("<<Custom게시판-글 등록>> : " + boardInfo);
+		}
+
+		model.addAttribute("boardInfo", boardInfo);
 		return "customPostWrite";
 	}
+
 	//글 등록 처리
 	@RequestMapping(value="/customBoard/customPostWrite.do",method=RequestMethod.POST)
-	public String submit(@Valid CustomPostVO customPostVO, BindingResult result, HttpSession session,
-			                                         Model model) {
-		
+	public String submit(@Valid CustomPostVO customPostVO, BindingResult result, HttpServletRequest request, HttpSession session) {
+
 		if (log.isDebugEnabled()) {
-			log.debug("<<게시판 글 저장>> : " +  customPostVO);
+			log.debug("<<게시판 글 등록>> : " +  customPostVO);
 		}
 
 		if (result.hasErrors()) {
-			form();
-		}
-		
-		//게시판 title, subtitle
-		//CustomBoardVO boardInfo = customPostService.selectBoardInfo(board_num); //게시판 정보
-		if(log.isDebugEnabled()) {
-			//log.debug("<<Custom게시판-글 상세>> : " + boardInfo);
+			return  "customPostWrite";
 		}
 
 		//회원 번호 세팅
 		MemberVO vo = (MemberVO)session.getAttribute("user");
 		customPostVO.setMem_num(vo.getMem_num());
-
+		
 		//글작성
 		customPostService.insertPost(customPostVO);
 
-		return "redirect:/customPost/customPostList.do"; 
+		return "redirect:/customBoard/customPostList.do?board_num="+customPostVO.getBoard_num(); 
 	}
 
 	//글 삭제 처리

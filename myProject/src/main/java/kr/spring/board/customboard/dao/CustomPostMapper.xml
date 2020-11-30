@@ -42,13 +42,13 @@
 		SELECT
 			COUNT(*)
 		FROM CustomPost cust_p JOIN Member m
-		ON cust_p.mem_num = m.mem_num where board_num = ${board_num}
+		ON cust_p.mem_num = m.mem_num where board_num = #{board_num}
 	</select>
 	
 	<!-- 글 작성 -->
 	<insert id="insertPost" parameterType="CustomPostVO">
-		INSERT INTO customPost(post_num, board_num, mem_num, content, uploadfile, filename) 
-		VALUES (customPost_seq.nextval, #{board_num}, #{mem_num}, #{content}, #{uploadfile}, #{filename})
+		INSERT INTO customPost(post_num, board_num, mem_num, content, uploadfile, filename, anonymous) 
+		VALUES (customPost_seq.nextval, #{board_num}, #{mem_num}, #{content}, #{uploadfile}, #{filename}, #{anonymous})
 	</insert>
 	
 	

@@ -57,9 +57,9 @@
 		$('#custBoard_form').submit(function(){
 			$('#type').val(simple_check);
 			if($('#check_anony').is(':checked')){
-				$('#anonymous').val(0); //off
+				$('#anonymous').val(1); //허용
 			}else{
-				$('#anonymous').val(1); //on
+				$('#anonymous').val(0); //미허용
 			}
 		});
 		
@@ -119,7 +119,7 @@
 	  <div id="anonymous_opt">
 	      <h4 id="anonymouse_check">익명허용</h4> 
 		  <label class="switch">
- 			 <input type="checkbox" id="check_anony">
+ 			 <input type="checkbox" id="check_anony" checked>
 			 <span class="slider round"></span>
 		  </label>
 		  <p id="anony" style="display:none;">OFF</p>

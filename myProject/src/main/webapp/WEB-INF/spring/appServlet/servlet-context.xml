@@ -54,6 +54,7 @@
 			<beans:list>
 				<beans:value>/WEB-INF/tiles-def/main.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/main_board.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/create_board.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/member.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/freeBoard.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/infoBoard.xml</beans:value>

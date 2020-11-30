@@ -52,14 +52,6 @@ public class CustomBoardController {
 		MemberVO vo = (MemberVO)session.getAttribute("user");
 		customBoardVO.setMem_num(vo.getMem_num());
 		
-		
-		//게시판 유형과 익명여부 세팅
-		int type = Integer.parseInt(request.getParameter("type"));
-		customBoardVO.setType(type);
-
-		int anonymous = Integer.parseInt(request.getParameter("anonymous"));
-		customBoardVO.setAnonymous(anonymous);
-
 
 		//게시판 등록
 		customBoardService.insertCustomBoard(customBoardVO);
