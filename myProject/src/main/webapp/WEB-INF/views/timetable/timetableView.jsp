@@ -125,14 +125,14 @@
 			$.ajax({
 				url: '${pageContext.request.contextPath}/timetable/insertSubject.do',
 				type: 'post',
-				data: {sub_num: $(this).attr('id'), t_num: $('.active').attr('id') },
+				data: {sub_num: $(this).attr('id'), t_num: $('#timetableList>li.active').attr('id') },
 				dataType: 'json',
 				cache: false,
 				timeout: 30000,
 				success: function(data){
 					if(data.result == 'success'){
 						var semester =  $("#semester option:selected").val();
-						var t_num = $('.active').attr('id');
+						var t_num = $('#timetableList>li.active').attr('id');
 						
 						window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
 						/* ajax로 보여주기...일단보류
@@ -184,14 +184,14 @@
 				$.ajax({
 					url: '${pageContext.request.contextPath}/timetable/deleteSubject.do',
 					type: 'post',
-					data: {sub_num: $(this).closest("div").attr('id'), t_num: $('.active').attr('id') },
+					data: {sub_num: $(this).closest("div").attr('id'), t_num: $('#timetableList>li.active').attr('id') },
 					dataType: 'json',
 					cache: false,
 					timeout: 30000,
 					success: function(data){
 						if(data.result == 'success'){
 							var semester =  $("#semester option:selected").val();
-							var t_num = $('.active').attr('id');
+							var t_num = $('#timetableList>li.active').attr('id');
 							window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
 						}
 					},
@@ -201,6 +201,25 @@
 				});
 			}
 		});
+		
+		//직접 추가 버튼 클릭시 폼 노출
+		$(document).on('click','#buttonCustom',function(){
+			$('#customsubjects').css("display", "block");
+		});
+		
+		//직접 추가 폼의 닫기버튼 클릭시 폼 숨기기
+		$(document).on('click','a.close',function(){
+			$('#customsubjects').css("display", "none");
+		});
+		
+		//직접 추가 폼의 요일 선택시
+		$(document).on('click','.weeks>li',function(){
+			$(this).siblings().removeClass( 'active' );
+			$(this).addClass('active');
+		});
+		
+		//직접 추가 폼의 더입력 버튼 클릭시
+		
 		
 	});
 </script>
@@ -288,7 +307,7 @@
 							</div>
 						</th>
 						<c:forEach var="i" begin="0" end="4">
-						<td id="day${i}">	
+						<td id="day${i}">
 							<div class="cols" style="width: 149px;">
 							<c:if test="${timetableSubjectCount > 0}">
 								<c:forEach var="item" items="${timesList}">
@@ -338,45 +357,6 @@
 		<li id="buttonSearch" class="button search">수업 목록에서 검색</li>
 		<li id="buttonCustom" class="button custom">직접 추가</li>
 	</ul>
-	<form id="customsubjects" style="display:none; left:539.5px">
-		<input type="hidden" name="id">
-		<a title="닫기" class="close"></a>
-		<h2>새 수업 추가</h2>
-		<dl>
-			<dt>과목명 (필수)</dt>
-			<dd>
-				<input type="text" name="name" placeholer="예) 경제학입문" maxlength="32" class="text">
-			</dd>
-			<dt>교수명</dt>
-			<dd>
-				<input type="text" name="prof_name" placeholder="예) 홍길동" maxlength="15" class="text">
-			</dd>
-			<dt>시간/장소</dt>
-			<dd class="timeplaces">
-        		<div class="timeplace">
-        			<ol class="weeks">
-        				<li class="active">월</li>
-        				<li>화</li>
-        				<li>수</li>
-        				<li>목</li>
-        				<li>금</li>
-        			</ol>
-        			<p>
-						<select class="starthour"><option value="9" selected="selected">오전 9시</option><option value="10">오전 10시</option><option value="11">오전 11시</option><option value="12">오후 12시</option><option value="13">오후 1시</option><option value="14">오후 2시</option><option value="15">오후 3시</option><option value="16">오후 4시</option><option value="17">오후 5시</option><option value="18">오후 6시</option><option value="19">오후 7시</option><option value="20">오후 8시</option><option value="21">오후 9시</option><option value="22">오후 10시</option><option value="23">오후 11시</option></select>        				
-        				<select class="startminute"><option value="0">0분</option><option value="5">5분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
-        				<span>~</span>
-        				<select class="endhour"><option value="9">오전 9시</option><option value="10" selected="selected">오전 10시</option><option value="11">오전 11시</option><option value="12">오후 12시</option><option value="13">오후 1시</option><option value="14">오후 2시</option><option value="15">오후 3시</option><option value="16">오후 4시</option><option value="17">오후 5시</option><option value="18">오후 6시</option><option value="19">오후 7시</option><option value="20">오후 8시</option><option value="21">오후 9시</option><option value="22">오후 10시</option><option value="23">오후 11시</option></select>
-        				<select class="endminute"><option value="0">0분</option><option value="5">5분</option><option value="10">10분</option><option value="15">15분</option><option value="20">20분</option><option value="25">25분</option><option value="30">30분</option><option value="35">35분</option><option value="40">40분</option><option value="45">45분</option><option value="50">50분</option><option value="55">55분</option></select>
-        				<input type="text" placeholder="예) 종303" class="text place">
-        			</p>
-        		</div>
-        		<a class="new"><strong>+</strong> 더 입력</a>
-     		</dd>
-		</dl>
-		<div class="clearBothOnly"></div>
-		<div class="submit"><input type="submit" value="저장" class="button"></div>
-	</form>
-
 </div>
 <div id="subjects" style="display:none;">
 	<a class="close">닫기</a>
@@ -404,3 +384,39 @@
 		</table>
 	</div>
 </div>
+<form id="customsubjects" style="display:none;">
+	<input type="hidden" name="id">
+	<a title="닫기" class="close"></a>
+	<h2>새 수업 추가</h2>
+	<dl>
+		<dt>과목명 (필수)</dt>
+		<dd>
+			<input type="text" name="name" placeholder="예) 경제학입문" maxlength="32" class="text">
+		</dd>
+		<dt>교수명</dt>
+		<dd>
+			<input type="text" name="prof_name" placeholder="예) 홍길동" maxlength="15" class="text">
+		</dd>
+		<dt>시간/장소</dt>
+		<dd class="timeplaces">
+       		<div class="timeplace">
+       			<ol class="weeks">
+       				<li class="active">월</li>
+       				<li>화</li>
+       				<li>수</li>
+       				<li>목</li>
+       				<li>금</li>
+       			</ol>
+       			<p>
+					<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="a">오후 6시</option><option value="b">오후 7시</option><option value="c">오후 8시</option></select>        				
+       				<span>~</span>
+					<select class="endhour"><option value="1">오전 9시</option><option value="2" selected="selected">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="a">오후 6시</option><option value="b">오후 7시</option><option value="c">오후 8시</option></select>        				
+       				<input type="text" placeholder="예) 종303" class="text place">
+       			</p>
+       		</div>
+       		<a class="new"><strong>+</strong>더 입력</a>
+    		</dd>
+	</dl>
+	<div class="clearBothOnly"></div>
+	<div class="submit"><input type="submit" value="저장" class="button"></div>
+</form>

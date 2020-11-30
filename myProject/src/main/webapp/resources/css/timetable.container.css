@@ -9,6 +9,12 @@ div, nav, aside, article, figure {
     display: block;
 }
 
+dl, ul, ol, menu, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 div.subject{
 	letter-spacing: -0.7px;
 	
@@ -76,14 +82,12 @@ table td, table th {
 	display: none;
 }
 
-ol {
-    display: block;
-    list-style-type: decimal;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
+img, input, select, textarea {
+    vertical-align: middle;
+}
+
+form#customsubjects{
+	width: auto;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *  /  common  /  * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -230,6 +234,155 @@ em {
 	padding: 0 25px 0 50px; border-radius: 20px; background-position: 25px center;
 }
 
+#customsubjects {
+	display: none;
+    position: absolute;
+    z-index: 97;
+    left: 45%;
+    bottom: 0;
+    padding: 25px;
+    border: 1px solid #d6d6d6;
+    border-bottom: 0;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+#customsubjects a.close {
+    position: absolute;
+    z-index: 99;
+    right: 10px;
+    top: 0;
+    margin-top: -20px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    width: 40px;
+    height: 40px;
+    background: #a6a6a6 url('https://everytime.kr/images/subjects.close.icon.png') no-repeat center center;
+    cursor: pointer;
+}
+
+#customsubjects h2 {
+    margin-bottom: 20px;
+    color: #292929;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#customsubjects dl dt {
+    clear: both;
+    float: left;
+    margin-bottom: 5px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    color: #a6a6a6;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#customsubjects dl dd {
+    float: left;
+    margin-bottom: 5px;
+    margin: 0;
+}
+
+#customsubjects dl dd input.text {
+    padding: 0 5px;
+    width: 400px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #d6d6d6;
+    color: #292929;
+    font-size: 13px;
+    background-color: #f2f2f2;
+}
+
+#customsubjects dl dt {
+    clear: both;
+    float: left;
+    margin-bottom: 5px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    color: #a6a6a6;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#customsubjects dl dd.timeplaces div.timeplace {
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 400px;
+    border: 1px solid #d6d6d6;
+}
+
+#customsubjects dl dd.timeplaces div.timeplace ol.weeks li {
+    float: left;
+    margin-right: 1px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    color: #a6a6a6;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+#customsubjects dl dd.timeplaces div.timeplace ol.weeks li.active {
+    color: #fff;
+    background-color: #c62917;
+}
+
+#customsubjects dl dd.timeplaces div.timeplace p {
+    clear: left;
+    padding-top: 5px;
+}
+
+#customsubjects dl dd.timeplaces div.timeplace p select {
+    margin-right: 5px;
+    height: 30px;
+    border: 1px solid #d6d6d6;
+    color: #292929;
+    font-size: 13px;
+    background-color: transparent;
+}
+#customsubjects dl dd.timeplaces div.timeplace p span {
+    margin-right: 5px;
+}
+
+#customsubjects dl dd.timeplaces div.timeplace p input {
+    width: 80px;
+}
+
+#customsubjects dl dd.timeplaces a.new, #customsubjects dl dd.timeplaces a.remove {
+    padding: 0 5px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #c62917;
+    font-weight: bold;
+}
+
+#customsubjects dl dd.timeplaces a.new strong {
+    font-size: 18px;
+}
+
+#customsubjects div.submit {
+    text-align: right;
+}
+
+#customsubjects .button {
+    padding: 0 10px;
+    border: 0;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #c62917;
+    cursor: pointer;
+}
 .color0 { background-color: grey; }
 .color1 { background-color: #f2e8e8; }
 .color2 { background-color: #ffe9e9; }
@@ -392,6 +545,8 @@ em {
 	#subjects > div.list > table > tbody > tr:hover {
 	  background-color: #fff;
 	}
+	
+	
 }
 
 @media only screen and (min-width: 641px) and (max-width: 1366px) {
