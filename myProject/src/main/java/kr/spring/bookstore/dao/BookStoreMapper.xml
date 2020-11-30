@@ -3,7 +3,17 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.bookstore.dao.BookStoreMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
+	
+	<select id="selectList" parameterType="map" resultType="bookStoreVO">
+		SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM bookstoreboard b JOIN member m ON b.mem_num=m.mem_num ORDER BY b.bs_num DESC)a)
+		<![CDATA[
+			WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
 
+	<select id="selectRowCount" parameterType="map" resultType="Integer">
+	 	SELECT COUNT(*) FROM bookstoreboard b JOIN member m ON b.mem_num = m.mem_num                               
+	</select>
 
 
 

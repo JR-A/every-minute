@@ -11,11 +11,11 @@
     </definition>
      <definition name="bookStoreWrite" extends="main">
     	<put-attribute name="title" value="글쓰기"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/boardWrite.jsp"/>  
+    	<put-attribute name="body" value="/WEB-INF/views/bookStore/bookStoreWrite.jsp"/>  
     </definition>
     <definition name="bookStoreView" extends="main">
     	<put-attribute name="title" value="게시판 상세 정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/boardView.jsp"/>  
+    	<put-attribute name="body" value="/WEB-INF/views/bookStore/bookStoreView.jsp"/>  
     </definition>
 </tiles-definitions>
 
