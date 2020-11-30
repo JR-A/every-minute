@@ -8,6 +8,8 @@
 <title><tiles:getAsString name="title"/></title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/infoboard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
+
 </head>
 <body>
 <div id="main">

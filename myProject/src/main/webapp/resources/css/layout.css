@@ -91,21 +91,6 @@ span.name.multiple {
 	margin: 0px 8px 0px 8px;
 } 
 /*======= 네비게이션 영역 끝 =======*/
-/*======= main 영역  =======*/
-.member_info{
-	width: 350px;
-	height: 400px;
-	float: left;
-}
-.list{
-	width: 800px;
-	float: clear;
-}
-.list > div.card > ul {
-	padding: 0px;
-}
-
-/*======= main 영역 끝 =======*/
 /*======= right 영역 =======*/
 .board {
 	width:200px;
@@ -115,7 +100,6 @@ span.name.multiple {
 	padding: 0px;
 }
 /*======= right 영역 끝 =======*/
-
 /*======= footer 영역 =======*/
 #footer {
     width: 1280px;
