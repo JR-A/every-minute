@@ -104,7 +104,25 @@ span.name.multiple {
 .list > div.card > ul {
 	padding: 0px;
 }
-
+#main_profile{
+	border:1px solid aliceblue; 
+	background-color:aliceblue;
+	width:198px;
+	border:solid black 1px;
+}
+#main_profile_image{
+	background-color:white;
+}
+#ul_for_button{
+	padding-left:0;
+	margin-top:0;
+}
+.member_buttons{
+	width:200px;
+	background-color:aliceblue;
+	border:solid black 1px;
+	margin-top:1px;
+}
 /*======= main 영역 끝 =======*/
 /*======= right 영역 =======*/
 .board {

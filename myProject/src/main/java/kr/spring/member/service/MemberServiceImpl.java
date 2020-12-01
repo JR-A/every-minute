@@ -119,4 +119,16 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void resetPhoto(MemberVO memberVO) {
+		memberMapper.resetPhoto(memberVO);
+		
+	}
+
+	@Override
+	public MemberVO selectCheckMember_num(int mem_num) {
+		return memberMapper.selectCheckMember_num(mem_num);
+		
+	}
+
 }

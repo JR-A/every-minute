@@ -105,6 +105,7 @@ public class MemberAjaxController {
 		}else {
 			//로그인 된 경우
 			memberService.updateProfile(memberVO);	
+			session.setAttribute("user", memberService.selectCheckMember_num((Integer)user.getMem_num()));
 			map.put("result", "success");
 		}
 		
@@ -113,6 +114,31 @@ public class MemberAjaxController {
 	
 
 
+	//회원수정 사진 기본이미지로
+	@RequestMapping("/member/resetMyPhoto.do")
+	@ResponseBody
+	public Map<String,String> processResetProfile(MemberVO memberVO,HttpSession session){
+		
+		
+		Map<String,String> map = new HashMap<String,String>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		memberVO.setMem_num((Integer)user.getMem_num());
+		
+		if(user==null) {
+			//로그인 되지 않은 경우
+			map.put("result", "logout");
+		}else {
+			//로그인 된 경우
+		 	memberService.resetPhoto(memberVO);	
+		 	
+			session.setAttribute("user", memberService.selectCheckMember_num((Integer)user.getMem_num()));
+			map.put("result", "success");
+		}
+		
+		return map;
+	}
 }
 
 

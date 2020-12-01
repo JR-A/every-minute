@@ -26,6 +26,9 @@ public interface MemberMapper {
 	@Select("SELECT m.mem_num,m.id,m.auth,d.passwd,d.nickname,d.authstatus,d.stu_num,d.major,d.email,d.photoname FROM member_detail d RIGHT JOIN member m ON d.mem_num=m.mem_num WHERE m.id=#{id}")
 	public MemberVO selectCheckMember(String id);
 	
+	@Select("SELECT m.mem_num,m.id,m.auth,d.passwd,d.nickname,d.authstatus,d.stu_num,d.major,d.email,d.photoname FROM member_detail d RIGHT JOIN member m ON d.mem_num=m.mem_num WHERE m.mem_num=#{mem_num}")
+	public MemberVO selectCheckMember_num(int mem_num);
+	
 	@Select("SELECT mem_num FROM member_detail WHERE email=#{email}")
 	public MemberVO selectCheckEmail(String email);
 	
@@ -66,6 +69,10 @@ public interface MemberMapper {
 	//프로필 이미지 가져오기
 	@Select("Select photo FROM member_detail where mem_num=#{mem_num}")
 	public MemberVO getPhoto();
+	
+	//프로필 이미지 기본값으로
+	@Update("UPDATE member_detail SET photo=null,photoname=null WHERE mem_num=#{mem_num}")
+	public void resetPhoto(MemberVO memberVO);
 	
 	//인증키 저장 
 	@Update("UPDATE member_detail SET authkey=#{authKey} WHERE email=#{email}")

@@ -26,4 +26,6 @@ public interface MemberService {
 	public MemberVO findId(MemberVO member);
 	public Integer findMem_num(MemberVO member);
 	public void changePasswd(Map<String,String> map);
+	public void resetPhoto(MemberVO memberVO);
+	public MemberVO selectCheckMember_num(int mem_num);
 }
