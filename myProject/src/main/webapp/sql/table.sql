@@ -37,27 +37,7 @@ CONSTRAINT member_detail_pk PRIMARY KEY (mem_num),
 CONSTRAINT member_detail_fk FOREIGN KEY(mem_num) REFERENCES Member (mem_num),
 CONSTRAINT member_uk UNIQUE (email, nickname)
  );
-
-CREATE TABLE freeBoard_Comment(
-			comment_num NUMBER NOT NULL,
-			post_num NUMBER NOT NULL,
-			mem_num NUMBER NOT NULL,
-			content CLOB NOT NULL,
-			reg_date  DATE DEFAULT SYSDATE NOT NULL,
-			anonymous NUMBER(1) NOT NULL,
-
-			CONSTRAINT freecomment_pk PRIMARY KEY(comment_num),
-			    CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
-				CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
-				
-			);
-			
-			CREATE sequence free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000;
-
-
-
-
-
+ 
 -----------------------------------------------------게시판-------------------------------------------------------------
 ------------------------------------------   자유 게시판 -------------------------------------------------
 CREATE TABLE FreeBoard(
@@ -144,18 +124,20 @@ CONSTRAINT hashtag_uk UNIQUE (name)
 );
 --해시태그,게시글 관계 테이블은 post 외래키가 모호하므로 아직 생성하지 않음--
 --------------------------------------------------댓글----------------------------------------------------
-CREATE TABLE Comm (
-comment_num NUMBER NOT NULL,
-post_num NUMBER NOT NULL,
-mem_num NUMBER NOT NULL,
-content CLOB NOT NULL,
-reg_date  DATE DEFAULT SYSDATE NOT NULL,
-board_which VARCHAR2(10) NOT NULL,
-anonymous NUMBER(1) DEFAULT 1 NOT NULL, /* (0:미허용 1:허용) */
 
-CONSTRAINT comment_pk PRIMARY KEY(comment_num),
-	CONSTRAINT comment_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
-);
+CREATE TABLE freeBoard_Comment(
+			comment_num NUMBER NOT NULL,
+			post_num NUMBER NOT NULL,
+			mem_num NUMBER NOT NULL,
+			content CLOB NOT NULL,
+			reg_date  DATE DEFAULT SYSDATE NOT NULL,
+			anonymous NUMBER(1) NOT NULL,
+
+			CONSTRAINT freecomment_pk PRIMARY KEY(comment_num),
+			    CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
+				CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+				
+			);
 
 -------------------------------------------------- 추천 -----------------------------------------------
 CREATE TABLE Like_Post(
@@ -305,25 +287,10 @@ CREATE TABLE CustomSubject(
 	CONSTRAINT customSubject_fk FOREIGN KEY (t_num) REFERENCES Timetable (t_num)
 );
 --------------------------------------------------책방-----------------------------------------------------------
-CREATE TABLE Book(
-    b_num NUMBER NOT NULL,
-    isbn NUMBER NOT NULL,
-    title VARCHAR2(50) NOT NULL,
-    author VARCHAR2(30) NOT NULL,
-    publisher VARCHAR2(30) NOT NULL,
-    reg_date DATE DEFAULT SYSDATE NOT NULL,
-    price NUMBER NOT NULL,
-    cover BLOB NOT NULL,
-    filename VARCHAR2(100) NOT NULL,
-
-    CONSTRAINT book_pk PRIMARY KEY (b_num)
-);
-
 
 CREATE TABLE BookStoreBoard(
     bs_num NUMBER NOT NULL ,
     mem_num NUMBER NOT NULL,
-    b_num NUMBER NOT NULL,
     bs_selling_price NUMBER NOT NULL,
     bs_comment VARCHAR2(300),
     bs_condition VARCHAR2(100) NOT NULL,
@@ -332,12 +299,12 @@ CREATE TABLE BookStoreBoard(
     bs_complete NUMBER(1) DEFAULT 0 NOT NULL, /* (0:미완료 1:완료) */
     reg_date DATE DEFAULT SYSDATE NOT NULL,
     modify_date DATE DEFAULT SYSDATE NOT NULL,
-    upload BLOB,
+    uploadfile BLOB,
     filename VARCHAR2(100),
+    isbn VARCHAR2(100) NOT NULL
 
     CONSTRAINT bookstoreboard_pk PRIMARY KEY (bs_num),
-    CONSTRAINT bookstoreboard_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT bookstoreboard_b_fk FOREIGN KEY (b_num) REFERENCES Book (b_num)
+    CONSTRAINT bookstoreboard_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
  
 -----------------------------------------------SEQUENCE--------------------------------------------
@@ -354,7 +321,8 @@ CREATE SEQUENCE tag_seq START WITH 100;	-- Tag의 tag_num
 CREATE SEQUENCE hashtag_seq START WITH 200; --Hashtag의 hashtag_num
 
 
-CREATE SEQUENCE comm_seq START WITH 2000; --Comm의 comment_num
+CREATE sequence free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; 
+--freeBoard_Comment의comment_num
 
 CREATE SEQUENCE likePost_seq START WITH 300; --Like_Post의 like_num
 CREATE SEQUENCE likeComment_seq START WITH 400; --Like_Comment의 like_num
@@ -374,7 +342,7 @@ CREATE SEQUENCE timetableSubject_seq START WITH 500; --Timetable_Subject의 ts_n
 
 
 CREATE SEQUENCE bookstore_seq START WITH 50000; --BookStoreBoard의 bs_num
-CREATE SEQUENCE book_seq START WITH 600; -- Book의 b_num
+
 
 
 ------------------------------------------------------------------------------------------------

@@ -1,51 +1,25 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="kr.spring.bookstore.vo.BookVO"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.spring.bookstore.controller.BookController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%-- <%
-String query = request.getParameter("query");
-
-BookController con = new BookController();
-
-List<BookVO> books = new ArrayList<BookVO>();
-if(query != null && query.length() > 0){
-	books = con.getBookList(query);
-}
-%> --%>
 <div class="page-main-style">
-	<%-- <form>
-		<div class="align-center">
-			<input type="text" name="query" placeholder="ISBN 또는 책제목 검색">
-			<input type="submit" value="검색">
-		</div>
-	</form>
-	<% if(books.size() == 0) { %>
-	<div class="align-center">검색 결과가 없습니다.</div>
-	<% } %>
-	<% for(BookVO book : books){ %>
 	<form>
+		<input type="hidden" id="searchIsbn" value="${ isbn }">
 		<table>
 			<tr>
-				<td width="100"><img src="<%= book.getThumbnail() %>"></td>
+				<td id="thumbnail" width="100"></td>
 				<td>
-					<%= book.getTitle() %><br>
-					<%= book.getPublisher() %><br>
-					<%= book.getPrice() %><br>
+					<p id="title"></p>
+					<p id="authors"></p>
+					<p id="publisher"></p>
+					<p id="price"></p>
 				</td>
-				<td width="30"><input type="submit" value="선택"></td>
 			</tr>
 		</table>
 	</form>
-	<% } %> --%>
 	<form:form commandName="bookStoreVO" action="bookStoreWrite.do" enctype="multipart/form-data">
 		<form:hidden path="bs_num"/>
+		<form:hidden path="isbn" value="${ isbn }"/>
 		<ul>
-			<li>
-				
-			</li>
 			<li>
 				<form:label path="bs_selling_price">판매희망가</form:label>
 				<input type="text" id="bs_selling_price" name="bs_selling_price" placeholder="예) 15000">
@@ -89,21 +63,38 @@ if(query != null && query.length() > 0){
 <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=52fbe82671d809b72a435af5d996bef6&libraries=services"></script>
-<script type="text/javascript">
+<script>
+	$(document).ready(function(){
+		var data = $("#searchIsbn").val();
+		var result = data.split(" ");
+		
+		$.ajax({
+			method : "GET",
+			url : "https://dapi.kakao.com/v3/search/book?target=title,isbn",
+			data : { query: result[0] },
+			headers: { Authorization: "KakaoAK 01be56c57f3e1447f4b6d6cad08f3f3b" }
+		}).done(function(msg){
+			console.log(msg);
+			$("#thumbnail").append("<img src='" + msg.documents[0].thumbnail + "'/>")
+			$("#title").append(msg.documents[0].title);
+			$("#authors").append(msg.documents[0].authors);
+			$("#publisher").append(msg.documents[0].publisher);
+			$("#price").append(msg.documents[0].price);
+		});
+	});
+</script>
+<script>
 	$(document).ready(function(){
 		$("#submit_btn").on('click', function(){
 			var methodArr = [];
 			
-			$("input[name=bs_condition]:checked").each(function(){
-				methodArr.push($(this).val());
-			});
 			$("input[name=bs_method]:checked").each(function(){
 				methodArr.push($(this).val());
 			});
 		});
 	});
 </script>
-<script type="text/javascript">
+<script>
 	var mapContainer = document.getElementById('map'),
 		mapOption = {
 		    center: new daum.maps.LatLng(37.537187, 127.005476),

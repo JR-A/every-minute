@@ -4,7 +4,7 @@
 <div class="page-main-style">
 	<div class="align-right">
 		<c:if test="${ !empty user }">
-		<input type="button" value="판매등록" onclick="location.href='bookStoreWrite.do'">
+		<input type="button" value="판매등록" onclick="location.href='bookStoreSearch.do'">
 		</c:if>
 	</div>
 	

@@ -19,6 +19,7 @@ public class BookStoreVO {
 	private String filename;
 	private int bs_complete;
 	private String id;
+	private String isbn;
 	
 	public void setUpload(MultipartFile upload) throws IOException {
 		setUploadfile(upload.getBytes());
@@ -103,12 +104,19 @@ public class BookStoreVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
 	@Override
 	public String toString() {
 		return "BookStoreVO [bs_num=" + bs_num + ", mem_num=" + mem_num + ", bs_selling_price=" + bs_selling_price
 				+ ", bs_comment=" + bs_comment + ", bs_condition=" + bs_condition + ", bs_method=" + bs_method
 				+ ", bs_address=" + bs_address + ", reg_date=" + reg_date + ", modify_date=" + modify_date
-				+ ", filename=" + filename + ", bs_complete=" + bs_complete + ", id=" + id + "]";
+				+ ", filename=" + filename + ", bs_complete=" + bs_complete + ", id=" + id + ", isbn=" + isbn + "]";
 	}
+
 }

@@ -5,22 +5,31 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <definition name="bookStoreList" extends="main">
-    	<put-attribute name="title" value="책방"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/bookStoreList.jsp"/>  
-    </definition>
-     <definition name="bookStoreWrite" extends="main">
-    	<put-attribute name="title" value="글쓰기"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/bookStoreWrite.jsp"/>  
-    </definition>
-    <definition name="bookStoreView" extends="main">
-    	<put-attribute name="title" value="게시판 상세 정보"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/bookStoreView.jsp"/>  
-    </definition>
-    <definition name="bookStoreModify" extends="main">
-    	<put-attribute name="title" value="수정"/>
-    	<put-attribute name="body" value="/WEB-INF/views/bookStore/bookStoreModify.jsp"/>  
-    </definition>
+	<definition name="bookStoreList" extends="main">
+		<put-attribute name="title" value="책방" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/bookStore/bookStoreList.jsp" />
+	</definition>
+	<definition name="bookStoreSearch" extends="main">
+		<put-attribute name="title" value="책찾기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/bookStore/bookStoreSearch.jsp" />
+	</definition>
+	<definition name="bookStoreWrite" extends="main">
+		<put-attribute name="title" value="글쓰기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/bookStore/bookStoreWrite.jsp" />
+	</definition>
+	<definition name="bookStoreView" extends="main">
+		<put-attribute name="title" value="게시판 상세 정보" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/bookStore/bookStoreView.jsp" />
+	</definition>
+	<definition name="bookStoreModify" extends="main">
+		<put-attribute name="title" value="수정" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/bookStore/bookStoreModify.jsp" />
+	</definition>
 </tiles-definitions>
 
 
