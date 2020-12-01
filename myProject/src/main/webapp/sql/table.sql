@@ -38,7 +38,21 @@ CONSTRAINT member_detail_fk FOREIGN KEY(mem_num) REFERENCES Member (mem_num),
 CONSTRAINT member_uk UNIQUE (email, nickname)
  );
 
+CREATE TABLE freeBoard_Comment(
+			comment_num NUMBER NOT NULL,
+			post_num NUMBER NOT NULL,
+			mem_num NUMBER NOT NULL,
+			content CLOB NOT NULL,
+			reg_date  DATE DEFAULT SYSDATE NOT NULL,
+			anonymous NUMBER(1) NOT NULL,
 
+			CONSTRAINT freecomment_pk PRIMARY KEY(comment_num),
+			    CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
+				CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+				
+			);
+			
+			CREATE sequence free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000;
 
 
 
