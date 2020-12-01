@@ -209,6 +209,7 @@
 		
 		//직접 추가 폼의 닫기버튼 클릭시 폼 숨기기
 		$(document).on('click','a.close',function(){
+			$('a.remove').closest("div").remove();
 			$('#customsubjects').css("display", "none");
 		});
 		
@@ -219,7 +220,61 @@
 		});
 		
 		//직접 추가 폼의 더입력 버튼 클릭시
+		$(document).on('click','a.new',function(){
+			var output = '';
+			output += '<div class="timeplace" style="display: block;">';
+			output += 	'<ol class="weeks">';
+			output += 		'<li class="active">월</li><li>화</li><li>수</li><li>목</li><li>금</li>';
+			output += 	'</ol>';
+			output += 	'<a class="remove">삭제</a>';
+			output += 	'<p>';
+			output += 		'<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option></select><span>~</span><select class="endhour"><option value="2" selected="selected">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option><option value="13">오후 9시</option></select><input type="text" placeholder="예) 종303" class="text place">';
+			output += 	'</p>'
+			output += '</div>';
+			
+			$(this).before(output);
+		});
+	
+		//직접 추가 폼의 삭제 버튼 클릭시
+		$(document).on('click','a.remove',function(){
+			$(this).closest("div").remove();
+		});
 		
+		//직접 추가 폼의 저장버튼 클릭시
+		$(document).on('submit','#customsubjects',function(){
+			if($('#csub_name').val()==''){
+				alert('이름을 입력하세요!');
+				$('#csub_name').focus();				
+				return false;
+			}
+			var csub_time = '';
+			var csub_classRoom = '';
+			$('div.timeplace').each(function(index,item){
+				if(index > 0) {csub_time += ','; csub_classRoom += ',';}
+				csub_time += $(this).find('li.active').text();	//요일
+			   
+			    var starthour = $(this).find('select.starthour > option:selected').val();
+			    var endhour = $(this).find('select.endhour > option:selected').val();
+			    
+			    if(starthour >= endhour){
+			    	alert('시작 시간은 종료 시간보다 빨라야합니다!');
+			    	return false;
+			    }
+				
+			    if(starthour)
+			    for(var i=starthour; i<endhour; i++){ //교시 구하기
+			    	csub_time += i;
+			    }
+			    
+			    csub_classRoom +=$(this).find('input.text.place').val();
+			});
+			
+			$('input[name=semester]').val($('#semester option:selected').val());
+			$('input[name=t_num]').val($('#timetableList>li.active').attr('id'));
+			$('input[name=csub_time]').val(csub_time);
+			$('input[name=csub_classRoom]').val(csub_classRoom);
+			
+		});
 		
 	});
 </script>
@@ -384,14 +439,18 @@
 		</table>
 	</div>
 </div>
-<form id="customsubjects" style="display:none;">
-	<input type="hidden" name="id">
+<form id="customsubjects" style="display:none;" method="post" action="${pageContext.request.contextPath}/timetable/insertCustomSubject.do">
+	<input type="hidden" name="semester">
+	<input type="hidden" name="t_num">
+	<input type="hidden" name="csub_time">
+	<input type="hidden" name="csub_classRoom">
+	
 	<a title="닫기" class="close"></a>
 	<h2>새 수업 추가</h2>
 	<dl>
 		<dt>과목명 (필수)</dt>
 		<dd>
-			<input type="text" name="name" placeholder="예) 경제학입문" maxlength="32" class="text">
+			<input type="text" name="csub_name" placeholder="예) 경제학입문" maxlength="32" class="text">
 		</dd>
 		<dt>교수명</dt>
 		<dd>
@@ -408,14 +467,14 @@
        				<li>금</li>
        			</ol>
        			<p>
-					<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="a">오후 6시</option><option value="b">오후 7시</option><option value="c">오후 8시</option></select>        				
+					<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option></select>        				
        				<span>~</span>
-					<select class="endhour"><option value="1">오전 9시</option><option value="2" selected="selected">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="a">오후 6시</option><option value="b">오후 7시</option><option value="c">오후 8시</option></select>        				
+					<select class="endhour"><option value="2" selected="selected">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option><option value="13">오후 9시</option></select>        				
        				<input type="text" placeholder="예) 종303" class="text place">
        			</p>
        		</div>
        		<a class="new"><strong>+</strong>더 입력</a>
-    		</dd>
+    	</dd>
 	</dl>
 	<div class="clearBothOnly"></div>
 	<div class="submit"><input type="submit" value="저장" class="button"></div>

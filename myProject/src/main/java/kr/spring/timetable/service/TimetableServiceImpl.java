@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.spring.timetable.dao.TimetableMapper;
+import kr.spring.timetable.vo.CustomSubjectVO;
 import kr.spring.timetable.vo.SubjectVO;
 import kr.spring.timetable.vo.TimetableVO;
 
@@ -77,6 +78,21 @@ public class TimetableServiceImpl implements TimetableService {
 	@Override
 	public void deleteSubject(int t_num, int sub_num) {
 		timetableMapper.deleteSubject(t_num, sub_num);
+	}
+
+	@Override
+	public void insertCustomSubject(CustomSubjectVO customSubjectVO) {
+		timetableMapper.insertCustomSubject(customSubjectVO);
+	}
+
+	@Override
+	public int selectCustomSubjectCountOfTimetable(int t_num) {
+		return timetableMapper.selectCustomSubjectCountOfTimetable(t_num);
+	}
+
+	@Override
+	public List<CustomSubjectVO> selectCustomSubjectList(int t_num) {
+		return timetableMapper.selectCustomSubjectList(t_num);
 	}
 
 }

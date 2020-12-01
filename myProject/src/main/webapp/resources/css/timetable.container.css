@@ -15,6 +15,10 @@ dl, ul, ol, menu, li {
     padding: 0;
 }
 
+ul#menu {
+    padding: revert;
+}
+
 div.subject{
 	letter-spacing: -0.7px;
 	
@@ -337,7 +341,9 @@ em {
 
 #customsubjects dl dd.timeplaces div.timeplace p {
     clear: left;
+    padding: 0;
     padding-top: 5px;
+    margin: 0;
 }
 
 #customsubjects dl dd.timeplaces div.timeplace p select {
@@ -356,12 +362,17 @@ em {
     width: 80px;
 }
 
-#customsubjects dl dd.timeplaces a.new, #customsubjects dl dd.timeplaces a.remove {
+#customsubjects dl dd.timeplaces a.new, 
+#customsubjects dl dd.timeplaces a.remove {
     padding: 0 5px;
     line-height: 20px;
     cursor: pointer;
     color: #c62917;
     font-weight: bold;
+}
+
+#customsubjects dl dd.timeplaces a.remove {
+    float: right;
 }
 
 #customsubjects dl dd.timeplaces a.new strong {
@@ -392,28 +403,28 @@ em {
 .color6 { background-color: #fff8cc; }
 .color7 { background-color: #ffedda; }
 .color8 { background-color: #dceef2; }
-.color9 { background-color: #f2e8e8; }
-.color10 { background-color: #ffe9e9; }
-.color11 { background-color: #eff9cc; }
-.color12 { background-color: #dcf2e9; }
-.color13 { background-color: #dee8f6; }
-.color14 { background-color: #fff8cc; }
-.color15 { background-color: #ffedda; }
-.color16 { background-color: #dceef2; }
-.color17 { background-color: #f2e8e8; }
-.color18 { background-color: #ffe9e9; }
-.color19 { background-color: #eff9cc; }
-.color20 { background-color: #dcf2e9; }
-.color21 { background-color: #dee8f6; }
-.color22 { background-color: #fff8cc; }
-.color23 { background-color: #ffedda; }
-.color24 { background-color: #dceef2; }
-.color25 { background-color: #f2e8e8; }
-.color26 { background-color: #ffe9e9; }
-.color27 { background-color: #eff9cc; }
-.color28 { background-color: #dcf2e9; }
-.color29 { background-color: #dee8f6; }
-.color30 { background-color: #fff8cc; }
+.color9 { background-color: #f2e8eb; }
+.color10 { background-color: #fff9df; }
+.color11 { background-color: #f0fce0; }
+.color12 { background-color: #f0e7dd; }
+.color13 { background-color: #f9f0e3; }
+.color14 { background-color: #fffce1; }
+.color15 { background-color: #f4eaff; }
+.color16 { background-color: #ddf2db; }
+.color17 { background-color: #e6f0f4; }
+.color18 { background-color: #ffeaea; }
+.color19 { background-color: #eafdea; }
+.color20 { background-color: #f2f3da; }
+.color21 { background-color: #ddf7e6; }
+.color22 { background-color: #eaffcc; }
+.color23 { background-color: #fef3c7; }
+.color24 { background-color: #f0e2dd; }
+.color25 { background-color: #f2e8ef; }
+.color26 { background-color: #ffdfdf; }
+.color27 { background-color: #f9e6cc; }
+.color28 { background-color: #dbe8f2; }
+.color29 { background-color: #d3e1f3; }
+.color30 { background-color: #ccf7ff; }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *  /  pc only  /  * * * * * * * * * * * * * * * * * * * * * * * * */
 

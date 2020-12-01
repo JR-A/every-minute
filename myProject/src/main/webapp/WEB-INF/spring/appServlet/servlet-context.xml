@@ -101,9 +101,7 @@
 			<mapping path="/member/deleteMember.do"/>
 			<mapping path="/member/changeNickname.do"/>
 			<mapping path="/member/changePasswd.do"/>
-			<mapping path="/board/write.do"/>
-			<mapping path="/board/update.do"/>
-			<mapping path="/board/delete.do"/>
+			<mapping path="/timetable/timetableView.do"/>
 			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		

@@ -87,7 +87,7 @@ public class TimetableAjaxController {
 		SubjectVO subject = timetableService.selectSubject(Integer.parseInt(sub_num));
 		subjectList.add(subject);
 		
-		timesList = timesMaker.makeTimesVO(subjectList);
+		timesList = timesMaker.makeTimesVO(subjectList, null);
 		
 		return timesList;
 	}
@@ -108,13 +108,13 @@ public class TimetableAjaxController {
 		//선택된 과목의 시간매핑
 		SubjectVO subject = timetableService.selectSubject(Integer.parseInt(sub_num));
 		newSubjectList.add(subject);
-		newTimesList = timesMaker.makeTimesVO(newSubjectList);
+		newTimesList = timesMaker.makeTimesVO(newSubjectList, null);
 		
 		//시간표의 기존 과목들 시간매핑
 		int cnt = timetableService.selectSubjectCountOfTimetable(Integer.parseInt(t_num));
 		if(cnt > 0) {
 			originSubjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
-			originTimesList = timesMaker.makeTimesVO(originSubjectList);
+			originTimesList = timesMaker.makeTimesVO(originSubjectList, null);
 		}
 		
 		//이미 추가한 과목인 경우

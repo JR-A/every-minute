@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import kr.spring.timetable.vo.CustomSubjectVO;
 import kr.spring.timetable.vo.SubjectVO;
 import kr.spring.timetable.vo.TimetableVO;
 
@@ -64,4 +65,16 @@ public interface TimetableMapper {
 	//시간표에서 과목 삭제
 	@Delete("DELETE FROM Timetable_Subject WHERE t_num=#{t_num} and sub_num=#{sub_num}")
 	public void deleteSubject(@Param("t_num") int t_num, @Param("sub_num") int sub_num);
+	
+	//시간표에 커스텀과목 추가
+	@Insert("INSERT INTO CustomSubject (csub_num, t_num, csub_name, prof_name, csub_time, csub_classRoom) VALUES(csub_seq.nextval, #{t_num}, #{csub_name}, #{prof_name}, #{csub_time}, #{csub_classRoom})")
+	public void insertCustomSubject(CustomSubjectVO customSubjectVO);
+	
+	//해당 시간표가 가지는 CustomSubject 개수
+	@Select("SELECT COUNT(*) FROM CustomSubject WHERE t_num=#{t_num}")
+	public int selectCustomSubjectCountOfTimetable(int t_num);
+	
+	//해당 시간표의 커스텀 과목 가져오기
+	@Select("SELECT * FROM CustomSubject WHERE t_num=#{t_num}")
+	public List<CustomSubjectVO> selectCustomSubjectList(int t_num);
 }
