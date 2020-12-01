@@ -63,7 +63,8 @@ $(document).ready(function(){
 												
 						//문서 객체에 추가
 						$('#output').append(output);
-					});
+					}); 
+					
 					
 					//paging button 처리
 					if(currentPage>=Math.ceil(count/rowCount)){
