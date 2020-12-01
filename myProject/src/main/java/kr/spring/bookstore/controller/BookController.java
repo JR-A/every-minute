@@ -20,6 +20,7 @@ import kr.spring.bookstore.vo.BookVO;
 
 @Controller
 public class BookController {
+	@RequestMapping("/bookStore/bookStoreWrite.do")
 	public List<BookVO> getBookList(String query){
 		if(query == null || query.length() == 0) {
 			return new ArrayList<BookVO>();

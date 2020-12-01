@@ -1,6 +1,5 @@
 package kr.spring.bookstore.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,8 +122,40 @@ public class BookStoreController {
 		return mav;
 	}
 	
+	//update form
+	@RequestMapping(value="/bookStore/bookStoreUpdate.do", method=RequestMethod.GET)
+	public String modifyForm(@RequestParam int bs_num, Model model) {
+		BookStoreVO bookStoreVO = bookStoreService.selectBoard(bs_num);
+		
+		model.addAttribute("bookStoreVO", bookStoreVO);
+		
+		return "bookStoreModify";
+	}
+	
+	//update submit
+	@RequestMapping(value="/bookStore/bookStoreUpdate.do", method=RequestMethod.POST)
+	public String modifyUpdate(@Valid BookStoreVO bookStoreVO, BindingResult result, HttpServletRequest request, HttpSession session, Model model) {
+		if(log.isDebugEnabled()) {
+			log.debug("<<modify>> : " + bookStoreVO);
+		}
+		
+		if(result.hasErrors()) {
+			return "bookStoreModify";
+		}
+		
+		MemberVO memberVO = (MemberVO)session.getAttribute("user");
+		bookStoreVO.setMem_num(memberVO.getMem_num());
+		
+		bookStoreService.updateBoard(bookStoreVO);
+		
+		model.addAttribute("message", "수정 완료");
+		model.addAttribute("url", request.getContextPath()+"/bookStore/bookStoreList.do");
+		
+		return "common/result";
+	}
+	
 	//view delete
-	@RequestMapping("/bookStore/delete.do")
+	@RequestMapping("/bookStore/bookStoreDelete.do")
 	public String viewDelete(@RequestParam int bs_num, Model model, HttpServletRequest request) {
 		if(log.isDebugEnabled()) {
 			log.debug("<<delete>> : " + bs_num);
