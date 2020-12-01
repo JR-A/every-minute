@@ -1,16 +1,44 @@
 package kr.spring.board.freeboard.vo;
 
-import java.sql.Date;
+public class FreeReplyVO {
+	
+	/*CREATE TABLE freeBoard_Comment(
+			comment_num NUMBER NOT NULL,
+			post_num NUMBER NOT NULL,
+			mem_num NUMBER NOT NULL,
+			content CLOB NOT NULL,
+			reg_date  DATE DEFAULT SYSDATE NOT NULL,
+			anonymous NUMBER(1) NOT NULL,  (0:미허용 1:허용) 
 
-public class ReplyVO {
-
+			CONSTRAINT freecomment_pk PRIMARY KEY(comment_num),
+			    CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
+				CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+				
+				create sequence free_Reply_seq start with 1 increment BY 1 maxvalue 10000;
+			);
+*/
+			
 	private int comment_num;
 	private int post_num;
 	private int mem_num;
 	private String content;
-	private Date reg_date;
+	private String reg_date;
 	private int anonymous;
+	private String id;
+	private String photoname;
 	
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
 		return "ReplyVO [comment_num=" + comment_num + ", post_num=" + post_num + ", mem_num=" + mem_num + ", content="
@@ -40,10 +68,11 @@ public class ReplyVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getReg_date() {
+	
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 	public int getAnonymous() {

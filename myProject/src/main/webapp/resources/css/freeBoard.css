@@ -11,8 +11,13 @@
 }
 /*==========페이지 기본 스타일 끝 ======*/
 
-
 /*======== 게시판 디자인 시작 ========*/
+
+.image{
+	float:right;
+	margin-top:-10px;
+}
+
 .title {
     padding: 15px;
     border: 1px solid #d6d6d6;
@@ -89,12 +94,41 @@ article time.large {
 }
 article ul.status {
     float: right;
+    margin-top:-10px;
 }
 article hr {
     clear: both;
     height: 0;
     border: 0;
 }
+
+.wrapstatus ul.status li.vote{
+	padding-left: 15px;
+	color: #c62917;
+	background-image:url(https://everytime.kr/images/new/container.articles.vote.png);
+}
+
+.wrapstatus ul.status li.comm{
+	padding-left: 15px;
+    color: #0ca5af;
+    background-image:url(https://everytime.kr/images/new/container.articles.comment.png)
+}
+
+
+.wrapstatus ul.status li{
+	background-size: 12px 12px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	margin-left: 8px;
+	float:left;
+
+}
+ul.option li{
+	background-image:url(https://everytime.kr/images/new/container.articles.write.hashtag.png)
+
+}
+
 /*======== Mypage 추가 끝 ========*/
 
 /*============= 수정폼 시작 ==============*/

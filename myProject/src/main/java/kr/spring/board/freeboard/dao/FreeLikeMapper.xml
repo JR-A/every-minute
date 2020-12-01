@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper namespace="kr.spring.board.freeboard.dao.FreeLikeMapper">
+
+동일 게시글 추천여부
+<select id="count_check" parameterType="map" resultType="integer">
+		select count(*) from freeboard_like_post where post_num = #{post_num} and mem_num = #{mem_num}
+	</select>
+	
+	게시글 추천추가
+	<insert id="count_update" parameterType="map">
+		 UPDATE freeboard_like_post SET
+        like_check = like_check+1
+    where
+        mem_num =#{mem_num}
+	</insert>
+	
+	게시글 추천 취소
+	<delete id="delete_delete" parameterType="map">
+		DELETE FROM freeboard_like_post WHERE post_num = #{post_num} and mem_num = #{mem_num}
+	</delete>
+	
+	게시글 추천수 보기
+	<select id="select_count" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM freeboard_like_post WHERE post_num = #{post_num}
+	</select>
+</mapper> -->

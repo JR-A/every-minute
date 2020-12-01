@@ -2,17 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script src="<c:url value="/resources/js/jquery-3.5.1.min.js" />"></script>
 <jsp:useBean id="VO" class="kr.spring.board.freeboard.vo.FreeBoardVO" /> 
-<div class="page-main-style">
+<div class="page-main-style" id=container>
 	<h3>자유게시판</h3>
 	<form:form commandName="freeBoardVO" action="freeBoardWrite.do"
 										enctype="multipart/form-data">
 	<form:hidden path="post_num"/>
 	<form:errors element="div" cssClass="error-color"/>
-<p class="board_p">
 			<form:input path="title" placeholder="글 제목" class="board_title"/>
 			<form:errors path="title" cssClass="error-color"/>
-		</p>
+	
 		<p class="board_p">
 			<form:textarea path="content" placeholder="여기를 눌러서 글을 작성할 수 있습니다.
 [커뮤니티 이용규칙 준수] 
@@ -35,12 +35,14 @@
 2. 선거 후보자에 대한 지지·홍보 및 선거운동 활동 
 3. 여론조사 결과 인용"/>
 			<form:errors path="content" cssClass="error-color"/>
-		<p>
-			<input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg">
+		<ul class="option">
+			<li class="tag"></li>
+			<li><input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg"></li>
 			<c:if test="${!empty freeBoardVO.filename}">
 				<br>
 				<span>(${freeBoardVO.filename})파일이 등록되어 있습니다 다시 업로드하면 기존 파일은 삭제됩니다.</span>
 			</c:if>
+		</ul>
 		<div class="align-center">
 			<input type="submit" value="전송" id="submit">
 			<input type="button" value="목록"

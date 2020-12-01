@@ -1,6 +1,5 @@
 package kr.spring.board.freeboard.controller;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,22 +20,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
-import kr.spring.board.freeboard.service.ReplyService;
+import kr.spring.board.freeboard.service.FreeReplyService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
-import kr.spring.board.freeboard.vo.ReplyVO;
+import kr.spring.board.freeboard.vo.FreeReplyVO;
+import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.PagingUtil;
-import oracle.sql.DATE;
 
 @Controller
 public class FreeBoardController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource
+	MemberService memberService;
+	
+	@Resource
 	FreeBoardService freeBoardService;
 	
 	@Resource
-	ReplyService replyService;
+	FreeReplyService replyService;
+
 	
 	//자바빈(VO) 초기화
 	@ModelAttribute
@@ -47,8 +50,8 @@ public class FreeBoardController {
 
 	//자바빈(VO) 초기화
 	@ModelAttribute
-	public ReplyVO initCommand2() {
-		return new ReplyVO();
+	public FreeReplyVO initCommand2() {
+		return new FreeReplyVO();
 	
 	}
 	
@@ -86,6 +89,7 @@ public class FreeBoardController {
 			if(log.isDebugEnabled()) {
 				log.debug("<<글 목록>>:"+list);
 			}
+			
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -103,7 +107,6 @@ public class FreeBoardController {
 			return "freeBoardWrite";
 		}
 	//글 등록 처리
-		@RequestMapping(value="/freeBoard/freeBoardWrite.do",method=RequestMethod.POST)
 		public String submit(@Valid FreeBoardVO freeBoardVO,BindingResult result,
 							 HttpServletRequest request,
 							 HttpSession session,Model model) {
@@ -141,14 +144,11 @@ public class FreeBoardController {
 				log.debug("<<글 상세>>:"+post_num);
 
 			}
-		
+			
+			
+			
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
 			
-			//댓글 처리
-			
-			List <ReplyVO> replyList = replyService.selectReply(freeboard.getPost_num());
-			model.addAttribute("replyList",replyList);
-	
 			return new ModelAndView("freeBoardView","freeboard",freeboard);
 		}
 		//이미지 출력
@@ -223,4 +223,9 @@ public class FreeBoardController {
 		}
 
 		
+		//댓글 부분
+		
+		
 }
+
+		

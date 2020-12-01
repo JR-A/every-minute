@@ -22,6 +22,9 @@
 			 		 	<if test="keyword != '' and keyfield =='content'">
 			 		 		f.content LIKE '%' || #{keyword} || '%' 
 			 		 	</if>
+			 		 	<if test="keyword != '' and keyfield =='tag'">
+			 		 		f.content Like '%' || #{keyword} || '%'
+			 		 	</if>
 			 		 	<if test="keyword != '' and keyfield =='all'">
 			 		 		f.title LIKE '%' || #{keyword} || '%' or
 			 		 		f.content LIKE '%' || #{keyword} || '%'

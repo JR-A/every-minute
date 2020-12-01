@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<h2 class="title"><a href="freeBoardList.do">자유게시판</a></h2>
 <div class="page-main-style-detail">
-	<h2>글 수정</h2>
 	<form:form commandName="freeboardVO" action="update.do"
 								enctype="multipart/form-data">
 	<form:hidden path="post_num"/>

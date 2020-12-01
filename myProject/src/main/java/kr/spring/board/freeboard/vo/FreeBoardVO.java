@@ -23,6 +23,7 @@ public class FreeBoardVO {
 	private String filename;
 	private int anonymous;
 	private String id;
+	private String photoname;
 	//이미지 업로드 파일 처리
 	public void setUpload(MultipartFile upload)throws IOException{
 		//MultipartFile -> byte[] 반환(byte배열로 변환)
@@ -108,6 +109,14 @@ public class FreeBoardVO {
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	public String getPhotoname() {
+		return photoname;
+	}
+
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
 	}
 
 	
