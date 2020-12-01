@@ -107,6 +107,7 @@ public class FreeBoardController {
 			return "freeBoardWrite";
 		}
 	//글 등록 처리
+		@RequestMapping(value="/freeBoard/freeBoardWrite.do",method=RequestMethod.POST)
 		public String submit(@Valid FreeBoardVO freeBoardVO,BindingResult result,
 							 HttpServletRequest request,
 							 HttpSession session,Model model) {
@@ -118,7 +119,7 @@ public class FreeBoardController {
 			if(result.hasErrors()) {
 				return "freeBoardWrite";
 			}
-		
+			
 	
 			//회원 번호 셋팅
 			MemberVO vo = (MemberVO)session.getAttribute("user");
