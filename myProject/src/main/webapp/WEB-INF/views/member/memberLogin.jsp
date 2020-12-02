@@ -6,54 +6,64 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>로그인</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.login.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-
-$(document).ready(function(){
+$(document).ready(function(){	
+	$('#id').keydown(function(){
+		$('#message_id').text('');
+		$('#message').text('');
+	});
+	
+	$('#passwd').keydown(function(){
+		$('#message_passwd').text('');
+		$('#message').text('');
+	});
+	
 	$('#form').submit(function(){
-			if($('#id').val()==''){
-			$('#message_id').text('아이디를 입력해주세요').css('color','red');
+		if($('#id').val()==''){
+			$('#message_id').text('아이디를 입력해주세요').css('color','#c62917');
 			$('#id').focus();
-			return false;	
+			return false;
 		}
 		
-			$('#message_id').text('')
-			
-			if($('#passwd').val()==''){
-			$('#message_passwd').text('비밀번호를 입력해주세요').css('color','red');
+		if($('#passwd').val()==''){
+			$('#message_passwd').text('비밀번호를 입력해주세요').css('color','#c62917');
 			$('#passwd').focus();
 			return false;
-	
-		}				
-			$('#message_passwd').text('')	
-		});	
+		}
 	});
+
+});
 </script>
 </head>
 <body>
-<div>
-	<h2>로그인</h2>
+<div id="container" class="login">
+	<h1 class="logo">
+		<a href="${pageContext.request.contextPath}/main/introduce.do">에브리타임</a>
+	</h1>
 	<form:form id="form" action="memberLogin.do" commandName="memberVO">
 		<%-- 필드가 없는 에러 표시 --%>
-		<form:errors element="div" cssClass="error-color"/>
-		<ul>
-			<li>
-				<label for="id">아이디</label>
-				<form:input path="id"/>
-				<span id="message_id"></span>
-			</li>
-			<li>
-				<label for="passwd">비밀번호</label>
-				<form:password path="passwd"/>
-				<span id="message_passwd"></span>
-			</li>
-		</ul>
-		<div class="align-center">
-			<input type="submit" value="로그인">
-			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'">
-			<a href="${pageContext.request.contextPath}/member/findId.do"><b>아이디/비밀번호 찾기</b></a>
-		</div>
+		<form:errors id="message" element="div" class="errorColor"/>
+		<p class="input">
+			<form:input id="id" path="id" placeholder="아이디"/>
+		</p>
+		<span id="message_id"></span>
+		<p class="input">
+			<form:password id="passwd" path="passwd" placeholder="비밀번호"/>
+		</p>
+		<span id="message_passwd"></span>
+		<p class="submit">
+			<input class="text" type="submit" value="로그인">
+		</p>
+		<p class="find">
+			<a href="${pageContext.request.contextPath}/member/findId.do">아이디/비밀번호 찾기</a>
+		</p>
+		<p class="register">
+	        <span>에브리타임에 처음이신가요?</span>
+	        <a href="${pageContext.request.contextPath}/member/memberRegister.do">회원가입</a>
+	    </p>
 	</form:form>
 </div>
 </body>
