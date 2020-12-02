@@ -10,32 +10,32 @@
 
 --------------------------------------------------회원----------------------------------------------------------
 CREATE TABLE Member(
- mem_num NUMBER NOT NULL,
- id VARCHAR2(30) NOT NULL,                   /*멤버 아이디*/
- auth NUMBER(1,0) DEFAULT 2 NOT NULL, /* (0:탈퇴회원 1:정지회원 2:일반회원 3:관리자) */
-
-  CONSTRAINT member_pk PRIMARY KEY (mem_num)
+	mem_num NUMBER NOT NULL,
+	id VARCHAR2(30) NOT NULL,                   /*멤버 아이디*/
+	auth NUMBER(1,0) DEFAULT 2 NOT NULL, /* (0:탈퇴회원 1:정지회원 2:일반회원 3:관리자) */
+	
+	CONSTRAINT member_pk PRIMARY KEY (mem_num)
 );
 
 CREATE TABLE Member_detail(
- mem_num NUMBER NOT NULL,   /*멤버 번호*/
- passwd VARCHAR2(30) NOT NULL,          /*멤버 비밀번호*/
- email VARCHAR2(50) NOT NULL,           /*멤버 이메일*/
- nickname VARCHAR2(50) NOT NULL,        /*멤버 닉네임*/
- major VARCHAR2(50),       /*학과*/
- stu_num VARCHAR2(10),   /*학번*/
- zipcode NUMBER(5,0),  /*우편번호*/
- address1 VARCHAR2(100),  /*주소*/
- address2 VARCHAR2(100),/*나머지주소*/ 
- reg_date DATE DEFAULT SYSDATE NOT NULL,          /*멤버 가입일*/
- modify_date DATE DEFAULT SYSDATE NOT NULL, /*멤버 수정일*/
- photo BLOB,        /*프로필사진 파일*/
- photoname VARCHAR2(100),    /*프로필 사진이름*/
- authkey VARCHAR2(15) , /*이메일 인증키*/
- authstatus NUMBER(1,0) DEFAULT 0, /*0이면로그인불가 1이면가능 */
-CONSTRAINT member_detail_pk PRIMARY KEY (mem_num),
-CONSTRAINT member_detail_fk FOREIGN KEY(mem_num) REFERENCES Member (mem_num),
-CONSTRAINT member_uk UNIQUE (email, nickname)
+	mem_num NUMBER NOT NULL,   /*멤버 번호*/
+	passwd VARCHAR2(30) NOT NULL,          /*멤버 비밀번호*/
+	email VARCHAR2(50) NOT NULL,           /*멤버 이메일*/
+	nickname VARCHAR2(50) NOT NULL,        /*멤버 닉네임*/
+	major VARCHAR2(50),       /*학과*/
+	stu_num VARCHAR2(10),   /*학번*/
+	zipcode NUMBER(5,0),  /*우편번호*/
+	address1 VARCHAR2(100),  /*주소*/
+	address2 VARCHAR2(100),/*나머지주소*/ 
+	reg_date DATE DEFAULT SYSDATE NOT NULL,          /*멤버 가입일*/
+	modify_date DATE DEFAULT SYSDATE NOT NULL, /*멤버 수정일*/
+	photo BLOB,        /*프로필사진 파일*/
+	photoname VARCHAR2(100),    /*프로필 사진이름*/
+	authkey VARCHAR2(15) , /*이메일 인증키*/
+	authstatus NUMBER(1,0) DEFAULT 0, /*0이면로그인불가 1이면가능 */
+	CONSTRAINT member_detail_pk PRIMARY KEY (mem_num),
+	CONSTRAINT member_detail_fk FOREIGN KEY(mem_num) REFERENCES Member (mem_num),
+	CONSTRAINT member_uk UNIQUE (email, nickname)
  );
  
 -----------------------------------------------------게시판-------------------------------------------------------------
@@ -57,18 +57,18 @@ CREATE TABLE FreeBoard(
 
 ---------------------------------------- 태그 ----------------------------------------------
 CREATE TABLE Tag(
-tag_num NUMBER NOT NULL,
-tag_name VARCHAR2(15) NOT NULL,
-
-CONSTRAINT tag_pk PRIMARY KEY (tag_num),
-CONSTRAINT tag_uk UNIQUE (tag_name)
+	tag_num NUMBER NOT NULL,
+	tag_name VARCHAR2(15) NOT NULL,
+	
+	CONSTRAINT tag_pk PRIMARY KEY (tag_num),
+	CONSTRAINT tag_uk UNIQUE (tag_name)
 );
 
 --------------------------------------------- 정보 게시판----------------------------------------------------
 CREATE TABLE Infoboard(
    post_num NUMBER NOT NULL,
-    mem_num NUMBER NOT NULL,
-    tag_num NUMBER,
+   mem_num NUMBER NOT NULL,
+   tag_num NUMBER,
    title VARCHAR2(100) NOT NULL,
    content CLOB NOT NULL,
    reg_date DATE DEFAULT SYSDATE NOT NULL,
@@ -116,123 +116,39 @@ CREATE TABLE CustomPost(
 
 ---------------------------------------------해시태그----------------------------------------------------
 CREATE TABLE Hashtag(
-hashtag_num NUMBER NOT NULL,
-name VARCHAR2(100) NOT NULL,
-
-CONSTRAINT hashtag_pk PRIMARY KEY (hashtag_num),
-CONSTRAINT hashtag_uk UNIQUE (name)
+	hashtag_num NUMBER NOT NULL,
+	name VARCHAR2(100) NOT NULL,
+	
+	CONSTRAINT hashtag_pk PRIMARY KEY (hashtag_num),
+	CONSTRAINT hashtag_uk UNIQUE (name)
 );
 --해시태그,게시글 관계 테이블은 post 외래키가 모호하므로 아직 생성하지 않음--
 --------------------------------------------------댓글----------------------------------------------------
 
-CREATE TABLE freeBoard_Comment(
-			comment_num NUMBER NOT NULL,
-			post_num NUMBER NOT NULL,
-			mem_num NUMBER NOT NULL,
-			content CLOB NOT NULL,
-			reg_date  DATE DEFAULT SYSDATE NOT NULL,
-			anonymous NUMBER(1) NOT NULL,
+CREATE TABLE FreeBoard_Comment(
+	comment_num NUMBER NOT NULL,
+	post_num NUMBER NOT NULL,
+	mem_num NUMBER NOT NULL,
+	content CLOB NOT NULL,
+	reg_date  DATE DEFAULT SYSDATE NOT NULL,
+	anonymous NUMBER(1) NOT NULL,
 
-			CONSTRAINT freecomment_pk PRIMARY KEY(comment_num),
-			    CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
-				CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
-				
-			);
+	CONSTRAINT freecomment_pk PRIMARY KEY(comment_num),
+	CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
+	CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)			
+);
 
 -------------------------------------------------- 추천 -----------------------------------------------
-CREATE TABLE Like_Post(
-	like_num NUMBER NOT NULL,
-	post_num NUMBER NOT NULL,
-	mem_num NUMBER NOT NULL,
-	target_mem_num NUMBER NOT NULL,
-	board_which VARCHAR2(10) NOT NULL,
 
-	CONSTRAINT likePost_pk PRIMARY KEY (like_num),
-CONSTRAINT likePost_mem_fk FOREIGN KEY(mem_num) REFERENCES Member(mem_num),
-CONSTRAINT likePost_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-) ;
-
-CREATE TABLE Like_Comment(
-	like_num NUMBER NOT NULL,
-	comment_num NUMBER NOT NULL,
-	mem_num NUMBER NOT NULL,
-	target_mem_num NUMBER NOT NULL,
-	board_which VARCHAR2(10) NOT NULL,
-
-	CONSTRAINT likeComment_pk PRIMARY KEY (like_num),
-CONSTRAINT likeComment_comment_fk FOREIGN KEY (comment_num) REFERENCES Comm (comment_num), 
-CONSTRAINT likeComment_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-CONSTRAINT likeComment_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-) ;
 
 -------------------------------------------------- 신고 -----------------------------------------------
-CREATE TABLE Blame_Post(
-	blame_num NUMBER NOT NULL,
-	post_num NUMBER NOT NULL,
-	mem_num NUMBER NOT NULL,
-	target_mem_num NUMBER NOT NULL,
-	board_which VARCHAR2(10) NOT NULL,
 
-	CONSTRAINT blamePost_pk PRIMARY KEY (blame_num),
-	CONSTRAINT blamePost_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-	CONSTRAINT blamePost_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
-
-CREATE TABLE Blame_Comment(
-	blame_num NUMBER NOT NULL,
-	comment_num NUMBER NOT NULL,
-	mem_num NUMBER NOT NULL,
-	target_mem_num NUMBER NOT NULL,
-	board_which VARCHAR2(10) NOT NULL,
-
-	CONSTRAINT blameComment_pk PRIMARY KEY (blame_num),
-CONSTRAINT blameComment_comment_fk FOREIGN KEY (comment_num) REFERENCES Comm (comment_num),
-CONSTRAINT blameComment_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-CONSTRAINT blameComment_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
 
 --------------------------------------- 즐겨찾기 -----------------------------------------------
-CREATE TABLE Favorite(
-	fav_num NUMBER NOT NULL,
-	post_num NUMBER NOT NULL,
-	mem_num NUMBER NOT NULL,
-	board_which VARCHAR2(10) NOT NULL,
 
-	CONSTRAINT favorite_pk PRIMARY KEY (fav_num),
-	CONSTRAINT favorite_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
-);
 
 --------------------------------------------------쪽지-----------------------------------------------------------
-CREATE TABLE Message_Post(
-msg_num NUMBER NOT NULL,
-post_num NUMBER NOT NULL,
-mem_num NUMBER NOT NULL,
-target_mem_num NUMBER NOT NULL,
-content VARCHAR2(255) NOT NULL,
-msg_check NUMBER DEFAULT 0 NOT NULL, /* (0:미확인 1:확인) */
-reg_date DATE DEFAULT SYSDATE NOT NULL,
-board_which VARCHAR2(10) NOT NULL,
- 
-CONSTRAINT messagePost_pk PRIMARY KEY (msg_num),
-CONSTRAINT messagePost_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-CONSTRAINT messagePost_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
 
-CREATE TABLE Message_Comment(
-msg_num NUMBER NOT NULL,
-comment_num NUMBER NOT NULL,
-mem_num NUMBER NOT NULL,
-target_mem_num NUMBER NOT NULL,
-content VARCHAR2(255) NOT NULL,
-msg_check NUMBER DEFAULT 0 NOT NULL, /* (0:미확인 1:확인) */
-reg_date DATE DEFAULT SYSDATE NOT NULL,
-board_which VARCHAR2(10) NOT NULL,
-
-CONSTRAINT messageComment_pk PRIMARY KEY (msg_num),
-CONSTRAINT messageComment_comment_fk FOREIGN KEY (comment_num) REFERENCES Comm (comment_num),
-CONSTRAINT messageComment_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-CONSTRAINT messageComment_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
 
 --------------------------------------------------시간표-----------------------------------------------------------
 
@@ -321,18 +237,7 @@ CREATE SEQUENCE tag_seq START WITH 100;	-- Tag의 tag_num
 CREATE SEQUENCE hashtag_seq START WITH 200; --Hashtag의 hashtag_num
 
 
-CREATE sequence free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; 
---freeBoard_Comment의comment_num
-
-CREATE SEQUENCE likePost_seq START WITH 300; --Like_Post의 like_num
-CREATE SEQUENCE likeComment_seq START WITH 400; --Like_Comment의 like_num
-CREATE SEQUENCE blamePost_seq START WITH 500; --Blame_Post의 blame_num
-CREATE SEQUENCE blameComment_seq START WITH 600; --Blame_Comment의 blame_num
-CREATE SEQUENCE favorite_seq START WITH 700; --Favorite의 fav_num
-
-
-CREATE SEQUENCE messagePost_seq START WITH 800; --Message_Post의 msg_num
-CREATE SEQUENCE messageComment_seq START WITH 900;--Message_Comment의 msg_num
+CREATE SEQUENCE free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --FreeBoard_Comment의comment_num
 
 
 CREATE SEQUENCE timetable_seq START WITH 40000; --Timetable의 t_num
