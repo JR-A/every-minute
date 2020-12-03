@@ -95,4 +95,22 @@ public class TimetableServiceImpl implements TimetableService {
 		return timetableMapper.selectCustomSubjectList(t_num);
 	}
 
+	@Override
+	public void setIsPrimary(TimetableVO timetable) {
+		timetableMapper.setIsPrimaryAllFalse(timetable);
+		timetableMapper.setIsPrimaryTrue(timetable);
+	}
+
+	@Override
+	public void updateTimetableName(TimetableVO timetable) {
+		timetableMapper.updateTimetableName(timetable);
+	}
+
+	@Override
+	public void deleteTimetable(int t_num) {
+		timetableMapper.deleteCustomSubject(t_num);
+		timetableMapper.deleteTimetable_Subject(t_num);
+		timetableMapper.deleteTimetable(t_num);
+	}
+
 }

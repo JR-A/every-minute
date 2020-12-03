@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- form 스프링 커스텀태그 사용 --%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <!-- jstl의 core 라이브러리 사용 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- 시간 포맷 등 -->
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/timetable.container.css">
@@ -276,6 +278,120 @@
 			
 		});
 		
+		
+		//시간표의 설정 버튼 클릭시 폼 노출
+		$('#buttonTableSetting').click(function(){
+			$('#tableSetting').before('<div class="modalwrap"></div>');
+			var modal = $(this).data('modal');
+			$('#'+modal).css("display", "block");
+			
+			//시간표 정보 불러오기
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/selectTimetable.do',
+				type: 'post',
+				data: {t_num: $('#timetableList>li.active').attr('id') },
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					$('#tableSetting input[name=t_name]').val(data.t_name);
+					$('#tableSetting input[name=t_num]').val(data.t_num);
+					$('#tableSetting input[name=semester]').val(data.semester);
+					if(data.isPrimary == 1) {
+						$('#tableSetting_is_primary').attr('checked', true);
+						$('#tableSetting_is_primary').attr('disabled', 'disabled');
+					}	
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+		});
+		
+		//시간표 설정 저장버튼 클릭시 설정저장
+		$(document).on('submit','#tableSetting',function(){
+			var check = true;
+			var submitName = $('#tableSetting input[name=t_name]').val(); //입력된 시간표 이름
+			//해당학기의 시간표와 이름이 겹치는지 체크
+			$('#timetableList li:not(.active):not(:last-child)').each(function(index,item){
+				var tname = $(this).find('a').text();
+				if(tname == submitName){
+					alert('이미 존재하는 이름입니다.');
+					check = false;
+				}
+			});
+			
+			if (!check) { event.preventDefault(); return false; }
+			
+			//현재 기본시간표가 아니고 기본시간표에 체크되어있으면
+			if(!$('#tableSetting_is_primary').is('disabled')){				
+				if($('#tableSetting_is_primary').is(':checked') == true ){
+					//기본시간표를 현재 시간표로 변경
+					$('#tableSetting input[name=updatePrimary]').val(1);
+				}
+			}
+			else{
+				$('#tableSetting input[name=updatePrimary]').val(0);
+			}
+			var value = $('#tableSetting input[name=updatePrimary]').val();
+			
+			//설정 저장
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/updateTimetable.do',
+				type: 'post',
+				data: $('#tableSetting').serialize() + "&updatePrimary="+value,
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					if(data.result == 'success'){
+						alert('저장했습니다.');
+						var semester =  $("#semester option:selected").val();
+						var t_num = $('#timetableList>li.active').attr('id');
+						window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
+					}
+					else{
+						alert('설정 저장 오류발생!');
+					}
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+			
+		});
+		
+		//시간표 설정의 삭제 버튼 클릭시
+		$(document).on('click','#buttonDelete',function(){
+			var ans = confirm('이 시간표를 삭제하시겠습니까?');
+			
+			if(ans){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/timetable/deleteTimetable.do',
+					type: 'post',
+					data: {t_num: $('#timetableList>li.active').attr('id') },
+					dataType: 'json',
+					cache: false,
+					timeout: 30000,
+					success: function(data){
+						if(data.result == 'success'){
+							var semester =  $("#semester option:selected").val();
+							window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester;
+						}
+					},
+					error: function(request,status,error){
+						alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+					}
+				});
+			}
+		});
+		
+		//설정 닫기 버튼 클릭시 폼 숨김
+		$(document).on('click','#tableSetting>a.close',function(){
+			$('.modalwrap').remove();
+			$(this).closest("form").css("display", "none");
+		});
+		
 	});
 </script>
 
@@ -316,6 +432,12 @@
 					</li>
 				</ul>
 			</div>
+			<hr>
+			<ol class="buttons threecols">
+	          <li id="buttonTableExport" data-modal="tableExport"><a class="light image export">이미지</a></li>
+	          <li id="buttonTableSetting" data-modal="tableSetting"><a class="light image setting">설정</a></li>
+	        </ol>
+	        <hr>
 		</div>
 		<div class="menu">
 			<ol id="timetableList">
@@ -408,6 +530,25 @@
 			</div>
 		</div>
 	</div>
+	<form:form id="tableSetting" commandName="timetableVO" class="modal" style="margin-left: -200px; margin-top: -153.5px; display: none;">
+    	<input type="hidden" name="t_num">
+    	<input type="hidden" name="semester">
+		<input type="hidden" name="updatePrimary" value="0">
+		
+		<a title="닫기" class="close"></a>
+		<h3>시간표 설정</h3>
+		<p>
+		  <label>이름</label>
+		  <input name="t_name" type="text" maxlength="40" class="text"/>
+		</p>
+		<p>
+		  <label>기본</label>
+		  <input type="checkbox" id="tableSetting_is_primary"/>
+		  <label for="tableSetting_is_primary" class="checkbox">기본시간표 설정</label>
+		</p>
+		<input id="buttonDelete" type="button" value="삭제" class="button light floatLeft">
+      	<input type="submit" value="설정 저장" class="button">
+    </form:form>
 	<ul id="floating" class="floating">
 		<li id="buttonSearch" class="button search">수업 목록에서 검색</li>
 		<li id="buttonCustom" class="button custom">직접 추가</li>

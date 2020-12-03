@@ -35,10 +35,17 @@ public class TimetableController {
 	
 	//게시판 폼 호출
 	@RequestMapping("/timetable/timetableView.do")
-	public ModelAndView getList(@RequestParam(value="semester", defaultValue="2020-2") String semester,
-								@RequestParam(value="t_num", defaultValue="") String t_num,
+	public ModelAndView getList(@RequestParam(value="semester", defaultValue="2020-2", required=false) String semester,
+								@RequestParam(value="t_num", defaultValue="", required=false) String t_num,
 								HttpSession session) {
+		
+		//Q. 매개변수가 이상하게 넘어옴!
+		System.out.println("======================게시판 폼 호출 진입========================");
+		System.out.println(semester);
+		System.out.println(t_num);
+		System.out.println("======================게시판 폼 호출========================");
 
+		
 		TimetableVO vo = null;
 		List<SubjectVO> subjectList = null;
 		List<CustomSubjectVO> customSubjectList = null;

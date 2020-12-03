@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -166,9 +167,72 @@ public class TimetableAjaxController {
 		Map<String, String> map = new HashMap<String, String>();
 		//과목을 삭제
 		timetableService.deleteSubject(Integer.parseInt(t_num), Integer.parseInt(sub_num));
+		//수정시간 반영
+		timetableService.updateModifyDate(Integer.parseInt(t_num));
 		
 		map.put("result", "success");
 		
 		return map;
+	}
+	
+	//시간표 정보 불러오기
+	@RequestMapping("/timetable/selectTimetable.do")
+	@ResponseBody
+	public TimetableVO selectTimetable(@RequestParam(value="t_num") String t_num){
+		
+		TimetableVO timetable = timetableService.selectTimetable(Integer.parseInt(t_num));
+
+		return timetable;
+	}
+	
+	//시간표 설정 변경
+	@RequestMapping("/timetable/updateTimetable.do")
+	@ResponseBody
+	public Map<String, String> updateTimetable(@RequestParam(value="updatePrimary") int updatePrimary, 
+											   @ModelAttribute("timetableVO") TimetableVO timetableVO,
+											   HttpSession session){
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		//세션에 저장된 회원 정보 반환
+		MemberVO member = (MemberVO)session.getAttribute("user");
+		timetableVO.setMem_num(member.getMem_num());
+		
+		if(updatePrimary == 1) {
+			//기본시간표를 현재 시간표로 변경
+			timetableService.setIsPrimary(timetableVO);
+		}
+		//시간표 이름 수정
+		timetableService.updateTimetableName(timetableVO);
+		
+		map.put("result", "success");
+		
+		return map;	
+	}
+	
+	//시간표 삭제
+	@RequestMapping("/timetable/deleteTimetable.do")
+	@ResponseBody
+	public Map<String, String> deleteTimetable(@RequestParam(value="t_num") String t_num) {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		TimetableVO timetable = timetableService.selectTimetable(Integer.parseInt(t_num));
+		//해당 학기의 시간표 모두 가져오기
+		List<TimetableVO> list = timetableService.selectList(timetable);
+		//다른 시간표가 존재하고 기본시간표를 삭제하는경우
+		if(list.size()>1 && timetable.getIsPrimary() == 1) {
+			for(TimetableVO vo : list) {
+				if(vo.getT_num() != Integer.parseInt(t_num)) {
+					//기본 시간표로 지정
+					timetableService.setIsPrimary(vo);
+					break;
+				}
+			}
+		}
+		
+		timetableService.deleteTimetable(Integer.parseInt(t_num));
+		
+		map.put("result", "success");
+		return map;	
 	}
 }

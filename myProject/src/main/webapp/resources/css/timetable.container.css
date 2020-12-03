@@ -44,24 +44,6 @@ aside > form{
 	padding: 0;
 }
 
-aside > form.search, 
-aside > form.select {
-    margin-bottom: 5px;
-}
-
-aside > form.select > select {
-    border: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 2px solid #d6d6d6;
-    color: #292929;
-    font-size: 14px;
-    background-color: transparent;
-}
-
 body {
 	overflow: hidden;
 }
@@ -95,6 +77,12 @@ form#customsubjects{
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *  /  common  /  * * * * * * * * * * * * * * * * * * * * * * * * */
+
+#container > hr {
+    clear: both;
+    height: 0;
+    border: 0;
+}
 
 #container div.tablehead > div.empty {
 	padding: 120px 0; text-align: center;
@@ -236,6 +224,89 @@ em {
 }
 #container ul.floating li.button.only {
 	padding: 0 25px 0 50px; border-radius: 20px; background-position: 25px center;
+}
+
+#container form.modal {
+    padding: 25px;
+    width: 400px;
+    box-sizing: border-box;
+}
+
+#container form.modal a.close {
+    display: block;
+    float: right;
+    width: 20px;
+    height: 20px;
+    background: transparent url("https://everytime.kr/images/new/container.modal.close.png") no-repeat center center;
+    background-size: 15px 15px;
+    cursor: pointer;
+}
+
+#container form.modal h3 {
+    margin-bottom: 15px;
+    color: #292929;
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 0;
+}
+
+#container form.modal p {
+    clear: both;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+#container form.modal p label {
+	float:none;
+    display: block;
+    margin-bottom: 5px;
+    color: #737373;
+    font-size: 12px;
+    font-weight: bold;
+}
+#container form.modal p input.text {
+    padding: 0 5px;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #e3e3e3;
+    box-sizing: border-box;
+    color: #292929;
+    font-size: 13px;
+}
+#container form.modal p label.checkbox {
+    display: inline;
+    float: none;
+    margin: 0 5px;
+    width: auto;
+    line-height: 25px;
+    color: #292929;
+    font-size: 13px;
+    font-weight: normal;
+}
+#container form.modal .button.floatLeft {
+    margin-left: 0;
+    margin-right: 8px;
+}
+
+#container form.modal .button.light {
+    color: #737373;
+    background-color: #f2f2f2;
+}
+
+#container form.modal .button {
+    display: block;
+    float: right;
+    margin-left: 5px;
+    padding: 0 12px;
+    height: 30px;
+    line-height: 30px;
+    border: 0;
+    border-radius: 18px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #c62917;
+    cursor: pointer;
 }
 
 #customsubjects {
@@ -394,6 +465,100 @@ em {
     background-color: #c62917;
     cursor: pointer;
 }
+
+aside > form.search, 
+aside > form.select {
+    margin-bottom: 5px;
+}
+
+aside > form.select > select {
+    border: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #d6d6d6;
+    color: #292929;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+aside > div.title > h1 {
+    color: #262626;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+aside > div.title > hr {
+    clear: both;
+    height: 0;
+    border: 0;
+}
+
+aside > div.title > div.description > ul.info {
+    margin-top: 10px;
+}
+
+aside > div.title > div.description > ul.info > li {
+    float: left;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+
+aside > div.title > ol.buttons.threecols > li {
+    float: left;
+    margin: 0 1px;
+    width: 89px;
+}
+
+aside > div.title > ol.buttons > li > a.image.export {
+    background-image: url("https://everytime.kr/images/new/aside.title.button.export.png");
+}
+
+aside > div.title > ol.buttons > li > a.image {
+    padding-left: 40px;
+    background-position: left center;
+    text-align: left;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+}
+
+aside > div.title > ol.buttons > li > a.light {
+    border: 1px solid #e3e3e3;
+    color: #737373;
+    background-color: transparent;
+}
+
+aside > div.title > ol.buttons > li > a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #c62917;
+}
+
+aside > div.title > ol.buttons > li > a.image.setting {
+    background-image: url("https://everytime.kr/images/new/aside.title.button.setting.png");
+}
+
+aside > div.title > ol.buttons.threecols > li {
+    float: left;
+    margin: 0 1px;
+    width: 89px;
+}
+
+aside > div.title > ol.buttons {
+    margin-top: 15px;
+}
+
 .color0 { background-color: grey; }
 .color1 { background-color: #f2e8e8; }
 .color2 { background-color: #ffe9e9; }

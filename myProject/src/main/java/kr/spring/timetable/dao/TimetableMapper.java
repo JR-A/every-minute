@@ -77,4 +77,34 @@ public interface TimetableMapper {
 	//해당 시간표의 커스텀 과목 가져오기
 	@Select("SELECT * FROM CustomSubject WHERE t_num=#{t_num}")
 	public List<CustomSubjectVO> selectCustomSubjectList(int t_num);
+	
+	//기본시간표 변경
+	//해당 학기의 모든 시간표의 isPrimary값을 0으로 변경하기
+	@Update("UPDATE Timetable SET isPrimary=0 WHERE mem_num=#{mem_num} AND semester LIKE #{semester}")
+	public void setIsPrimaryAllFalse(TimetableVO timetable);
+	
+	//기본시간표 변경
+	//해당 시간표의 isPrimary 값을 1로 변경하기
+	@Update("UPDATE Timetable SET isPrimary=1 WHERE t_num=#{t_num}")
+	public void setIsPrimaryTrue(TimetableVO timetable);
+	
+	//시간표 설정 변경
+	//시간표 이름 수정
+	@Update("UPDATE Timetable SET t_name=#{t_name}, modify_date=SYSDATE WHERE t_num=#{t_num}")
+	public void updateTimetableName(TimetableVO timetable);
+	
+	//시간표 설정 변경
+	//시간표 삭제
+	@Delete("DELETE FROM Timetable WHERE t_num=#{t_num}")
+	public void deleteTimetable(int t_num);
+	
+	//시간표 설정 변경
+	//시간표_과목 삭제
+	@Delete("DELETE FROM Timetable_Subject WHERE t_num=#{t_num}")
+	public void deleteTimetable_Subject(int t_num);
+	
+	//시간표 설정 변경
+	//커스텀과목 삭제
+	@Delete("DELETE FROM CustomSubject WHERE t_num=#{t_num}")
+	public void deleteCustomSubject(int t_num);
 }
