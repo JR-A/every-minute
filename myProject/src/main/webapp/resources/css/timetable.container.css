@@ -230,6 +230,7 @@ em {
     padding: 25px;
     width: 400px;
     box-sizing: border-box;
+    border-color: #666;
 }
 
 #container form.modal a.close {
@@ -560,7 +561,7 @@ aside > div.title > ol.buttons {
 }
 
 .color0 { background-color: grey; }
-.color1 { background-color: #f2e8e8; }
+.color1 { background-color: #e9e7f3; }
 .color2 { background-color: #ffe9e9; }
 .color3 { background-color: #eff9cc; }
 .color4 { background-color: #dcf2e9; }

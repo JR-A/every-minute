@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <!-- jstl의 core 라이브러리 사용 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- 시간 포맷 등 -->
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/timetable.container.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/html2canvas.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -392,10 +393,46 @@
 			$(this).closest("form").css("display", "none");
 		});
 		
+		//이미지 버튼 클릭시
+		/*
+		$('#buttonTableExport').click(function(e){
+			//이미지 다운로드
+			html2canvas($('#wrap'), {
+				onrendered: function(canvas){
+					var imgName = $('#tableName').val();
+					
+					$('#downloadImg').attr('href', canvas.toDataURL());
+					$('#downloadImg').attr('download', '이미지.png');
+					$('#downloadImg').click();
+				}
+			});
+			
+		});
+		*/
+		
 	});
+</script>
+<script type="text/javascript">
+	window.onload = function(){
+		var wrap = document.getElementById('wrap');
+		var downloadImg = document.getElementById('downloadImg');
+		var buttonExport = document.getElementById('buttonTableExport');
+		
+		//이미지 다운로드 버튼 클릭시
+		buttonExport.onclick = function(){
+			//이미지 다운로드 이벤트 발생
+			html2canvas(wrap).then(function(canvas) {
+			    downloadImg.setAttribute('href', canvas.toDataURL());
+			    downloadImg.setAttribute('download', '시간표.png');
+			  	
+			  	downloadImg.click();
+			});
+		}
+	}
 </script>
 
 <div id="container" class="timetable" style="height: 800px;">
+	
 	<hr>
 	<aside>
 		<form id="semesterSelectForm" class="select" action="${pageContext.request.contextPath}/timetable/timetableView.do">
@@ -434,7 +471,7 @@
 			</div>
 			<hr>
 			<ol class="buttons threecols">
-	          <li id="buttonTableExport" data-modal="tableExport"><a class="light image export">이미지</a></li>
+	          <li id="buttonTableExport"><a class="light image export">이미지</a></li>
 	          <li id="buttonTableSetting" data-modal="tableSetting"><a class="light image setting">설정</a></li>
 	        </ol>
 	        <hr>
@@ -456,7 +493,8 @@
 			</ol>
 		</div>
 	</aside>
-	<div class="wrap">
+	<div id="wrap" class="wrap">
+	<a id="downloadImg" style="display:none"></a>
 		<div class="tablehead">
 			<table class="tablehead">
 				<tbody>
