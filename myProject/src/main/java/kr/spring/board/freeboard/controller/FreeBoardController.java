@@ -147,11 +147,19 @@ public class FreeBoardController {
 			}
 			
 			
+			//댓글 갯수
+			Map<String,Object> map = 
+					new HashMap<String,Object>();
+			map.put("post_num", post_num);
+			int count = replyService.selectRowCountReply(map);
 			
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
+			freeboard.setReply_cnt(count);
+	
 			
 			return new ModelAndView("freeBoardView","freeboard",freeboard);
 		}
+		
 		//이미지 출력
 		@RequestMapping("/freeBoard/imageView.do")
 		public ModelAndView viewImage(@RequestParam int post_num) {

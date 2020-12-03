@@ -5,9 +5,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
 <script src="<c:url value="/resources/js/jquery-3.5.1.min.js" />"></script>
-<<script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function(){
-	//좋아요 처리된 형태
 	var currentPage;
 	var count;
 	var rowCount;
@@ -43,14 +42,14 @@ $(document).ready(function(){
 					$(list).each(function(index,item){
 						var output = '<div class="item">';
 						if(item.anonymous == 1){
-							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large"> 익명</h4>';
+							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large">익명</h4>';
 						}else if(item.anonymous == 0){
 							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
 						}
 						output += '  <div class="sub-item">';
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
-						output += item.reg_date;
+						output += '<span class="reply-date">'+item.reg_date+'</span>';
 						
 						if($('#mem_num').val()==item.mem_num){
 							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
@@ -176,6 +175,7 @@ $(document).ready(function(){
 			modifyUI += '   </div>';
 			modifyUI += '   <hr size="1" noshade width="96%">';
 			modifyUI += '</form>';
+			
 	
 		//이전에 이미 수정하는 댓글이 있을 경우 수정버튼을 클릭하면
 		//숨김 sub-item를 환원시키고 수정폼을 초기화함
@@ -215,6 +215,13 @@ $(document).ready(function(){
 			$('#mre_content').focus();
 			return false;
 		}
+		var result = confirm('수정 하시겠습니까?');
+		if(result) {
+			
+			
+		}else{
+			return false;
+		}
 		
 		//폼에 입력한 데이터 반환
 		var data = $(this).serialize();
@@ -233,6 +240,22 @@ $(document).ready(function(){
 				}else if(data.result=='success'){
 					//$('#mre_form').parent().find('p').html($('#mre_content').replace(/\n/g,'<br>'));
 					$('#mre_form').parent().find('p').html($('#mre_content').val().replace(/</g,'&lt;').replace(/>/g,'&gt;'));
+					
+					//변경 시간 처리
+					var time = new Date();
+					var month = time.getMonth() + 1;
+					var date = time.getDate();
+					var hours = time.getHours();
+					var minutes = time.getMinutes();
+					
+					var clock = '';
+					clock += ((month<10) ? '0' : '') +month;
+					clock += ((date<10) ? '-0' : '-') +date;
+					clock += ((hours<10) ? ' 0' : ' ') +hours;
+					clock += ((minutes<10) ? ':0' : ':') +minutes;
+					
+					$('#mre_form').parent().find('span.reply-date').text(clock);
+					
 					//수정폼 초기화
 					initModifyForm();
 				}else if(data.result=='wrongAccess'){
@@ -251,6 +274,14 @@ $(document).ready(function(){
 	
 	//댓글 삭제
 	$(document).on('click','.delete-btn',function(){
+		var result = confirm('삭제하시겠습니까?');
+		if(result) {
+			
+			
+		}else{
+			return false;
+		}
+		
 		//댓글 번호
 		var comment_num = $(this).attr('data-num');
 		//작성자 아이디
@@ -308,7 +339,9 @@ $(document).ready(function(){
 				<c:if test="${1 eq freeboard.anonymous}">
 						익명
 				</c:if></h3>
-				<time class="large"><fmt:formatDate value="${freeboard.modify_date}" pattern="MM/dd HH:MM"/></time>
+				   <fmt:parseDate var="dateTempParse" value="${freeboard.modify_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+       				<fmt:formatDate value="${dateTempParse}" pattern="MM/dd HH:mm"/>
+	
 			</div>
 			<ul class="status">
 				<li class="messagesend" data-modal="messageSend" data-article-id="76626841" data-is-anonym="0">쪽지</li>
@@ -318,7 +351,6 @@ $(document).ready(function(){
 			<h1>${freeboard.title}</h1>
 			
 				${freeboard.content}
-			
 			<c:if test="${!empty freeboard.filename}"> <!-- filename이 비어있지 않는다면 아래의 div를 실행 -->
 			<div class="align-center">
 				<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">
@@ -329,10 +361,10 @@ $(document).ready(function(){
 			<ul class="status">
 				<!--<c:if test="${!empty user}">-->
 					<li class="vote" id="like_check" >
-					<c:out value="${freeLikeVO.like_check}"/> 
+					0
 					</li>
 					
-					<li class="comm">0</li>
+					<li class="comm" id="count">${freeboard.reply_cnt}</li>
 				<!--</c:if>-->
 			</ul>
 		</div>
@@ -392,7 +424,7 @@ $(document).ready(function(){
 			<input type="hidden" name="post_num"
 			       value="${freeboard.post_num}" id="post_num">
 			<input type="hidden" name="mem_num"
-			       value="${freeboard.mem_num}" id="mem_num">
+			       value="${user.mem_num}" id="mem_num">
 			<textarea rows="3" cols="50"
 			  name="content" id="content"
 			  class="rep-content"
@@ -412,7 +444,7 @@ $(document).ready(function(){
 	<!-- 댓글 목록 출력 -->
 	<div id="output"></div>
 	<div class="paging-button" style="display:none;">
-		<input type="button" value="다음글 보기">
+		<input type="button" value="댓글 더 보기">
 	</div>
 	<div id="loading" style="display:none;">
 		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">

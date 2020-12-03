@@ -39,10 +39,12 @@ public class FreeReplyVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	@Override
 	public String toString() {
-		return "ReplyVO [comment_num=" + comment_num + ", post_num=" + post_num + ", mem_num=" + mem_num + ", content="
-				+ content + ", reg_date=" + reg_date + ", anonymous=" + anonymous + "]";
+		return "FreeReplyVO [comment_num=" + comment_num + ", post_num=" + post_num + ", mem_num=" + mem_num
+				+ ", content=" + content + ", reg_date=" + reg_date + ", anonymous=" + anonymous + ", id=" + id
+				+ ", photoname=" + photoname + "]";
 	}
 	public int getComment_num() {
 		return comment_num;

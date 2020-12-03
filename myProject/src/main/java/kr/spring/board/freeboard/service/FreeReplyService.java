@@ -11,4 +11,5 @@ public interface FreeReplyService {
 	public void insertReply(FreeReplyVO boardReply);
 	public void updateReply(FreeReplyVO boardReply);
 	public void deleteReply(Integer re_num);
-}
+	public void countReply(Map<String,Object> map);
+	}

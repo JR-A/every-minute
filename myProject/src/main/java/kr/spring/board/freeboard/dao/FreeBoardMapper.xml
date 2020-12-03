@@ -5,16 +5,40 @@
 <mapper namespace="kr.spring.board.freeboard.dao.FreeBoardMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
  <select id ="selectList" parameterType="map" resultType="freeBoardVO">
 
+	
 	SELECT
-	*
+	post_num,
+	mem_num,
+	title,
+	content,
+	TO_CHAR(reg_date,'MM-DD HH24:MI') reg_date,
+	TO_CHAR(modify_date,'MM-DD HH24:MI') modify_date,
+	uploadfile,
+	filename,
+	anonymous,
+	id,
+	reply_cnt
+	
 	FROM(SELECT
 		a.*,
 		rownum rnum	
-		
-		FROM(SELECT
-				* 
-			 FROM freeBoard f JOIN member m 
-			 ON f.mem_num=m.mem_num
+		FROM(
+		SELECT
+		f.post_num,
+		f.mem_num,
+		title,
+		content,
+		f.reg_date,
+		f.modify_date,
+		uploadfile,
+		filename,
+		anonymous,
+		id,
+		reply_cnt
+			 FROM freeBoard f  
+			 LEFT OUTER JOIN (SELECT COUNT(*) reply_cnt, post_num  FROM freeboard_comment GROUP BY post_num) r ON f.post_num=r.post_num
+			 JOIN member m ON f.mem_num=m.mem_num
+			 JOIN member_detail d ON m.mem_num=d.mem_num
 			  		<where>
 			 		 	<if test="keyword != '' and keyfield =='title'">
 			 		 		f.title LIKE '%' || #{keyword} || '%'
@@ -50,13 +74,15 @@
 			 		 	<if test="keyword != '' and keyfield =='content'">
 			 		 		f.content LIKE '%' || #{keyword} || '%' 
 			 		 	</if>
+			 		 		<if test="keyword != '' and keyfield =='tag'">
+			 		 		f.content Like '%' || #{keyword} || '%'
+			 		 	</if>
 			 		 	<if test="keyword != '' and keyfield =='all'">
 			 		 		f.title LIKE '%' || #{keyword} || '%' or
 			 		 		f.content LIKE '%' || #{keyword} || '%'
 			 		 	</if>
 			 		 </where>
 </select>
-
 <update id = "updateBoard" parameterType="freeBoardVO">
 	UPDATE freeboard SET
 	<if test="filename!=''">

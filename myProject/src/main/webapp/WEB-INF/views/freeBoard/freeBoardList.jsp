@@ -52,18 +52,23 @@
 					<a href="detail.do?post_num=${freeboard.post_num}">
 						<h2><a href="detail.do?post_num=${freeboard.post_num}">${freeboard.title}</a></h2>
 						<p class="small">${freeboard.content}</p>
-						<time class="small"><fmt:formatDate value="${freeboard.modify_date}" pattern="MM/dd HH:MM"/></time>
+						<h2 class= "small">${freeboard.modify_date}</h2>
+
+				<time class="111">
 				<c:if test="${0 eq freeboard.anonymous}">
 						${freeboard.id}
 				</c:if>
 				<c:if test="${1 eq freeboard.anonymous}">
 						익명
 				</c:if>
+				</time>
+				
+				
 					</a>
 		<div class ="wrapstatus">
 			<ul class="status">
 					<li class="vote" id="count_update">0</li>
-					<li class="comm">0</li>
+					<li class="comm">${freeboard.reply_cnt}</li>
 			</ul>
 		</div>
 		

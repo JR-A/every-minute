@@ -17,13 +17,15 @@ public class FreeBoardVO {
 	private String title;
 	@NotEmpty
 	private String content;
-	private Date reg_date;
-	private Date modify_date;
+	private String reg_date;
+	private String modify_date;
 	private byte[] uploadfile;
 	private String filename;
 	private int anonymous;
 	private String id;
 	private String photoname;
+	private int reply_cnt; //댓글 갯수
+	
 	//이미지 업로드 파일 처리
 	public void setUpload(MultipartFile upload)throws IOException{
 		//MultipartFile -> byte[] 반환(byte배열로 변환)
@@ -32,15 +34,6 @@ public class FreeBoardVO {
 		setFilename(upload.getOriginalFilename());
 	}
 	
-	@Override
-	public String toString() {
-		return "FreeBoardVO [post_num=" + post_num + ", mem_num=" + mem_num + ", title=" + title + ", content="
-				+ content + ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", filename=" + filename
-				+ ", anonyumous=" + anonymous + ", id=" + id + "]";
-	}
-
-
-
 	public int getAnonymous() {
 		return anonymous;
 	}
@@ -52,9 +45,6 @@ public class FreeBoardVO {
 	public String getId() {
 		return id;
 	}
-
-
-
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -86,18 +76,23 @@ public class FreeBoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getReg_date() {
+	
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getModify_date() {
+
+	public String getModify_date() {
 		return modify_date;
 	}
-	public void setModify_date(Date modify_date) {
+
+	public void setModify_date(String modify_date) {
 		this.modify_date = modify_date;
 	}
+
 	public byte[] getUploadfile() {
 		return uploadfile;
 	}
@@ -118,7 +113,21 @@ public class FreeBoardVO {
 	public void setPhotoname(String photoname) {
 		this.photoname = photoname;
 	}
-
 	
+	public int getReply_cnt() {
+		return reply_cnt;
+	}
+
+	public void setReply_cnt(int reply_cnt) {
+		this.reply_cnt = reply_cnt;
+	}
+
+	@Override
+	public String toString() {
+		return "FreeBoardVO [post_num=" + post_num + ", mem_num=" + mem_num + ", title=" + title + ", content="
+				+ content + ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", filename=" + filename
+				+ ", anonymous=" + anonymous + ", id=" + id + ", photoname=" + photoname + ", reply_cnt=" + reply_cnt
+				+ "]";
+	}
 }
 

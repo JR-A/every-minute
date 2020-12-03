@@ -88,9 +88,9 @@ public class ReplyController {
 					new HashMap<String,Object>();
 			map.put("post_num", post_num);
 
-			//총 글의 갯수
+			//총 댓글의 갯수
 			int count = freeReplyService.selectRowCountReply(map);
-
+			log.debug("<<<<count>>>>>>>>:"+count);
 			PagingUtil page = new PagingUtil(currentPage,count,
 					rowCount,pageCount,null);
 			map.put("start", page.getStartCount());
@@ -110,11 +110,14 @@ public class ReplyController {
 
 			Map<String,Object> mapJson = 
 					new HashMap<String,Object>();
+			
 			mapJson.put("count", count);
 			mapJson.put("rowCount", rowCount);
 			mapJson.put("list", list);
 
 			return mapJson;
+			
+	
 		}
 		//댓글 삭제
 		@RequestMapping("/freeBoard/deleteReply.do")
