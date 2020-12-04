@@ -32,5 +32,21 @@ public class CustomBoardServiceImpl implements CustomBoardService {
 	public CustomBoardVO selectCustomBoard(Integer board_num) {
 		return customBoardMapper.selectCustomBoard(board_num);
 	}
+	//게시판 수정
+	@Override
+	public void updateCustomBoard(CustomBoardVO customBoardVO) {
+		customBoardMapper.updateCustomBoard(customBoardVO);
+	}
+	//게시판 삭제
+	@Override
+	public void deleteCustomBoard(Integer board_num) {
+		customBoardMapper.deleteCustomPost(board_num);
+		customBoardMapper.deleteCustomBoard(board_num);
+	}
+	//게시판의 게시글 개수
+	@Override
+	public int hasPostCount(int board_num) {
+		return customBoardMapper.hasPostCount(board_num);
+	}
 
 }

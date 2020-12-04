@@ -115,16 +115,43 @@ CREATE TABLE CustomPost(
 
 
 ---------------------------------------------해시태그----------------------------------------------------
-CREATE TABLE Hashtag(
-	hashtag_num NUMBER NOT NULL,
-	name VARCHAR2(100) NOT NULL,
-	
-	CONSTRAINT hashtag_pk PRIMARY KEY (hashtag_num),
-	CONSTRAINT hashtag_uk UNIQUE (name)
+CREATE TABLE FreeBoard_Hashtag (
+    hashtag_num NUMBER NOT NULL,
+    name VARCHAR2(20) NOT NULL,
+    CONSTRAINT freeboard_hashtag_pk PRIMARY KEY (hashtag_num)
 );
---해시태그,게시글 관계 테이블은 post 외래키가 모호하므로 아직 생성하지 않음--
+    CREATE TABLE InfoBoard_Hashtag (
+    hashtag_num NUMBER NOT NULL,
+    name VARCHAR2(20) NOT NULL,
+    CONSTRAINT infoboard_hashtag_pk PRIMARY KEY (hashtag_num)
+);
+CREATE TABLE CustomBoard_Hashtag (
+    hashtag_num NUMBER NOT NULL,
+    name VARCHAR2(20) NOT NULL,
+    CONSTRAINT customboard_hashtag_pk PRIMARY KEY (hashtag_num)
+);
+CREATE TABLE FreeBoard_Post_Hashtag (
+    post_num NUMBER NOT NULL,
+    hashtag_num NUMBER NOT NULL,
+    CONSTRAINT freeBoard_post_hashtag_pk PRIMARY KEY (post_num, hashtag_num),
+    CONSTRAINT freeBoard_post_hashtag_n_fk FOREIGN KEY (hashtag_num) REFERENCES FreeBoard_Hashtag (hashtag_num),
+    CONSTRAINT freeBoard_Post_hashtag_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num)
+);
+CREATE TABLE InfoBoard_Post_Hashtag (
+    post_num NUMBER NOT NULL,
+    hashtag_num NUMBER NOT NULL,
+    CONSTRAINT infoBoard_post_hashtag_pk PRIMARY KEY (post_num, hashtag_num),
+    CONSTRAINT infoBoard_post_hashtag_n_fk FOREIGN KEY (hashtag_num) REFERENCES InfoBoard_Hashtag (hashtag_num),
+    CONSTRAINT infoBoard_post_hashtag_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard (post_num)
+);
+CREATE TABLE CustomBoard_Post_Hashtag (
+    post_num NUMBER NOT NULL,
+    hashtag_num NUMBER NOT NULL,
+    CONSTRAINT customBoard_post_hashtag_pk PRIMARY KEY (post_num, hashtag_num),
+    CONSTRAINT customBoard_post_hashtag_n_fk FOREIGN KEY (hashtag_num) REFERENCES CustomBoard_Hashtag (hashtag_num),
+    CONSTRAINT customBoard_post_hashtag_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost (post_num)
+);
 --------------------------------------------------댓글----------------------------------------------------
-
 CREATE TABLE FreeBoard_Comment(
 	comment_num NUMBER NOT NULL,
 	post_num NUMBER NOT NULL,
@@ -137,19 +164,262 @@ CREATE TABLE FreeBoard_Comment(
 	CONSTRAINT freecomment_fk FOREIGN KEY (post_num) REFERENCES FreeBoard (post_num),
 	CONSTRAINT freecomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)			
 );
+CREATE TABLE infoBoard_Comment(
+	comment_num NUMBER NOT NULL,
+	post_num NUMBER NOT NULL,
+	mem_num NUMBER NOT NULL,
+	content CLOB NOT NULL,
+ 	reg_date  DATE DEFAULT SYSDATE NOT NULL,
+	anonymous NUMBER(1) NOT NULL,(0:미허용 1:허용) 
 
+	CONSTRAINT infocomment_pk PRIMARY KEY(comment_num),
+    CONSTRAINT infocomment_fk FOREIGN KEY (post_num) REFERENCES infoBoard (post_num),
+    CONSTRAINT infocomment_fk2 FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+    
+);
+CREATE TABLE CustomBoard_Comment(
+    comment_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    content CLOB NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    anonymous NUMBER(1) NOT NULL,
+    CONSTRAINT customPost_comment_pk PRIMARY KEY (comment_num),
+    CONSTRAINT customPost_comment_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost (post_num),
+    CONSTRAINT customPost_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+);
 -------------------------------------------------- 추천 -----------------------------------------------
-
-
+--(게시글)
+CREATE TABLE FreeBoard_Like_Post(
+    like_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT freeBoard_like_post_pk PRIMARY KEY (like_num),
+    CONSTRAINT freeBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
+    CONSTRAINT freeBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_like_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Like_Post(
+    like_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT infoboard_like_post_pk PRIMARY KEY (like_num),
+    CONSTRAINT infoBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
+    CONSTRAINT infoBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_like_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Like_Post(
+    like_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT customBoard_like_post_pk PRIMARY KEY (like_num),
+    CONSTRAINT customBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
+    CONSTRAINT customBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_like_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+--(댓글)
+CREATE TABLE FreeBoard_Like_Comment(
+    like_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT freeBoard_like_comment_pk PRIMARY KEY (like_num),
+    CONSTRAINT freeBoard_like_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
+    CONSTRAINT freeBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_like_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Like_Comment(
+    like_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT infoboard_like_comment_pk PRIMARY KEY (like_num),
+    CONSTRAINT infoBoard_like_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
+    CONSTRAINT infoBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_like_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Like_Comment(
+    like_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT customBoard_like_comment_pk PRIMARY KEY (like_num),
+    CONSTRAINT customBoard_like_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
+    CONSTRAINT customBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_like_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
 -------------------------------------------------- 신고 -----------------------------------------------
-
-
+--(게시글)
+CREATE TABLE FreeBoard_Blame_Post(
+    blame_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT freeBoard_blame_post_pk PRIMARY KEY (blame_num),
+    CONSTRAINT freeBoard_blame_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
+    CONSTRAINT freeBoard_blame_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_blame_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Blame_Post(
+    blame_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT infoboard_blame_post_pk PRIMARY KEY (blame_num),
+    CONSTRAINT infoBoard_blame_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
+    CONSTRAINT infoBoard_blame_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_blame_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Blame_Post(
+    blame_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT customBoard_blame_post_pk PRIMARY KEY (blame_num),
+    CONSTRAINT customBoard_blame_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
+    CONSTRAINT customBoard_blame_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_blame_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+--(댓글)
+CREATE TABLE FreeBoard_Blame_Comment(
+    blame_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT freeBoard_blame_comment_pk PRIMARY KEY (blame_num),
+    CONSTRAINT freeBoard_blame_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
+    CONSTRAINT freeBoard_blame_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_blame_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Blame_Comment(
+    blame_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT infoboard_blame_comment_pk PRIMARY KEY (blame_num),
+    CONSTRAINT infoBoard_blame_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
+    CONSTRAINT infoBoard_blame_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_blame_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Blame_Comment(
+    blame_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    CONSTRAINT customBoard_blame_comment_pk PRIMARY KEY (blame_num),
+    CONSTRAINT customBoard_blame_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
+    CONSTRAINT customBoard_blame_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_blame_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
 --------------------------------------- 즐겨찾기 -----------------------------------------------
-
-
+CREATE TABLE FreeBoard_Favorite(
+    fav_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    CONSTRAINT freeBoard_favorite_post_pk PRIMARY KEY (fav_num),
+    CONSTRAINT freeBoard_favorite_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
+    CONSTRAINT freeBoard_favorite_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Favorite(
+    fav_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    CONSTRAINT infoboard_favorite_post_pk PRIMARY KEY (fav_num),
+    CONSTRAINT infoBoard_favorite_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
+    CONSTRAINT infoBoard_favorite_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Favorite(
+    fav_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    CONSTRAINT customBoard_favorite_post_pk PRIMARY KEY (fav_num),
+    CONSTRAINT customBoard_favorite_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
+    CONSTRAINT customBoard_favorite_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+);
 --------------------------------------------------쪽지-----------------------------------------------------------
-
-
+--(게시글)
+CREATE TABLE FreeBoard_Message_Post(
+    msg_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT freeBoard_message_post_pk PRIMARY KEY (msg_num),
+    CONSTRAINT freeBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
+    CONSTRAINT freeBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Message_Post(
+    msg_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT infoboard_message_post_pk PRIMARY KEY (msg_num),
+    CONSTRAINT infoBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
+    CONSTRAINT infoBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Message_Post(
+    msg_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT customBoard_message_post_pk PRIMARY KEY (msg_num),
+    CONSTRAINT customBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
+    CONSTRAINT customBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+--(댓글)
+CREATE TABLE FreeBoard_Message_Comment(
+    msg_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT freeBoard_message_comment_pk PRIMARY KEY (msg_num),
+    CONSTRAINT freeBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
+    CONSTRAINT freeBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Message_Comment(
+    msg_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT infoboard_message_comment_pk PRIMARY KEY (msg_num),
+    CONSTRAINT infoBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
+    CONSTRAINT infoBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Message_Comment(
+    msg_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT customBoard_message_comment_pk PRIMARY KEY (msg_num),
+    CONSTRAINT customBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
+    CONSTRAINT customBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
 --------------------------------------------------시간표-----------------------------------------------------------
 
 CREATE TABLE Timetable(
@@ -238,6 +508,7 @@ CREATE SEQUENCE hashtag_seq START WITH 200; --Hashtag의 hashtag_num
 
 
 CREATE SEQUENCE free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --FreeBoard_Comment의comment_num
+CREATE sequence info_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000;
 
 
 CREATE SEQUENCE timetable_seq START WITH 40000; --Timetable의 t_num

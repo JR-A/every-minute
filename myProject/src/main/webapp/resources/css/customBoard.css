@@ -1,120 +1,112 @@
-@CHARSET "UTF-8";
+@charset "UTF-8";
 
-/*=========레이아웃=========*/
-div#main {
-	width: 1280px;
-	margin: 0 auto;
-	font-size: 10pt;
-	font-family: "맑은 고딕";
+/*==========페이지 기본 스타일 시작======*/
+.page-main-style{
+	width:100%;
+	margin:0 auto;
+}
+.one-page{
+	width:600px;
+	margin:0 auto;
+}
+/*==========페이지 기본 스타일 끝 ======*/
+
+/*=========제목 & 소제목 ==========*/
+h2.title > #alert {
+	color:red;
+    float: right;
+    font-size:12px;
 }
 
-/*======= 헤더영역 =======*/
-div.wrap {
-	margin: 0 auto;
-	width: 1280px;
-	height: 100%;
+/*=========제목 & 소제목 ==========*/
+
+/*======== 게시판 디자인 시작 ========*/
+.title {
+    padding: 15px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+    text-decoration:none ;
+    color:#000000;
+} 	
+#title {
+    color: #292929;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+#subtitle {
+    color: #666;
+    font-family: "맑은 고딕", 돋움, tahoma;
+    _font-family: 돋움, tahoma;
+    font-size: 12px;
+    letter-spacing: -0.5px;
+}
+.board_view {
+    margin-bottom: -1px;
+    box-sizing: border-box;
+    border: 1px solid #e3e3e3;
+    background-color: #fff;
+    display: block;
+    padding: 15px;
+}
+.board_view > h2 {
+	margin: 0;
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-weight: 400;
+    color: #292929;
+}
+.board_view > .small {
+	margin-bottom: 5px;
+    max-height: 30px;
+    line-height: 15px;
+    white-space: normal;
+    overflow: hidden;
+    font-size: 12px;
+    color: #a6a6a6;
+}
+#div_content{
+	clear:both;
 }
 
-#logo {
-	float: left;
-	height: 100%;
+.page-main-style-detail {
+	margin-bottom: -1px;
+    box-sizing: border-box;
+    border: 1px solid #e3e3e3;
+    background-color: #fff;
 }
 
-#logo>a {
-	float: left;
-	display: block;
-	margin: 20px 16px 20px 0;
-	width: 40px;
-	height: 40px;
+a.article2 {
+    display: block;
+    padding: 15px;
 }
 
-#logo>a>img {
-	width: 100%;
-	height: 100%;
+/* 이미지 */
+article img.picture {
+    margin: 0 5px 5px 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
 }
+article img.picture {
+    float: left;
+}
+/*======== 게시판 디자인 끝 ========*/
 
-#logo>p {
-	float: left;
-	margin-top: 20px;
-}
 
-#logo>p>span.name {
-	display: block;
-	color: #c62917;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-span.name.multiple {
-	margin-left: 3px;
-	line-height: 15px;
-	font-size: 12px;
-}
-
-#logo>p>span.subname {
-	display: block;
-	line-height: 25px;
-	color: #292929;
-	font-size: 22px;
-}
-
-#account {
-	float: right;
-	height: 100%;
-	padding: 20px 0;
-	box-sizing: border-box;
-}
-
-#menu {
-	margin: 0 auto;
-	width: 600px;
-	height: 100%;
-	text-align: center;
-	font-size: 16px;
-}
-
-#menu>li {
-	display: inline-block;
-	margin: 0 12px;
-	height: 76px;
-	line-height: 76px;
-}
-
-#menu>li.active {
-	
-}
-#customBoard_form{
-	border: 0px;
-	border: none;
-}
-/*======= 헤더영역 끝 =======*/
-
-/*======= 네비게이션 영역 =======*/
-#submenu {
-	background-color: #f2f2f2;
-}
-
-.group>ul {
-	text-align: center;
-}
-
-.group>ul li {
-	display: inline-block;
-	line-height: 40px;
-}
-
-.group>ul>span {
-	margin: 0px 8px 0px 8px;
-}
-
+/*======== 게시판 생성 시작========*/
 #customBoard_comm {
 	display: inline;
 }
-
 #createCustomBoard_ul {
 	padding-inline-start: 0px;
 }
-
+#updateCustomBoard_ul{
+	padding-inline-start: 0px;
+}
 #customBoardVO {
 	border: 0px;
 }
@@ -155,8 +147,6 @@ span.name.multiple {
 #Type_text>p {
 	display: inline;
 }
-
-
 
 /*======= 익명허용 =======*/
 /* The switch - the box around the slider */
@@ -239,259 +229,178 @@ input.delete_btn {
         cursor: pointer;
         margin-top: 15px;
 }
-
-/*======= 네비게이션 영역 끝 =======*/
-
-/*======= right 영역 =======*/
-.board {
-	width: 200px;
+/*======== 수정 삭제 ========*/
+article ul.status {
+    float: right;
+    margin-right: 8px;
+    padding: 0 2px;
+    height: 20px;
+    line-height: 20px;
+    color: #a6a6a6;
+    font-size: 12px;
+    cursor: pointer;
+}
+/*======= 글 작성 ========*/
+#container > div.articles > form.write p {
+    padding: 15px;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #fff;
+}
+#container > div.articles > form.write textarea {
+    width: 100%;
+    height: 90px;
+    border: 0;
+    color: #292929;
+    font-size: 14px;
+    resize: none;
+}
+#post_content {
+	border-bottom: 6px;
+}
+.check_anony {
 	float: right;
+	margin-right: 40px;
 }
 
-.board>div.card>ul {
-	padding: 0px;
+#container > div.articles > form.write ul.option li.hashtag {
+    float: left;
+    background-image: url(/images/customBoard/hashtag.png);
 }
-/*======= right 영역 끝 =======*/
+#container > div.articles > form.write ul.option li.attach {
+    float: left;
+    background-image: url(/images/customBoard/upload.png);
+}
+#container > div.articles > form.write ul.option li.anonym {
+    background-image: url(/images/customBoard/anonymous0.png);
+}
+#container > div.articles > form.write ul.option li.anonym.active {
+    float: right;
+    margin-right: 15px;
+    background-image: url(/images/new/customBoard/anonymous1.png);
+}
+#container > div.articles > form.write ul.option li.submit {
+    float: right;
+    background-color: #c62917;
+    background-image: url(/images/customBoard/writeSubmit.png);
+}
+#container > div.articles > form.write ul.option li {
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 40px 40px;
+    cursor: pointer;
+}
+#searchArticleForm{
+	border:0px;
+	
+}
+/*======== 게시판 생성 끝 ========*/
 
-/*======= footer 영역 =======*/
-#footer {
-	width: 1280px;
+/*======== 댓글 시작 ========*/
+div#comment_div{
+	padding:5px 10px 40px 10px;
+	margin-top:10px;
+	background-color:#eeeeee;
+}
+textarea.rep-content{
+	width:90%;
+	height:50px;
+	margin:10px 10px;
+}
+form#comment_form {
+    width: 650px;
+    border: none;
+}
+/*======== 댓글 끝 ========*/
+
+/*======== Mypage 추가 시작 ========*/
+article img.picture.medium {
+    margin: 0 5px 5px 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+article img.picture.large {
+    margin: 0 10px 15px 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+article img.picture {
+    float: left;
+}
+article div.profile {
+    float: left;
+    margin-bottom: 15px;
+    height: 40px;
+    margin-top: 5px;
+}
+article h3.large {
+	margin: 0px;
+    height: 20px;
+    max-width: 200px;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    margin-right: 10px;
+}
+article time.large {
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+article ul.status {
+    float: right;
+}
+article hr {
+    clear: both;
+    height: 0;
+    border: 0;
+}
+/*======== Mypage 추가 끝 ========*/
+/*============= 글 등록 폼 시작 ==============*/
+form#write_customform{
+    width: 95%;
+    border: 1px solid #d6d6d6;
+}
+#upload{
+    margin-top: 15px;
 }
 
-#footer>ul {
-	text-align: center;
+/*============= 글 등록 폼 끝 ==============*/
+/*============= 수정폼 시작 ==============*/
+.board_title {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    border: 0;
+    color: #292929;
+    font-size: 16px;
+    font-weight: bold;
+    outline:none
 }
-
-#footer>ul li {
-	display: inline-block;
-	margin: 0 4px 4px 4px;
+.board_p {
+    padding: 15px;
+    margin: 0px;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #fff;
 }
-/*======= footer 영역 끝=======*/
-div#main_body {
-	float: left;
-	width: 78%;
-	padding: 5px 5px 30px 5px;
-}
-
-div#main_footer {
-	clear: both;
+.board_p > textarea {
 	width: 100%;
-	background-color: yellow;
+	height: 70px;
+    border: 0;
+    color: #292929;
+    font-size: 15px;
+    resize: none;
+    outline:none
 }
-
-/*==========메뉴==========*/
-div#main_menu ul {
-	list-style: none;
+#write_customform > #alert {
+	color:red;
+    font-size:12px;
 }
-
-div#main_menu ul li {
-	margin-bottom: 5px;
+#submitModify{
+	margin-top: 15px;
 }
-
-/*==========페이지 기본 스타일======*/
-.page-main-style {
-	width: 98%;
-	margin: 0 auto;
-}
-
-.one-page {
-	width: 600px;
-	margin: 0 auto;
-}
-/*==========메시지======*/
-.result-display {
-	width: 400px;
-	margin: 50px auto;
-	border: 1px solid #000;
-	padding: 100px 0 100px 0;
-	text-align: center;
-}
-
-.align-center {
-	text-align: center;
-}
-
-.align-right {
-	text-align: right;
-}
-
-.error-color {
-	color: #ff0000;
-}
-/*Mypage*/
-.mypage-div {
-	width: 48%;
-	float: left;
-	padding: 5px;
-}
-
-.my-photo {
-	object-fit: cover;
-	object-position: top; /*정사각형이 아니라 직사각형일 경우 원 안에 보여지게 할 중심 이미지의 위치를 지정*/
-	border-radius: 50%; /*사각형의 모서리 둥근 정도를 지정하는 속성인데 50%를 지정하면 완전한 원이 됨*/
-}
-
-/*목록*/
-form#search_form {
-	border: none;
-}
-
-ul.search {
-	width: 500px;
-	list-style: none;
-	list-style: none;
-	padding: 0;
-	margin: 0 auto;
-	padding: 0;
-	margin: 0 auto;
-}
-
-ul.search li {
-	margin: 0 0 9px 0;
-	padding: 0;
-	display: inline;
-}
-
-.list-space {
-	width: 700px;
-	margin: 10px auto;
-}
-
-table {
-	width: 100%;
-	margin: 5px auto;
-	border: 1px solid #000;
-	border-collapse: collapse;
-}
-
-table td, table th {
-	border: 1px solid #000;
-	padding: 5px;
-}
-/*글상세*/
-.detail-img {
-	max-width: 500px;
-}
-
-div#reply_div {
-	padding: 5px 10px 40px 10px;
-	margin-top: 10px;
-	background-color: #eeeeee;
-}
-
-#output_fav, .output_rfav {
-	cursor: pointer;
-}
-
-#output_fcount {
-	width: 50px;
-	display: inline-block;
-}
-
-form#re_form {
-	width: 650px;
-	border: none;
-}
-
-span.re-title {
-	color: #000;
-	font-size: 12pt;
-	line-height: 200%;
-}
-
-span.letter-count {
-	font-size: 10pt;
-	color: #999;
-}
-
-span.form-id {
-	padding-left: 93px;
-	color: #000;
-}
-
-textarea.rep-content {
-	width: 90%;
-	height: 50px;
-	margin: 10px 10px;
-}
-
-div#re_first {
-	float: left;
-	width: 70%;
-	padding-left: 15px;
-	margin-bottom: 10px;
-}
-
-div#re_second {
-	float: left;
-	width: 19%;
-	margin-bottom: 10px;
-}
-
-div#loading {
-	width: 100px;
-	margin: 0 auto;
-}
-
-div.paging-button {
-	text-align: right;
-}
-
-div#output {
-	clear: both;
-}
-
-form#mre_form {
-	border: none;
-	margin: 5px;
-}
-/*등록,수정폼*/
-form {
-	width: 500px;
-	margin: 0 auto;
-	border: 1px solid #000;
-	padding: 10px 10px 10px 30px;
-}
-
-form#custBoard_form {
-    width: 500px;
-    height: 550px;
-    margin: 0 auto;
-    border: 1px solid #ccc;
-    padding: 20px 40px 20px 40px;
-}
-
-/*summernote 용*/
-form#write_form, form#update_form {
-	width: 590px;
-}
-
-ul {
-	list-style: none;
-}
-
-label {
-	width: 130px;
-	float: left;
-}
-
-input[type="text"], input[type="password"], input[type="email"] {
-	width: 200px;
-}
-
-#register_form input[id="id"] {
-	width: 113px;
-}
-
-input[id="zipcode"] {
-	width: 95px;
-}
-
-li, a {
-	text-decoration: none;
-	list-style: none;
-}
-
-.error-color {
-	color: #ff0000;
-}
+/*============= 수정폼 끝 ==============*/

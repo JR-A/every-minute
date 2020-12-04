@@ -7,14 +7,27 @@
     margin-top: 25px;
     width: 780px;
 }
-#container > div.wrap > #alert {
+#write_form{
+    float: none;
+    left: 25px;
+    margin-top: 25px;
+    border: 0px;
+    width: 100%;
+}
+#container > div.title > #alert {
 	color:red;
-    float: left;
+    float: right;
 }
 #container > div.title > h1 > a {
     color: #292929;
     font-size: 22px;
     font-weight: bold;
+}
+#container > div.title > p#subtitle {
+    color: #808080;
+    font-size: 16px;
+    margin-top: 4px;
+    float: clear;
 }
 #container > div.title {
     margin-bottom: -20px;
@@ -40,7 +53,17 @@
 .pagination{
 	padding:0px;
 }
-
+/*======== 수정 삭제 ========*/
+article ul.status {
+    float: right;
+    margin-right: 8px;
+    padding: 0 2px;
+    height: 20px;
+    line-height: 20px;
+    color: #a6a6a6;
+    font-size: 12px;
+    cursor: pointer;
+}
 /*======= 게시글 목록 =======*/
 #container > div.articles > article img.picture.medium {
     margin: 0 5px 5px 0;
@@ -117,6 +140,13 @@
     color: #292929;
     font-size: 14px;
     resize: none;
+}
+#post_content {
+	border-bottom: 6px;
+}
+.check_anony {
+	float: right;
+	margin-right: 40px;
 }
 
 #container > div.articles > form.write ul.option li.hashtag {

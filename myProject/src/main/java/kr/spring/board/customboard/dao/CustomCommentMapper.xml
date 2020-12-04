@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+ <mapper namespace="kr.spring.board.customboard.dao.CustomCommentMapper">
+ 
+<!-- 댓글 목록 -->
+ 	<select id="selectListComment" parameterType="map" resultType="customCommentVO">
+ 		SELECT comment_num, content, TO_CHAR(reg_date,'MM/DD HH24:MI') reg_date,  post_num, id, anonymous, mem_num
+ 		FROM (SELECT 
+	        a.*, rownum rnum
+	      	FROM (SELECT
+            	comment_num, content, c.reg_date, post_num, id, anonymous, c.mem_num
+            	FROM customboard_comment c JOIN member m 
+            		ON c.mem_num=m.mem_num JOIN member_detail d 
+            		ON m.mem_num=d.mem_num
+            	WHERE post_num = #{post_num}
+           		ORDER BY comment_num DESC) a)
+	 		<![CDATA[
+	 		WHERE rnum >= #{start} AND rnum <= #{end}
+	 		]]>                                 
+ 	</select>
+
+</mapper>

@@ -3,46 +3,40 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.board.customboard.dao.CustomPostMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
-	
-	<!-- 게시판 정보 -->
-	<select id="selectBoardInfo" parameterType="int" resultType="customBoardVO">
-		SELECT * FROM customBoard WHERE board_num = #{board_num}
-	</select>
-	
 	<!-- 게시글 목록 --> 
 	<select id="selectPostList" parameterType="map" resultType="customPostVO"> <!-- 쿼리 실행 결과를  customBoardVO에  담는다-->
-	SELECT * FROM
-		(SELECT search.* FROM 
-			(SELECT board.*, rownum rnum FROM
-				(SELECT * FROM 
-					CustomPost cust_p JOIN Member m 
-						ON cust_p.mem_num = m.mem_num 
-					WHERE board_num = #{board_num}
-						ORDER BY cust_p.post_num DESC 
-				) board) 
-				<where>
-					<!-- ***** 해시태그 keyfield 추가해야 함 ***** -->
-					
-					<if test="keyword != '' and keyfield == 'content'">
-						cust_p.content LIKE '%' || #{keyword} || '%')
-					</if>
-					<if test="keyword != '' and keyfield == 'all'"> 
-						cust_p.title LIKE '%' || #{keyword} || '%' or cust_p.content LIKE '%' || #{keyword} || '%')
-					</if>
-				</where>
-			search)
-	<![CDATA[
-		WHERE rnum>=#{start} AND rnum <= #{end}
-	]]>
-	
+		SELECT * FROM
+			(SELECT post.* FROM 
+				(SELECT board.*, rownum rnum FROM
+					(SELECT * FROM 
+						CustomPost p JOIN Member m 
+							ON p.mem_num = m.mem_num 
+							WHERE board_num = #{board_num}
+							ORDER BY p.post_num DESC 
+					) board) 
+					<where>
+						<if test="keyword != '' and keyfield == 'hashtag'">
+							and board.content LIKE '%' || #{keyword} || '%'
+						</if>	
+						<if test="keyword != '' and keyfield == 'content'">
+							and board.content LIKE '%' || #{keyword} || '%')
+						</if>
+						<if test="keyword != '' and keyfield == 'all'"> 
+							and board.content LIKE '%' || #{keyword} || '%' or board.title LIKE '%' || #{keyword} || '%' or board.content LIKE '%' || #{keyword} || '%')
+						</if>
+					</where>
+				post)
+		<![CDATA[
+			WHERE rnum>=#{start} AND rnum <= #{end}
+		]]>
 	</select>
 	
 	<!-- 페이징처리를 위한 글 count -->
-	<select id="selectRowCount" parameterType="map" resultType="integer">
+	<select id="selectRowCount" parameterType="Integer" resultType="integer">
 		SELECT
 			COUNT(*)
-		FROM CustomPost cust_p JOIN Member m
-		ON cust_p.mem_num = m.mem_num where board_num = #{board_num}
+		FROM CustomPost p JOIN CustomBoard b
+		ON p.board_num = b.board_num where p.board_num = #{board_num}
 	</select>
 	
 	<!-- 글 작성 -->
@@ -51,7 +45,11 @@
 		VALUES (customPost_seq.nextval, #{board_num}, #{mem_num}, #{content}, #{uploadfile}, #{filename}, #{anonymous})
 	</insert>
 	
-	
+	<!-- 게시글 수정 -->
+	<update id="customPostUpdate" parameterType="customPostVO">
+		UPDATE CustomPost SET content=#{content}, uploadfile=#{uploadfile}, filename=#{filename}, anonymous=#{anonymous}
+		WHERE post_num=#{post_num}
+	</update>
 	
 	
 </mapper>

@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper   
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="kr.spring.board.customboard.dao.CustomBoardMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
-	
-	<!-- 게시판 등록 -->
-	<insert id="insertCustomBoard" parameterType="customBoardVO" >
-	INSERT INTO CustomBoard (board_num, mem_num, title, subtitle,type, anonymous)
-	VALUES (customBoard_seq.nextval, #{mem_num}, #{title}, #{subtitle}, #{type}, #{anonymous})
-	</insert>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.board.customboard.dao.CustomBoardMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑 -->
 
+	<!-- 게시판 등록 -->
+	<insert id="insertCustomBoard" parameterType="customBoardVO">
+		INSERT INTO CustomBoard (board_num, mem_num, title, subtitle, type, anonymous)
+		VALUES (customBoard_seq.nextval, #{mem_num}, #{title}, #{subtitle}, #{type}, #{anonymous})
+	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="updateCustomBoard" parameterType="customBoardVO">
+		UPDATE CustomBoard SET title=#{title}, subtitle=#{subtitle}, type=#{type}, anonymous=#{anonymous}
+		WHERE board_num=#{board_num}
+	</update>
+	
 </mapper>

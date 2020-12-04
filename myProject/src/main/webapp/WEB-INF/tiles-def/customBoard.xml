@@ -9,20 +9,24 @@
     	<put-attribute name="title" value="게시판 생성"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/createCustomBoard.jsp"/>  
     </definition>
+     <definition name="customBoardModify" extends="create_board">
+    	<put-attribute name="title" value="게시판 수정"/>
+    	<put-attribute name="body" value="/WEB-INF/views/customBoard/customBoardModify.jsp"/>  
+    </definition>
     <definition name="customPostList" extends="main_board">
-    	<put-attribute name="title" value="글 목록"/>
+    	<put-attribute name="title" value="게시글 목록"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/customPostList.jsp"/>  
     </definition>
     <definition name="customPostModify" extends="main_board">
-    	<put-attribute name="title" value="게시글 상세 정보"/>
+    	<put-attribute name="title" value="게시글 수정"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/customPostModify.jsp"/>  
     </definition>
     <definition name="customPostView" extends="main_board">
-    	<put-attribute name="title" value="글 수정"/>
+    	<put-attribute name="title" value="게시글 상세페이지"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/customPostView.jsp"/>  
     </definition>
     <definition name="customPostWrite" extends="main_board">
-    	<put-attribute name="title" value="글 작성"/>
+    	<put-attribute name="title" value="게시글 작성"/>
     	<put-attribute name="body" value="/WEB-INF/views/customBoard/customPostWrite.jsp"/>  
     </definition>
 </tiles-definitions>

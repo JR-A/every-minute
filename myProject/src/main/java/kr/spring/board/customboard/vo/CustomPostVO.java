@@ -19,6 +19,8 @@ public class CustomPostVO {
 	private byte[] uploadfile; //이미지 파일 _blob
 	private String filename; //파일명
 	private int anonymous; //익명여부
+	
+	private String id;
 
 	//이미지 업로드 파일 처리
 	public void setUpload(MultipartFile upload)throws IOException{
@@ -98,6 +100,14 @@ public class CustomPostVO {
 
 	public void setAnonymous(int anonymous) {
 		this.anonymous = anonymous;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

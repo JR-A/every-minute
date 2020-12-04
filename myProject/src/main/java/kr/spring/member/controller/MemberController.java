@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.board.customboard.service.CustomBoardService;
 import kr.spring.board.customboard.service.CustomPostService;
 import kr.spring.board.customboard.vo.CustomBoardVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
@@ -45,6 +46,8 @@ public class MemberController {
 	FreeBoardService freeBoardService;	
 	@Resource
     private MailSendServiceImpl mss;
+	@Resource
+	CustomBoardService customBoardService;
 	@Resource
 	CustomPostService customPostService;
 	//로그 처리(로그 대상 지정)
@@ -590,6 +593,7 @@ public class MemberController {
 				@RequestParam(value="keyword", defaultValue="") String keyword,
 				@RequestParam(defaultValue="1") int board_num,
 				HttpSession session) {
+			
 			ModelAndView mav =new ModelAndView();
 			MemberVO member=(MemberVO)session.getAttribute("user");
 			
@@ -610,7 +614,7 @@ public class MemberController {
 			map.put("start", page.getStartCount());
 			map.put("end", page.getEndCount());
 
-			CustomBoardVO boardInfo = customPostService.selectBoardInfo(board_num); //게시판 정보
+			CustomBoardVO boardInfo = customBoardService.selectCustomBoard(board_num); //게시판 정보
 			if(log.isDebugEnabled()) {
 				log.debug("<<Custom게시판-게시판 정보>> : " + boardInfo);
 			}

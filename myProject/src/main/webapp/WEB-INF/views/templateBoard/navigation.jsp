@@ -13,7 +13,6 @@
 				<c:if test="${!empty customBoardlist}">
 					<c:forEach var="customBoard" items="${customBoardlist}">
 						<li><a href="${pageContext.request.contextPath}/customBoard/customPostList.do?board_num=${customBoard.board_num}" class="new">
-							<c:out value="${customBoard.board_num}"/>
 							<c:out value="${customBoard.title}"/>
 						</a></li>
 						<span>|</span>
