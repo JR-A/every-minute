@@ -34,8 +34,27 @@ public class TimesMaker {
 						case '금': times.setDay(4); break;
 					}
 					//char -> int 위해  -'0' 해줌
-					times.setStarttime(sub_time[i].charAt(1) - '0');	//월12에서 '1'을 시작교시로 설정
-					times.setEndtime(sub_time[i].charAt(sub_time[i].length()-1) - '0');	//월12에서 '2'를 끝나는교시로 설정
+					char start = sub_time[i].charAt(1);
+					char end = sub_time[i].charAt(sub_time[i].length()-1);
+					if(start>=49 && start<=57 ) { //숫자이면
+						times.setStarttime(start - '0');	//월12에서 '1'을 시작교시로 설정
+					}else {						 //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+						switch(start) {
+						case 'a': times.setStarttime(10); break;
+						case 'b': times.setStarttime(11); break;
+						case 'c': times.setStarttime(12); break;
+						}
+					}
+					if(end>=49 && end<=57 ) { //숫자이면
+						times.setEndtime(end - '0');		//월12에서 '2'를 끝나는교시로 설정
+					}else {					  //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+						switch(end) {
+						case 'a': times.setEndtime(10); break;
+						case 'b': times.setEndtime(11); break;
+						case 'c': times.setEndtime(12); break;
+						case 'd': times.setEndtime(13); break;
+						}
+					}
 					times.setClassRoom(sub_class[i]);	//강의실을 T701로 설정
 					times.setProf_name(subjectList.get(s).getProf_name());
 					
@@ -66,8 +85,27 @@ public class TimesMaker {
 						case '금': times.setDay(4); break;
 					}
 					//char -> int 위해  -'0' 해줌
-					times.setStarttime(sub_time[i].charAt(1) - '0');	//월12에서 '1'을 시작교시로 설정
-					times.setEndtime(sub_time[i].charAt(sub_time[i].length()-1) - '0');	//월12에서 '2'를 끝나는교시로 설정
+					char start = sub_time[i].charAt(1);
+					char end = sub_time[i].charAt(sub_time[i].length()-1);
+					if(start>=49 && start<=57 ) { //숫자이면
+						times.setStarttime(start - '0');	//월12에서 '1'을 시작교시로 설정
+					}else {						 //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+						switch(start) {
+						case 'a': times.setStarttime(10); break;
+						case 'b': times.setStarttime(11); break;
+						case 'c': times.setStarttime(12); break;
+						}
+					}
+					if(end>=49 && end<=57 ) { //숫자이면
+						times.setEndtime(end - '0');		//월12에서 '2'를 끝나는교시로 설정
+					}else {					  //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+						switch(end) {
+						case 'a': times.setEndtime(10); break;
+						case 'b': times.setEndtime(11); break;
+						case 'c': times.setEndtime(12); break;
+						case 'd': times.setEndtime(13); break;
+						}
+					}
 					if(csubjectList.get(s).getProf_name() != null) {times.setProf_name(csubjectList.get(s).getProf_name());}
 					
 					timesList.add(times);

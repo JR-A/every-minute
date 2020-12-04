@@ -134,26 +134,8 @@
 				timeout: 30000,
 				success: function(data){
 					if(data.result == 'success'){
-						var semester =  $("#semester option:selected").val();
-						var t_num = $('#timetableList>li.active').attr('id');
+						location.reload();
 						
-						window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
-						/* ajax로 보여주기...일단보류
-						for(var i=0; i<5; i++){
-							$(data).timesList.each(function(index,item){
-								if(item.day == i){
-									var output = '';
-									output += '<div class="subject color10" style="height:'+ ((item.endtime - item.starttime + 1)*60 + 1) +'px;';
-									output += ' top:'+ (item.starttime-1)*60 +'px;">';
-									output += 	'<ul class="status" style="display: none;">';
-									output += 		'<li title="삭제" class="del"></li>';
-									output += 	'</ul>';
-									output += 	'<h3>' + item.sub_name +'</h3><p><em>' + item.prof_name + '</em><span>' + item.classRoom +'</span></p>';
-									output += '</div>';
-									$('#day'+i+' .cols').append(output);
-								}
-							});
-						}*/
 					}else if(data.result == 'duplicated'){
 						alert('이미 추가한 수업입니다!');
 					}else if(data.result == 'overlapped'){
@@ -193,9 +175,7 @@
 					timeout: 30000,
 					success: function(data){
 						if(data.result == 'success'){
-							var semester =  $("#semester option:selected").val();
-							var t_num = $('#timetableList>li.active').attr('id');
-							window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
+							location.reload();
 						}
 					},
 					error: function(request,status,error){
@@ -243,13 +223,19 @@
 			$(this).closest("div").remove();
 		});
 		
-		//직접 추가 폼의 저장버튼 클릭시
-		$(document).on('submit','#customsubjects',function(){
-			if($('#csub_name').val()==''){
-				alert('이름을 입력하세요!');
-				$('#csub_name').focus();				
-				return false;
+		//직접 추가 폼의 저장버튼 클릭시 커스텀과목 추가
+		$(document).on('submit','#customsubjects',function(event){
+			var check = true;
+			
+			//필수 항목을 입력하지 않은 경우
+			if($('#customsubjects input[name=csub_name]').val().trim() == ''){
+				alert('이름을 입력하세요!')
+				$('#customsubjects input[name=csub_name]').focus();
+				check = false;
 			}
+			
+			if (!check) { return false; }	//함수 종료가 안된다.
+			
 			var csub_time = '';
 			var csub_classRoom = '';
 			$('div.timeplace').each(function(index,item){
@@ -259,24 +245,74 @@
 			    var starthour = $(this).find('select.starthour > option:selected').val();
 			    var endhour = $(this).find('select.endhour > option:selected').val();
 			    
-			    if(starthour >= endhour){
+			    var intStarthour = Number(starthour);
+			    var intEndhour = Number(endhour);
+			    
+			    if(intStarthour >= intEndhour){
 			    	alert('시작 시간은 종료 시간보다 빨라야합니다!');
-			    	return false;
-			    }
-				
-			    if(starthour)
-			    for(var i=starthour; i<endhour; i++){ //교시 구하기
-			    	csub_time += i;
+			    	check = false;
+			    	return false;	//each문 탈출, submit종료는 each문 바깥에 작성
 			    }
 			    
+			    //교시 구하기
+			   	if(intStarthour >= 10){
+			   		switch(intStarthour){
+			   		case 10: csub_time += 'a'; break;
+			   		case 11: csub_time += 'b'; break;
+			   		case 12: csub_time += 'c'; break;
+			   		}
+			   	}
+			   	else{
+				    csub_time += intStarthour;
+			   	}
+			    if((intEndhour-1) != intStarthour){
+			    	if(intEndhour >= 10){
+				   		switch(intEndhour){
+				   		case 10: csub_time += '9'; break;	//끝나는 교시의 의미이므로 1씩 빼준다
+				   		case 11: csub_time += 'a'; break;
+				   		case 12: csub_time += 'b'; break;
+				   		case 13: csub_time += 'c'; break;
+				   		}
+				   	}else{
+					    csub_time += (intEndhour-1);
+				   	}
+			    }   	
+
 			    csub_classRoom +=$(this).find('input.text.place').val();
 			});
 			
-			$('input[name=semester]').val($('#semester option:selected').val());
+			if (!check) { event.preventDefault(); return false; }
+			
+			var semester =  $("#semester option:selected").val();
+
+			$('input[name=semester]').val(semester);
 			$('input[name=t_num]').val($('#timetableList>li.active').attr('id'));
 			$('input[name=csub_time]').val(csub_time);
 			$('input[name=csub_classRoom]').val(csub_classRoom);
 			
+			//커스텀 과목 추가
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/insertCustomSubject.do',
+				type: 'post',
+				data: $('#customsubjects').serialize() + "&semester="+semester,
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					if(data.result == 'success'){
+						location.reload();
+					}else if(data.result == 'overlapped'){
+						alert('같은 시간에 이미 수업이 있습니다!');
+					}else{
+						alert('수업 추가시 에러발생!');
+					}
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+			event.preventDefault();	//기본 이벤트 삭제
+			event.stopPropagation();
 		});
 		
 		
@@ -310,7 +346,7 @@
 		});
 		
 		//시간표 설정 저장버튼 클릭시 설정저장
-		$(document).on('submit','#tableSetting',function(){
+		$(document).on('submit','#tableSetting',function(event){
 			var check = true;
 			var submitName = $('#tableSetting input[name=t_name]').val(); //입력된 시간표 이름
 			//해당학기의 시간표와 이름이 겹치는지 체크
@@ -347,9 +383,7 @@
 				success: function(data){
 					if(data.result == 'success'){
 						alert('저장했습니다.');
-						var semester =  $("#semester option:selected").val();
-						var t_num = $('#timetableList>li.active').attr('id');
-						window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester+'&t_num='+t_num;
+						location.reload();
 					}
 					else{
 						alert('설정 저장 오류발생!');
@@ -359,7 +393,7 @@
 					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
 				}
 			});
-			
+			event.preventDefault();	//기본 submit 이벤트를 제거해주기!!(제거하지 않으면 자기자신(원래페이지 링크) 호출함)
 		});
 		
 		//시간표 설정의 삭제 버튼 클릭시
@@ -377,7 +411,7 @@
 					success: function(data){
 						if(data.result == 'success'){
 							var semester =  $("#semester option:selected").val();
-							window.location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester;
+							location.href = '${pageContext.request.contextPath}/timetable/timetableView.do?semester='+semester;
 						}
 					},
 					error: function(request,status,error){
@@ -392,23 +426,6 @@
 			$('.modalwrap').remove();
 			$(this).closest("form").css("display", "none");
 		});
-		
-		//이미지 버튼 클릭시
-		/*
-		$('#buttonTableExport').click(function(e){
-			//이미지 다운로드
-			html2canvas($('#wrap'), {
-				onrendered: function(canvas){
-					var imgName = $('#tableName').val();
-					
-					$('#downloadImg').attr('href', canvas.toDataURL());
-					$('#downloadImg').attr('download', '이미지.png');
-					$('#downloadImg').click();
-				}
-			});
-			
-		});
-		*/
 		
 	});
 </script>
@@ -568,7 +585,7 @@
 			</div>
 		</div>
 	</div>
-	<form:form id="tableSetting" commandName="timetableVO" class="modal" style="margin-left: -200px; margin-top: -153.5px; display: none;">
+	<form:form id="tableSetting" class="modal" style="margin-left: -200px; margin-top: -153.5px; display: none;">
     	<input type="hidden" name="t_num">
     	<input type="hidden" name="semester">
 		<input type="hidden" name="updatePrimary" value="0">

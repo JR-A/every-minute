@@ -337,6 +337,10 @@ em {
     cursor: pointer;
 }
 
+#customsubjects a.close:hover{
+	background: #c62917 url('https://everytime.kr/images/subjects.close.icon.png') no-repeat center center;
+}
+
 #customsubjects h2 {
     margin-bottom: 20px;
     color: #292929;

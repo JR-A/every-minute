@@ -39,7 +39,7 @@ public interface TimetableMapper {
 	
 	//시간표 번호로 해당시간표가 가진 Subject 목록 가져오기
 	@Select("SELECT s.* FROM Timetable t, Timetable_Subject ts, Subject s\r\n" + 
-			"WHERE t.t_num=ts.t_num and ts.sub_num=s.sub_num and t.t_num=#{t_num}")
+			"WHERE t.t_num=ts.t_num and ts.sub_num=s.sub_num and t.t_num=#{t_num} ORDER BY s.sub_num")
 	public List<SubjectVO> selectSubjectOfTimetable(int t_num);
 	
 	//유저의 해당학기의 기본시간표 정보
@@ -75,7 +75,7 @@ public interface TimetableMapper {
 	public int selectCustomSubjectCountOfTimetable(int t_num);
 	
 	//해당 시간표의 커스텀 과목 가져오기
-	@Select("SELECT * FROM CustomSubject WHERE t_num=#{t_num}")
+	@Select("SELECT * FROM CustomSubject WHERE t_num=#{t_num} ORDER BY csub_num")
 	public List<CustomSubjectVO> selectCustomSubjectList(int t_num);
 	
 	//기본시간표 변경

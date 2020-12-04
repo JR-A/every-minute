@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.timetable.common.TimesMaker;
 import kr.spring.timetable.service.TimetableService;
+import kr.spring.timetable.vo.CustomSubjectVO;
 import kr.spring.timetable.vo.SubjectVO;
 import kr.spring.timetable.vo.TimesVO;
 import kr.spring.timetable.vo.TimetableVO;
@@ -102,6 +103,7 @@ public class TimetableAjaxController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<TimesVO> originTimesList = new ArrayList<TimesVO>();
 		List<SubjectVO> originSubjectList = new ArrayList<SubjectVO>();
+		List<CustomSubjectVO> originCustomSubjectList = new ArrayList<CustomSubjectVO>();
 		
 		List<TimesVO> newTimesList = new ArrayList<TimesVO>();
 		List<SubjectVO> newSubjectList = new ArrayList<SubjectVO>();
@@ -112,11 +114,9 @@ public class TimetableAjaxController {
 		newTimesList = timesMaker.makeTimesVO(newSubjectList, null);
 		
 		//시간표의 기존 과목들 시간매핑
-		int cnt = timetableService.selectSubjectCountOfTimetable(Integer.parseInt(t_num));
-		if(cnt > 0) {
-			originSubjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
-			originTimesList = timesMaker.makeTimesVO(originSubjectList, null);
-		}
+		originSubjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
+		originCustomSubjectList = timetableService.selectCustomSubjectList(Integer.parseInt(t_num));
+		originTimesList = timesMaker.makeTimesVO(originSubjectList, originCustomSubjectList);
 		
 		//이미 추가한 과목인 경우
 		for(int i=0; i<originSubjectList.size(); i++) {
@@ -169,6 +169,59 @@ public class TimetableAjaxController {
 		timetableService.deleteSubject(Integer.parseInt(t_num), Integer.parseInt(sub_num));
 		//수정시간 반영
 		timetableService.updateModifyDate(Integer.parseInt(t_num));
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	//커스텀과목 추가하기
+	@RequestMapping("/timetable/insertCustomSubject.do")
+	@ResponseBody
+	public Map<String, String> insertCustomSubject(@ModelAttribute CustomSubjectVO customSubject,
+												   @RequestParam(value="semester") String semester,
+													HttpSession session){
+		Map<String, String> map = new HashMap<String, String>();
+		List<TimesVO> originTimesList = new ArrayList<TimesVO>();
+		List<SubjectVO> originSubjectList = new ArrayList<SubjectVO>();
+		List<CustomSubjectVO> originCustomSubjectList = new ArrayList<CustomSubjectVO>();
+		
+		List<TimesVO> newTimesList = new ArrayList<TimesVO>();
+		List<CustomSubjectVO> newCustomSubjectList = new ArrayList<CustomSubjectVO>();
+		
+		//추가된 커스텀과목의 시간 매핑
+		newCustomSubjectList.add(customSubject);
+		newTimesList = timesMaker.makeTimesVO(null, newCustomSubjectList);
+		
+		//시간표의 기존 과목들 시간매핑
+		originSubjectList = timetableService.selectSubjectOfTimetable(customSubject.getT_num());
+		originCustomSubjectList = timetableService.selectCustomSubjectList(customSubject.getT_num());
+		originTimesList = timesMaker.makeTimesVO(originSubjectList, originCustomSubjectList);
+		
+		//겹치는 시간이 있는 경우
+		for(int i=0; i<newTimesList.size(); i++) {
+			for(int j=0; j<originTimesList.size(); j++) {
+				//요일이 같고
+				if( newTimesList.get(i).getDay() == originTimesList.get(j).getDay()) {
+					//시간이 겹치는 경우
+					int newStarttime = newTimesList.get(i).getStarttime();
+					int newEndtime = newTimesList.get(i).getEndtime();
+					
+					int starttime = originTimesList.get(j).getStarttime();
+					int endtime = originTimesList.get(j).getEndtime();
+					
+					if( (starttime <= newStarttime && newStarttime <= endtime) || (starttime <= newEndtime && newEndtime <= endtime) ) {
+						map.put("result", "overlapped");
+						return map;
+					}
+				}
+			}
+		}
+		
+		//커스텀 과목을 시간표에 추가
+		timetableService.insertCustomSubject(customSubject);
+		//수정시간 반영
+		timetableService.updateModifyDate(customSubject.getT_num());
 		
 		map.put("result", "success");
 		
