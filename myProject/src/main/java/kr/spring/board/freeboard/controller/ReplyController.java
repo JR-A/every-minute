@@ -32,6 +32,10 @@ public class ReplyController {
 	
 	@Resource
 	FreeReplyService freeReplyService;
+	
+	@Resource
+	FreeBoardService freeBoardService;
+	
 	@Resource
 	MemberService memberService;
 

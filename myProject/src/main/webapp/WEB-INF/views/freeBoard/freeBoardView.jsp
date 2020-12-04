@@ -250,7 +250,7 @@ $(document).ready(function(){
 					
 					var clock = '';
 					clock += ((month<10) ? '0' : '') +month;
-					clock += ((date<10) ? '-0' : '-') +date;
+					clock += ((date<10) ? '/0' : '/') +date;
 					clock += ((hours<10) ? ' 0' : ' ') +hours;
 					clock += ((minutes<10) ? ':0' : ':') +minutes;
 					

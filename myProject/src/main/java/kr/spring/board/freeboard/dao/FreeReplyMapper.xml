@@ -10,7 +10,7 @@
  		SELECT
  		    comment_num,
  		    content,
- 		   TO_CHAR(reg_date,'MM-DD HH24:MI') reg_date,
+ 		   TO_CHAR(reg_date,'MM/DD HH24:MI') reg_date,
  		   post_num,
  		   id,
  		   anonymous,

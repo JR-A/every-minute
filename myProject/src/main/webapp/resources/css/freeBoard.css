@@ -50,7 +50,20 @@
     font-size: 12px;
     color: #a6a6a6;
 }
-
+.tag {
+    float: left;
+    border: none;
+    background-color: white;
+    background-image: url(https://everytime.kr/images/new/container.articles.write.hashtag.png);
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+#addInput{
+	display:none;
+}
 .page-main-style-detail {
 	margin-bottom: -1px;
     box-sizing: border-box;
@@ -159,3 +172,64 @@ ul.option li{
     
 }
 /*============= 수정폼 끝 ==============*/
+/*============= 동민 추가 (나중에 맞추기)==============*/
+
+.title {
+    padding: 15px;
+    border: 1px solid #d6d6d6;
+    box-sizing: border-box;
+}
+.title > a {
+   display: block;
+}
+#freeBoardVO {
+	 overflow: hidden;
+}
+input#anonymous + label span{
+   font-size: 15px;
+   color: transparent;
+}
+input.submit {
+   float:right;
+   color: transparent;
+   background:url(https://everytime.kr/images/new/container.articles.write.submit.png);
+   background-size: 40px 40px;
+   background-color:#c62917;
+   width:40px;
+   height:40px;
+   border: 0;
+   cursor: pointer;
+}
+input#anonymous{
+  display: none;
+}
+.fileUpload {
+   display: inline-block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background-size: 40px 40px;
+    background-image: url(https://everytime.kr/images/new/container.articles.write.attach.png);
+}
+input#anonymous + label {
+	float:right;
+    display: inline-block;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background: url(https://everytime.kr/images/new/container.articles.write.anonym.png);
+    background-size: 40px 40px;
+}
+input#anonymous:checked + label{
+   display: inline-block;
+   width: 40px;
+   height: 40px;
+   background-image: url(https://everytime.kr/images/new/container.articles.write.anonym.active.png);
+   background-size: 40px 40px;
+}
+
+input:focus {outline:none;}
+a {text-decoration: none; color: black;}
+inactive > input[type="checkbox"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+.submit input[type="submit"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }

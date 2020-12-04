@@ -15,7 +15,7 @@ public interface FreeReplyMapper {
 		public List<FreeReplyVO> selectListReply(Map<String,Object> map);
 		@Select("SELECT COUNT(*) FROM freeboard_comment f JOIN member_detail d ON f.mem_num=d.mem_num WHERE post_num=#{post_num}")
 		public int selectRowCountReply(Map<String,Object> map);
-		@Insert("INSERT INTO freeboard_comment (comment_num,content,post_num,mem_num,anonymous) VALUES (FREE_REPLY_SEQ.nextval,#{content},#{post_num},#{mem_num},#{anonymous})")
+		@Insert("INSERT INTO freeboard_comment (comment_num,content,post_num,mem_num,anonymous) VALUES (FREE_COMMENT_SEQ.nextval,#{content},#{post_num},#{mem_num},#{anonymous})")
 		public void insertReply(FreeReplyVO boardReply);
 		@Update("UPDATE freeboard_comment SET content=#{content},reg_date=SYSDATE WHERE comment_num=#{comment_num}")
 		public void updateReply(FreeReplyVO boardReply);

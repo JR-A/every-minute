@@ -151,6 +151,7 @@ public class FreeBoardController {
 			Map<String,Object> map = 
 					new HashMap<String,Object>();
 			map.put("post_num", post_num);
+			
 			int count = replyService.selectRowCountReply(map);
 			
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
