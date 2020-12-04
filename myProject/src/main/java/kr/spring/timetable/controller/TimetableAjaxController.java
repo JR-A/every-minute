@@ -76,6 +76,13 @@ public class TimetableAjaxController {
 		
 		List<SubjectVO> subjectList = timetableService.selectSubjectList();
 		
+		//a~c를 10~12로 대체
+		for(SubjectVO subject : subjectList) {
+			subject.setSub_time(subject.getSub_time().replace("a", "10"));
+			subject.setSub_time(subject.getSub_time().replace("b", "11"));
+			subject.setSub_time(subject.getSub_time().replace("c", "12"));
+		}
+		
 		return subjectList;
 	}
 	

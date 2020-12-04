@@ -81,7 +81,6 @@ public class TimetableController {
 				log.debug("<<timetableList>> : "+ timetableList);	
 			}
 			//t_num 정보가 넘어왔다면 시간표에 저장된 과목(+커스텀추가과목) 가져오기
-			//일단 과목만 가져오기
 			if(!t_num.equals("")) { //t_num정보가 넘어왔다면 해당 시간표의 정보, 해당 시간표의 과목
 				vo = timetableService.selectTimetable(Integer.parseInt(t_num));
 				subjectCnt = timetableService.selectSubjectCountOfTimetable(Integer.parseInt(t_num));
@@ -112,9 +111,10 @@ public class TimetableController {
 		
 		if(subjectList != null) {
 			for(int i=0; i<subjectList.size(); i++) {
-				tableCredit += subjectList.get(i).getSub_credit();
+				tableCredit += subjectList.get(i).getSub_credit();			
 			}
 		}
+		
 		
 		ModelAndView mav = new ModelAndView();
 		//뷰이름설정
@@ -133,74 +133,5 @@ public class TimetableController {
 		
 		return mav;
 	}
-	
-	
-	//커스텀 과목 추가
-	//@RequestMapping("/timetable/insertCustomSubject.do")
-	////public ModelAndView insertCustomSubject(@RequestParam String semester,
-											//@ModelAttribute CustomSubjectVO customSubjectVO,
-			//								//HttpSession session) {
-		//TimetableVO vo = null;
-		//List<SubjectVO> subjectList = null;
-	//	List<CustomSubjectVO> customSubjectList = null;
-		
-		//int subjectCnt = 0;
-		//int customSubjectCnt = 0;
-		
-		//int tableCredit = 0;
-		
-		//List<TimetableVO> timetableList = null;//해당 학기의 시간표 목록
-		//List<TimesVO> timesList = null;
-		
-		//커스텀 과목을 시간표에 추가
-		//timetableService.insertCustomSubject(customSubjectVO);
-		
-		//세션에 저장된 회원 정보 반환
-		//MemberVO member = (MemberVO)session.getAttribute("user");
-		//TimetableVO timetable = new TimetableVO();
-		//timetable.setMem_num(member.getMem_num());
-		//timetable.setSemester(semester);
-		
-		//해당 학기의 시간표 개수
-		//int count = timetableService.selectTimetableCountOfUser(timetable);
-		//if(count > 0) {
-		//	timetableList = timetableService.selectList(timetable);
-			
-		//	vo = timetableService.selectTimetable(customSubjectVO.getT_num());
-		//	subjectCnt = timetableService.selectSubjectCountOfTimetable(customSubjectVO.getT_num());
-		//	if(subjectCnt > 0) {
-		//		subjectList = timetableService.selectSubjectOfTimetable(customSubjectVO.getT_num());
-		//	}
-		//	customSubjectCnt = timetableService.selectCustomSubjectCountOfTimetable(customSubjectVO.getT_num());
-		//	if(customSubjectCnt > 0) {
-		//		customSubjectList = timetableService.selectCustomSubjectList(customSubjectVO.getT_num());
-		//	}
-			
-		//	timesList = timesMaker.makeTimesVO(subjectList, customSubjectList);
-		//}
-		
-		//if(subjectList != null) {
-		//	for(int i=0; i<subjectList.size(); i++) {
-		//		tableCredit += subjectList.get(i).getSub_credit();
-		//	}
-		//}
-
-		//ModelAndView mav = new ModelAndView();
-		//뷰이름설정
-	//	mav.setViewName("timetableView");
-		//데이터 저장
-	//	mav.addObject("timetableCount", count);
-		//mav.addObject("timetableList", timetableList);
-		//mav.addObject("timetable", vo);
-	//	mav.addObject("timetableSubjectCount", subjectCnt);
-	//	mav.addObject("timetableSubjectList", subjectList);
-	//	mav.addObject("timetableCredit", tableCredit);
-	//	mav.addObject("semester", semester);
-		
-	//	mav.addObject("timesList", timesList);	//시간표매핑
-	//	mav.addObject("selectedT_num", customSubjectVO.getT_num());	//선택된 시간표번호
-		
-		//return mav;
-	//}
 	
 }

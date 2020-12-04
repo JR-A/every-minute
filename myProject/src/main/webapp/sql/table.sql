@@ -568,7 +568,32 @@ VALUES (subject_seq.nextval, '전선', '데이터통신', '심영철', 3, '월2,
 INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online) 
 VALUES (subject_seq.nextval, '전선', '임베디드시스템 및 실험', '표창우', 3, '금234', 'T701', 40, 0);
 
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '교선', '서양사의 의해', '고지현', 3, '화89a', 'C817', 70, 0, '역사교육과 수강 금지');
 
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '교선', '인간 심리의 의해', '정유선', 3, '화234', 'C710', 50, 0, '원격');
 
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '핵교', '현대 사회와 법', '정유선', 3, '수89a', 'R616', 120, 0, '병행');
 
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '교선', '영화의 이해', '백승균', 3, '월678', 'A201', 120, 0, '원격');
 
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '일교', '교양독일어(1)', 'Iris Brose', 3, '화567', 'C418', 30, 0, '병행');
+
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '일교', '교양프랑스어(1)', 'Stephane Bois', 3, '화7,목23', 'C417,C525', 30, 0, '병행');
+
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '일교', '교양일본어(1)', 'Ogata Yoshihiro', 3, '화12,금2', 'C417,C525', 30, 0, '병행, Level1');
+
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '핵교', '지식 재산과 법', '안원모', 3, '월234', 'R718', 100, 0, '영어 강좌');
+
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '핵교', '인권과 국가', '김주환', 3, '목9ab', 'R821', 150, 0, '병행');
+
+INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
+VALUES (subject_seq.nextval, '일교', '글로벌 문화와 리더십', '김하영', 3, '금89a', 'C820', 60, 0, '병행');

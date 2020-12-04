@@ -60,12 +60,13 @@
 						output +=	'<td class="subjectTd">'+ item.sub_time +'</td>';
 						output +=	'<td class="subjectTd">'+ item.sub_classRoom +'</td>';
 						output +=	'<td class="subjectTd">'+ item.sub_capacity +'</td>';
-						if(item.sub_online==1){
-							output +=	'<td class="subjectTd">O</td>';
-						}else{
-							output +=	'<td class="subjectTd">X</td>';
-						}
-						output +=	'<td class="subjectTd">'+ item.sub_remark + '</td>';
+						output +=	'<td class="subjectTd">';
+							if(item.sub_online==1) output += 'O';
+							else output += 'X';
+						output += 	'</td>';
+						output +=	'<td class="subjectTd">';
+							if(item.sub_remark!=null) output += item.sub_remark;
+						output += 	'</td>';
 						output += '</tr>';
 						
 						$('#subjectList').append(output);
@@ -211,7 +212,7 @@
 			output += 	'</ol>';
 			output += 	'<a class="remove">삭제</a>';
 			output += 	'<p>';
-			output += 		'<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option></select><span>~</span><select class="endhour"><option value="2" selected="selected">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option><option value="13">오후 9시</option></select><input type="text" placeholder="예) 종303" class="text place">';
+			output += 		'<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option></select><span>~</span><select class="endhour"><option value="1" selected="selected">오전 10시</option><option value="2">오전 11시</option><option value="3">오후 12시</option><option value="4">오후 1시</option><option value="5">오후 2시</option><option value="6">오후 3시</option><option value="7">오후 4시</option><option value="8">오후 5시</option><option value="9">오후 6시</option><option value="10">오후 7시</option><option value="11">오후 8시</option><option value="12">오후 9시</option></select><input type="text" placeholder="예) 종303" class="text place">';
 			output += 	'</p>'
 			output += '</div>';
 			
@@ -234,7 +235,7 @@
 				check = false;
 			}
 			
-			if (!check) { return false; }	//함수 종료가 안된다.
+			if (!check) { return false; }
 			
 			var csub_time = '';
 			var csub_classRoom = '';
@@ -248,7 +249,7 @@
 			    var intStarthour = Number(starthour);
 			    var intEndhour = Number(endhour);
 			    
-			    if(intStarthour >= intEndhour){
+			    if(intStarthour > intEndhour){
 			    	alert('시작 시간은 종료 시간보다 빨라야합니다!');
 			    	check = false;
 			    	return false;	//each문 탈출, submit종료는 each문 바깥에 작성
@@ -265,20 +266,19 @@
 			   	else{
 				    csub_time += intStarthour;
 			   	}
-			    if((intEndhour-1) != intStarthour){
+			    if(intEndhour != intStarthour){	//끝나는교시와 시작교시가 같으면 끝나는교시 입력하지않음
 			    	if(intEndhour >= 10){
 				   		switch(intEndhour){
-				   		case 10: csub_time += '9'; break;	//끝나는 교시의 의미이므로 1씩 빼준다
-				   		case 11: csub_time += 'a'; break;
-				   		case 12: csub_time += 'b'; break;
-				   		case 13: csub_time += 'c'; break;
+				   		case 10: csub_time += 'a'; break;
+				   		case 11: csub_time += 'b'; break;
+				   		case 12: csub_time += 'c'; break;
 				   		}
 				   	}else{
-					    csub_time += (intEndhour-1);
+					    csub_time += intEndhour;
 				   	}
 			    }   	
 
-			    csub_classRoom +=$(this).find('input.text.place').val();
+			    csub_classRoom +=$(this).find('input.text.place').val();	//submit종료
 			});
 			
 			if (!check) { event.preventDefault(); return false; }
@@ -665,7 +665,7 @@
        			<p>
 					<select class="starthour"><option value="1" selected="selected">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option></select>        				
        				<span>~</span>
-					<select class="endhour"><option value="2" selected="selected">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option><option value="13">오후 9시</option></select>        				
+					<select class="endhour"><option value="1" selected="selected">오전 10시</option><option value="2">오전 11시</option><option value="3">오후 12시</option><option value="4">오후 1시</option><option value="5">오후 2시</option><option value="6">오후 3시</option><option value="7">오후 4시</option><option value="8">오후 5시</option><option value="9">오후 6시</option><option value="10">오후 7시</option><option value="11">오후 8시</option><option value="12">오후 9시</option></select>        				
        				<input type="text" placeholder="예) 종303" class="text place">
        			</p>
        		</div>

@@ -18,7 +18,7 @@ public class TimesMaker {
 			for(int s=0; s<subjectList.size(); s++) {
 				
 				String[] sub_time = subjectList.get(s).getSub_time().split(","); //ex. 월12,화23 ','기준 쪼개기
-				String[] sub_class = subjectList.get(s).getSub_classRoom().split(","); //ex. T701,T702 ','기준 쪼개기		
+				String[] sub_class = subjectList.get(s).getSub_classRoom().split(","); //ex. T701,T702 ','기준 쪼개기
 				
 				for(int i=0; i<sub_time.length; i++) {
 					TimesVO times = new TimesVO();				//TimesVO 객체 생성
@@ -38,7 +38,7 @@ public class TimesMaker {
 					char end = sub_time[i].charAt(sub_time[i].length()-1);
 					if(start>=49 && start<=57 ) { //숫자이면
 						times.setStarttime(start - '0');	//월12에서 '1'을 시작교시로 설정
-					}else {						 //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+					}else {						 //숫자가 아니면(알파벳 a,b,c중에 하나이면)
 						switch(start) {
 						case 'a': times.setStarttime(10); break;
 						case 'b': times.setStarttime(11); break;
@@ -47,12 +47,11 @@ public class TimesMaker {
 					}
 					if(end>=49 && end<=57 ) { //숫자이면
 						times.setEndtime(end - '0');		//월12에서 '2'를 끝나는교시로 설정
-					}else {					  //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+					}else {					  //숫자가 아니면(알파벳 a,b,c중에 하나이면)
 						switch(end) {
 						case 'a': times.setEndtime(10); break;
 						case 'b': times.setEndtime(11); break;
 						case 'c': times.setEndtime(12); break;
-						case 'd': times.setEndtime(13); break;
 						}
 					}
 					times.setClassRoom(sub_class[i]);	//강의실을 T701로 설정
@@ -69,7 +68,7 @@ public class TimesMaker {
 				String[] sub_time = csubjectList.get(s).getCsub_time().split(","); //ex. 월12,화23 ','기준 쪼개기
 				String[] sub_class = null;
 				if(csubjectList.get(s).getCsub_classRoom() != null) {
-					sub_class = csubjectList.get(s).getCsub_classRoom().split(","); //ex. T701,T702 ','기준 쪼개기		
+					sub_class = csubjectList.get(s).getCsub_classRoom().split(",", -1); //ex. T701,T702 ','기준 쪼개기. 공란이 존재해도 구분되도록 split함수의 limit값을 음수값으로 지정	
 				}
 				for(int i=0; i<sub_time.length; i++) {
 					TimesVO times = new TimesVO();				//TimesVO 객체 생성
@@ -89,7 +88,7 @@ public class TimesMaker {
 					char end = sub_time[i].charAt(sub_time[i].length()-1);
 					if(start>=49 && start<=57 ) { //숫자이면
 						times.setStarttime(start - '0');	//월12에서 '1'을 시작교시로 설정
-					}else {						 //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+					}else {						 //숫자가 아니면(알파벳 a,b,c중에 하나이면)
 						switch(start) {
 						case 'a': times.setStarttime(10); break;
 						case 'b': times.setStarttime(11); break;
@@ -98,25 +97,21 @@ public class TimesMaker {
 					}
 					if(end>=49 && end<=57 ) { //숫자이면
 						times.setEndtime(end - '0');		//월12에서 '2'를 끝나는교시로 설정
-					}else {					  //숫자가 아니면(알파벳 a,b,c,d중에 하나이면)
+					}else {					  //숫자가 아니면(알파벳 a,b,c중에 하나이면)
 						switch(end) {
 						case 'a': times.setEndtime(10); break;
 						case 'b': times.setEndtime(11); break;
 						case 'c': times.setEndtime(12); break;
-						case 'd': times.setEndtime(13); break;
 						}
 					}
 					if(csubjectList.get(s).getProf_name() != null) {times.setProf_name(csubjectList.get(s).getProf_name());}
+					if(sub_class[i] != null) times.setClassRoom(sub_class[i]);
 					
 					timesList.add(times);
 				}
-				if(sub_class != null) {
-					for(int i=0; i<sub_class.length; i++) {
-						timesList.get(i).setClassRoom(sub_class[i]);
-					}
-				}
 			}
 		}
+		System.out.println("\n\n"+timesList);
 		return timesList;
 	}
 }
