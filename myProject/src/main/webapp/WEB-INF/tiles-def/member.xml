@@ -29,6 +29,40 @@
     	<put-attribute name="title" value="비밀번호 변경"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberChangePassword.jsp"/>  
     </definition>
+        <definition name="writedBoardLi" extends="main1">
+    	<put-attribute name="title" value="내가 쓴 글 목록"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/blank.jsp"/>  
+    </definition>
+        <definition name="freewritedBoardLi" extends="main1">
+    	<put-attribute name="title" value="자유게시판에 쓴 글"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/freeboardWritedList.jsp"/>  
+    </definition>    
+    <definition name="infowritedBoardLi" extends="main1">
+    	<put-attribute name="title" value="정보게시판에 쓴 글"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/infoboardWritedList.jsp"/>  
+    </definition>  
+        <definition name="customwritedBoardLi" extends="main2">
+    	<put-attribute name="title" value="커스텀게시판에 쓴 글"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/customboardWritedList.jsp"/>  
+    </definition> 
+    <definition name="main1" 
+               template="/WEB-INF/views/template/layoutForWritedBoardList.jsp">
+    	<put-attribute name="title" value="에브리미닛"/>
+    	<put-attribute name="navli" value="/WEB-INF/views/templateBoard/writedBoardnav.jsp"/>
+    	<put-attribute name="header" value="/WEB-INF/views/template/header.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>  
+    	<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp"/>        
+    </definition>
+    <definition name="main2" 
+               template="/WEB-INF/views/template/layoutForCustomBoardList.jsp">
+    	<put-attribute name="title" value="에브리미닛"/>
+    	<put-attribute name="navli" value="/WEB-INF/views/templateBoard/writedBoardnav.jsp"/>
+    	<put-attribute name="nav" value="/WEB-INF/views/templateBoard/navigationForWritedList.jsp"/>
+    	<put-attribute name="header" value="/WEB-INF/views/template/header.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/main/main.jsp"/>  
+    	<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp"/>        
+    </definition>
+
 </tiles-definitions>
 
 

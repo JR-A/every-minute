@@ -1,6 +1,7 @@
 package kr.spring.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.spring.board.freeboard.service.FreeBoardService;
+import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.infoboard.service.InfoBoardService;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.util.PagingUtil;
 
 @Controller
 public class MemberAjaxController {
@@ -22,7 +27,10 @@ public class MemberAjaxController {
 	
 	@Resource
 	private MemberService memberService;
-	
+	@Resource//       ┌ BoardService를 주입받음
+	InfoBoardService InfoBoardService;
+	@Resource
+	FreeBoardService freeBoardService;
 	
 	//아이디 중복체크
 	@RequestMapping("/member/confirmId.do")
@@ -139,6 +147,8 @@ public class MemberAjaxController {
 		
 		return map;
 	}
+
+
 }
 
 

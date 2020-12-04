@@ -1,11 +1,15 @@
 package kr.spring.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.dao.MemberMapper;
 import kr.spring.member.vo.MemberVO;
 
@@ -129,6 +133,36 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO selectCheckMember_num(int mem_num) {
 		return memberMapper.selectCheckMember_num(mem_num);
 		
+	}
+
+	@Override
+	public List<FreeBoardVO> myFreeselectList(Map<String, Object> map) {
+		return memberMapper.myFreeselectList(map);
+	}
+
+	@Override
+	public int myFreeselectRowCount(Map<String, Object> map) {
+		return memberMapper.myFreeselectRowCount(map);
+	}
+
+	@Override
+	public List<InfoBoardVO> myInfoselectList(Map<String, Object> map) {
+		return memberMapper.myInfoselectList(map);
+	}
+
+	@Override
+	public int myInfoselectRowCount(Map<String, Object> map) {
+		return memberMapper.myInfoselectRowCount(map);
+	}
+
+	@Override
+	public List<CustomPostVO> myCustomselectPostList(Map<String, Object> map) {
+		return memberMapper.myCustomselectPostList(map);
+	}
+
+	@Override
+	public int myCustomselectRowCount(Map<String, Object> map) {
+		return memberMapper.myCustomselectRowCount(map);
 	}
 
 }

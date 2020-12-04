@@ -1,6 +1,7 @@
 package kr.spring.member.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,9 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.board.customboard.service.CustomPostService;
+import kr.spring.board.customboard.vo.CustomBoardVO;
+import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.board.freeboard.service.FreeBoardService;
+import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.infoboard.service.InfoBoardService;
+import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.mail.service.MailSendServiceImpl;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
+import kr.spring.util.CustomPagingUtil;
+import kr.spring.util.FreePagingUtil;
+import kr.spring.util.InfoPagingUtil;
 import kr.spring.util.LoginCheckException;
 
 @Controller
@@ -28,17 +39,29 @@ public class MemberController {
 	//프로퍼티
 	@Resource
 	private MemberService memberService;
-    @Resource
+	@Resource//       ┌ BoardService를 주입받음
+	InfoBoardService InfoBoardService;
+	@Resource
+	FreeBoardService freeBoardService;	
+	@Resource
     private MailSendServiceImpl mss;
+	@Resource
+	CustomPostService customPostService;
 	//로그 처리(로그 대상 지정)
 	private Logger log = Logger.getLogger(this.getClass());
-
+	
 	//자바빈(VO) 초기화후 request에 등록
 	@ModelAttribute
 	public MemberVO initCommand() {
 		return new MemberVO();
 	}
-
+	//자바빈 초기화
+	@ModelAttribute
+	public CustomPostVO initCommand2() {
+		return new CustomPostVO();
+	}
+	
+	
 	//로그인 폼 - GET방식으로 전송시
 	@RequestMapping(value = "/member/memberLogin.do", method = RequestMethod.GET)
 	public String formLogin() {
@@ -366,4 +389,257 @@ public class MemberController {
 				 result.reject("wrongE");
 			    return "member/memberFindId";
 			 }
+
+			 //게시판에 쓴글
+			 @RequestMapping("member/writeBoardList.do")
+			 public ModelAndView writeBoardL(@RequestParam(value="freepageNum", defaultValue="1") int freecurrentPage,
+					 @RequestParam(value="infopageNum", defaultValue="1") int infocurrentPage,
+					 @RequestParam(value="freekeyfield", defaultValue="")String freekeyfield,
+					 @RequestParam(value="freekeyword", defaultValue="") String freekeyword,
+					 @RequestParam(value="infokeyfield", defaultValue="")String infokeyfield,
+					 @RequestParam(value="infokeyword", defaultValue="") String infokeyword,
+					 HttpSession session) {
+				 ModelAndView mav = new ModelAndView();
+				 MemberVO member=(MemberVO)session.getAttribute("user");
+				 	
+				 Map<String,Object> freemap =
+							new HashMap<String,Object>();
+					freemap.put("keyfield", freekeyfield);
+					freemap.put("keyword", freekeyword); 
+					freemap.put("mem_num", member.getMem_num());
+					
+					//자유게시판 글의 갯수 또는 검색된 글의 갯수--------------------------------
+					int freecount = memberService.myFreeselectRowCount(freemap); 
+					
+					if(log.isDebugEnabled()) {
+						log.debug("<<count>> :"+freecount);
+					}
+					FreePagingUtil freepage = new FreePagingUtil(freekeyfield,freekeyword,
+							freecurrentPage,freecount,10,10,"writeBoardList.do");
+					freemap.put("start", freepage.getStartCount());
+					freemap.put("end", freepage.getEndCount());
+	
+					List<FreeBoardVO> freelist = null;
+					if(freecount > 0) {
+					freelist = memberService.myFreeselectList(freemap);
+		
+					if(log.isDebugEnabled()) {
+						log.debug("<<글 목록>>:"+freelist);
+					}
+						
+					}
+	
+			
+
+					mav.addObject("freecount",freecount);
+					mav.addObject("freelist",freelist);
+					mav.addObject("freepagingHtml",freepage.getPagingHtml());
+					//여기까지 자유게시판 --------------------------------------------
+					
+					//인포게시판----------------------------------------------------
+					
+					
+					 Map<String,Object> infomap =
+								new HashMap<String,Object>();
+					 	infomap.put("keyfield", infokeyfield);
+						infomap.put("keyword", infokeyword); 
+						infomap.put("mem_num", member.getMem_num());
+					
+					//인포글의 갯수 또는 검색된 글의 갯수
+					int infocount = memberService.myInfoselectRowCount(infomap);
+					if (log.isDebugEnabled()) {
+						log.debug("<<count>> : " + infocount);
+					}		
+					
+					
+					InfoPagingUtil infopage = new InfoPagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"writeBoardList.do");
+					infomap.put("start", infopage.getStartCount());
+					infomap.put("end", infopage.getEndCount());
+					
+					List<InfoBoardVO> infolist = null;
+					if (infocount > 0) {
+						//목록을 호출
+						infolist = memberService.myInfoselectList(infomap);
+						
+						if (log.isDebugEnabled()) {
+							log.debug("<<글 목록>> : " +  infolist);
+						}
+					}
+					
+					/*
+					 * - Model과 View를 동시에 설정이 가능하며 컨트롤러는 
+					 * ModelAndView객체만 리턴하지만 Model과 View가 모두 리턴 가능
+					 * ModelAndView mav = new ModelAndView();
+					 */
+					
+					mav.addObject("infocount",infocount);
+					mav.addObject("infolist",infolist);
+					mav.addObject("infopagingHtml", infopage.getPagingHtml());	
+					//여기까지 인포게시판-----------------------------------------------
+				 mav.setViewName("writedBoardLi");
+				 return mav;
+			 
+			 }
+
+		//내가 쓴 글 
+		@RequestMapping("/member/writedBoardlist1.do")
+		public String writedBoardMain() {
+			return "writedBoardLi";
+		}
+		//자유게시판에 쓴 글
+		@RequestMapping("/member/freedBoardWritedlist.do")
+		public ModelAndView freeWritedBoardMain(@RequestParam(value="freepageNum", defaultValue="1") int freecurrentPage,
+				 @RequestParam(value="freekeyfield", defaultValue="")String freekeyfield,
+				 @RequestParam(value="freekeyword", defaultValue="") String freekeyword,
+				 HttpSession session) {
+			 ModelAndView mav = new ModelAndView();
+			 MemberVO member=(MemberVO)session.getAttribute("user");
+			 	
+			 Map<String,Object> freemap =
+						new HashMap<String,Object>();
+				freemap.put("keyfield", freekeyfield);
+				freemap.put("keyword", freekeyword); 
+				freemap.put("mem_num", member.getMem_num());
+				
+				//자유게시판 글의 갯수 또는 검색된 글의 갯수--------------------------------
+				int freecount = memberService.myFreeselectRowCount(freemap); 
+				
+				if(log.isDebugEnabled()) {
+					log.debug("<<count>> :"+freecount);
+				}
+				FreePagingUtil freepage = new FreePagingUtil(freekeyfield,freekeyword,
+						freecurrentPage,freecount,10,10,"freedBoardWritedlist.do");
+				freemap.put("start", freepage.getStartCount());
+				freemap.put("end", freepage.getEndCount());
+
+				List<FreeBoardVO> freelist = null;
+				if(freecount > 0) {
+				freelist = memberService.myFreeselectList(freemap);
+	
+				if(log.isDebugEnabled()) {
+					log.debug("<<글 목록>>:"+freelist);
+				}
+					
+				}
+
+		
+
+				mav.addObject("freecount",freecount);
+				mav.addObject("freelist",freelist);
+				mav.addObject("freepagingHtml",freepage.getPagingHtml());
+			
+				mav.setViewName("freewritedBoardLi");
+			return mav;
+		}
+		//인포게시판에 쓴 글
+		@RequestMapping("/member/infoBoardWritedlist.do")
+		public ModelAndView infoWritedBoardMain(@RequestParam(value="infopageNum", defaultValue="1") int infocurrentPage, 
+				@RequestParam(value="infokeyfield", defaultValue="")String infokeyfield,
+				 @RequestParam(value="infokeyword", defaultValue="") String infokeyword,
+				 HttpSession session) {
+			
+			 ModelAndView mav =new ModelAndView();
+			 MemberVO member=(MemberVO)session.getAttribute("user");
+			
+			 Map<String,Object> infomap =
+						new HashMap<String,Object>();
+			 	infomap.put("keyfield", infokeyfield);
+				infomap.put("keyword", infokeyword); 
+				infomap.put("mem_num", member.getMem_num());
+			
+			//인포글의 갯수 또는 검색된 글의 갯수
+			int infocount = memberService.myInfoselectRowCount(infomap);
+			if (log.isDebugEnabled()) {
+				log.debug("<<count>> : " + infocount);
+			}		
+			
+			
+			InfoPagingUtil infopage = new InfoPagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"infoBoardWritedlist.do");
+			infomap.put("start", infopage.getStartCount());
+			infomap.put("end", infopage.getEndCount());
+			
+			List<InfoBoardVO> infolist = null;
+			if (infocount > 0) {
+				//목록을 호출
+				infolist = memberService.myInfoselectList(infomap);
+				
+				if (log.isDebugEnabled()) {
+					log.debug("<<글 목록>> : " +  infolist);
+				}
+			}
+			
+			/*
+			 * - Model과 View를 동시에 설정이 가능하며 컨트롤러는 
+			 * ModelAndView객체만 리턴하지만 Model과 View가 모두 리턴 가능
+			 * ModelAndView mav = new ModelAndView();
+			 */
+			
+			mav.addObject("infocount",infocount);
+			mav.addObject("infolist",infolist);
+			mav.addObject("infopagingHtml", infopage.getPagingHtml());	
+			//여기까지 인포게시판-----------------------------------------------
+		 mav.setViewName("infowritedBoardLi");
+		 return mav;
+		}
+		
+		//커스텀게시판에 쓴 글
+		@RequestMapping("/member/customBoardWritedlist.do")
+		public ModelAndView customWritedBoardMain(//pageNum으로 전달되는 값이 있으면 매핑
+				@RequestParam(value="pageNum", defaultValue="1") int currentPage,
+				@RequestParam(value="keyfield", defaultValue="") String keyfield,
+				@RequestParam(value="keyword", defaultValue="") String keyword,
+				@RequestParam(defaultValue="1") int board_num,
+				HttpSession session) {
+			ModelAndView mav =new ModelAndView();
+			MemberVO member=(MemberVO)session.getAttribute("user");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("mem_num", member.getMem_num());
+			map.put("keyfield", keyfield); //검색 항목
+			map.put("keyword", keyword); //검색 내용
+			map.put("board_num", board_num); //게시판 번호
+
+			//총 글의 개수 또는 검색된 글의 개수
+			int count = memberService.myCustomselectRowCount(map);
+			if(log.isDebugEnabled()) {
+				log.debug("<<count>> : " + count);
+			}
+
+			//검색할 때 페이징처리
+			CustomPagingUtil page = new CustomPagingUtil(keyfield, keyword, currentPage, count, 10, 10,"customBoardWritedlist.do",board_num);
+			map.put("start", page.getStartCount());
+			map.put("end", page.getEndCount());
+
+			CustomBoardVO boardInfo = customPostService.selectBoardInfo(board_num); //게시판 정보
+			if(log.isDebugEnabled()) {
+				log.debug("<<Custom게시판-게시판 정보>> : " + boardInfo);
+			}
+
+			List<CustomPostVO> postList = null; //게시글 목록
+
+			if(log.isDebugEnabled()) {
+				log.debug("Custom게시판번호>> : " + board_num );
+				log.debug("<<Map데이터>> : " + map);
+			}
+
+			if(count > 0) {			
+				postList = memberService.myCustomselectPostList(map);
+
+				if(log.isDebugEnabled()) {
+					log.debug("<<Custom게시판-글 목록>> : " + postList);
+				}
+			}
+
+			//customBoard.anonymous가 1이면 전체 익명 - 0이면 실명
+			
+
+			mav.setViewName("customPostList");
+			mav.addObject("count", count);
+			mav.addObject("boardInfo", boardInfo);
+			mav.addObject("postList", postList);
+			mav.addObject("pagingHtml", page.getPagingHtml());
+			mav.setViewName("customwritedBoardLi");
+			return mav;
+		}
+		
 }

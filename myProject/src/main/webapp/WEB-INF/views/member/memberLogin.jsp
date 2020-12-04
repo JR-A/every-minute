@@ -41,7 +41,7 @@ $(document).ready(function(){
 <body>
 <div id="container" class="login">
 	<h1 class="logo">
-		<a href="${pageContext.request.contextPath}/main/introduce.do">에브리타임</a>
+		<a href="${pageContext.request.contextPath}/main/introduce.do">에브리미닛</a>
 	</h1>
 	<form:form id="form" action="memberLogin.do" commandName="memberVO">
 		<%-- 필드가 없는 에러 표시 --%>
@@ -61,7 +61,7 @@ $(document).ready(function(){
 			<a href="${pageContext.request.contextPath}/member/findId.do">아이디/비밀번호 찾기</a>
 		</p>
 		<p class="register">
-	        <span>에브리타임에 처음이신가요?</span>
+	        <span>에브리미닛에 처음이신가요?</span>
 	        <a href="${pageContext.request.contextPath}/member/memberRegister.do">회원가입</a>
 	    </p>
 	</form:form>

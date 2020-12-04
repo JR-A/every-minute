@@ -1,9 +1,11 @@
 package kr.spring.member.service;
 
+import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Update;
-
+import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.vo.MemberVO;
 
 //트랜잭션 처리하므로 작업단위를 묶음
@@ -28,4 +30,10 @@ public interface MemberService {
 	public void changePasswd(Map<String,String> map);
 	public void resetPhoto(MemberVO memberVO);
 	public MemberVO selectCheckMember_num(int mem_num);
+	public List<FreeBoardVO> myFreeselectList(Map<String,Object> map);
+	public int myFreeselectRowCount(Map<String,Object> map);
+	public List<InfoBoardVO> myInfoselectList(Map<String,Object> map);
+	public int myInfoselectRowCount(Map<String,Object> map);
+	public List<CustomPostVO> myCustomselectPostList(Map<String, Object> map); 
+	public int myCustomselectRowCount(Map<String, Object> map);
 }

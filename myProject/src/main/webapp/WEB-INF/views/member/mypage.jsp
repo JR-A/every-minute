@@ -77,6 +77,7 @@
 								$('#photo_choice').hide();
 								$('#photo_btn').show();
 								$('#default_photo_btn').show();
+								history.go(0);
 							}else{
 								alert('파일 전송 오류 발생');
 							}
@@ -103,6 +104,7 @@
 								alert('로그인 후 사용하세요!');
 							}else if(data.result == 'success'){
 								alert('프로필 사진을 기본 이미지로 바꿧습니다.');
+								history.go(0);
 							}else{
 								alert('파일 전송 오류 발생');
 							}

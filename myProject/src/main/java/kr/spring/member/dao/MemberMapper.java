@@ -1,5 +1,6 @@
 package kr.spring.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
@@ -7,6 +8,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.vo.MemberVO;
 
 public interface MemberMapper {
@@ -89,4 +93,19 @@ public interface MemberMapper {
 	//이메일로 mem_num 찾기
 	@Select("SELECT mem_num from member_detail WHERE email=#{email}")
 	public Integer findMem_num(MemberVO member);
+
+	
+		//글찾기 부분 -------------------------------------------------------------------------- 
+	//mem_num 으로 자유게시판 글목록 찾기 
+	public List<FreeBoardVO> myFreeselectList(Map<String,Object> map);
+	//mem_num 으로 자유게시판 글개수 찾기
+	public int myFreeselectRowCount(Map<String,Object> map);
+	//mem_num 으로 인포게시판 글목록 찾기
+	public List<InfoBoardVO> myInfoselectList(Map<String,Object> map);
+	//mem_num 으로 인포게시판 글개수 찾기
+	public int myInfoselectRowCount(Map<String,Object> map);
+	//mem_num 으로 커스텀게시판 글개수 찾기 
+	public List<CustomPostVO> myCustomselectPostList(Map<String, Object> map); 
+	//mem_num 으로 커스텀게시판 글목록 찾기
+	public int myCustomselectRowCount(Map<String, Object> map);
 }
