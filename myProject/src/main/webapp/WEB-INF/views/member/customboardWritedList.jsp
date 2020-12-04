@@ -46,7 +46,7 @@
 			<c:if test="${count>0}">
 				<article>
 					<c:forEach var="customPost" items="${postList}"> <!-- 해당 게시판에 존재하는 게시글들의 목록 -->
-						<a class="article" href="customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}"> <!-- 해당 글번호의 상세페이지 -->
+						<a class="article" href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}"> <!-- 해당 글번호의 상세페이지 -->
 						
 						<c:if test="${customPost.anonymous == 0}"> <!-- 실명 게시글 -->
 							<!-- 프로필 사진 -->	

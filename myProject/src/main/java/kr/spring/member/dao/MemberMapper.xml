@@ -96,9 +96,8 @@
 	</select>
 	
 	<select id="myCustomselectRowCount" parameterType="map" resultType="integer">
-		SELECT
+        		SELECT
 			COUNT(*)
-		FROM CustomPost p JOIN member m ON p.mem_num=#{mem_num} JOIN CustomBoard b 
-		ON p.board_num = b.board_num  where p.board_num = #{board_num}
+		FROM CustomPost p JOIN member m ON m.mem_num=p.mem_num where p.board_num = #{board_num} and m.mem_num=#{mem_num}
 	</select>
 </mapper>

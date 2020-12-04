@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.spring.board.customboard.service.CustomBoardService;
 import kr.spring.board.customboard.service.CustomPostService;
@@ -30,9 +32,8 @@ import kr.spring.mail.service.MailSendServiceImpl;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.CustomPagingUtil;
-import kr.spring.util.FreePagingUtil;
-import kr.spring.util.InfoPagingUtil;
 import kr.spring.util.LoginCheckException;
+import kr.spring.util.PagingUtil;
 
 @Controller
 public class MemberController {
@@ -417,7 +418,7 @@ public class MemberController {
 					if(log.isDebugEnabled()) {
 						log.debug("<<count>> :"+freecount);
 					}
-					FreePagingUtil freepage = new FreePagingUtil(freekeyfield,freekeyword,
+					PagingUtil freepage = new PagingUtil(freekeyfield,freekeyword,
 							freecurrentPage,freecount,10,10,"writeBoardList.do");
 					freemap.put("start", freepage.getStartCount());
 					freemap.put("end", freepage.getEndCount());
@@ -455,7 +456,7 @@ public class MemberController {
 					}		
 					
 					
-					InfoPagingUtil infopage = new InfoPagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"writeBoardList.do");
+					PagingUtil infopage = new PagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"writeBoardList.do");
 					infomap.put("start", infopage.getStartCount());
 					infomap.put("end", infopage.getEndCount());
 					
@@ -510,7 +511,7 @@ public class MemberController {
 				if(log.isDebugEnabled()) {
 					log.debug("<<count>> :"+freecount);
 				}
-				FreePagingUtil freepage = new FreePagingUtil(freekeyfield,freekeyword,
+				PagingUtil freepage = new PagingUtil(freekeyfield,freekeyword,
 						freecurrentPage,freecount,10,10,"freedBoardWritedlist.do");
 				freemap.put("start", freepage.getStartCount());
 				freemap.put("end", freepage.getEndCount());
@@ -557,7 +558,7 @@ public class MemberController {
 			}		
 			
 			
-			InfoPagingUtil infopage = new InfoPagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"infoBoardWritedlist.do");
+			PagingUtil infopage = new PagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"infoBoardWritedlist.do");
 			infomap.put("start", infopage.getStartCount());
 			infomap.put("end", infopage.getEndCount());
 			
@@ -637,12 +638,11 @@ public class MemberController {
 			//customBoard.anonymous가 1이면 전체 익명 - 0이면 실명
 			
 
-			mav.setViewName("customPostList");
+			mav.setViewName("customwritedBoardLi");
 			mav.addObject("count", count);
 			mav.addObject("boardInfo", boardInfo);
 			mav.addObject("postList", postList);
 			mav.addObject("pagingHtml", page.getPagingHtml());
-			mav.setViewName("customwritedBoardLi");
 			return mav;
 		}
 		
