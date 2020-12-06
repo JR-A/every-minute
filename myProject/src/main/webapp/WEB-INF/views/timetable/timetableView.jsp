@@ -152,12 +152,12 @@
 		});
 		
 		
-		//과목에 마우스오버시 삭제버튼 노출
+		//과목에 마우스오버시 (수정),삭제버튼 노출
 		$(document).on('mouseover','.subject',function(){
 			$(this).children(".status").css("display", "block");
 		});
 		
-		//과목에 마우스아웃시 삭제버튼 숨김
+		//과목에 마우스아웃시 (수정),삭제버튼 숨김
 		$(document).on('mouseout','.subject',function(){
 			$(this).children(".status").css("display", "none");
 		});
@@ -188,13 +188,26 @@
 		
 		//직접 추가 버튼 클릭시 폼 노출
 		$(document).on('click','#buttonCustom',function(){
+			$('#customsubjects input[name=t_num]').val($('#timetableList>li.active').attr('id'));
 			$('#customsubjects').css("display", "block");
 		});
 		
 		//직접 추가 폼의 닫기버튼 클릭시 폼 숨기기
 		$(document).on('click','a.close',function(){
+			//폼 초기화
+			$('#customsubjects>h2').text('새 수업 추가');
+			$('#customsubjects input[name=t_num]').val(0);
+			$('#customsubjects input[name=csub_num]').val(0);
+			$('#customsubjects input[name=csub_name]').val('');
+			$('#customsubjects input[name=prof_name]').val('');
+			$('#customsubjects input[name=csub_time]').val('');
+			$('#customsubjects input[name=csub_classRoom]').val('');
+			$('#customsubjects input.place').val('');
 			$('a.remove').closest("div").remove();
+			$('.weeks li').removeClass('active');
+			$('.weeks li:first-child').addClass('active');
 			$('#customsubjects').css("display", "none");
+			
 		});
 		
 		//직접 추가 폼의 요일 선택시
@@ -224,10 +237,64 @@
 			$(this).closest("div").remove();
 		});
 		
-		//직접 추가 폼의 저장버튼 클릭시 커스텀과목 추가
+		//커스텀과목 수정 버튼 클릭시 수정 폼 노출
+		$(document).on('click','li.edit',function(){
+			//커스텀 과목의 정보 불러오기
+			$.ajax({
+				url: '${pageContext.request.contextPath}/timetable/selectCustomSubject.do',
+				type: 'post',
+				data: {csub_num: $(this).closest("div").attr('id')},
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					$(data).each(function(index,item){
+						//폼 세팅
+						if(index == 0){
+							$('#customsubjects input[name=t_num]').val($('#timetableList>li.active').attr('id'));
+							$('#customsubjects input[name=csub_num]').val(item.sub_num);	//커스텀 과목 번호 세팅 
+							$('#customsubjects input[name=csub_name]').val(item.sub_name);	//커스텀 과목 이름 세팅
+							$('#customsubjects input[name=prof_name]').val(item.prof_name); //커스텀 과목 교수명 세팅
+						}
+						if(index > 0){
+							//timeplace추가
+							var output = '';
+							output += '<div class="timeplace" style="display: block;">';
+							output += 	'<ol class="weeks">';
+							output += 		'<li>월</li><li>화</li><li>수</li><li>목</li><li>금</li>';
+							output += 	'</ol>';
+							output += 	'<a class="remove">삭제</a>';
+							output += 	'<p>';
+							output += 		'<select class="starthour"><option value="1">오전 9시</option><option value="2">오전 10시</option><option value="3">오전 11시</option><option value="4">오후 12시</option><option value="5">오후 1시</option><option value="6">오후 2시</option><option value="7">오후 3시</option><option value="8">오후 4시</option><option value="9">오후 5시</option><option value="10">오후 6시</option><option value="11">오후 7시</option><option value="12">오후 8시</option></select><span>~</span><select class="endhour"><option value="1">오전 10시</option><option value="2">오전 11시</option><option value="3">오후 12시</option><option value="4">오후 1시</option><option value="5">오후 2시</option><option value="6">오후 3시</option><option value="7">오후 4시</option><option value="8">오후 5시</option><option value="9">오후 6시</option><option value="10">오후 7시</option><option value="11">오후 8시</option><option value="12">오후 9시</option></select><input type="text" placeholder="예) 종303" class="text place">';
+							output += 	'</p>'
+							output += '</div>';
+							
+							$('.timeplaces a.new').before(output);
+						}
+						
+						//요일 세팅
+						$('.timeplace:nth-child('+(index+1)+') > .weeks > li').removeClass('active');
+						$('.timeplace:nth-child('+(index+1)+') > .weeks > li:nth-child('+(item.day+1)+')').addClass('active');
+						//시작교시, 끝나는 교시 세팅
+						$('.timeplace:nth-child('+(index+1)+') > p > .starthour option[value="'+item.starttime+'"]').attr('selected', 'selected');
+						$('.timeplace:nth-child('+(index+1)+') > p > .endhour option[value="'+item.endtime+'"]').attr('selected', 'selected');
+						//강의실 세팅
+						$('.timeplace:nth-child('+(index+1)+') > p > .place').val(item.classRoom);
+						
+					});
+					$('#customsubjects>h2').text('수업 정보 변경');
+					$('#customsubjects').css("display", "block");
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+						
+		});
+		
+		//직접 추가 폼의 저장버튼 클릭시 커스텀과목 추가(or 수정)
 		$(document).on('submit','#customsubjects',function(event){
 			var check = true;
-			
 			//필수 항목을 입력하지 않은 경우
 			if($('#customsubjects input[name=csub_name]').val().trim() == ''){
 				alert('이름을 입력하세요!')
@@ -278,24 +345,24 @@
 				   	}
 			    }   	
 
-			    csub_classRoom +=$(this).find('input.text.place').val();	//submit종료
+			    csub_classRoom +=$(this).find('.place').val();
+			    if(csub_classRoom == ''){
+			    	csub_classRoom += ',';
+			    }
 			});
 			
-			if (!check) { event.preventDefault(); return false; }
-			
-			var semester =  $("#semester option:selected").val();
-
-			$('input[name=semester]').val(semester);
-			$('input[name=t_num]').val($('#timetableList>li.active').attr('id'));
+			if (!check) { event.preventDefault(); return false; }	//submit종료
+						
 			$('input[name=csub_time]').val(csub_time);
 			$('input[name=csub_classRoom]').val(csub_classRoom);
-			
-			//커스텀 과목 추가
+					
+			//커스텀 과목 추가 혹은 수정	
 			$.ajax({
-				url: '${pageContext.request.contextPath}/timetable/insertCustomSubject.do',
+				url: '${pageContext.request.contextPath}/timetable/insertUpdateCustomSubject.do',
 				type: 'post',
-				data: $('#customsubjects').serialize() + "&semester="+semester,
+				data: $('#customsubjects').serialize(),
 				dataType: 'json',
+				async: false,
 				cache: false,
 				timeout: 30000,
 				success: function(data){
@@ -311,9 +378,10 @@
 					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
 				}
 			});
+			
 			event.preventDefault();	//기본 이벤트 삭제
 			event.stopPropagation();
-		});
+		});		
 		
 		
 		//시간표의 설정 버튼 클릭시 폼 노출
@@ -541,18 +609,17 @@
 						<c:forEach var="i" begin="0" end="4">
 						<td id="day${i}">
 							<div class="cols" style="width: 149px;">
-							<c:if test="${timetableSubjectCount > 0}">
 								<c:forEach var="item" items="${timesList}">
 								<c:if test="${item.day==i}">
 									<div id="${item.sub_num}" class="subject color${item.color}" style="height:${(item.endtime-item.starttime+1)*60+1}px; top: ${(item.starttime-1)*60}px;">
 										<ul class="status" style="display: none;">
+											<c:if test="${item.isCsub == 1}"><li title="변경" class="edit"></li></c:if>
 											<li title="삭제" class="del"></li>
 										</ul>
 										<h3>${item.sub_name}</h3><p><em>${item.prof_name}</em><span>${item.classRoom}</span></p>
 									</div>
 								</c:if>
 								</c:forEach>
-							</c:if>
 							</div>
 							<div class="grids">
 								<c:forEach var="j" begin="0" end="11">
@@ -635,9 +702,9 @@
 		</table>
 	</div>
 </div>
-<form id="customsubjects" style="display:none;" method="post" action="${pageContext.request.contextPath}/timetable/insertCustomSubject.do">
-	<input type="hidden" name="semester">
+<form id="customsubjects" style="display:none;">
 	<input type="hidden" name="t_num">
+	<input type="hidden" name="csub_num" value="0">
 	<input type="hidden" name="csub_time">
 	<input type="hidden" name="csub_classRoom">
 	

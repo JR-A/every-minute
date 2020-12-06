@@ -77,12 +77,19 @@ public class TimetableServiceImpl implements TimetableService {
 
 	@Override
 	public void deleteSubject(int t_num, int sub_num) {
+		//해당 번호의 과목번호(커스텀번호) 삭제
 		timetableMapper.deleteSubject(t_num, sub_num);
+		timetableMapper.deleteCustomSubject(sub_num);
 	}
 
 	@Override
 	public void insertCustomSubject(CustomSubjectVO customSubjectVO) {
 		timetableMapper.insertCustomSubject(customSubjectVO);
+	}
+
+	@Override
+	public void upadateCustomSubject(CustomSubjectVO customSubjectVO) {
+		timetableMapper.upadateCustomSubject(customSubjectVO);
 	}
 
 	@Override
@@ -93,6 +100,16 @@ public class TimetableServiceImpl implements TimetableService {
 	@Override
 	public List<CustomSubjectVO> selectCustomSubjectList(int t_num) {
 		return timetableMapper.selectCustomSubjectList(t_num);
+	}
+	
+	@Override
+	public List<CustomSubjectVO> selectCustomSubjectListExceptThis(CustomSubjectVO customSubjectVO) {
+		return timetableMapper.selectCustomSubjectListExceptThis(customSubjectVO);
+	}
+
+	@Override
+	public CustomSubjectVO selectCustomSubject(int csub_num) {
+		return timetableMapper.selectCustomSubject(csub_num);
 	}
 
 	@Override
@@ -108,9 +125,10 @@ public class TimetableServiceImpl implements TimetableService {
 
 	@Override
 	public void deleteTimetable(int t_num) {
-		timetableMapper.deleteCustomSubject(t_num);
+		timetableMapper.deleteCustomSubjectsFromTimetable(t_num);
 		timetableMapper.deleteTimetable_Subject(t_num);
 		timetableMapper.deleteTimetable(t_num);
 	}
+
 
 }

@@ -43,10 +43,7 @@ public class TimetableController {
 		List<SubjectVO> subjectList = null;
 		List<CustomSubjectVO> customSubjectList = null;
 		
-		int subjectCnt = 0;
-		int customSubjectCnt = 0;
 		int selectedT_num = 0;
-		
 		int tableCredit = 0;
 		
 		List<TimetableVO> timetableList = null; //해당 학기의 시간표 목록
@@ -83,30 +80,18 @@ public class TimetableController {
 			//t_num 정보가 넘어왔다면 시간표에 저장된 과목(+커스텀추가과목) 가져오기
 			if(!t_num.equals("")) { //t_num정보가 넘어왔다면 해당 시간표의 정보, 해당 시간표의 과목
 				vo = timetableService.selectTimetable(Integer.parseInt(t_num));
-				subjectCnt = timetableService.selectSubjectCountOfTimetable(Integer.parseInt(t_num));
-				if(subjectCnt > 0) {
-					subjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
-				}
-				customSubjectCnt = timetableService.selectCustomSubjectCountOfTimetable(Integer.parseInt(t_num));
-				if(customSubjectCnt > 0) {
-					customSubjectList = timetableService.selectCustomSubjectList(Integer.parseInt(t_num));
-				}
+
+				subjectList = timetableService.selectSubjectOfTimetable(Integer.parseInt(t_num));
+				customSubjectList = timetableService.selectCustomSubjectList(Integer.parseInt(t_num));
 				
 			}else {	// t_num 정보가 존재하지 않으면 기본시간표정보, 기본시간표의 과목 가져오기
 				vo = timetableService.selectPrimaryTimetable(timetable);
 				
-				subjectCnt = timetableService.selectSubjectCountOfTimetable(vo.getT_num());
-				if(subjectCnt > 0) {
-					subjectList = timetableService.selectSubjectOfTimetable(vo.getT_num());
-				}
-				customSubjectCnt = timetableService.selectCustomSubjectCountOfTimetable(vo.getT_num());
-				if(customSubjectCnt > 0) {
-					customSubjectList = timetableService.selectCustomSubjectList(vo.getT_num());
-				}
+				subjectList = timetableService.selectSubjectOfTimetable(vo.getT_num());
+				customSubjectList = timetableService.selectCustomSubjectList(vo.getT_num());
 			}
 			timesList = timesMaker.makeTimesVO(subjectList, customSubjectList);
-			selectedT_num = vo.getT_num();
-			
+			selectedT_num = vo.getT_num();	
 		}
 		
 		if(subjectList != null) {
@@ -123,8 +108,6 @@ public class TimetableController {
 		mav.addObject("timetableCount", count);
 		mav.addObject("timetableList", timetableList);
 		mav.addObject("timetable", vo);
-		mav.addObject("timetableSubjectCount", subjectCnt);
-		mav.addObject("timetableSubjectList", subjectList);
 		mav.addObject("timetableCredit", tableCredit);
 		mav.addObject("semester", semester);
 		

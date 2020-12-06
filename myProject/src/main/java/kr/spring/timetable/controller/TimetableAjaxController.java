@@ -172,8 +172,10 @@ public class TimetableAjaxController {
 			 				  @RequestParam(value="t_num") String t_num) {
 		
 		Map<String, String> map = new HashMap<String, String>();
+		
 		//과목을 삭제
 		timetableService.deleteSubject(Integer.parseInt(t_num), Integer.parseInt(sub_num));
+
 		//수정시간 반영
 		timetableService.updateModifyDate(Integer.parseInt(t_num));
 		
@@ -182,11 +184,10 @@ public class TimetableAjaxController {
 		return map;
 	}
 	
-	//커스텀과목 추가하기
-	@RequestMapping("/timetable/insertCustomSubject.do")
+	//커스텀과목 추가하기, 수정하기
+	@RequestMapping("/timetable/insertUpdateCustomSubject.do")
 	@ResponseBody
 	public Map<String, String> insertCustomSubject(@ModelAttribute CustomSubjectVO customSubject,
-												   @RequestParam(value="semester") String semester,
 													HttpSession session){
 		Map<String, String> map = new HashMap<String, String>();
 		List<TimesVO> originTimesList = new ArrayList<TimesVO>();
@@ -202,7 +203,13 @@ public class TimetableAjaxController {
 		
 		//시간표의 기존 과목들 시간매핑
 		originSubjectList = timetableService.selectSubjectOfTimetable(customSubject.getT_num());
-		originCustomSubjectList = timetableService.selectCustomSubjectList(customSubject.getT_num());
+		//커스텀 과목 번호가 없으면(커스텀과목 추가시) 기존 커스텀과목 시간매핑
+		if(customSubject.getCsub_num() == 0) {	
+			originCustomSubjectList = timetableService.selectCustomSubjectList(customSubject.getT_num());
+		}else {
+		//커스텀 과목 번호가 있으면(커스텀과목 수정시) 현재 커스텀과목 제외하고 타임매핑
+			originCustomSubjectList = timetableService.selectCustomSubjectListExceptThis(customSubject);
+		}
 		originTimesList = timesMaker.makeTimesVO(originSubjectList, originCustomSubjectList);
 		
 		//겹치는 시간이 있는 경우
@@ -225,14 +232,35 @@ public class TimetableAjaxController {
 			}
 		}
 		
-		//커스텀 과목을 시간표에 추가
-		timetableService.insertCustomSubject(customSubject);
+		//커스텀 과목 번호가 없으면
+		if(customSubject.getCsub_num() == 0) {
+			//커스텀 과목을 시간표에 추가
+			timetableService.insertCustomSubject(customSubject);
+		}else {
+			//커스텀 과목을 수정
+			timetableService.upadateCustomSubject(customSubject);
+		}
 		//수정시간 반영
 		timetableService.updateModifyDate(customSubject.getT_num());
 		
 		map.put("result", "success");
 		
 		return map;
+	}
+	
+	//커스텀과목 수정
+	//커스텀과목 정보 불러오기
+	@RequestMapping("/timetable/selectCustomSubject.do")
+	@ResponseBody
+	public List<TimesVO> selectCustomSubject(@RequestParam(value="csub_num") int csub_num) {
+		List<CustomSubjectVO> csList = new ArrayList<CustomSubjectVO>();
+		//커스텀과목 가져오기
+		CustomSubjectVO customSubject = timetableService.selectCustomSubject(csub_num);
+		csList.add(customSubject);
+		
+		List<TimesVO> timesList = timesMaker.makeTimesVO(null, csList);
+		
+		return timesList;
 	}
 	
 	//시간표 정보 불러오기

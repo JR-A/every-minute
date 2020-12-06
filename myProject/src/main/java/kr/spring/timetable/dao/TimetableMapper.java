@@ -63,12 +63,16 @@ public interface TimetableMapper {
 	public void updateModifyDate(int t_num);
 	
 	//시간표에서 과목 삭제
-	@Delete("DELETE FROM Timetable_Subject WHERE t_num=#{t_num} and sub_num=#{sub_num}")
+	@Delete("DELETE FROM Timetable_Subject WHERE t_num=#{t_num} AND sub_num=#{sub_num}")
 	public void deleteSubject(@Param("t_num") int t_num, @Param("sub_num") int sub_num);
 	
 	//시간표에 커스텀과목 추가
 	@Insert("INSERT INTO CustomSubject (csub_num, t_num, csub_name, prof_name, csub_time, csub_classRoom) VALUES(csub_seq.nextval, #{t_num}, #{csub_name}, #{prof_name}, #{csub_time}, #{csub_classRoom})")
 	public void insertCustomSubject(CustomSubjectVO customSubjectVO);
+	
+	//커스텀 과목을 수정
+	@Update("UPDATE CustomSubject SET csub_name=#{csub_name}, prof_name=#{prof_name}, csub_time=#{csub_time}, csub_classRoom=#{csub_classRoom} WHERE csub_num=#{csub_num}")
+	public void upadateCustomSubject(CustomSubjectVO customSubjectVO);
 	
 	//해당 시간표가 가지는 CustomSubject 개수
 	@Select("SELECT COUNT(*) FROM CustomSubject WHERE t_num=#{t_num}")
@@ -77,6 +81,18 @@ public interface TimetableMapper {
 	//해당 시간표의 커스텀 과목 가져오기
 	@Select("SELECT * FROM CustomSubject WHERE t_num=#{t_num} ORDER BY csub_num")
 	public List<CustomSubjectVO> selectCustomSubjectList(int t_num);
+	
+	//해당 시간표의 특정 커스텀과목 제외한 커스텀과목 가져오기
+	@Select("SELECT * FROM CustomSubject WHERE t_num=#{t_num} AND csub_num NOT IN (#{csub_num}) ORDER BY csub_num")
+	public List<CustomSubjectVO> selectCustomSubjectListExceptThis(CustomSubjectVO customSubjectVO);
+	
+	//커스텀과목 번호로 커스텀과목 가져오기
+	@Select("SELECT * FROM CustomSubject WHERE csub_num=#{csub_num}")
+	public CustomSubjectVO selectCustomSubject(int csub_num);
+	
+	//커스텀과목 삭제
+	@Delete("DELETE FROM CustomSubject WHERE csub_num=#{csub_num}")
+	public void deleteCustomSubject(int csub_num);
 	
 	//기본시간표 변경
 	//해당 학기의 모든 시간표의 isPrimary값을 0으로 변경하기
@@ -106,5 +122,5 @@ public interface TimetableMapper {
 	//시간표 설정 변경
 	//커스텀과목 삭제
 	@Delete("DELETE FROM CustomSubject WHERE t_num=#{t_num}")
-	public void deleteCustomSubject(int t_num);
+	public void deleteCustomSubjectsFromTimetable(int t_num);
 }

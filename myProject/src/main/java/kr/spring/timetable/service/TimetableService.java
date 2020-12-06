@@ -24,8 +24,11 @@ public interface TimetableService {
 	public void deleteSubject(@Param("t_num") int t_num, @Param("sub_num") int sub_num);
 	
 	public void insertCustomSubject(CustomSubjectVO customSubjectVO);
+	public void upadateCustomSubject(CustomSubjectVO customSubjectVO);
 	public int selectCustomSubjectCountOfTimetable(int t_num);
 	public List<CustomSubjectVO> selectCustomSubjectList(int t_num);
+	public List<CustomSubjectVO> selectCustomSubjectListExceptThis(CustomSubjectVO customSubjectVO);
+	public CustomSubjectVO selectCustomSubject(int csub_num);
 	
 	public void setIsPrimary(TimetableVO timetable);
 	public void updateTimetableName(TimetableVO timetable);

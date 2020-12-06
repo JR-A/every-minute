@@ -25,6 +25,7 @@ public class TimesMaker {
 					times.setSub_num(subjectList.get(s).getSub_num());		//sub_num 저장
 					times.setSub_name(subjectList.get(s).getSub_name());	//sub_name저장
 					times.setColor(s+1);
+					times.setIsCsub(0);
 					
 					switch(sub_time[i].charAt(0)) {				//월12 에서 '월'을 요일로 설정
 						case '월': times.setDay(0); break;
@@ -75,6 +76,7 @@ public class TimesMaker {
 					times.setSub_num(csubjectList.get(s).getCsub_num());		//sub_num 저장
 					times.setSub_name(csubjectList.get(s).getCsub_name());	//sub_name저장
 					times.setColor(s+15);
+					times.setIsCsub(1);
 					
 					switch(sub_time[i].charAt(0)) {				//월12 에서 '월'을 요일로 설정
 						case '월': times.setDay(0); break;
@@ -111,7 +113,6 @@ public class TimesMaker {
 				}
 			}
 		}
-		System.out.println("\n\n"+timesList);
 		return timesList;
 	}
 }

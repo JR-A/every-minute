@@ -10,6 +10,8 @@ public class TimesVO {
 	String classRoom; //강의실
 	String prof_name;
 	int color;		//0~30
+	int isCsub;
+	
 	
 	public int getColor() {
 		return color;
@@ -59,7 +61,12 @@ public class TimesVO {
 	public void setClassRoom(String classRoom) {
 		this.classRoom = classRoom;
 	}
-	
+	public int getIsCsub() {
+		return isCsub;
+	}
+	public void setIsCsub(int isCsub) {
+		this.isCsub = isCsub;
+	}
 	@Override
 	public String toString() {
 		return "TimesVO [sub_num=" + sub_num + ", sub_name=" + sub_name + ", day=" + day

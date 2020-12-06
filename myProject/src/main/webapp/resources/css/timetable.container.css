@@ -171,7 +171,7 @@ em {
 	background-image: url('../images/container.timetable.search.png');
 }
 #container table.tablebody tr td ul.status li.edit {
-	background-image: url('../images/container.timetable.edit.png');
+	background-image: url('https://everytime.kr/images/container.timetable.edit.png');
 }
 #container table.tablebody tr td ul.status li.del {
 	background-image: url('https://everytime.kr/images/container.timetable.del.png');
@@ -565,7 +565,7 @@ aside > div.title > ol.buttons {
 }
 
 .color0 { background-color: grey; }
-.color1 { background-color: #e9e7f3; }
+.color1 { background-color: #fdfcdd; }
 .color2 { background-color: #ffe9e9; }
 .color3 { background-color: #eff9cc; }
 .color4 { background-color: #dcf2e9; }
