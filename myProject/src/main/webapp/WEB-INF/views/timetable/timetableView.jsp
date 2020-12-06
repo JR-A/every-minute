@@ -344,18 +344,18 @@
 					    csub_time += intEndhour;
 				   	}
 			    }   	
-
 			    csub_classRoom +=$(this).find('.place').val();
-			    if(csub_classRoom == ''){
-			    	csub_classRoom += ',';
-			    }
 			});
 			
 			if (!check) { event.preventDefault(); return false; }	//submit종료
-						
+			
+		    if(csub_classRoom == ''){
+		    	csub_classRoom += ',';
+		    }
+		    
 			$('input[name=csub_time]').val(csub_time);
 			$('input[name=csub_classRoom]').val(csub_classRoom);
-					
+			
 			//커스텀 과목 추가 혹은 수정	
 			$.ajax({
 				url: '${pageContext.request.contextPath}/timetable/insertUpdateCustomSubject.do',
