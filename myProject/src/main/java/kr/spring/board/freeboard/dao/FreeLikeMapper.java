@@ -17,7 +17,7 @@ public interface FreeLikeMapper {
 	@Select("SELECT COUNT(*) FROM freeboard_like_post WHERE post_num = #{post_num} AND mem_num = #{mem_num}")
 	public int selectRowCountLikeByMem_num (Map<String,Object> map);
 	//게시글 추천 insert
-    @Insert ("INSERT INTO freeboard_like_post (like_num,post_num,mem_num) VALUES(free_post_like_SEQ.NEXTVAL,#{post_num},#{mem_num})")
+    @Insert ("INSERT INTO freeboard_like_post (like_num,post_num,mem_num) VALUES(free_like_post_SEQ.NEXTVAL,#{post_num},#{mem_num})")
 	public void insertLike (FreeLikeVO freeLikeVO);
 	//게시글 추천 추가
 	public void count_update(FreeLikeVO freeLikeVO);

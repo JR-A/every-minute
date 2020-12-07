@@ -49,7 +49,7 @@ CREATE TABLE FreeBoard(
 	modify_date DATE DEFAULT SYSDATE NOT NULL,
 	uploadfile BLOB,
 	filename VARCHAR2(100),
-	anonymous NUMBER(1) DEFAULT 1 NOT NULL,  /* (0:미허용 1:허용) */
+	anonymous NUMBER(1) NOT NULL,  /* (0:미허용 1:허용) */
 
 	CONSTRAINT freeboard_pk PRIMARY KEY (post_num),
 	CONSTRAINT freeboard_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
@@ -75,7 +75,7 @@ CREATE TABLE Infoboard(
    modify_date DATE DEFAULT SYSDATE NOT NULL,
    uploadfile BLOB,
    filename VARCHAR2(100),
-    anonymous NUMBER(1) DEFAULT 1 NOT NULL,  /* (0:미허용 1:허용) */
+    anonymous NUMBER(1) NOT NULL,  /* (0:미허용 1:허용) */
 
    CONSTRAINT Infoboard_pk PRIMARY KEY (post_num),
    CONSTRAINT Infoboard_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
@@ -89,8 +89,8 @@ CREATE TABLE CustomBoard(
 	mem_num NUMBER NOT NULL, 
 	title VARCHAR2(100) NOT NULL,
 	subtitle VARCHAR2(200),
-	type NUMBER(1) DEFAULT 0 NOT NULL, /* (0:기본형 1:사진형) */
-	anonymous NUMBER(1) DEFAULT 1 NOT NULL,  /* (0:미허용 1:허용) */
+	type NUMBER(1) NOT NULL, /* (0:기본형 1:사진형) */
+	anonymous NUMBER(1) NOT NULL,  /* (0:미허용 1:허용) */
 
 	CONSTRAINT customboard_pk PRIMARY KEY (board_num),
 	CONSTRAINT customboard_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
@@ -106,7 +106,7 @@ CREATE TABLE CustomPost(
 	modify_date DATE DEFAULT SYSDATE NOT NULL,
 	uploadfile BLOB,
 	filename VARCHAR2(100),
-	anonymous NUMBER(1) DEFAULT 1 NOT NULL,  /* (0:미허용 1:허용) */
+	anonymous NUMBER(1) NOT NULL,  /* (0:미허용 1:허용) */
 
 	CONSTRAINT custompost_pk PRIMARY KEY (post_num),
 	CONSTRAINT custompost_board_fk FOREIGN KEY (board_num) REFERENCES CustomBoard (board_num),
@@ -246,62 +246,50 @@ CREATE TABLE FreeBoard_Blame_Post(
     blame_num NUMBER NOT NULL,
     post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT freeBoard_blame_post_pk PRIMARY KEY (blame_num),
     CONSTRAINT freeBoard_blame_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
     CONSTRAINT freeBoard_blame_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT freeBoard_blame_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
 CREATE TABLE InfoBoard_Blame_Post(
     blame_num NUMBER NOT NULL,
     post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT infoboard_blame_post_pk PRIMARY KEY (blame_num),
     CONSTRAINT infoBoard_blame_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
     CONSTRAINT infoBoard_blame_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT infoBoard_blame_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
 CREATE TABLE CustomBoard_Blame_Post(
     blame_num NUMBER NOT NULL,
     post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT customBoard_blame_post_pk PRIMARY KEY (blame_num),
     CONSTRAINT customBoard_blame_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
     CONSTRAINT customBoard_blame_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT customBoard_blame_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
 --(댓글)
 CREATE TABLE FreeBoard_Blame_Comment(
     blame_num NUMBER NOT NULL,
     comment_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT freeBoard_blame_comment_pk PRIMARY KEY (blame_num),
     CONSTRAINT freeBoard_blame_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
     CONSTRAINT freeBoard_blame_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT freeBoard_blame_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
 CREATE TABLE InfoBoard_Blame_Comment(
     blame_num NUMBER NOT NULL,
     comment_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT infoboard_blame_comment_pk PRIMARY KEY (blame_num),
     CONSTRAINT infoBoard_blame_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
     CONSTRAINT infoBoard_blame_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT infoBoard_blame_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
 CREATE TABLE CustomBoard_Blame_Comment(
     blame_num NUMBER NOT NULL,
     comment_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT customBoard_blame_comment_pk PRIMARY KEY (blame_num),
     CONSTRAINT customBoard_blame_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
     CONSTRAINT customBoard_blame_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT customBoard_blame_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
 --------------------------------------- 즐겨찾기 -----------------------------------------------
 CREATE TABLE FreeBoard_Favorite(
@@ -485,6 +473,13 @@ CREATE TABLE BookStoreBoard(
 -----------------------------------------------SEQUENCE--------------------------------------------
 CREATE SEQUENCE member_seq START WITH 1000;	--Member의 mem_num
 
+CREATE SEQUENCE free_like_post_seq START WITH 2000; --freeBoard_like_post의 like_num
+CREATE SEQUENCE free_like_comment_seq START WITH 3000;--freeBoard_like_comment의 like_num
+CREATE SEQUENCE info_like_post_seq START WITH 4000;--infoBoard_like_post의 like_num
+CREATE SEQUENCE info_like_comment_seq START WITH 5000;--infoBoard_like_comment의 like_num
+CREATE SEQUENCE custom_like_post_seq START WITH 6000; --customBoard_like_post의 like_num
+CREATE SEQUENCE custom_like_comment_seq START WITH 7000;--customBoard_like_post의 like_num
+
 
 CREATE SEQUENCE freeBoard_post_seq START WITH 10000;  --FreeBoard의 post_num
 CREATE SEQUENCE infoBoard_post_seq START WITH 20000;	--InfoBoard의 post_num
@@ -494,6 +489,7 @@ CREATE SEQUENCE customPost_seq START WITH 30000; --CustomPost의 post_num
 
 CREATE SEQUENCE tag_seq START WITH 100;	-- Tag의 tag_num
 CREATE SEQUENCE hashtag_seq START WITH 200; --Hashtag의 hashtag_num
+
 
 
 CREATE SEQUENCE free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --FreeBoard_Comment의comment_num
