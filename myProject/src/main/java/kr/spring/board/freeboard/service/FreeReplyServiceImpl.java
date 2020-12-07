@@ -44,11 +44,10 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 		freeReplyMapper.deleteReply(re_num);
 	}
 
-	@Override
-	public void countReply(Map<String, Object> map) {
-		freeReplyMapper.countReply(map);
 		
 	}
 
 
-}
+
+
+

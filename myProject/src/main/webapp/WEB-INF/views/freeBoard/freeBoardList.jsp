@@ -4,7 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <script src="<c:url value="/resources/js/jquery-3.5.1.min.js" />"></script>
-<script src="/js/jquery.timeago.ko.js"></script>
+<script type="text/javascript">
+</script>
+
+
+
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
 
 	<div class="page-main-style">
@@ -27,7 +32,7 @@
 		   var $form = $container.find('.search');
 		   var $keyword = $form.find('input[name="keyword"]');
 		   if ($(this).val() === 'tag') {
-		      $keyword.attr('placeholder', '#에브리타임');
+		      $keyword.attr('placeholder', '#에브리미닛');
 		   } else {
 		      $keyword.attr('placeholder', '검색어를 입력하세요.');
 		   }
@@ -67,7 +72,7 @@
 					</a>
 		<div class ="wrapstatus">
 			<ul class="status">
-					<li class="vote" id="count_update">0</li>
+					<li class="vote" id="like_check">0</li>
 					<li class="comm">${freeboard.reply_cnt}</li>
 			</ul>
 		</div>

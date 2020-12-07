@@ -24,5 +24,4 @@ public interface FreeReplyMapper {
 		//부모글 삭제시 댓글이 존재하면 부모글 삭제전 댓글 삭제
 		@Delete("DELETE FROM freeboard_comment WHERE post_num=#{post_num}")
 		public void deleteReplyByPostNum(Integer post_num);
-		public void countReply(Map<String,Object> map);
 }

@@ -126,7 +126,7 @@ public class ReplyController {
 		//댓글 삭제
 		@RequestMapping("/freeBoard/deleteReply.do")
 		@ResponseBody
-		public Map<String,String> deleteReply(
+		public Map<String,Object> deleteReply(
 				@RequestParam("comment_num") int comment_num,
 				@RequestParam("mem_num") int mem_num,
 				HttpSession session){
@@ -136,8 +136,8 @@ public class ReplyController {
 				log.debug("<<mem_num>> : " + mem_num);
 			}
 
-			Map<String,String> map = 
-					new HashMap<String,String>();
+			Map<String,Object> map = 
+					new HashMap<String,Object>();
 
 			MemberVO user = 
 					(MemberVO)session.getAttribute("user");
@@ -180,7 +180,6 @@ public class ReplyController {
 				
 				//댓글 수정
 				freeReplyService.updateReply(boardReplyVO);
-				map.put("result", "success");
 			}else {
 				//로그인 아이디와 작성자 아이디 불일치
 				map.put("result", "wrongAccess");

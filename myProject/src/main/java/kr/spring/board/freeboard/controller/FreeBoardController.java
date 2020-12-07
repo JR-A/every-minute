@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
+import kr.spring.board.freeboard.service.FreeLikeService;
 import kr.spring.board.freeboard.service.FreeReplyService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.freeboard.vo.FreeLikeVO;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
@@ -39,6 +41,9 @@ public class FreeBoardController {
 	
 	@Resource
 	FreeReplyService replyService;
+	
+	@Resource
+	FreeLikeService freeLikeService;
 
 	
 	//자바빈(VO) 초기화
@@ -139,25 +144,32 @@ public class FreeBoardController {
 		
 		//글 상세
 		@RequestMapping("/freeBoard/detail.do")
-		public ModelAndView process(@RequestParam int post_num,Model model) {
+		public ModelAndView process(@RequestParam int post_num,Model model,FreeLikeVO freeLikeVO) {
 			
 			if(log.isDebugEnabled()) {
 				log.debug("<<글 상세>>:"+post_num);
 
 			}
 			
-			
-			//댓글 갯수
+		
+			//댓글 갯수,추천수
 			Map<String,Object> map = 
 					new HashMap<String,Object>();
 			map.put("post_num", post_num);
 			
 			int count = replyService.selectRowCountReply(map);
+			int likeCount= freeLikeService.selectRowCountLike(map);
 			
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
 			freeboard.setReply_cnt(count);
-	
+			freeboard.setLike_cnt(likeCount);
 			
+			  if(likeCount == 0) {
+				  map.put("likecheck",0);
+		        }
+		        else {
+		            map.put("likecheck",freeLikeVO.getLike_check());
+		        }
 			return new ModelAndView("freeBoardView","freeboard",freeboard);
 		}
 		
@@ -232,9 +244,6 @@ public class FreeBoardController {
 			return "common/result";
 		}
 
-		
-		//댓글 부분
-		
 		
 }
 

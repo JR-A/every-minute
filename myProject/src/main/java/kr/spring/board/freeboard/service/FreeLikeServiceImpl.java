@@ -1,6 +1,7 @@
-/*package kr.spring.board.freeboard.service;
+package kr.spring.board.freeboard.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,27 +19,25 @@ public class FreeLikeServiceImpl implements FreeLikeService {
 	FreeLikeMapper freeLikeMapper;
 
 	@Override
-	public int count_check(Map<String, Object> map) {
-		return freeLikeMapper.count_check(map);
-	}
-
-	@Override
-	public void count_update(Map<String, Object> map) {
-		freeLikeMapper.count_update(map);
+	public void insertLike(FreeLikeVO freeLikeVO) {
+		freeLikeMapper.insertLike(freeLikeVO);
 		
 	}
 
 	@Override
-	public void delete_like(Integer like_num) {
-		freeLikeMapper.delete_like(like_num);
+	public void count_update(FreeLikeVO freeLikeVO) {
+		freeLikeMapper.count_update(freeLikeVO);
 		
 	}
 
 	@Override
-	public int select_count(Map<String, Object> map) {
-		return freeLikeMapper.select_count(map);
+	public int selectRowCountLike(Map<String, Object> map) {
+		return freeLikeMapper.selectRowCountLike(map);
 	}
-	
-	
 
-}*/
+	@Override
+	public int selectRowCountLikeByMem_num(Map<String, Object> map) {
+		return freeLikeMapper.selectRowCountLikeByMem_num(map);
+	}
+
+}

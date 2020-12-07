@@ -10,6 +10,62 @@ $(document).ready(function(){
 	var currentPage;
 	var count;
 	var rowCount;
+	
+	//추천 갯수 읽기
+	function getLike_count(){
+		var post_num = ${freeboard.post_num};
+		$.ajax({
+			type:'post',
+			data:{post_num:post_num},
+			url:'getLikeCount.do',
+			dataType:'json',
+			cache:false,
+			timeout:30000,
+			success:function(data){
+				$('#like_check').text(data.like_cnt);
+			},
+			error:function(){
+				alert('네트워크 오류');
+			}
+		});
+	}
+	
+	//추천 등록
+	$(document).on('click','#like_check',function(event){
+		var choice = window.confirm('이 글을 추천하시겠습니까?');
+		if(choice){
+			var post_num = ${freeboard.post_num};
+			$.ajax({
+				type:'post',
+				data:{post_num:post_num},
+				url:'insertLike.do',
+				dataType:'json',
+				cache:false,
+				timeout:30000,
+				success:function(data){
+					if(data.result == 'success'){
+						getLike_count();
+						alert('추천 되었습니다');
+					}else if(data.result == 'LikeFound'){
+						alert('이미 추천하셨습니다.');
+					}else if(data.result == 'logout'){
+						alert('로그인해야 사용할 수 있습니다.');
+					}else if(data.result == 'myPost'){
+						alert('본인 글에는 추천 할 수 없습니다.');
+					}else{
+						alert('추천 등록 오류 발생');
+					}
+				},
+				error:function(){
+					alert('네트워크 오류');
+				}
+			});
+		}
+	});
+	
+	//초기 추천 갯수 읽기
+	getLike_count();
+	
 	//댓글 목록
 	function selectData(pageNum,post_num){
 		currentPage = pageNum;
@@ -88,7 +144,7 @@ $(document).ready(function(){
 		var pageNum = currentPage + 1;
 		selectData(pageNum,$('#post_num').val());
 	});
-	
+
 	//댓글 등록
 	$('#re_form').submit(function(event){
 		if($('#content').val()==''){
@@ -115,7 +171,8 @@ $(document).ready(function(){
 					//댓글 작성이 성공하면 새로 삽입한 글을
 					//포함해서 첫번째 페이지의 게시글들을 다시
 					//호출함
-					selectData(1,$('#post_num').val());
+					//selectData(1,$('#post_num').val());
+					location.reload();
 				}else{
 					alert('등록시 오류 발생!');
 				}
@@ -123,6 +180,7 @@ $(document).ready(function(){
 			error:function(){
 				alert('네트워크 오류!');
 			}
+			
 		});
 		//기본 이벤트 제거
 		event.preventDefault();
@@ -299,7 +357,8 @@ $(document).ready(function(){
 					alert('로그인해야 삭제할 수 있습니다.');
 				}else if(data.result == 'success'){
 					alert('삭제 완료!');
-					selectData(1,$('#post_num').val());
+					//selectData(1,$('#post_num').val());
+					location.reload();
 				}else if(data.result == 'wrongAccess'){
 					alert('타인의 글을 삭제할 수 없습니다.');
 				}else{
@@ -360,42 +419,12 @@ $(document).ready(function(){
 		<div class ="wrapstatus">
 			<ul class="status">
 				<!--<c:if test="${!empty user}">-->
-					<li class="vote" id="like_check" >
-					0
-					</li>
+					<li class="vote" id="like_check">0</li>
 					
 					<li class="comm" id="count">${freeboard.reply_cnt}</li>
 				<!--</c:if>-->
 			</ul>
 		</div>
-		<script>
-
-/* 
-		$("#like_check").on('click', function() {
-		  alert("추천하시겠습니까?");
-		}); */
-		
-		function like_check(){
-			$.ajax({
-			url: "freeLikeCount.do",
-			type: "POST",
-			cache: false,
-			dataType: "json",
-			data: $('#like_check'), //아이디가 like_form인 곳의 모든 정보를 가져와 파라미터 전송 형태(표준 쿼리형태)로 만들어줌
-			success:
-			function(data){ //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
-			alert("'좋아요'가 반영되었습니다!") ; // data중 put한 것의 이름 like
-			$("#like_check").html(data.like_check); //id값이 like_result인 html을 찾아서 data.like값으로 바꿔준다.
-			},
-			error:
-			function (request, status, error){
-			alert("ajax실패")
-			}
-			});
-			}
-
-	
-		</script>
 </div>
 
 	<div class="align-right">

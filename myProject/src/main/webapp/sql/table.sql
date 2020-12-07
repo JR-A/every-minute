@@ -194,62 +194,51 @@ CREATE TABLE FreeBoard_Like_Post(
     like_num NUMBER NOT NULL,
     post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT freeBoard_like_post_pk PRIMARY KEY (like_num),
     CONSTRAINT freeBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
-    CONSTRAINT freeBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT freeBoard_like_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
+    CONSTRAINT freeBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
+    );
 CREATE TABLE InfoBoard_Like_Post(
     like_num NUMBER NOT NULL,
     post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT infoboard_like_post_pk PRIMARY KEY (like_num),
     CONSTRAINT infoBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
     CONSTRAINT infoBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT infoBoard_like_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+  
 );
 CREATE TABLE CustomBoard_Like_Post(
     like_num NUMBER NOT NULL,
     post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT customBoard_like_post_pk PRIMARY KEY (like_num),
     CONSTRAINT customBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
-    CONSTRAINT customBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT customBoard_like_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+    CONSTRAINT customBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
 --(댓글)
 CREATE TABLE FreeBoard_Like_Comment(
     like_num NUMBER NOT NULL,
     comment_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT freeBoard_like_comment_pk PRIMARY KEY (like_num),
     CONSTRAINT freeBoard_like_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
-    CONSTRAINT freeBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT freeBoard_like_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+    CONSTRAINT freeBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
 CREATE TABLE InfoBoard_Like_Comment(
     like_num NUMBER NOT NULL,
     comment_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT infoboard_like_comment_pk PRIMARY KEY (like_num),
     CONSTRAINT infoBoard_like_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
-    CONSTRAINT infoBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT infoBoard_like_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+    CONSTRAINT infoBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
 CREATE TABLE CustomBoard_Like_Comment(
     like_num NUMBER NOT NULL,
     comment_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
     CONSTRAINT customBoard_like_comment_pk PRIMARY KEY (like_num),
     CONSTRAINT customBoard_like_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
-    CONSTRAINT customBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT customBoard_like_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+    CONSTRAINT customBoard_like_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
 -------------------------------------------------- 신고 -----------------------------------------------
 --(게시글)
