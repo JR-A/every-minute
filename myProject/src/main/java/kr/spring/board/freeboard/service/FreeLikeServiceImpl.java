@@ -25,12 +25,6 @@ public class FreeLikeServiceImpl implements FreeLikeService {
 	}
 
 	@Override
-	public void count_update(FreeLikeVO freeLikeVO) {
-		freeLikeMapper.count_update(freeLikeVO);
-		
-	}
-
-	@Override
 	public int selectRowCountLike(Map<String, Object> map) {
 		return freeLikeMapper.selectRowCountLike(map);
 	}
@@ -39,5 +33,11 @@ public class FreeLikeServiceImpl implements FreeLikeService {
 	public int selectRowCountLikeByMem_num(Map<String, Object> map) {
 		return freeLikeMapper.selectRowCountLikeByMem_num(map);
 	}
+
+	@Override
+	public int selectSameMember(Map<String, Object> map) {
+		return freeLikeMapper.selectSameMember(map);
+	}
+
 
 }

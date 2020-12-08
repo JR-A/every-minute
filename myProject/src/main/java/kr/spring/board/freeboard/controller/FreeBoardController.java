@@ -68,16 +68,18 @@ public class FreeBoardController {
 			@RequestParam(value="keyfield",defaultValue="")
 			String keyfield,
 			@RequestParam(value="keyword",defaultValue="")
-			String keyword) {
+			String keyword){
 		
 		Map<String,Object> map =
 				new HashMap<String,Object>();
 		map.put("keyfield", keyfield);
 		map.put("keyword", keyword);
-		
+
+
+	
 		//총 글의 갯수 또는 검색된 글의 갯수
 		int count = freeBoardService.selectRowCount(map);
-		
+
 		if(log.isDebugEnabled()) {
 			log.debug("<<count>> :"+count);
 		}
@@ -94,7 +96,7 @@ public class FreeBoardController {
 			if(log.isDebugEnabled()) {
 				log.debug("<<글 목록>>:"+list);
 			}
-			
+		
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -163,13 +165,7 @@ public class FreeBoardController {
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
 			freeboard.setReply_cnt(count);
 			freeboard.setLike_cnt(likeCount);
-			
-			  if(likeCount == 0) {
-				  map.put("likecheck",0);
-		        }
-		        else {
-		            map.put("likecheck",freeLikeVO.getLike_check());
-		        }
+
 			return new ModelAndView("freeBoardView","freeboard",freeboard);
 		}
 		

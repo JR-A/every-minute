@@ -17,7 +17,8 @@
 	filename,
 	anonymous,
 	id,
-	reply_cnt
+	reply_cnt,
+	like_cnt
 	
 	FROM(SELECT
 		a.*,
@@ -34,9 +35,12 @@
 		filename,
 		anonymous,
 		id,
-		reply_cnt
+		reply_cnt,
+		like_cnt
+		
 			 FROM freeBoard f  
 			 LEFT OUTER JOIN (SELECT COUNT(*) reply_cnt, post_num  FROM freeboard_comment GROUP BY post_num) r ON f.post_num=r.post_num
+			 LEFT OUTER JOIN (SELECT COUNT(*) like_cnt, post_num FROM freeboard_like_post GROUP BY post_num)l ON f.post_num=l.post_num
 			 JOIN member m ON f.mem_num=m.mem_num
 			 JOIN member_detail d ON m.mem_num=d.mem_num
 			  		<where>

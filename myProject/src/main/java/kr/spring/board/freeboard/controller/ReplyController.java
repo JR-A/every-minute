@@ -180,6 +180,7 @@ public class ReplyController {
 				
 				//댓글 수정
 				freeReplyService.updateReply(boardReplyVO);
+				map.put("result", "success");
 			}else {
 				//로그인 아이디와 작성자 아이디 불일치
 				map.put("result", "wrongAccess");

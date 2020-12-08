@@ -58,12 +58,17 @@ public class FreeLikeController {
 			map.put("post_num", freeLikeVO.getPost_num());
 			map.put("mem_num", user.getMem_num());
 			int myCount = freeLikeService.selectRowCountLikeByMem_num(map);
+			int myPost = freeLikeService.selectSameMember(map);
 			log.debug("<<myCount>>:"+myCount);
 			
 			
 			if(myCount > 0) {
 				
 				mapAjax.put("result", "LikeFound");
+			
+			}else if(myPost > 0){
+			
+				mapAjax.put("result", "SameID");
 			}else{
 				//추천	
 				freeLikeVO.setMem_num(user.getMem_num());

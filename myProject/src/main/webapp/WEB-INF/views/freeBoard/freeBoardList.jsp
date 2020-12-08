@@ -3,11 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
 <script src="<c:url value="/resources/js/jquery-3.5.1.min.js" />"></script>
+
 <script type="text/javascript">
-</script>
-
-
+	$().ready(function () {
+		   var $container = $('.page-main-style');
+		   
+		$container.on('change', '.search > li > select[name="keyfield"]', function () {
+		   var $form = $container.find('.search');
+		   var $keyword = $form.find('input[name="keyword"]');
+		   if ($(this).val() === 'tag') {
+		      $keyword.attr('placeholder', '#에브리미닛');
+		   } else {
+		      $keyword.attr('placeholder', '검색어를 입력하세요.');
+		   }
+		   $keyword.val('');
+		   });
+		});
+	</script>
 
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
@@ -24,22 +38,9 @@
 					<option value="content">글 내용</option>
 					
 			</select></li>
-	<script>
-	$().ready(function () {
-		   var $container = $('.page-main-style');
-		   
-		$container.on('change', '.search > li > select[name="keyfield"]', function () {
-		   var $form = $container.find('.search');
-		   var $keyword = $form.find('input[name="keyword"]');
-		   if ($(this).val() === 'tag') {
-		      $keyword.attr('placeholder', '#에브리미닛');
-		   } else {
-		      $keyword.attr('placeholder', '검색어를 입력하세요.');
-		   }
-		   $keyword.val('');
-		   });
-		});
-	</script>
+
+
+
 			<!-- 검색 form -->
 			<li><input type="text" name="keyword" id="keyword"></li>
 			<li><input type="submit" value="찾기"></li>
@@ -72,7 +73,7 @@
 					</a>
 		<div class ="wrapstatus">
 			<ul class="status">
-					<li class="vote" id="like_check">0</li>
+					<li class="vote" id="like_check">${freeboard.like_cnt}</li>
 					<li class="comm">${freeboard.reply_cnt}</li>
 			</ul>
 		</div>

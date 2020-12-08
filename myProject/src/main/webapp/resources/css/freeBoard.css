@@ -142,6 +142,16 @@ ul.option li{
 
 }
 
+.replyVote{
+	background-position: left center;
+	padding-left: 15px;
+	background-size: 12px 12px;
+	color: #c62917;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	background-image:url(https://everytime.kr/images/new/container.articles.vote.png);
+}
+
 /*======== Mypage 추가 끝 ========*/
 
 /*============= 수정폼 시작 ==============*/

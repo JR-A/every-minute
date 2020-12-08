@@ -50,8 +50,8 @@ $(document).ready(function(){
 						alert('이미 추천하셨습니다.');
 					}else if(data.result == 'logout'){
 						alert('로그인해야 사용할 수 있습니다.');
-					}else if(data.result == 'myPost'){
-						alert('본인 글에는 추천 할 수 없습니다.');
+					}else if(data.result == 'SameID'){
+						alert('자신의 글에는 추천 할 수 없습니다.');
 					}else{
 						alert('추천 등록 오류 발생');
 					}
@@ -105,13 +105,16 @@ $(document).ready(function(){
 						output += '  <div class="sub-item">';
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
+						output +='<span class="replyVote">'+ 0 +'<br>'+'</span>';
 						output += '<span class="reply-date">'+item.reg_date+'</span>';
+						
 						
 						if($('#mem_num').val()==item.mem_num){
 							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
 							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
 							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
 						}
+						
 						output += '      <hr size="1" noshade>';
 						output += '  </div>';
 						output += '</div>';
@@ -165,7 +168,7 @@ $(document).ready(function(){
 			success:function(data){
 				if(data.result=='logout'){
 					alert('로그인해야 작성할 수 있습니다.');
-				}else if(data.result=='success'){
+				}else if(data.result=='success' || data.result=='LikeFound' ){
 					//폼초기화
 					initForm();
 					//댓글 작성이 성공하면 새로 삽입한 글을
@@ -273,14 +276,9 @@ $(document).ready(function(){
 			$('#mre_content').focus();
 			return false;
 		}
-		var result = confirm('수정 하시겠습니까?');
-		if(result) {
+		var choice = confirm('수정 하시겠습니까?');
+		if(choice) {
 			
-			
-		}else{
-			return false;
-		}
-		
 		//폼에 입력한 데이터 반환
 		var data = $(this).serialize();
 		
@@ -316,6 +314,8 @@ $(document).ready(function(){
 					
 					//수정폼 초기화
 					initModifyForm();
+					
+					
 				}else if(data.result=='wrongAccess'){
 					alert('타인의 글은 수정할 수 없습니다.');
 				}else{
@@ -328,6 +328,7 @@ $(document).ready(function(){
 		});
 		//기본 이벤트 제거
 		event.preventDefault();
+		}
 	});
 	
 	//댓글 삭제
@@ -418,11 +419,11 @@ $(document).ready(function(){
 
 		<div class ="wrapstatus">
 			<ul class="status">
-				<!--<c:if test="${!empty user}">-->
+			
 					<li class="vote" id="like_check">0</li>
 					
 					<li class="comm" id="count">${freeboard.reply_cnt}</li>
-				<!--</c:if>-->
+			
 			</ul>
 		</div>
 </div>
