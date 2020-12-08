@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>insert title here</title>
+<title>안내</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css" type="text/css">
 </head>
 <body>

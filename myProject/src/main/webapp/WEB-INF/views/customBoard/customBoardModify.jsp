@@ -58,7 +58,7 @@
 			}else{
 				$('#anonymous').val(0); //미허용
 			}
-			alert(simple_check);
+			alert($('#anonymous').val());
 		});
 		
    });
@@ -141,15 +141,19 @@
 	  <h2>추가설정</h2>
 	  <div id="anonymous_opt">
 	      <h4 id="anonymouse_check">익명허용</h4> 
-	      <label class="switch">
- 			 <input type="checkbox" id="check_anony" checked>
-			 <span class="slider round"></span>
-		  </label>
-		  <c:if test="${customBoardVO.anonymous == 0}">
+		  <c:if test="${customBoardVO.anonymous == 0}"> <!-- 익명 불허 게시판 -->
+			  <label class="switch">
+	 			 <input type="checkbox" id="check_anony">
+				 <span class="slider round"></span>
+			  </label>
 			 <p id="anony">OFF</p>
 			 <p id="anony" style="display:none;">ON</p>
 		  </c:if>
-		  <c:if test="${customBoardVO.anonymous == 1}">
+		  <c:if test="${customBoardVO.anonymous == 1}"> <!-- 익명 허용 게시판 -->
+			  <label class="switch">
+	 			 <input type="checkbox" id="check_anony" checked>
+				 <span class="slider round"></span>
+			  </label>
 			  <p id="anony" style="display:none;">OFF</p>
 			  <p id="anony">ON</p>
 		  </c:if>

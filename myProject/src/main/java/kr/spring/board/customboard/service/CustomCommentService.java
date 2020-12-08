@@ -12,6 +12,5 @@ public interface CustomCommentService {
 	public void insertComment(CustomCommentVO customCommentVO);
 	public void updateComment(CustomCommentVO customCommentVO);
 	public void deleteComment(Integer comment_num);
-	public void countComment(Map<String,Object> map);
 	
 }

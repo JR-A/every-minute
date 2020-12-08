@@ -13,7 +13,9 @@
 		<span id="subtitle">${boardInfo.subtitle}</span>
 	</h2>
 	
-	<form action="customPostList.do?board_num=${boardInfo.board_num}" id="search_form" method="get">
+	<form action="customPostList.do" id="search_form" method="get">
+		<!-- 유효성 검사를 하지 않을 경우에는 form:hidden 사용금지 -->
+		<input type="hidden" name="board_num" value="${boardInfo.board_num}"/> 
 		<ul class="search">
 			<li>
 				<select name="keyfield" id="keyfield">
@@ -85,7 +87,7 @@
 						<div class="profile">
 							<h3 class="large">${customPost.id}</h3>
 							<!-- 작성일 -->
-							<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:MM"/></time>
+							<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 						</div>
 					</c:if>
 					
@@ -98,7 +100,7 @@
 						<!-- 작성자 아이디 -->
 						<div class="profile">
 							<h3 class="large">익명</h3>
-							<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:MM"/></time>
+							<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 						</div>
 					</c:if>
 					<span id="div_content"></span>
@@ -114,8 +116,16 @@
 							</div>
 						</c:if>
 					</c:if>
-					
 					</a>
+					
+					<div class ="wrapstatus">
+						<ul class="status">
+								<li class="vote" id="like_check">0</li>
+								<li class="comm">${customPost.comment_cnt}</li>
+						</ul>
+						<span style="visibility:hidden;">span</span>
+					</div>
+					
 				</article>
 			</c:forEach>
 		<div class="align-center">${pagingHtml}</div>

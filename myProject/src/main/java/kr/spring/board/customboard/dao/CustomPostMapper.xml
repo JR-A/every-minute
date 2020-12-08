@@ -3,29 +3,41 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.board.customboard.dao.CustomPostMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
+	 
+	<select id="selectTop3PostList" resultType="customPostVO">
+		SELECT * FROM 
+			(SELECT p.post_num, p.board_num, p.content, p.reg_date , b.title , ROW_NUMBER() OVER(ORDER BY post_num DESC) AS rank 
+				FROM customPost p join customBoard b 
+				on p.board_num=b.board_num)
+		<![CDATA[
+		where rank<=3
+		]]>	
+	</select>
+	
 	<!-- 게시글 목록 --> 
 	<select id="selectPostList" parameterType="map" resultType="customPostVO"> <!-- 쿼리 실행 결과를  customBoardVO에  담는다-->
 		SELECT * FROM
 			(SELECT post.* FROM 
 				(SELECT board.*, rownum rnum FROM
 					(SELECT * FROM 
-						CustomPost p JOIN Member m 
-							ON p.mem_num = m.mem_num 
-							WHERE board_num = #{board_num}
+						CustomPost p  
+                            LEFT OUTER JOIN (SELECT COUNT(*) comment_cnt, post_num  FROM customBoard_comment GROUP BY post_num) c_n 
+                                ON p.post_num=c_n.post_num
+							JOIN Member m 
+								ON p.mem_num = m.mem_num 
+						WHERE board_num = #{board_num}
+							<if test="keyword != '' and keyfield == 'hashtag'">
+								 and content LIKE '%' || #{keyword} || '%'
+							</if>	
+							<if test="keyword != '' and keyfield == 'content'">
+								and content LIKE '%' || #{keyword} || '%'
+							</if>
+							<if test="keyword != '' and keyfield == 'all'"> 
+								and content LIKE '%' || #{keyword} || '%' <!--  or hashtag LIKE '%' || #{keyword} || '%' or content LIKE '%' || #{keyword} || '%' -->
+							</if>
 							ORDER BY p.post_num DESC 
-					) board) 
-					<where>
-						<if test="keyword != '' and keyfield == 'hashtag'">
-							and board.content LIKE '%' || #{keyword} || '%'
-						</if>	
-						<if test="keyword != '' and keyfield == 'content'">
-							and board.content LIKE '%' || #{keyword} || '%')
-						</if>
-						<if test="keyword != '' and keyfield == 'all'"> 
-							and board.content LIKE '%' || #{keyword} || '%' or board.title LIKE '%' || #{keyword} || '%' or board.content LIKE '%' || #{keyword} || '%')
-						</if>
-					</where>
-				post)
+					) board)
+				post) 
 		<![CDATA[
 			WHERE rnum>=#{start} AND rnum <= #{end}
 		]]>

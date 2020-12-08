@@ -102,6 +102,14 @@
 			<mapping path="/member/changeNickname.do"/>
 			<mapping path="/member/changePasswd.do"/>
 			<mapping path="/timetable/timetableView.do"/>
+			<mapping path="/customBoard/createCustomBoard.do"/>
+			<mapping path="/customBoard/updateCustomBoard.do"/>
+			<mapping path="/customBoard/deleteCustomBoard.do"/>
+			<mapping path="/customBoard/customPostList.do"/>
+			<mapping path="/customBoard/customPostDetail.do"/>
+			<mapping path="/customBoard/customPostWrite.do"/>	
+			<mapping path="/customBoard/customPostModify.do"/>		
+			<mapping path="/customBoard/customPostDelete.do"/>
 			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		
@@ -115,6 +123,19 @@
 			<mapping path="/freeBoard/delete.do"/>
 			<beans:bean class="kr.spring.interceptor.FreeCheckInterceptior"/>
 		</interceptor>
+		<!-- 사용자 생성 게시판 접근 권한 -->
+		<interceptor>
+			<mapping path="/customBoard/deleteCustomBoard.do"/>
+			<mapping path="/customBoard/updateCustomBoard.do"/>
+			<beans:bean class="kr.spring.interceptor.CustomBoardWriterCheck"/>
+		</interceptor>
+		<!-- 사용자 생성 게시글 접근 권한 -->
+		<interceptor>
+			<mapping path="/customBoard/customPostDelete.do"/>
+			<mapping path="/customBoard/customPostModify.do"/>
+			<beans:bean class="kr.spring.interceptor.CustomPostWriterCheck"/>
+		</interceptor>
+		<!-- 메인 화면  -->
 		<interceptor>
 			<mapping path="/main/main_board.do"/>
 			<mapping path="/freeBoard/detail.do"/>

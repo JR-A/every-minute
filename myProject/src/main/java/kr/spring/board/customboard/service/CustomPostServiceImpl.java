@@ -17,6 +17,11 @@ public class CustomPostServiceImpl implements CustomPostService {
 	@Resource
 	CustomPostMapper customPostMapper;	
 
+	
+	@Override
+	public List<CustomPostVO> selectTop3PostList() {
+		return customPostMapper.selectTop3PostList();
+	}
 	//게시글 목록
 	@Override 
 	public List<CustomPostVO> selectPostList(Map<String, Object> map) {

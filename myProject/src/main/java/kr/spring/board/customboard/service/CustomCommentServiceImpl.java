@@ -41,9 +41,4 @@ public class CustomCommentServiceImpl implements CustomCommentService{
 		customCommentMapper.deleteComment(comment_num);
 	}
 
-	@Override
-	public void countComment(Map<String, Object> map) {
-		customCommentMapper.countComment(map);
-	}
-
 }

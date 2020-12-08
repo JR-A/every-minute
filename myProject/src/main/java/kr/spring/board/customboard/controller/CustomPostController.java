@@ -21,12 +21,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.spring.board.customboard.service.CustomBoardService;
+import kr.spring.board.customboard.service.CustomCommentService;
 import kr.spring.board.customboard.service.CustomPostService;
 import kr.spring.board.customboard.vo.CustomBoardVO;
+import kr.spring.board.customboard.vo.CustomCommentVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.CustomPagingUtil;
-import kr.spring.util.PagingUtil;
 
 @Controller
 public class CustomPostController {
@@ -37,10 +38,12 @@ public class CustomPostController {
 	CustomPostService customPostService;
 	@Resource
 	CustomBoardService customBoardService;
+	@Resource
+	CustomCommentService customCommentService;
 
-	//자바빈 초기화
+	//게시글 자바빈(VO) 초기화
 	@ModelAttribute
-	public CustomPostVO initCommand() {
+	public CustomPostVO initForm() {
 		return new CustomPostVO();
 	}
 
@@ -122,6 +125,16 @@ public class CustomPostController {
 
 		//게시글 자바빈 반환
 		CustomPostVO customPost = customPostService.selectCustomPost(post_num); //게시글 정보
+		
+		//댓글 개수, 추천 수
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("post_num", post_num);
+		
+		int commCount = customCommentService.selectRowCountComment(map);
+		//int likeCount = customLikeService.selectRowCountLike(map);
+		
+		customPost.setComment_cnt(commCount);
+		//customPost.setLike_cnt(like_cnt);
 		
 		ModelAndView mav = new ModelAndView();
 		// view 이름

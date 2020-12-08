@@ -9,7 +9,9 @@ public class CustomCommentVO {
 	private String reg_date;
 	private int anonymous;
 	
-	private String id;
+	private String photoname; //프로필 사진 - 댓글
+	private int post_mem_num; //게시글 작성자 회원번호 - 댓글
+	private String id; 
 	
 	public int getComment_num() {
 		return comment_num;
@@ -52,6 +54,18 @@ public class CustomCommentVO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getPost_mem_num() {
+		return post_mem_num;
+	}
+	public void setPost_mem_num(int post_mem_num) {
+		this.post_mem_num = post_mem_num;
+	}
+	public String getPhotoname() {
+		return photoname;
+	}
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
 	}
 	
 }

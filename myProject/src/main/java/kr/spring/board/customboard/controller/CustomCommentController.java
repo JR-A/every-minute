@@ -173,10 +173,11 @@ public class CustomCommentController {
 			return map;
 		}
 		
+		//댓글 프로필사진
 		@RequestMapping("/customBoard/commentImageView.do")
 		public ModelAndView viewImage(@RequestParam int mem_num) {
 			
-			MemberVO vo = memberService.selectMember(mem_num);
+			MemberVO vo = memberService.selectMember(mem_num); 
 			
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("imageView");

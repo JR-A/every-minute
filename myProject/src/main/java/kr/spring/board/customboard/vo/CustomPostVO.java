@@ -19,9 +19,13 @@ public class CustomPostVO {
 	private byte[] uploadfile; //이미지 파일 _blob
 	private String filename; //파일명
 	private int anonymous; //익명여부
-	
-	private String id;
 
+	private String title; //게시판 번호
+	private String id; //작성자
+	private int comment_cnt; //댓글 수
+	private int like_cnt; //추천 수
+	
+    
 	//이미지 업로드 파일 처리
 	public void setUpload(MultipartFile upload)throws IOException{
 		//MultipartFile -> byte[] 반환
@@ -48,6 +52,21 @@ public class CustomPostVO {
 
 	public int getMem_num() {
 		return mem_num;
+	}
+	public int getComment_cnt() {
+		return comment_cnt;
+	}
+
+	public void setComment_cnt(int comment_cnt) {
+		this.comment_cnt = comment_cnt;
+	}
+
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
 	}
 
 	public void setMem_num(int mem_num) {
@@ -108,6 +127,14 @@ public class CustomPostVO {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

@@ -9,7 +9,8 @@ import org.apache.ibatis.annotations.Select;
 import kr.spring.board.customboard.vo.CustomPostVO;
 
 public interface CustomPostMapper {
-	
+	//최근 게시글 top3 목록
+	public List<CustomPostVO> selectTop3PostList();
 	//게시글 목록
 	public List<CustomPostVO> selectPostList(Map<String, Object> map); 
 	//페이징처리를 위한 글 count

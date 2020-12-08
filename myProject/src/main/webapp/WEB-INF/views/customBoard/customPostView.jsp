@@ -39,13 +39,23 @@ $(document).ready(function(){
 				if(count < 0 || list == null){
 					alert('목록 호출 오류 발생!');
 				}else{
-					//댓글 목록 작업
+					//댓글 목록 
 					$(list).each(function(index,item){
 						var output = '<div class="item">';
-						if(item.anonymous == 1){
-							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large">익명</h4>';
-						}else if(item.anonymous == 0){
-							output += '  <h4><img src="commentImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
+						if(item.anonymous == 1){ //댓글이 익명일 경우
+							if(item.post_mem_num == item.mem_num){ //게시글 작성자가 댓글 작성자와 동일할 때 - (글쓴이)표시
+								output += '  <h4 style="color: #0ca5af;""><img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">  익명(글쓴이)</h4>';
+							}
+							else{
+								output += '  <h4><img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">  익명</h4>';
+							}
+						}else if(item.anonymous == 0){ //댓글이 익명이 아닐 경우
+							if(item.photoname == null){ //등록한 프로필 사진이 없을 경우
+								output += '  <h4><img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">      ' + item.id + '</h4>';
+							}
+							else{ //프로필 사진이 있을 경우
+								output += '  <h4><img src="commentImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">      ' + item.id + '</h4>';
+							}
 						}
 						output += '  <div class="sub-item">';
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
@@ -116,7 +126,7 @@ $(document).ready(function(){
 					//댓글 작성이 성공하면 새로 삽입한 글을
 					//포함해서 첫번째 페이지의 게시글들을 다시
 					//호출함
-					selectData(1,$('#post_num').val());
+					location.reload(); //해당 페이지 reload()
 				}else{
 					alert('등록시 오류 발생!');
 				}
@@ -128,6 +138,7 @@ $(document).ready(function(){
 		//기본 이벤트 제거
 		event.preventDefault();
 	});
+	
 	//댓글 작성 폼 초기화
 	function initForm(){
 		$('textarea').val('');
@@ -328,6 +339,12 @@ $(document).ready(function(){
 <div class="page-main-style-detail">
 	<article>
 		<a class="article2">
+			<div class ="wrapstatus">
+				<ul class="status">
+						<li class="vote" id="like_check">0</li>
+						<li class="comm">${customPost.comment_cnt}</li>
+				</ul>
+			</div>
 			<c:if test="${!empty customPost}">
 				<!-- 프로필 사진 -->	
 				<c:if test="${customPost.anonymous == 0}"> <!-- 익명처리 off -->
@@ -352,7 +369,7 @@ $(document).ready(function(){
 						<h3 class="large">익명</h3>
 					</c:if>
 					<!-- 작성일 -->
-					<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:MM"/></time>
+					<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 				</div>
 				
 				<ul class="status">
@@ -371,18 +388,6 @@ $(document).ready(function(){
 					<li title="즐겨찾기" class="scrap"><!-- 총 즐겨찾기 수 --></li>
 				</ul>
 				<hr>
-				<!-- 첨부파일 -->
-				
-				<%-- <c:if forEach>사용 첨부파일 list가 있을 때마다 반복 
-						<figure class="attach">
-							<img src="customPostImageView.do?post_num=${customPost.post_num}" style="max-width:500px;"> 
-						<figure>	
-						<figcaption>
-							${사진에 대한 코멘트} ex)"아이보리 색이고 (위 사진 참고) 이뻐요!!!"<br>"10000원에 팔아요!"
-						</figcaption>
-					</c:if forEach>
-				--%>
-				
 				<div class="align-center">
 					<c:if test="${!empty customPost.filename}"> <!-- filename이 있으면 image가 있는거 -->
 						<img src="customPostImageView.do?post_num=${customPost.post_num}&&board_num=${boardInfo.board_num}" style="max-width:500px;"> <!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
@@ -393,6 +398,7 @@ $(document).ready(function(){
 	</article>
 </div>
 
+<!-- 수정/삭제 -->
 <div class="align-right">
 	<c:if test="${!empty user && user.mem_num == customPost.mem_num}">
 		<input type="button" value="수정" onclick="location.href='customPostModify.do?post_num=${customPost.post_num}&&board_num=${boardInfo.board_num}'">
@@ -403,23 +409,12 @@ $(document).ready(function(){
 			delete_btn.onclick=function() {
 				var choice = window.confirm('정말 삭제하시겠습니까?');
 				if (choice) {
-					location.href='deleteCustomPost.do?post_num=${customPost.post_num}';
+					location.href='customPostDelete.do?post_num=${customPost.post_num}';
 				}
 			}
 		</script>
 	</c:if>
 	
-	<%-- <div class ="wrapstatus">
-		<ul class="status">
-			<!--<c:if test="${!empty user}">-->
-				<li class="vote" id="like_check" >
-				0
-				</li>
-				
-				<li class="comm" id="count">${freeboard.comment_cnt}</li>
-			<!--</c:if>-->
-		</ul>
-	</div> --%>
 </div>
 
 <!-- 댓글 -->
@@ -427,9 +422,9 @@ $(document).ready(function(){
 	<span class="comment-title">댓글 달기</span>
 	<form id="comment_form">
 		<input type="hidden" name="post_num"
-		       value="${customPost.post_num}" id="post_num">      
+		       value="${customPost.post_num}" id="post_num"> <!-- 게시글 번호 -->
 		<input type="hidden" name="mem_num"
-		       value="${user.mem_num}" id="mem_num">
+		       value="${user.mem_num}" id="mem_num"> <!-- 로그인 한 회원 -->
 		<textarea rows="3" cols="50"
 		  name="content" id="content"
 		  class="rep-content"
@@ -446,7 +441,8 @@ $(document).ready(function(){
 		</c:if>
 	</form>
 </div>
-<!-- 댓글 목록 출력 -->
+
+<!-- 댓글 목록 -->
 <div id="output"></div>
 <div class="paging-button" style="display:none;">
 	<input type="button" value="댓글 더 보기">
