@@ -16,7 +16,7 @@
 		<!-- 제목&소제목 -->
 		<div class="wrap title">
 			<h1>
-				<a href="customPostList.do">${boardInfo.title}</a>
+				<a>${boardInfo.title}</a>
 			</h1>
 			<p>${boardInfo.subtitle}</p>
 			<!-- <hr> -->

@@ -18,8 +18,8 @@
 		</ul>
 	</article>
 	<ul id="ul_for_button">
-		<li><input type="button" class="member_buttons" onclick="location.href='${pageContext.request.contextPath}/member/writedBoardlist1.do'" value="내가 쓴글"></li>
-		<li><input type="button" class="member_buttons" onclick="" value="댓글 단 글"></li>
+		<li><input type="button" class="member_buttons" onclick="location.href='${pageContext.request.contextPath}/member/writedBoardlist.do'" value="내가 쓴글"></li>
+		<li><input type="button" class="member_buttons" onclick="location.href='${pageContext.request.contextPath}/member/writedCommentList.do'" value="댓글 단 글"></li>
 		<li><input type="button" class="member_buttons" onclick="" value="내 스크랩"></li>
 	</ul>
 </div>

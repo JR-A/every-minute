@@ -1,5 +1,6 @@
 package kr.spring.member.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.service.InfoBoardService;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
@@ -149,6 +151,48 @@ public class MemberAjaxController {
 	}
 
 
+	//자유게시판에 쓴 댓글 호출   
+			@RequestMapping("/member/writedFreeBoardCommentlist.do")
+			@ResponseBody
+			public Map<String,Object> getList(
+					@RequestParam(value="pageNum",defaultValue="1")
+					int currentPage,
+					HttpSession session){
+				//(******주의)댓글 좋아요 처리시만 HttpSession 넣을 것
+				if(log.isDebugEnabled()) {
+					log.debug("<<currentPage>> : " + currentPage);
+				}
+
+				Map<String,Object> map = 
+						new HashMap<String,Object>();
+				MemberVO memberVO = (MemberVO)session.getAttribute("user");
+				map.put("mem_num", memberVO.getMem_num());
+				//총 댓글의 갯수
+				int count = memberService.myFreeCommentSelectRowCount(map);
+				log.debug("<<<<count>>>>>>>>:"+count);
+				PagingUtil page = new PagingUtil(currentPage,count,
+						10,10,"writedFreeBoardComment.do");
+				map.put("start", page.getStartCount());
+				map.put("end", page.getEndCount());
+				
+				List<FreeReplyVO> list = null;
+				if(count > 0) {
+					list = memberService.selectFreeWritedListReply(map);
+				}else {
+					list = Collections.emptyList();
+				}
+
+				Map<String,Object> mapJson = 
+						new HashMap<String,Object>();
+				
+				mapJson.put("count", count);
+				mapJson.put("rowCount", 10);
+				mapJson.put("list", list);
+				
+				return mapJson;
+				
+		
+			}
 }
 
 

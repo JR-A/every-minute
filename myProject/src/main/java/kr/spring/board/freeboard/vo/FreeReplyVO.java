@@ -26,7 +26,15 @@ public class FreeReplyVO {
 	private int anonymous;
 	private String id;
 	private String photoname;
+	//내가쓴댓글목록에서 글제목 받아오려고 넣음
+	private String title;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getPhotoname() {
 		return photoname;
 	}

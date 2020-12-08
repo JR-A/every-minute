@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.vo.MemberVO;
 
@@ -108,4 +109,9 @@ public interface MemberMapper {
 	public List<CustomPostVO> myCustomselectPostList(Map<String, Object> map); 
 	//mem_num 으로 커스텀게시판 글목록 찾기
 	public int myCustomselectRowCount(Map<String, Object> map);
+	//mem_num으로 자유게시판 댓글개수 찾기 
+	@Select("SELECT COUNT(*) FROM freeboard_comment f WHERE f.mem_num=#{mem_num}")
+	public int myFreeCommentSelectRowCount(Map<String, Object> map);
+	//mem_num으로 자유게시판 댓글찾기
+	public List<FreeReplyVO> selectFreeWritedListReply(Map<String, Object> map);
 }

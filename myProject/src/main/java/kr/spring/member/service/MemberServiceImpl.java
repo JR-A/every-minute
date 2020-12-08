@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.dao.MemberMapper;
 import kr.spring.member.vo.MemberVO;
@@ -164,5 +165,17 @@ public class MemberServiceImpl implements MemberService {
 	public int myCustomselectRowCount(Map<String, Object> map) {
 		return memberMapper.myCustomselectRowCount(map);
 	}
+
+	@Override
+	public int myFreeCommentSelectRowCount(Map<String, Object> map) {
+		return memberMapper.myFreeCommentSelectRowCount(map);
+	}
+
+	@Override
+	public List<FreeReplyVO> selectFreeWritedListReply(Map<String, Object> map) {
+		return memberMapper.selectFreeWritedListReply(map);
+	}
+
+
 
 }

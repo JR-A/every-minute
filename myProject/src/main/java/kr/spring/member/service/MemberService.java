@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.vo.MemberVO;
 
@@ -36,4 +37,6 @@ public interface MemberService {
 	public int myInfoselectRowCount(Map<String,Object> map);
 	public List<CustomPostVO> myCustomselectPostList(Map<String, Object> map); 
 	public int myCustomselectRowCount(Map<String, Object> map);
+	public int myFreeCommentSelectRowCount(Map<String, Object> map);
+	public List<FreeReplyVO> selectFreeWritedListReply(Map<String, Object> map);
 }

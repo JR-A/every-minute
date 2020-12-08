@@ -1,11 +1,11 @@
 package kr.spring.member.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import kr.spring.board.customboard.service.CustomBoardService;
 import kr.spring.board.customboard.service.CustomPostService;
 import kr.spring.board.customboard.vo.CustomBoardVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.service.FreeBoardService;
+import kr.spring.board.freeboard.service.FreeReplyService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
+import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.service.InfoBoardService;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.mail.service.MailSendServiceImpl;
@@ -51,6 +54,10 @@ public class MemberController {
 	CustomBoardService customBoardService;
 	@Resource
 	CustomPostService customPostService;
+	@Resource
+	FreeReplyService freeReplyService;
+	
+	
 	//로그 처리(로그 대상 지정)
 	private Logger log = Logger.getLogger(this.getClass());
 	
@@ -394,99 +401,9 @@ public class MemberController {
 			    return "member/memberFindId";
 			 }
 
-			 //게시판에 쓴글
-			 @RequestMapping("member/writeBoardList.do")
-			 public ModelAndView writeBoardL(@RequestParam(value="freepageNum", defaultValue="1") int freecurrentPage,
-					 @RequestParam(value="infopageNum", defaultValue="1") int infocurrentPage,
-					 @RequestParam(value="freekeyfield", defaultValue="")String freekeyfield,
-					 @RequestParam(value="freekeyword", defaultValue="") String freekeyword,
-					 @RequestParam(value="infokeyfield", defaultValue="")String infokeyfield,
-					 @RequestParam(value="infokeyword", defaultValue="") String infokeyword,
-					 HttpSession session) {
-				 ModelAndView mav = new ModelAndView();
-				 MemberVO member=(MemberVO)session.getAttribute("user");
-				 	
-				 Map<String,Object> freemap =
-							new HashMap<String,Object>();
-					freemap.put("keyfield", freekeyfield);
-					freemap.put("keyword", freekeyword); 
-					freemap.put("mem_num", member.getMem_num());
-					
-					//자유게시판 글의 갯수 또는 검색된 글의 갯수--------------------------------
-					int freecount = memberService.myFreeselectRowCount(freemap); 
-					
-					if(log.isDebugEnabled()) {
-						log.debug("<<count>> :"+freecount);
-					}
-					PagingUtil freepage = new PagingUtil(freekeyfield,freekeyword,
-							freecurrentPage,freecount,10,10,"writeBoardList.do");
-					freemap.put("start", freepage.getStartCount());
-					freemap.put("end", freepage.getEndCount());
-	
-					List<FreeBoardVO> freelist = null;
-					if(freecount > 0) {
-					freelist = memberService.myFreeselectList(freemap);
-		
-					if(log.isDebugEnabled()) {
-						log.debug("<<글 목록>>:"+freelist);
-					}
-						
-					}
-	
-			
-
-					mav.addObject("freecount",freecount);
-					mav.addObject("freelist",freelist);
-					mav.addObject("freepagingHtml",freepage.getPagingHtml());
-					//여기까지 자유게시판 --------------------------------------------
-					
-					//인포게시판----------------------------------------------------
-					
-					
-					 Map<String,Object> infomap =
-								new HashMap<String,Object>();
-					 	infomap.put("keyfield", infokeyfield);
-						infomap.put("keyword", infokeyword); 
-						infomap.put("mem_num", member.getMem_num());
-					
-					//인포글의 갯수 또는 검색된 글의 갯수
-					int infocount = memberService.myInfoselectRowCount(infomap);
-					if (log.isDebugEnabled()) {
-						log.debug("<<count>> : " + infocount);
-					}		
-					
-					
-					PagingUtil infopage = new PagingUtil(infokeyfield, infokeyword, infocurrentPage, infocount, 10,10,"writeBoardList.do");
-					infomap.put("start", infopage.getStartCount());
-					infomap.put("end", infopage.getEndCount());
-					
-					List<InfoBoardVO> infolist = null;
-					if (infocount > 0) {
-						//목록을 호출
-						infolist = memberService.myInfoselectList(infomap);
-						
-						if (log.isDebugEnabled()) {
-							log.debug("<<글 목록>> : " +  infolist);
-						}
-					}
-					
-					/*
-					 * - Model과 View를 동시에 설정이 가능하며 컨트롤러는 
-					 * ModelAndView객체만 리턴하지만 Model과 View가 모두 리턴 가능
-					 * ModelAndView mav = new ModelAndView();
-					 */
-					
-					mav.addObject("infocount",infocount);
-					mav.addObject("infolist",infolist);
-					mav.addObject("infopagingHtml", infopage.getPagingHtml());	
-					//여기까지 인포게시판-----------------------------------------------
-				 mav.setViewName("writedBoardLi");
-				 return mav;
-			 
-			 }
 
 		//내가 쓴 글 
-		@RequestMapping("/member/writedBoardlist1.do")
+		@RequestMapping("/member/writedBoardlist.do")
 		public String writedBoardMain() {
 			return "writedBoardLi";
 		}
@@ -646,4 +563,62 @@ public class MemberController {
 			return mav;
 		}
 		
+
+		//내가단 댓글 페이지
+		@RequestMapping("/member/writedCommentList.do")
+		public String writedCommentList() {
+			return "writedCommentLi";
+		}
+		//자유게시판에 쓴 댓글 폼 
+		@RequestMapping("/member/writedFreeBoardComment.do")
+		public ModelAndView writedFreeCommentForm(@RequestParam(value="pageNum",defaultValue="1")
+		int currentPage,HttpSession session) {
+			ModelAndView mav = new ModelAndView();
+			if(log.isDebugEnabled()) {
+				log.debug("<<currentPage>> : " + currentPage);
+			}
+
+			Map<String,Object> map = 
+					new HashMap<String,Object>();
+			MemberVO memberVO = (MemberVO)session.getAttribute("user");
+			map.put("mem_num", memberVO.getMem_num());
+			//총 댓글의 갯수
+			int count = memberService.myFreeCommentSelectRowCount(map);
+			log.debug("<<<<count>>>>>>>>:"+count);
+			PagingUtil page = new PagingUtil(currentPage,count,
+					10,10,"writedFreeBoardComment.do");
+			mav.addObject("pagingHtml",page.getPagingHtml());
+			mav.addObject("page_num", currentPage);
+			mav.setViewName("writedFreeCommentLi");
+			return mav;
+		}
+		
+		//정보게시판에 쓴 댓글 폼
+		@RequestMapping("/member/writedInfoBoardComment.do")
+		public ModelAndView writedInfoCommentForm(@RequestParam(value="pageNum",defaultValue="1")
+		int currentPage,HttpSession session) {
+			ModelAndView mav = new ModelAndView();
+			if(log.isDebugEnabled()) {
+				log.debug("<<currentPage>> : " + currentPage);
+			}
+
+			Map<String,Object> map = 
+					new HashMap<String,Object>();
+			MemberVO memberVO = (MemberVO)session.getAttribute("user");
+			map.put("mem_num", memberVO.getMem_num());
+			//총 댓글의 갯수
+			int count = memberService.myFreeCommentSelectRowCount(map);
+			log.debug("<<<<count>>>>>>>>:"+count);
+			PagingUtil page = new PagingUtil(currentPage,count,
+					10,10,"writedFreeBoardComment.do");
+			mav.addObject("pagingHtml",page.getPagingHtml());
+			mav.addObject("page_num", currentPage);
+			mav.setViewName("writedInfoCommentLi");
+			return mav;
+		}
+		//커스텀 게시판에 쓴 댓글
+		@RequestMapping("/member/writedCustomBoardComment.do")
+		public String writedCustomComment() {
+			return null;
+		}
 }

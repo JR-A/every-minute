@@ -45,10 +45,21 @@
     	<put-attribute name="title" value="커스텀게시판에 쓴 글"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/customboardWritedList.jsp"/>  
     </definition> 
-       <definition name="writedCustomPostView" extends="main_board">
-    	<put-attribute name="title" value="게시글 상세페이지"/>
-    	<put-attribute name="body" value="/WEB-INF/views/member/WritedcustomPostView.jsp"/>  
-    </definition>   
+     <definition name="writedCommentLi" extends="main1">
+    	<put-attribute name="title" value="내가 쓴 댓글 목록"/>
+    	<put-attribute name="navli" value="/WEB-INF/views/templateBoard/writedCommentnav.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/blank.jsp"/>  
+    </definition>
+       <definition name="writedFreeCommentLi" extends="main1">
+    	<put-attribute name="title" value="자유게시판 댓글 목록"/>
+    	<put-attribute name="navli" value="/WEB-INF/views/templateBoard/writedCommentnav.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/writedFreeCommentList.jsp"/>  
+    </definition>
+        <definition name="writedInfoCommentLi" extends="main1">
+    	<put-attribute name="title" value="정보게시판 댓글 목록"/>
+    	<put-attribute name="navli" value="/WEB-INF/views/templateBoard/writedCommentnav.jsp"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/writedInfoCommentList.jsp"/>  
+    </definition>
     <definition name="main1" 
                template="/WEB-INF/views/template/layoutForWritedBoardList.jsp">
     	<put-attribute name="title" value="에브리미닛"/>
