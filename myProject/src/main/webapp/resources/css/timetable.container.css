@@ -31,6 +31,8 @@ div#main_body{
 }
 
 aside{
+	float: left;
+	width: 325px;
 	color: #666;
 	letter-space: -0.5px;
 	margin: 0;
@@ -78,44 +80,226 @@ form#customsubjects{
 
 /* * * * * * * * * * * * * * * * * * * * * * * * *  /  common  /  * * * * * * * * * * * * * * * * * * * * * * * * */
 
+#container {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    position: relative;
+}
+
 #container > hr {
     clear: both;
     height: 0;
     border: 0;
 }
 
-#container div.tablehead > div.empty {
-	padding: 120px 0; text-align: center;
+
+aside > form.search, 
+aside > form.select {
+    margin-bottom: 5px;
 }
-#container div.tablehead > div.empty > p {
-	display: inline-block; padding-top: 52px; color: #a6a6a6; font-size: 18px; font-weight: bold; background: transparent url('/images/container.timetable.empty.png') no-repeat top center; background-size: 48px 44px;
+
+aside > form.select > select {
+    border: 0;
+    width: 100%;
+    height: 40px;
+    line-height: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #d6d6d6;
+    color: #292929;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+aside > div.title {
+	margin-bottom: 5px;
+	padding: 25px;
+	border: 1px solid #d6d6d6;
+	background-color: #fff;
+}
+
+aside > div.title > h1 {
+    color: #262626;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+aside > div.title > hr {
+    clear: both;
+    height: 0;
+    border: 0;
+}
+
+aside > div.title > div.description > ul.info {
+    margin-top: 10px;
+}
+
+aside > div.title > div.description > ul.info > li {
+    float: left;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+
+aside > div.title > ol.buttons.threecols > li {
+    float: left;
+    margin: 0 1px;
+    width: 89px;
+}
+
+aside > div.title > ol.buttons > li > a.image.export {
+    background-image: url("https://everytime.kr/images/new/aside.title.button.export.png");
+}
+
+aside > div.title > ol.buttons > li > a.image {
+    padding-left: 40px;
+    background-position: left center;
+    text-align: left;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+}
+
+aside > div.title > ol.buttons > li > a.light {
+    border: 1px solid #e3e3e3;
+    color: #737373;
+    background-color: transparent;
+}
+
+aside > div.title > ol.buttons > li > a {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #c62917;
+}
+
+aside > div.title > ol.buttons > li > a.image.setting {
+    background-image: url("https://everytime.kr/images/new/aside.title.button.setting.png");
+}
+
+aside > div.title > ol.buttons.threecols > li {
+    float: left;
+    margin: 0 1px;
+    width: 89px;
+}
+
+aside > div.title > ol.buttons {
+    margin-top: 15px;
+}
+
+aside > div.menu {
+    border: 1px solid #d6d6d6;
+    background-color: #fff;
+}
+aside > div.menu > ol{
+	margin: 0;
+	padding: 0;
+}
+aside > div.menu > ol > li > a {
+    display: block;
+    padding: 0 25px;
+    height: 50px;
+    line-height: 50px;
+    cursor: pointer;
+    color: #737373;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+aside > div.menu > ol > li > a.primary:after {
+    content: '기본시간표';
+    float: right;
+    color: #a6a6a6;
+    font-size: 12px;
+}
+
+aside > div.menu > ol > li:hover{
+    background-color: #f8f8f8;
+}
+
+aside > div.menu > ol > li.extension {
+    border-top: 1px solid #e3e3e3;
+}
+aside > div.menu > ol > li.extension > a {
+    padding-left: 40px;
+    color: #c62917;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 15px 15px;
+}
+aside > div.menu > ol > li.extension > a#create {
+    background-image: url("https://everytime.kr/images/new/aside.menu.extension.create.png");
+}
+aside > div.menu > ol > li.extension > a#create:hover {
+	background-color: #f8f8f8;
+}
+
+#container > div.wrap {
+    float: right;
+    width: 915px;
+    height: unset;
+}
+
+#container div.tablehead {
+	position: fixed; 
+	z-index: 90; 
+	width: inherit;
+	background-color: #f8f8f8;
+}
+
+#container div.tablebody {
+	margin-top: 39px; 
+	width: inherit;
 }
 
 #container table.tablehead,
 #container table.tablebody {
 	border-collapse: collapse; width: 100%;
 }
-/*
-#container table.tablehead {
-	background-color: #f2f2f2;
-}
-*/
+
 #container table.tablehead tr {
 	height: 40px;
 }
+
+#container table.tablehead tr td {
+	font-size: 12px;
+}
+
 #container table.tablehead tr th,
 #container table.tablehead tr td {
-	border-width: 1px; border-style: solid; border-color: #d6d6d6; color: #a6a6a6; font-weight: normal; text-align: center;
+	border-width: 1px; 
+	border-style: solid; 
+	border-color: #d6d6d6; 
+	color: #a6a6a6; 
+	font-weight: normal; 
+	text-align: center;
 }
+
 #container table.tablebody {
 	background-color: transparent;
 }
+
+#container table.tablehead tr th,
+#container table.tablebody tr th,
+#container table.tablebody tr th div {
+	width: 80px;
+}
+
 #container table.tablebody tr th,
 #container table.tablebody tr td {
 	border: 1px solid #d6d6d6; 
 	vertical-align: top;
     padding: 0;
 }
+
 #container table.tablebody tr th div.hours {
 	position: absolute; z-index: 11;
 }
@@ -138,7 +322,9 @@ form#customsubjects{
 	color: #292929; font-weight: bold;
 }
 #container table.tablebody tr td div.cols div.subject p em {
-	margin-right: 5px; color: #737373; font-weight: bold;
+	margin-right: 5px; 
+	color: #737373; 
+	font-weight: bold;
 }
 #container table.tablebody tr td p em {
     font-size: 11px;
@@ -165,10 +351,12 @@ em {
 	display: none; float: right;
 }
 #container table.tablebody tr td ul.status li {
-	float: left; width: 15px; height: 15px; background-repeat: no-repeat; background-position: center center; cursor: pointer;
-}
-#container table.tablebody tr td ul.status li.search {
-	background-image: url('../images/container.timetable.search.png');
+	float: left; 
+	width: 15px; 
+	height: 15px; 
+	background-repeat: no-repeat; 
+	background-position: center center; 
+	cursor: pointer;
 }
 #container table.tablebody tr td ul.status li.edit {
 	background-image: url('https://everytime.kr/images/container.timetable.edit.png');
@@ -176,26 +364,46 @@ em {
 #container table.tablebody tr td ul.status li.del {
 	background-image: url('https://everytime.kr/images/container.timetable.del.png');
 }
-#container div.nontimes {
-	margin-top: 8px; border: 1px solid #d6d6d6;
+
+#container table.tablebody tr th div.times div.time,
+#container table.tablebody tr td div.grids div.grid {
+	height: 60px; 
+	line-height: 60px; 
+	font-size: 12px;
 }
-#container div.nontimes div.subject {
-	padding: 0 16px; border-bottom: 1px solid #ededed;
+#container table.tablebody tr th div.times div.time:first-child,
+#container table.tablebody tr td div.grids div.grid:first-child {
+	border-top: none;
 }
-#container div.nontimes div.subject:last-of-type {
-	border-bottom: 0;
+#container table.tablebody tr th div.times div.time.small,
+#container table.tablebody tr td div.grids div.grid.small {
+	height: 30px; 
+	line-height: 30px;
 }
-#container div.nontimes div.subject span {
-	display: inline-block; line-height: 48px; vertical-align: middle; font-size: 14px;
+#container table.tablebody tr th div.hours div.hour {
+	font-size: 12px;
 }
-#container div.nontimes div.subject span.name {
-	margin-right: 8px; color: #292929; font-weight: bold;
+#container table.tablebody tr th div.hours div.hour:first-child {
+	border-top:none;
 }
-#container div.nontimes div.subject span.place {
-	margin-right: 8px; color: #737373;
+#container table.tablebody tr td h3 {
+	margin: 10px 10px 0 10px; 
+	font-size: 13px; 
+	line-height: 17px;
 }
-#container div.nontimes div.subject span.del {
-	width: 24px; height: 24px; background: transparent url('../images/container.timetable.del.png') no-repeat center center; cursor: pointer;
+#container table.tablebody tr td p {
+	margin: 0 10px 10px 10px; 
+	line-height: 15px;
+}
+#container table.tablebody tr td p em {
+	font-size: 12px;
+	
+}
+#container table.tablebody tr td p span {
+	font-size: 12px;
+}
+#container table.tablebody tr td ul.status {
+	margin: 10px 10px 0 0;
 }
 
 #container ul.floating {
@@ -213,13 +421,13 @@ em {
 #container ul.floating li.button.search {
 	padding: 0 15px 0 45px; 
 	border-radius: 20px 0 0 20px; 
-	background-image: url('../images/container.timetable.search.icon.png'); 
+	background-image: url('https://everytime.kr/images/container.timetable.search.icon.png'); 
 	background-position: 20px center;
 }
 #container ul.floating li.button.custom {
 	padding: 0 20px 0 30px; 
 	border-radius: 0 20px 20px 0; 
-	background-image: url('../images/container.timetable.custom.icon.png'); 
+	background-image: url('https://everytime.kr/images/container.timetable.custom.icon.png'); 
 	background-position: 10px center;
 }
 #container ul.floating li.button.only {
@@ -308,6 +516,51 @@ em {
     font-weight: bold;
     background-color: #c62917;
     cursor: pointer;
+}
+
+#subjects {
+	height: 320px;
+    display: block;
+    position: absolute;
+    z-index: 99;
+    bottom: 0;
+    width: 67%;
+    border-top: 1px solid #d6d6d6;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    overflow: visible;
+}
+
+#subjects > a.close {
+    position: fixed;
+    right: 270px;
+    bottom: 314px;
+    display: inline-block;
+    margin-right: 8px;
+    padding: 0 12px;
+    line-height: 32px;
+    border-radius: 16px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #c62917;
+    cursor: pointer;
+    z-index:99;
+}
+#subjects .list {
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#subjects table {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+#subjects > div.list > table > tbody > tr:hover {
+  background-color: #fff;
 }
 
 #customsubjects {
@@ -471,98 +724,6 @@ em {
     cursor: pointer;
 }
 
-aside > form.search, 
-aside > form.select {
-    margin-bottom: 5px;
-}
-
-aside > form.select > select {
-    border: 0;
-    width: 100%;
-    height: 40px;
-    line-height: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 2px solid #d6d6d6;
-    color: #292929;
-    font-size: 14px;
-    background-color: transparent;
-}
-
-aside > div.title > h1 {
-    color: #262626;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-}
-
-aside > div.title > hr {
-    clear: both;
-    height: 0;
-    border: 0;
-}
-
-aside > div.title > div.description > ul.info {
-    margin-top: 10px;
-}
-
-aside > div.title > div.description > ul.info > li {
-    float: left;
-    margin-right: 10px;
-    font-size: 12px;
-}
-
-
-aside > div.title > ol.buttons.threecols > li {
-    float: left;
-    margin: 0 1px;
-    width: 89px;
-}
-
-aside > div.title > ol.buttons > li > a.image.export {
-    background-image: url("https://everytime.kr/images/new/aside.title.button.export.png");
-}
-
-aside > div.title > ol.buttons > li > a.image {
-    padding-left: 40px;
-    background-position: left center;
-    text-align: left;
-    background-repeat: no-repeat;
-    background-size: 40px 40px;
-}
-
-aside > div.title > ol.buttons > li > a.light {
-    border: 1px solid #e3e3e3;
-    color: #737373;
-    background-color: transparent;
-}
-
-aside > div.title > ol.buttons > li > a {
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    cursor: pointer;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    background-color: #c62917;
-}
-
-aside > div.title > ol.buttons > li > a.image.setting {
-    background-image: url("https://everytime.kr/images/new/aside.title.button.setting.png");
-}
-
-aside > div.title > ol.buttons.threecols > li {
-    float: left;
-    margin: 0 1px;
-    width: 89px;
-}
-
-aside > div.title > ol.buttons {
-    margin-top: 15px;
-}
 
 .color0 { background-color: grey; }
 .color1 { background-color: #fdfcdd; }
@@ -580,11 +741,11 @@ aside > div.title > ol.buttons {
 .color13 { background-color: #f9f0e3; }
 .color14 { background-color: #fffce1; }
 .color15 { background-color: #f4eaff; }
-.color16 { background-color: #ddf2db; }
+.color16 { background-color: #fde1d0; }
 .color17 { background-color: #e6f0f4; }
 .color18 { background-color: #ffeaea; }
-.color19 { background-color: #eafdea; }
-.color20 { background-color: #f2f3da; }
+.color19 { background-color: #edf9e6; }
+.color20 { background-color: #dff2fd; }
 .color21 { background-color: #ddf7e6; }
 .color22 { background-color: #eaffcc; }
 .color23 { background-color: #fef3c7; }
@@ -595,229 +756,6 @@ aside > div.title > ol.buttons {
 .color28 { background-color: #dbe8f2; }
 .color29 { background-color: #d3e1f3; }
 .color30 { background-color: #ccf7ff; }
-
-/* * * * * * * * * * * * * * * * * * * * * * * * *  /  pc only  /  * * * * * * * * * * * * * * * * * * * * * * * * */
-
-@media only screen and (min-width: 641px) {
-	aside {
-	    float: left;
-	    width: 325px;
-	}
-	aside > div.title {
-	    margin-bottom: 5px;
-	    padding: 25px;
-	    border: 1px solid #d6d6d6;
-	    background-color: #fff;
-	}
-	aside > div.menu {
-	    border: 1px solid #d6d6d6;
-	    background-color: #fff;
-	}
-	aside > div.menu > ol{
-		margin: 0;
-		padding: 0;
-	}
-	aside > div.menu > ol > li > a {
-	    display: block;
-	    padding: 0 25px;
-	    height: 50px;
-	    line-height: 50px;
-	    cursor: pointer;
-	    color: #737373;
-	    font-size: 15px;
-	    white-space: nowrap;
-	    overflow: hidden;
-	    text-overflow: ellipsis;
-	}
-	aside > div.menu > ol > li > a.primary:after {
-	    content: '기본시간표';
-	    float: right;
-	    color: #a6a6a6;
-	    font-size: 12px;
-	}
-
-	aside > div.menu > ol > li:hover{
-	    background-color: #f8f8f8;
-	}
-	
-	aside > div.menu > ol > li.extension {
-	    border-top: 1px solid #e3e3e3;
-	}
-	aside > div.menu > ol > li.extension > a {
-	    padding-left: 40px;
-	    color: #c62917;
-	    background-repeat: no-repeat;
-	    background-position: 15px center;
-	    background-size: 15px 15px;
-	}
-	aside > div.menu > ol > li.extension > a#create {
-	    background-image: url("../images/aside.menu.extension.create.png");
-	}
-	aside > div.menu > ol > li.extension > a#create:hover {
-		background-color: #f8f8f8;
-	}
-	#container {
-	    width: 1300px;
-	    box-sizing: border-box;
-	}
-	#container > div.wrap {
-	    float: right;
-	    width: 915px;
-	    height: unset;
-	}
-	#container div.tablehead {
-		position: fixed; 
-		z-index: 90; 
-		width: inherit;
-		background-color: #f8f8f8;
-	}
-	#container div.tablebody {
-		margin-top: 39px; 
-		width: inherit;
-	}
-	#container.timetable, 
-	#container.wizard {
-	    position: relative;
-	    width: 100%;
-	    overflow: auto;
-	}
-
-	#subjects {
-		height: 320px;
-	    display: block;
-	    position: absolute;
-	    z-index: 99;
-	    bottom: 0;
-	    width: 67%;
-	    border-top: 1px solid #d6d6d6;
-	    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
-	    background-color: #fff;
-	    overflow: visible;
-	}
-
-	#subjects > a.close {
-	    position: fixed;
-	    right: 270px;
-	    bottom: 314px;
-	    display: inline-block;
-	    margin-right: 8px;
-	    padding: 0 12px;
-	    line-height: 32px;
-	    border-radius: 16px;
-	    color: #fff;
-	    font-size: 13px;
-	    font-weight: bold;
-	    background-color: #c62917;
-	    cursor: pointer;
-	    z-index:99;
-	}
-	#subjects .list {
-	    height: 100%;
-	    position: relative;
-	    overflow-x: hidden;
-	    overflow-y: auto;
-	}
-	#subjects table {
-	    width: 100%;
-	    border-collapse: collapse;
-	    border: none;
-	}
-	
-	#subjects > div.list > table > tbody > tr:hover {
-	  background-color: #fff;
-	}
-	
-	
-}
-
-@media only screen and (min-width: 641px) and (max-width: 1366px) {
-	#container table.tablehead tr td {
-		font-size: 13px;
-	}
-	#container table.tablehead tr th,
-	#container table.tablebody tr th,
-	#container table.tablebody tr th div {
-		width: 60px;
-	}
-	#container table.tablebody tr th div.hours div.hour {
-		font-size: 13px;
-	}
-	#container table.tablebody tr th div.times div.time,
-	#container table.tablebody tr td div.grids div.grid {
-		height: 50px; line-height: 50px; font-size: 12px;
-	}
-	#container table.tablebody tr th div.times div.time.small,
-	#container table.tablebody tr td div.grids div.grid.small {
-		height: 25px; line-height: 25px;
-	}
-	#container table.tablebody tr td h3 {
-		margin: 7px 7px 0 7px; font-size: 12px; line-height: 13px;
-	}
-	#container table.tablebody tr td p {
-		margin: 0 7px 7px 7px; line-height: 12px;
-	}
-	#container table.tablebody tr td p em {
-		font-size: 11px;
-	}
-	#container table.tablebody tr td p span {
-		font-size: 11px;
-	}
-	#container table.tablebody tr td ul.status {
-		margin: 7px 7px 0 0;
-	}
-}
-
-
-@media only screen and (min-width: 1367px) {
-	#container table.tablehead tr td {
-		font-size: 12px;
-	}
-	#container table.tablehead tr th,
-	#container table.tablebody tr th,
-	#container table.tablebody tr th div {
-		width: 80px;
-	}
-	#container table.tablebody tr th div.times div.time,
-	#container table.tablebody tr td div.grids div.grid {
-		height: 60px; 
-		line-height: 60px; 
-		font-size: 12px;
-	}
-	#container table.tablebody tr th div.times div.time:first-child,
-	#container table.tablebody tr td div.grids div.grid:first-child {
-		border-top: none;
-	}
-	#container table.tablebody tr th div.times div.time.small,
-	#container table.tablebody tr td div.grids div.grid.small {
-		height: 30px; 
-		line-height: 30px;
-	}
-	#container table.tablebody tr th div.hours div.hour {
-		font-size: 12px;
-	}
-	#container table.tablebody tr th div.hours div.hour:first-child {
-		border-top:none;
-	}
-	#container table.tablebody tr td h3 {
-		margin: 10px 10px 0 10px; 
-		font-size: 13px; 
-		line-height: 17px;
-	}
-	#container table.tablebody tr td p {
-		margin: 0 10px 10px 10px; line-height: 15px;
-	}
-	#container table.tablebody tr td p em {
-		font-size: 12px;
-		
-	}
-	#container table.tablebody tr td p span {
-		font-size: 12px;
-	}
-	#container table.tablebody tr td ul.status {
-		margin: 10px 10px 0 0;
-	}
-	
-}
 
 .subjectTr {
     border-bottom: 1px solid #ededed !important;
