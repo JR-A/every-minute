@@ -97,7 +97,7 @@ div.card > div.board > a.article > ul.status > li.comment.active {
 /*==========페이지 기본 스타일 끝 ======*/
 
 /*=========제목 & 소제목 ==========*/
-h2.title > #alert {
+h2.title > #anony_alert {
 	color:red;
     float: right;
     font-size:12px;
@@ -168,7 +168,7 @@ a.article2 {
     display: block;
     padding: 15px;
 }
-/* 추천 댓글 */
+/* 추천 댓글 즐겨찾기 */
 div.wrapstatus ul.status li.vote{
 	padding-left: 15px;
 	color: #c62917;
@@ -180,12 +180,17 @@ div.wrapstatus ul.status li.comm{
     color: #0ca5af;
     background-image:url('../images/customBoard/comment.png');
 }
+div.wrapstatus ul.status li.fav {
+    padding-left: 15px;
+    color: #ffcc1c;
+    background-image: url(../images/customBoard/fav.png);
+}
 div.wrapstatus ul.status li {
     background-size: 12px 12px;
     background-position: left center;
     background-repeat: no-repeat;
     cursor: pointer;
-    margin-left: 8px;
+    margin-left: 12px;
     float: left;
 }
 
@@ -199,6 +204,12 @@ article img.picture {
 article img.picture {
     float: left;
 }
+/* 댓글 익명 허용여부 */
+div#comment_second > #anony_alert {
+	color:red;
+    font-size:12px;
+}
+
 /*======== 게시판 디자인 끝 ========*/
 
 
@@ -519,6 +530,7 @@ article time.large {
 }
 article ul.status {
     float: right;
+    margin-top:10px;
 }
 article hr {
     clear: both;

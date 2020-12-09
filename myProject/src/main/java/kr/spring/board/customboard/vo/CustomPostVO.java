@@ -24,7 +24,7 @@ public class CustomPostVO {
 	private String id; //작성자
 	private int comment_cnt; //댓글 수
 	private int like_cnt; //추천 수
-	
+	private int fav_cnt; //즐겨찾기 수
     
 	//이미지 업로드 파일 처리
 	public void setUpload(MultipartFile upload)throws IOException{
@@ -135,6 +135,14 @@ public class CustomPostVO {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getFav_cnt() {
+		return fav_cnt;
+	}
+
+	public void setFav_cnt(int fav_cnt) {
+		this.fav_cnt = fav_cnt;
 	}
 
 	@Override

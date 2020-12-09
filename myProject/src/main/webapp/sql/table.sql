@@ -487,14 +487,25 @@ CREATE SEQUENCE customBoard_seq START WITH 30000; --CustomBoard의 board_num
 CREATE SEQUENCE customPost_seq START WITH 30000; --CustomPost의 post_num
 
 
+CREATE SEQUENCE free_blame_post_seq START WITH 11000; --freeBoard_blame_post의 blame_num
+CREATE SEQUENCE free_blame_comment_seq START WITH 15000;--freeBoard_blame_comment의 blame_num
+CREATE SEQUENCE info_blame_post_seq START WITH 21000;--infoBoard_blame_post의 blame_num
+CREATE SEQUENCE info_blame_comment_seq START WITH 25000;--infoBoard_blame_comment의 blame_num
+CREATE SEQUENCE custom_blame_post_seq START WITH 31000; --customBoard_blame_post의 blame_num
+CREATE SEQUENCE custom_blame_comment_seq START WITH 35000;--customBoard_blame_post의 blame_num
+
+
+CREATE SEQUENCE free_favorite_seq START WITH 40000;  --FreeBoard의 favorite_num
+CREATE SEQUENCE info_favorite_seq START WITH 50000;   --InfoBoard의favorite_num
+CREATE SEQUENCE custom_favorite_seq START WITH 60000; --CustomBoard의 favorite_num
+
+
+CREATE SEQUENCE customboard_comment_seq START WITH 1; --CustomBoard_Comment의comment_num
+CREATE sequence free_comment_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --FreeBoard_Comment의comment_num
+CREATE sequence info_comment_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --InfoBoard_Comment의comment_num
+
 CREATE SEQUENCE tag_seq START WITH 100;	-- Tag의 tag_num
 CREATE SEQUENCE hashtag_seq START WITH 200; --Hashtag의 hashtag_num
-
-
-
-CREATE SEQUENCE free_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --FreeBoard_Comment의comment_num
-CREATE sequence info_Reply_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000;
-
 
 CREATE SEQUENCE timetable_seq START WITH 40000; --Timetable의 t_num
 CREATE SEQUENCE subject_seq START WITH 300; --Subject의 sub_num
@@ -503,7 +514,6 @@ CREATE SEQUENCE timetableSubject_seq START WITH 500; --Timetable_Subject의 ts_n
 
 
 CREATE SEQUENCE bookstore_seq START WITH 50000; --BookStoreBoard의 bs_num
-
 
 
 ------------------------------------------------------------------------------------------------

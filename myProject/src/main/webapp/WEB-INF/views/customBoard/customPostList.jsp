@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
+<script>
+	setTimeout(function(){ location.reload(); }, 3000); // 3000밀리초 = 3초
+</script>
+
 <div class="page-main-style">
 
 	<!-- 제목&소제목 -->
@@ -120,8 +124,9 @@
 					
 					<div class ="wrapstatus">
 						<ul class="status">
-								<li class="vote" id="like_check">0</li>
+								<li class="vote" id="like_check">${customPost.like_cnt}</li>
 								<li class="comm">${customPost.comment_cnt}</li>
+								<li class="fav">${customPost.fav_cnt}</li>
 						</ul>
 						<span style="visibility:hidden;">span</span>
 					</div>

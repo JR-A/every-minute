@@ -10,7 +10,7 @@ import kr.spring.board.customboard.vo.CustomBoardVO;
 public interface CustomBoardMapper {	
 
 	//게시판 목록 가져오기
-	@Select("SELECT board_num, title FROM customBoard ORDER BY board_num desc")
+	@Select("SELECT board_num, title, anonymous FROM customBoard ORDER BY board_num desc")
 	public List<CustomBoardVO> selectBoardList();
 	//게시판 추가 
 	public void insertCustomBoard(CustomBoardVO customBoardVO);

@@ -55,11 +55,11 @@
 				
 				<c:if test="${postTop3List != null}"> <!-- article 클래스가 반복/ 시간은 몇분 전으로 표시 -->
 					<c:forEach var="customPost" items="${postTop3List}">
-						<a class="article" href="customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
+						<a class="article" href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
 							<p>${customPost.content}</p>
-							<h4>${customPost.title}</h4>
+							<h4>from ${customPost.title}</h4>
 							<!-- 첨부파일 -->
-							<c:if test="${!empty customPost.filename}"> <!-- filename이 있으면 image가 있는거 -->
+							<c:if test="${!empty customPost.filename}"> <!-- !0 filename이 있으면 image가 있는거 -->
 								<img class="thumbnail" alt="첨부사진" src="customPostImageView.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}"> <!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
 							</c:if>
 							<time><fmt:formatDate value="${customPost.reg_date}" type="time" pattern="MM/dd HH:mm"/></time>

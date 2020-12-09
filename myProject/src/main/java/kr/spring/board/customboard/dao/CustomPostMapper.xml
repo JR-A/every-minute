@@ -3,10 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.board.customboard.dao.CustomPostMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
-	 
+	
+	<!-- 최근 게시글3개 목록 -->
 	<select id="selectTop3PostList" resultType="customPostVO">
 		SELECT * FROM 
-			(SELECT p.post_num, p.board_num, p.content, p.reg_date , b.title , ROW_NUMBER() OVER(ORDER BY post_num DESC) AS rank 
+			(SELECT p.post_num, p.board_num, p.mem_num, p.content, p.reg_date , p.uploadfile, p.filename, p.anonymous, b.title ,  ROW_NUMBER() OVER(ORDER BY post_num DESC) AS rank  
 				FROM customPost p join customBoard b 
 				on p.board_num=b.board_num)
 		<![CDATA[
@@ -23,6 +24,10 @@
 						CustomPost p  
                             LEFT OUTER JOIN (SELECT COUNT(*) comment_cnt, post_num  FROM customBoard_comment GROUP BY post_num) c_n 
                                 ON p.post_num=c_n.post_num
+                            LEFT OUTER JOIN (SELECT COUNT(*) like_cnt, post_num FROM customboard_like_post GROUP BY post_num) l_n
+                                ON p.post_num=l_n.post_num
+                            LEFT OUTER JOIN (SELECT COUNT(*) fav_cnt, post_num FROM customboard_favorite GROUP BY post_num) f_n
+                                ON p.post_num=f_n.post_num
 							JOIN Member m 
 								ON p.mem_num = m.mem_num 
 						WHERE board_num = #{board_num}
