@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
+import kr.spring.board.freeboard.service.FreeReplyLikeService;
 import kr.spring.board.freeboard.service.FreeReplyService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
@@ -26,7 +27,7 @@ import kr.spring.member.vo.MemberVO;
 import kr.spring.util.PagingUtil;
 
 @Controller
-public class ReplyController {
+public class FreeReplyController {
 	
 	private Logger log = Logger.getLogger(this.getClass());
 	
@@ -35,6 +36,9 @@ public class ReplyController {
 	
 	@Resource
 	FreeBoardService freeBoardService;
+	
+	@Resource
+	FreeReplyLikeService freeReplyLikeService;
 	
 	@Resource
 	MemberService memberService;
@@ -91,7 +95,8 @@ public class ReplyController {
 			Map<String,Object> map = 
 					new HashMap<String,Object>();
 			map.put("post_num", post_num);
-
+		
+			
 			//총 댓글의 갯수
 			int count = freeReplyService.selectRowCountReply(map);
 			log.debug("<<<<count>>>>>>>>:"+count);
@@ -99,6 +104,8 @@ public class ReplyController {
 					rowCount,pageCount,null);
 			map.put("start", page.getStartCount());
 			map.put("end", page.getEndCount());
+			
+			
 			MemberVO memberVO = (MemberVO)session.getAttribute("user");
 			if(memberVO!=null) {
 				map.put("mem_num", memberVO.getMem_num());
@@ -108,6 +115,7 @@ public class ReplyController {
 			List<FreeReplyVO> list = null;
 			if(count > 0) {
 				list = freeReplyService.selectListReply(map);
+			
 			}else {
 				list = Collections.emptyList();
 			}

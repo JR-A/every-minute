@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
 import kr.spring.board.freeboard.service.FreeLikeService;
+import kr.spring.board.freeboard.service.FreeReplyLikeService;
 import kr.spring.board.freeboard.service.FreeReplyService;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeLikeVO;
@@ -45,6 +46,8 @@ public class FreeBoardController {
 	@Resource
 	FreeLikeService freeLikeService;
 
+	@Resource
+	FreeReplyLikeService freeReplyLikeService;
 	
 	//자바빈(VO) 초기화
 	@ModelAttribute
@@ -146,7 +149,8 @@ public class FreeBoardController {
 		
 		//글 상세
 		@RequestMapping("/freeBoard/detail.do")
-		public ModelAndView process(@RequestParam int post_num,Model model,FreeLikeVO freeLikeVO) {
+		public ModelAndView process(@RequestParam int post_num,
+				Model model,FreeLikeVO freeLikeVO) {
 			
 			if(log.isDebugEnabled()) {
 				log.debug("<<글 상세>>:"+post_num);
@@ -159,13 +163,13 @@ public class FreeBoardController {
 					new HashMap<String,Object>();
 			map.put("post_num", post_num);
 			
+			
 			int count = replyService.selectRowCountReply(map);
 			int likeCount= freeLikeService.selectRowCountLike(map);
 			
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
 			freeboard.setReply_cnt(count);
 			freeboard.setLike_cnt(likeCount);
-
 			return new ModelAndView("freeBoardView","freeboard",freeboard);
 		}
 		

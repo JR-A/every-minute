@@ -142,7 +142,7 @@ ul.option li{
 
 }
 
-.replyVote{
+.reply-vote{
 	background-position: left center;
 	padding-left: 15px;
 	background-size: 12px 12px;
@@ -236,6 +236,18 @@ input#anonymous:checked + label{
    height: 40px;
    background-image: url(https://everytime.kr/images/new/container.articles.write.anonym.active.png);
    background-size: 40px 40px;
+}
+div#freeBoard_title{
+	line-height: 20px;
+    color: #c62917;
+    font-size: 14px;
+    font-weight: bold;
+}
+#freeBoard_title{
+    line-height: 20px;
+    color: #c62917;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 input:focus {outline:none;}

@@ -26,16 +26,34 @@ public class FreeBoardVO {
 	private String photoname;
 	private int reply_cnt; //댓글 갯수
 	private int like_cnt; //추천 갯수
+	private int like_cntR; //댓글 추천 갯수
+
 	
-
-
-	//이미지 업로드 파일 처리
-	public void setUpload(MultipartFile upload)throws IOException{
-		//MultipartFile -> byte[] 반환(byte배열로 변환)
-		setUploadfile(upload.getBytes());
-		//파일명 구하기
-		setFilename(upload.getOriginalFilename());
+	
+	
+	@Override
+	public String toString() {
+		return "FreeBoardVO [post_num=" + post_num + ", mem_num=" + mem_num + ", title=" + title + ", content="
+				+ content + ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", filename=" + filename
+				+ ", anonymous=" + anonymous + ", id=" + id + ", photoname=" + photoname + ", reply_cnt=" + reply_cnt
+				+ ", like_cnt=" + like_cnt + ", like_cntR=" + like_cntR + "]";
 	}
+
+		//이미지 업로드 파일 처리
+		public void setUpload(MultipartFile upload)throws IOException{
+			//MultipartFile -> byte[] 반환(byte배열로 변환)
+			setUploadfile(upload.getBytes());
+			//파일명 구하기
+			setFilename(upload.getOriginalFilename());
+		}
+
+	public int getLike_cntR() {
+		return like_cntR;
+	}
+	public void setLike_cntR(int like_cntR) {
+		this.like_cntR = like_cntR;
+	}
+
 	public int getLike_cnt() {
 		return like_cnt;
 	}
@@ -44,13 +62,7 @@ public class FreeBoardVO {
 		this.like_cnt = like_cnt;
 	}	
 
-	@Override
-	public String toString() {
-		return "FreeBoardVO [post_num=" + post_num + ", mem_num=" + mem_num + ", title=" + title + ", content="
-				+ content + ", reg_date=" + reg_date + ", modify_date=" + modify_date + ", filename=" + filename
-				+ ", anonymous=" + anonymous + ", id=" + id + ", photoname=" + photoname + ", reply_cnt=" + reply_cnt
-				+ ", like_cnt=" + like_cnt + "]";
-	}
+
 	public int getAnonymous() {
 		return anonymous;
 	}

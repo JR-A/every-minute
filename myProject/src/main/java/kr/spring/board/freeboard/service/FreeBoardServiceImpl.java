@@ -23,11 +23,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	FreeLikeMapper freeLikeMapper;
 	
 	@Override
-	   public List<FreeBoardVO> freeSelectTop3PostList() {
-	      return freeBoardMapper.freeSelectTop3PostList();
-	   }
-	
-	@Override
 	public List<FreeBoardVO> selectList(Map<String, Object> map) {
 		return freeBoardMapper.selectList(map);
 	}
@@ -62,6 +57,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		freeReplyMapper.deleteReplyByPostNum(post_num);
 		freeBoardMapper.deleteBoard(post_num);
 		
+	}
+
+	@Override
+	public List<FreeBoardVO> freeSelectTop3PostList() {
+		return freeBoardMapper.freeSelectTop3PostList();
 	}
 
 	

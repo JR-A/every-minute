@@ -26,9 +26,16 @@ public class FreeReplyVO {
 	private int anonymous;
 	private String id;
 	private String photoname;
+	private int like_cntR; //댓글 추천 갯수
 	//내가쓴댓글목록에서 글제목 받아오려고 넣음
 	private String title;
 	
+	public int getLike_cntR() {
+		return like_cntR;
+	}
+	public void setLike_cntR(int like_cntR) {
+		this.like_cntR = like_cntR;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -48,11 +55,12 @@ public class FreeReplyVO {
 		this.id = id;
 	}
 
+
 	@Override
 	public String toString() {
 		return "FreeReplyVO [comment_num=" + comment_num + ", post_num=" + post_num + ", mem_num=" + mem_num
 				+ ", content=" + content + ", reg_date=" + reg_date + ", anonymous=" + anonymous + ", id=" + id
-				+ ", photoname=" + photoname + "]";
+				+ ", photoname=" + photoname + ", like_cntR=" + like_cntR + ", title=" + title + "]";
 	}
 	public int getComment_num() {
 		return comment_num;

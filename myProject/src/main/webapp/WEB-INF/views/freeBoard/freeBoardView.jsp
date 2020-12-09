@@ -5,12 +5,74 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
 <script src="<c:url value="/resources/js/jquery-3.5.1.min.js" />"></script>
+
+
 <script type="text/javascript">
+
 $(document).ready(function(){
 	var currentPage;
 	var count;
 	var rowCount;
+	var likeCountR;
 	
+
+	//댓글추천 갯수 읽기
+	function getLike_countR(){
+		var comment_num = ${freeReplyVO.comment_num};
+		$.ajax({
+			type:'post',
+			data:{comment_num:comment_num},
+			url:'getReplyLikeCount.do',
+			dataType:'json',
+			cache:false,
+			timeout:30000,
+			success:function(data){
+				$('#replyLike').text(data.like_cntR);
+			},
+			error:function(){
+				alert('네트워크 오류');
+			}
+		});
+	}
+
+
+	//getLike_countR();
+	
+	//추천 등록
+	$(document).on('click','#like_cntR',function(event){
+		var choice = window.confirm('이 글을 추천하시겠습니까?');
+		if(choice){
+			var comment_num = $(this).attr('data-like');
+			$.ajax({
+				type:'post',
+				data:{comment_num:comment_num},
+				url:'insertReplyLike.do',
+				dataType:'json',
+				cache:false,
+				timeout:30000,
+				success:function(data){
+					if(data.result == 'success'){
+						alert('추천 되었습니다');
+						selectData(1,$('#post_num').val());
+					}else if(data.result == 'LikeFound'){
+						alert('이미 추천하셨습니다.');
+					}else if(data.result == 'logout'){
+						alert('로그인해야 사용할 수 있습니다.');
+					}else if(data.result == 'SameID'){
+						alert('자신의 글에는 추천 할 수 없습니다.');
+					}else{
+						alert('추천 등록 오류 발생');
+					}
+				},
+				error:function(){
+					alert('네트워크 오류');
+				}
+			});
+		}
+	});
+	
+	getLike_countR();
+
 	//추천 갯수 읽기
 	function getLike_count(){
 		var post_num = ${freeboard.post_num};
@@ -29,6 +91,9 @@ $(document).ready(function(){
 			}
 		});
 	}
+	//초기 추천 갯수 읽기
+	getLike_count();
+	
 	
 	//추천 등록
 	$(document).on('click','#like_check',function(event){
@@ -44,8 +109,8 @@ $(document).ready(function(){
 				timeout:30000,
 				success:function(data){
 					if(data.result == 'success'){
-						getLike_count();
 						alert('추천 되었습니다');
+						getLike_count();
 					}else if(data.result == 'LikeFound'){
 						alert('이미 추천하셨습니다.');
 					}else if(data.result == 'logout'){
@@ -105,7 +170,7 @@ $(document).ready(function(){
 						output += '  <div class="sub-item">';
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
-						output +='<span class="replyVote">'+ 0 +'<br>'+'</span>';
+						output +='<span class="reply-vote" id="like_cntR" data-like="'+item.comment_num+'">'+ item.like_cntR +'<br>'+'</span>';
 						output += '<span class="reply-date">'+item.reg_date+'</span>';
 						
 						
@@ -174,8 +239,7 @@ $(document).ready(function(){
 					//댓글 작성이 성공하면 새로 삽입한 글을
 					//포함해서 첫번째 페이지의 게시글들을 다시
 					//호출함
-					//selectData(1,$('#post_num').val());
-					location.reload();
+					selectData(1,$('#post_num').val());
 				}else{
 					alert('등록시 오류 발생!');
 				}

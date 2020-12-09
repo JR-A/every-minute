@@ -5,7 +5,6 @@ public class FreeLikeVO {
 	private int like_num;
 	private int post_num;
 	private int mem_num;
-	private int like_check;
 	
 	public int getLike_num() {
 		return like_num;
@@ -24,12 +23,6 @@ public class FreeLikeVO {
 	}
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
-	}
-	public int getLike_check() {
-		return like_check;
-	}
-	public void setLike_check(int like_check) {
-		this.like_check = like_check;
 	}
 
 }
