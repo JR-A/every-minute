@@ -1,0 +1,332 @@
+@charset "UTF-8";
+
+div#main_body {
+    width: 100%;
+    padding: 5px 5px 10px 5px;
+}
+
+div{
+	display: block;
+}
+
+input, textarea, img{
+	vertical-align: middle;
+}
+
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    color: #666;
+    text-decoration: none;
+}
+
+h3, p, label, hr, dl, dt, div{
+	margin: 0;
+	padding: 0;
+}
+
+dl{
+    list-style: none;
+}
+
+#container{
+	padding: 24px 16px;
+	margin: 20px;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+#container div.side {
+    margin: 0 8px 8px 8px;
+    padding: 24px 0 12px 0;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#container div.side.head h2 {
+    line-height: 33px;
+    font-size: 22px;
+}
+
+#container div.side h2 {
+    display: inline-block;
+    margin: 0 16px 12px 16px;
+    line-height: 27px;
+    color: #292929;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#container div.side.head p {
+    position: relative;
+    margin: 0 16px 8px 16px;
+}
+
+#container div.side.head p label {
+    position: absolute;
+    display: inline-block;
+    width: 64px;
+    line-height: 20px;
+    color: #737373;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#container div.side.head p span {
+    display: block;
+    padding-left: 72px;
+    line-height: 20px;
+    color: #292929;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#container hr {
+    clear: both;
+    height: 0;
+    border: 0;
+}
+
+#container div.side a.writebutton {
+    float: right;
+    display: inline-block;
+    margin: 0 16px 0 0;
+    padding: 0 16px;
+    line-height: 30px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #c62917;
+    cursor: pointer;
+}
+
+#container div.side.review div.rating div.rate {
+    margin: 0 16px 12px 16px;
+}
+
+#container div.side.review div.rating div.rate span.value {
+    margin-left: 8px;
+    height: 24px;
+    line-height: 24px;
+    color: #292929;
+    font-size: 18px;
+}
+
+#container div.side.review div.rating div.rate span.star {
+    float: left;
+    display: block;
+    width: 120px;
+    height: 24px;
+    background: transparent url("https://everytime.kr/images/app.subject.rating.details.star.off.png") no-repeat left top;
+    background-size: 120px 24px;
+}
+
+#container div.side.review div.rating div.rate span.star span.on {
+    display: block;
+    height: 24px;
+    background: transparent url("https://everytime.kr/images/app.subject.rating.details.star.on.png") no-repeat left top;
+    background-size: 120px 24px;
+}
+
+#container div.side.review div.rating div.details {
+    margin: 0 16px;
+}
+
+#container div.side.review div.rating div.details p {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+#container div.side.review div.rating div.details p label {
+    position: absolute;
+    display: inline-block;
+    width: 64px;
+    line-height: 20px;
+    color: #737373;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#container div.side.review div.rating div.details p span {
+    display: block;
+    padding-left: 72px;
+    line-height: 20px;
+    color: #292929;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#container div.side.review div.reviews {
+    margin-top: 16px;
+}
+
+#container div.side.review div.reviews article {
+    position: relative;
+    margin: 0 8px;
+    padding: 16px 8px;
+    border-top: 1px solid #ededed;
+}
+
+#container div.side.review div.reviews article p.rate {
+    margin-bottom: 4px;
+}
+
+#container div.side.review div.reviews article p.rate span.star {
+    display: block;
+    width: 60px;
+    height: 12px;
+    background: transparent url("https://everytime.kr/images/app.subject.rating.details.star.off.png") no-repeat left top;
+    background-size: 60px 12px;
+}
+
+#container div.side.review div.reviews article p.rate span.star span.on {
+    float: left;
+    display: block;
+    height: 12px;
+    background: transparent url("https://everytime.kr/images/app.subject.rating.details.star.on.png") no-repeat left top;
+    background-size: 60px 12px;
+}
+
+#container div.side.review div.reviews article p.text {
+    line-height: 20px;
+    color: #292929;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#container div.side div.empty {
+    padding: 0 0 12px 16px;
+}
+
+#container div.side div.empty p {
+    line-height: 20px;
+    color: #a6a6a6;
+    font-size: 14px;
+}
+
+#container form.write {
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 0;
+    border: none;
+}
+
+#container form.write div.wrap {
+    position: relative;
+    z-index: 201;
+    left: 19%;
+    top: 50%;
+    padding: 24px;
+    width: 100%;
+    height: 70%;
+    max-width: 720px;
+    max-height: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    overflow: auto;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#container form.write div.wrap h2 {
+    line-height: 33px;
+    font-size: 22px;
+    float: left;
+    margin-bottom: 12px;
+    color: #292929;
+    font-weight: bold;
+}
+
+#container form.write div.wrap a.close {
+    float: right;
+    display: inline-block;
+    width: 15px;
+    height: 33px;
+    color: transparent;
+    font-size: 0;
+    background: transparent url("https://everytime.kr/images/new/container.modal.close.png") no-repeat center center;
+    background-size: 15px 15px;
+    cursor: pointer;
+}
+
+#container form.write div.wrap h3 {
+    margin-bottom: 12px;
+    padding-top: 12px;
+    line-height: 20px;
+    border-top: 1px solid #ededed;
+    color: #4c4c4c;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#container form.write div.wrap dt {
+    position: absolute;
+    display: inline-block;
+    width: 72px;
+    line-height: 30px;
+    margin-bottom: 4px;
+    color: #4c4c4c;
+    font-size: 12px;
+}
+
+#container form.write div.wrap dd {
+    padding-left: 72px;
+    margin-bottom: 8px;
+    font-size: 0;
+}
+
+#container form.write div.wrap textarea.text {
+    margin-bottom: 12px;
+    padding: 5px 8px;
+    width: 100%;
+    line-height: 20px;
+    height: 100px;
+    border: 1px solid #ededed;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #292929;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    resize: none;
+}
+
+#container form.write div.wrap dd a {
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 0 12px;
+    line-height: 30px;
+    border-radius: 15px;
+    color: #737373;
+    font-size: 12px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+#container form.write div.wrap dd a.active {
+    color: #c62917;
+    font-weight: bold;
+}
+
+#container form.write div.wrap input.submit {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #c62917;
+}

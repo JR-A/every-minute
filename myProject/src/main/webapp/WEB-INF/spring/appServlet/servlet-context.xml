@@ -52,7 +52,7 @@
 	<context:component-scan 
 	               base-package="kr.spring.calculator.controller" />
 	<context:component-scan 
-	               base-package="kr.spring.lecture.controller" />
+	               base-package="kr.spring.review.controller" />
 	               
 	<!-- tiles 설정 -->
 	<beans:bean id="tilesConfigurer"
@@ -67,7 +67,7 @@
 				<beans:value>/WEB-INF/tiles-def/infoBoard.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/customBoard.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/timetable.xml</beans:value>
-				<beans:value>/WEB-INF/tiles-def/lecture.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/review.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/calculator.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/bookStore.xml</beans:value>
 			</beans:list>

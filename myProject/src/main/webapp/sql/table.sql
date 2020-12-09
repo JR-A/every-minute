@@ -455,6 +455,36 @@ CREATE TABLE CustomSubject(
 	CONSTRAINT customSubject_pk PRIMARY KEY (csub_num),
 	CONSTRAINT customSubject_fk FOREIGN KEY (t_num) REFERENCES Timetable (t_num)
 );
+
+--------------------------------------------------강의평가-----------------------------------------------------------
+CREATE TABLE Review(
+	post_num NUMBER NOT NULL,
+	mem_num NUMBER NOT NULL,
+	sub_num NUMBER NOT NULL,
+	content CLOB NOT NULL,
+	rate NUMBER NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+
+	CONSTRAINT review_pk PRIMARY KEY (post_num),
+	CONSTRAINT review_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+	CONSTRAINT review_sub_fk FOREIGN KEY (sub_num) REFERENCES Subject (sub_num)
+);
+
+CREATE TABLE SubjectRate(
+	sub_num NUMBER NOT NULL,	/*외래키이면서 기본키*/
+	totalCount NUMBER NOT NULL,	/*총 평가 수*/
+	/*각 항목의 평가 점수를 누적*/
+	totalRate NUMBER NOT NULL,	/*총 점수*/
+	homework NUMBER NOT NULL,
+	team NUMBER NOT NULL,
+	grade NUMBER NOT NULL,
+	attendance NUMBER NOT NULL,
+	exam NUMBER NOT NULL,
+
+	CONSTRAINT subjectRate_pk PRIMARY KEY (sub_num),
+	CONSTRAINT subjectRate_fk FOREIGN KEY (sub_num) REFERENCES Subject (sub_num)
+);
+
 --------------------------------------------------책방-----------------------------------------------------------
 
 CREATE TABLE BookStoreBoard(
@@ -518,6 +548,7 @@ CREATE SEQUENCE subject_seq START WITH 300; --Subject의 sub_num
 CREATE SEQUENCE csub_seq START WITH 400; --CustomSubject의 csub_num
 CREATE SEQUENCE timetableSubject_seq START WITH 500; --Timetable_Subject의 ts_num
 
+CREATE SEQUENCE review_seq START WITH 60000; --Review의 post_num
 
 CREATE SEQUENCE bookstore_seq START WITH 50000; --BookStoreBoard의 bs_num
 

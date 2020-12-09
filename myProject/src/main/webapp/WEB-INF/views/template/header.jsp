@@ -22,7 +22,7 @@
       <ul id="menu">
         <li><a href="${pageContext.request.contextPath}/main/main_board.do">게시판</a></li>
         <li><a href="${pageContext.request.contextPath}/timetable/timetableView.do">시간표</a></li>
-        <li><a href="${pageContext.request.contextPath}/lecture/lectureView.do">강의평가</a></li>
+        <li><a href="${pageContext.request.contextPath}/review/reviewList.do">강의평가</a></li>
         <li><a href="${pageContext.request.contextPath}/calculator/calculatorView.do">학점계산기</a></li>
         <li><a href="${pageContext.request.contextPath}/bookStore/bookStoreList.do">책방</a></li>
       </ul>

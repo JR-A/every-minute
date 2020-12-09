@@ -71,7 +71,7 @@
 		                                           kr.spring.message.vo,
 		                                           kr.spring.timetable.vo,
 		                                           kr.spring.calculator.vo,
-		                                           kr.spring.lecture.vo"/> <!-- vo하위의 자바빈 모두 스캔하여 알리아스처리 -->	  
+		                                           kr.spring.review.vo"/> <!-- vo하위의 자바빈 모두 스캔하여 알리아스처리 -->	  
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="kr.spring.board.customboard.dao,
@@ -82,7 +82,7 @@
 		                                    kr.spring.message.dao,
 		                                    kr.spring.timetable.dao,
 		                                    kr.spring.calculator.dao,
-		                                    kr.spring.lecture.dao"/>
+		                                    kr.spring.review.dao"/>
 	</bean>
 	
 </beans>
