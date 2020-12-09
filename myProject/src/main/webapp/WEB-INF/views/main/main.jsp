@@ -29,49 +29,99 @@
 	<!-- 게시판별로 가장 최근에 작성된 게시글 3개만 표출-->
 	<div class="list">
 		<div id="freeBoard_List" class="card">
-			<h3>자유게시판</h3>
-			<ul>
-				<li><a href="#">게시글1  n분 전</a></li>
-				<li><a href="#">게시글2  n분 전</a></li>
-				<li><a href="#">게시글3  n분 전</a></li>
-			</ul>
-		</div>
-		<div id="infoBoard_List" class="card">
-			<h3>정보게시판</h3>
-			<ul>
-				<li><a href="#">게시글1    방금</a></li>
-				<li><a href="#">게시글2  n분 전</a></li>
-				<li><a href="#">게시글3  n분 전</a></li>
-			</ul>
-		</div>
-		<div id="customBoard_List" class="card">
 			<div class="board">
-				<h3 id="customBoard_title">사용자생성 게시판</h3>
-							
-				<!-- 게시글 목록 -->
-				<c:if test="${postTop3List == null}">
+				<h3 id="freeBoard_title">자유 게시판</h3>
+				<c:if test="${freePostTop3List == null}">
 					<div class="align-center">등록된 게시글이 없습니다.</div>
 				</c:if>
-				
-				<c:if test="${postTop3List != null}"> <!-- article 클래스가 반복/ 시간은 몇분 전으로 표시 -->
-					<c:forEach var="customPost" items="${postTop3List}">
-						<a class="article" href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
-							<p>${customPost.content}</p>
-							<h4>from ${customPost.title}</h4>
-							<!-- 첨부파일 -->
-							<c:if test="${!empty customPost.filename}"> <!-- !0 filename이 있으면 image가 있는거 -->
-								<img class="thumbnail" alt="첨부사진" src="customPostImageView.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}"> <!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
-							</c:if>
-							<time><fmt:formatDate value="${customPost.reg_date}" type="time" pattern="MM/dd HH:mm"/></time>
-							<ul class="status">
-								<li class="like active"><!-- 좋아요 수 --></li>
-								<li class="comment active"><!-- 댓글 수 --></li>
-							</ul>
+
+				<c:if test="${freePostTop3List!= null}">
+					<!-- article 클래스가 반복/ 시간은 몇분 전으로 표시 -->
+					<c:forEach var="freeBoardVO" items="${freePostTop3List}">
+						<a class="article"
+							href="${pageContext.request.contextPath}/freeBoard/detail.do?post_num=${freeBoardVO.post_num}">
+							<p>${freeBoardVO.content}</p>
+							<h4>title ${freeBoardVO.title}</h4> <time>
+								<fmt:parseDate var="dateTempParse"
+									value="${freeBoardVO.modify_date}"
+									pattern="yyyy-MM-dd HH:mm:ss" />
+								<fmt:formatDate value="${dateTempParse}" pattern="MM/dd HH:mm" />
+							</time> <!-- 첨부파일 --> <c:if test="${!empty freeBoardVO.filename}">
+								<!-- !0 filename이 있으면 image가 있는거 -->
+								<img class="thumbnail" alt="첨부사진"
+									src="ImageView.do?post_num=${freeBoardVO.post_num}">
+								<!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
+							</c:if> <!-- 
+                      <ul class="status">
+                        <li class="like active">좋아요 수</li>
+                        <li class="comment active">댓글 수</li>
+                     </ul> -->
 							<hr>
 						</a>
 					</c:forEach>
 				</c:if>
 			</div>
+			<div id="infoBoard_List" class="card">
+				<div class="board">
+					<h3 id="customBoard_title">정보 게시판</h3>
+
+					<!-- 게시글 목록 -->
+					<c:if test="${infoTop3List == null}">
+						<div class="align-center">등록된 게시글이 없습니다.</div>
+					</c:if>
+
+					<c:forEach var="infopost" items="${infoTop3List}">
+						<p>제목: ${infopost.title}</p>
+						<p>내용: ${infopost.content}</p>
+						<p>작성일: ${infopost.reg_date}</p>
+						<!-- 첨부파일 -->
+						<c:if test="${!empty infopost.filename}">
+							<!-- !0 filename이 있으면 image가 있는거 -->
+							<img class="thumbnail" alt="첨부사진"
+								src="infoPostImageView.do?post_num=${infopost.post_num}">
+							<!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
+						</c:if>
+					</c:forEach>
+				</div>
+			</div>
+			<div id="customBoard_List" class="card">
+				<div class="board">
+					<h3 id="customBoard_title">사용자생성 게시판</h3>
+
+					<!-- 게시글 목록 -->
+					<c:if test="${postTop3List == null}">
+						<div class="align-center">등록된 게시글이 없습니다.</div>
+					</c:if>
+
+					<c:if test="${postTop3List != null}">
+						<!-- article 클래스가 반복/ 시간은 몇분 전으로 표시 -->
+						<c:forEach var="customPost" items="${postTop3List}">
+							<a class="article"
+								href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
+								<p>${customPost.content}</p>
+								<h4>from ${customPost.title}</h4> <!-- 첨부파일 --> <c:if
+									test="${!empty customPost.filename}">
+									<!-- !0 filename이 있으면 image가 있는거 -->
+									<img class="thumbnail" alt="첨부사진"
+										src="customPostImageView.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
+									<!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
+								</c:if> <time>
+									<fmt:formatDate value="${customPost.reg_date}" type="time"
+										pattern="MM/dd HH:mm" />
+								</time>
+								<ul class="status">
+									<li class="like active">
+										<!-- 좋아요 수 -->
+									</li>
+									<li class="comment active">
+										<!-- 댓글 수 -->
+									</li>
+								</ul>
+								<hr>
+							</a>
+						</c:forEach>
+					</c:if>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>

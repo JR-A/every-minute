@@ -3,9 +3,6 @@ package kr.spring.board.customboard.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Select;
-
-import kr.spring.board.customboard.vo.CustomBoardVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
 
 public interface CustomPostService {

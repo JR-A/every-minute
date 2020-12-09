@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.spring.board.customboard.dao.CustomPostMapper;
-import kr.spring.board.customboard.vo.CustomBoardVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
 
 @Service("customPostService")

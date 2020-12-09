@@ -12,6 +12,8 @@ import kr.spring.board.freeboard.vo.FreeBoardVO;
 
 public interface FreeBoardMapper {
 	public List<FreeBoardVO> selectList(Map<String,Object> map);
+	//최근 게시글 top3
+	public List<FreeBoardVO> freeSelectTop3PostList();
 	public int selectRowCount(Map<String,Object> map);
 	@Insert("INSERT INTO freeboard(post_num,title,content,uploadfile,filename,mem_num,anonymous) VALUES(freeboard_post_seq.nextval,#{title},#{content},#{uploadfile},#{filename},#{mem_num},#{anonymous})")
 	public void insertBoard (FreeBoardVO board);

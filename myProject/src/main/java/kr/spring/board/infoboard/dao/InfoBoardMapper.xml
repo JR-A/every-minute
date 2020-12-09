@@ -8,6 +8,10 @@
     ========================================================================
      -->
 <mapper namespace="kr.spring.board.infoboard.dao.InfoBoardMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
+
+	<select id="selectTop3PostList" resultType="infoboardVO">
+		
+	</select>
    <select id="selectTagList" parameterType="map" resultType="InfoBoardVO">
        SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT post_num, tag_num, title,content, TO_CHAR(reg_date, 'MM-DD HH24:MI') reg_date, TO_CHAR(modify_date,'MM-DD HH24:MI') modify_date, id, anonymous FROM  infoboard b JOIN member m ON b.mem_num=m.mem_num
         ORDER BY b.post_num DESC)a WHERE tag_num = #{tag_num})

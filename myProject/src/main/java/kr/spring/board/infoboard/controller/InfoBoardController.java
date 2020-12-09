@@ -123,7 +123,7 @@ public class InfoBoardController {
 		int count = InfoBoardService.selectRowCount(map);
 		if (log.isDebugEnabled()) {
 			log.debug("<<count>> : " + count);
-		}		
+		}
 		
 		PagingUtil page = new PagingUtil(keyfield, keyword, currentPage, count, 10,10,"infoBoardList.do");
 		map.put("start", page.getStartCount());

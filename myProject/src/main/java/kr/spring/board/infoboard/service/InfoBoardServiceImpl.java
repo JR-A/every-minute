@@ -65,6 +65,10 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		infoBoardMapper.insertBlameBoard(infoBoardVO);
 		
 	}
+	@Override
+	public List<InfoBoardVO> selectTop3InfoList() {
+		return infoBoardMapper.selectTop3InfoList();
+	}
 
 
 

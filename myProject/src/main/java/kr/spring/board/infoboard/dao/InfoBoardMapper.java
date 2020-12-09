@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Select;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 
 public interface InfoBoardMapper { //추상메소드 처리
+	//최근 작성된 게시글 3개
+	@Select(" SELECT * FROM (SELECT * FROM infoboard ORDER BY TO_NUMBER(post_num) DESC ) WHERE ROWNUM <= 3")
+	public List<InfoBoardVO> selectTop3InfoList();
 	//하나의 메소드에 하나의 sql문만 처리해야합니다.
 	public List<InfoBoardVO> selectList(Map<String, Object> map);
 	public List<InfoBoardVO> selectTagList(Map<String, Integer> map);
@@ -34,4 +37,5 @@ public interface InfoBoardMapper { //추상메소드 처리
 	//신고하기 삭제
 	@Delete("DELETE FROM infoboard_blame_post WHERE post_num=#{post_num}")
 	public void deleteBlamePostByPostNum(Integer post_num);
+	
 }
