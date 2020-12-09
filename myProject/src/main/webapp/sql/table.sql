@@ -204,7 +204,7 @@ CREATE TABLE InfoBoard_Like_Post(
     mem_num NUMBER NOT NULL,
     CONSTRAINT infoboard_like_post_pk PRIMARY KEY (like_num),
     CONSTRAINT infoBoard_like_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
-    CONSTRAINT infoBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_like_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
   
 );
 CREATE TABLE CustomBoard_Like_Post(
@@ -326,6 +326,8 @@ CREATE TABLE FreeBoard_Message_Post(
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
+    parent_msg_num NOT NULL,
+    
     CONSTRAINT freeBoard_message_post_pk PRIMARY KEY (msg_num),
     CONSTRAINT freeBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
     CONSTRAINT freeBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
@@ -339,6 +341,8 @@ CREATE TABLE InfoBoard_Message_Post(
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
+    parent_msg_num NOT NULL,
+    
     CONSTRAINT infoboard_message_post_pk PRIMARY KEY (msg_num),
     CONSTRAINT infoBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
     CONSTRAINT infoBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
@@ -352,6 +356,8 @@ CREATE TABLE CustomBoard_Message_Post(
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
+    parent_msg_num NOT NULL,
+    
     CONSTRAINT customBoard_message_post_pk PRIMARY KEY (msg_num),
     CONSTRAINT customBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
     CONSTRAINT customBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
@@ -504,7 +510,7 @@ CREATE sequence free_comment_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --F
 CREATE sequence info_comment_seq START WITH 1 INCREMENT BY 1 MAXVALUE 10000; --InfoBoard_Comment의comment_num
 CREATE SEQUENCE customboard_comment_seq START WITH 1; --CustomBoard_Comment의comment_num
 
-CREATE SEQUENCE tag_seq START WITH 100;	-- Tag의 tag_num
+CREATE SEQUENCE tag_seq START WITH 1;	-- Tag의 tag_num
 CREATE SEQUENCE hashtag_seq START WITH 200; --Hashtag의 hashtag_num
 
 CREATE SEQUENCE timetable_seq START WITH 40000; --Timetable의 t_num
