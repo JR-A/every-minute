@@ -1,7 +1,6 @@
 package kr.spring.board.infoboard.vo;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -28,12 +27,15 @@ public class InfoBoardVO {
 	private String title;//제목
 	@NotEmpty
 	private String content; //내용
-	private Date reg_date; //등록일
-	private Date modify_date; //수정일
+	private String reg_date; //등록일
+	private String modify_date; //수정일
 	private byte[] uploadfile; //이미지 파일 toString을 추가할때에는 byte[]배열은 빼고 생성해야합니다. 엄청난 오류발생 ㄷㄷ
 	private String filename; //파일 이름
 	private int anonymous; //익명여부
 	private String id; //회원 아이디
+	private int reply_cnt; // 댓글 수
+	private int like_cnt; // 좋아요 수
+	private int target_mem_num; //게시판 신고/추천 당한 멤버 번호
 	
 	//이미지 업로드 파일
 	public void setUpload(MultipartFile upload) throws IOException {
@@ -73,18 +75,23 @@ public class InfoBoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getReg_date() {
+	
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getModify_date() {
+
+	public String getModify_date() {
 		return modify_date;
 	}
-	public void setModify_date(Date modify_date) {
+
+	public void setModify_date(String modify_date) {
 		this.modify_date = modify_date;
 	}
+
 	public byte[] getUploadfile() {
 		return uploadfile;
 	}
@@ -106,18 +113,41 @@ public class InfoBoardVO {
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getReply_cnt() {
+		return reply_cnt;
+	}
+
+	public void setReply_cnt(int reply_cnt) {
+		this.reply_cnt = reply_cnt;
+	}
+
+	public int getTarget_mem_num() {
+		return target_mem_num;
+	}
+
+	public void setTarget_mem_num(int target_mem_num) {
+		this.target_mem_num = target_mem_num;
+	}
+
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
 	}
 
 	@Override
 	public String toString() {
 		return "InfoBoardVO [post_num=" + post_num + ", mem_num=" + mem_num + ", tag_num=" + tag_num + ", title="
 				+ title + ", content=" + content + ", reg_date=" + reg_date + ", modify_date=" + modify_date
-				+ ", filename=" + filename + ", anonymous=" + anonymous + ", id=" + id + "]";
+				+ ", filename=" + filename + ", anonymous=" + anonymous + ", id=" + id + ", reply_cnt=" + reply_cnt
+				+ ", like_cnt=" + like_cnt + ", target_mem_num=" + target_mem_num + "]";
 	}
 
-	
+
 	
 }

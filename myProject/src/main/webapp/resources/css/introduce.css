@@ -1,0 +1,246 @@
+
+header {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #d6d6d6;
+  background-color: #fff;
+  box-shadow: 0px -6px 18px -3px grey
+}
+
+.header-wrpa {
+  margin: 0 auto;
+  width: 1180px;
+  height: 100%;
+}
+
+#logo {
+  float: left;
+  margin-left: 24px;
+  height: 100%;
+}
+
+#logo > a {
+  float: left;
+  display: block;
+  margin: 20px 16px 20px 0;
+  width: 40px;
+  height: 40px;
+}
+#logo > a > img {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+#logo > p {
+  float: left;
+}
+#logo > p > span.name.multiple {
+  margin-top: 20px;
+  line-height: 15px;
+  font-size: 12px;
+}
+#logo > p > span.name {
+  display: block;
+  color: #c62917;
+  font-size: 18px;
+  font-weight: bold;
+}
+#logo > p > span.subname {
+  display: block;
+  line-height: 25px;
+  color: #292929;
+  font-size: 22px;
+  margin-left: -1px;
+}
+#Member {
+  float: right;
+  margin-right: 24px;
+  height: 100%;
+}
+#Member a {
+  display: inline-block;
+  margin-left: 8px;
+  margin-top: 20px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 12px;
+  vertical-align: top;
+  font-size: 14px;
+  font-weight:bold;
+  color: #737373;
+}
+/*=================== content_text AREA ==================*/
+.content_text {
+  text-align: center;
+  background-color: white;
+}
+.content_text > .fade_up_1 > h2 {
+  padding: 130px 0 40px 0;
+  font-size: 25px;
+  font-weight: normal;
+  color: black;
+}
+.content_text > .fade_up_1 > h2 > strong {
+  color: #c62917;
+}
+
+.content_text > .fade_up_1 > div.paragraph {
+  padding-bottom: 80px;
+}
+
+.content_text > .fade_up_1 > div.paragraph > .fade_up_1 >  p {
+  line-height: 25px;
+  font-size: 15px;
+}
+
+section div.paragraph > .fade_up_1 > p {
+  color: #4c4c4c;
+}
+/*=================== content_text AREA END ==================*/
+
+/*=================== content_text2 AREA ==================*/
+.content_text2 {
+  text-align: center;
+  background-color: #f5f5f5;
+}
+.content_text2 > .fade_up_1 > h2 {
+  padding: 130px 0 40px 0;
+  font-size: 25px;
+  font-weight: normal;
+  color: black;
+}
+.content_text2 > .fade_up_1 > h2 > strong {
+  color: #c62917;
+}
+.content_text2 > .fade_up_1 > div.paragraph {
+  padding-bottom: 80px;
+}
+.content_text2 > .fade_up_1 > div.paragraph > .fade_up_1 > p {
+  line-height: 25px;
+  font-size: 15px;
+}
+section div.paragraph > .fade_up_1 > p {
+  color: #4c4c4c;
+}
+section div.figures > .fade_up_1 > div > .fade_up_1 > p.description {
+  margin-top: 10px;
+  font-size: 16px;
+	color: #4c4c4c;
+}
+section div.figures > .fade_up_1 > div > .fade_up_1 > p.icon {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+}
+section div.figures > .fade_up_1 > div > .fade_up_1 > p.icon > img {
+  height: 48px;
+  vertical-align: middle;
+}
+.display {
+  color: #000;
+  display: inline-block;
+}
+/*=================== content_text2 AREA END ==================*/
+
+/*=================== figures AREA ==================*/
+section div.figures {
+	padding-bottom: 130px;
+	font-size: 0;
+}
+section div.figures > .fade_up_1 > div {
+	margin: 0 41px;
+	display: inline-block;
+}
+section div.figures > .fade_up_1 > div > p.number {
+	color: #292929;
+}
+section div.figures > .fade_up_1 > div > p.number > strong {
+  display: inline-block;
+  margin-left: 5px;
+  letter-spacing: -2px;
+  font-size: 38px;
+}
+section div.figures > .fade_up_1 > div > p.number > span {
+  display: inline-block;
+  margin: 0 5px;
+  font-size: 18px;
+}
+section div.figures > .fade_up_1 > div > p.description {
+  margin-top: 10px;
+  font-size: 16px;
+	color: #4c4c4c;
+}
+
+section div.figures > .fade_up_1 > div > .fade_up_1 > p.icon {
+  margin: 0 auto;
+  border-radius: 50px;
+  background-color: #fff;
+}
+section div.figures > .fade_up_1 > hr {
+  display: inline-block;
+  border-right: 2px solid #d6d6d6;
+  margin: 0 -24px 25px -24px;
+  height: 20px;
+  
+}
+/*=================== figures AREA END ==================*/
+
+#introduce {
+  padding-top: 80px;
+  box-sizing: border-box;
+  font-size: 12px;
+  background-color: #f5f5f5;
+  height: 100%;
+}
+html {
+  scroll-behavior: smooth;
+}
+section hr {
+  clear: both;
+  height: 0;
+  border: 0;
+}
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+/*=================== footer AREA ==================*/
+section.white {
+  background-color: #fff;
+}
+section.footer > ul.links {
+  padding: 16px 0;
+}
+section.footer > ul.links > li {
+  display: inline-block;
+  font-size: 13px;
+  margin-left: 8px;
+}
+section.footer > ul.links > li.copyright > a {
+  font-weight: bold;
+}
+/*=================== footer AREA EDN ==================*/
+/*=================== Slider AREA ==================*/
+#slider{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+#overflow{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  color: white;
+  top: 0;
+}
+/*=================== Slider AREA END ==================*/
+

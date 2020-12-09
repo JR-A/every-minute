@@ -2,48 +2,99 @@
 <!DOCTYPE mapper   
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    <!-- 
+    ========================================================================
+    Mapper에 SQL문 작성시 마지막에 (;)<<<<꼭 빼고쓰기..!!!! 안빼고 쓰면 에러나요 ^^
+    ========================================================================
+     -->
 <mapper namespace="kr.spring.board.infoboard.dao.InfoBoardMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
-				<!-- ┌ 메소드명 (메소드명과 일치해야 맵핑됨)  ┌한건의 레코드를 읽은 후 boardVO로 마이바티스가 뿌려줌! -->
-	<select id="selectList" parameterType="map" resultType="InfoBoardVO">
-		SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM  infoboard b JOIN member m ON b.mem_num=m.mem_num 
+   <select id="selectTagList" parameterType="map" resultType="InfoBoardVO">
+       SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT post_num, tag_num, title,content, TO_CHAR(reg_date, 'MM-DD HH24:MI') reg_date, TO_CHAR(modify_date,'MM-DD HH24:MI') modify_date, id, anonymous FROM  infoboard b JOIN member m ON b.mem_num=m.mem_num
+        ORDER BY b.post_num DESC)a WHERE tag_num = #{tag_num})
+   </select>
+            <!-- ┌ 메소드명 (메소드명과 일치해야 맵핑됨)  ┌한건의 레코드를 읽은 후 boardVO로 마이바티스가 뿌려줌! -->         
+   <select id="selectList" parameterType="map" resultType="InfoBoardVO">
+   SELECT
+   post_num,
+   mem_num,
+   title,
+   content,
+   TO_CHAR(reg_date,'MM-DD HH24:MI') reg_date,
+   TO_CHAR(modify_date,'MM-DD HH24:MI') modify_date,
+   uploadfile,
+   filename,
+   anonymous,
+   id,
+   reply_cnt,
+   like_cnt
+   
+    FROM (SELECT 
+        a.*,
+        rownum rnum
+        FROM(
+        SELECT
+        i.post_num,
+        i.mem_num,
+        i.tag_num,
+        title,
+        content,
+        i.reg_date,
+        i.modify_date,
+        uploadfile,
+        filename,
+        anonymous,
+        id,
+        reply_cnt,
+        like_cnt
+        
+            FROM infoBoard i
+            LEFT OUTER JOIN (SELECT COUNT(*) reply_cnt, post_num  FROM infoboard_comment GROUP BY post_num) r ON i.post_num=r.post_num
+            LEFT OUTER JOIN (SELECT COUNT(*) like_cnt, post_num  FROM infoboard_like_post GROUP BY post_num) l ON i.post_num=l.post_num
+            JOIN member m ON i.mem_num=m.mem_num
+            JOIN member_detail d ON m.mem_num=d.mem_num
 		<where><!-- 조건에 만족하는것이 하나라도 있어야 WHERE절이 생김 (동적SQL: 상황에 따라 실행되는 부분적인 SQL) -->
 			<if test="keyword != '' and keyfield == 'title'"> <!-- 타이틀 -->
-				b.title LIKE '%' || #{keyword} || '%'
-			</if>
-			<if test="keyword != '' and keyfield == 'id'"> <!-- 아이디 -->
-				m.id LIKE '%' || #{keyword} || '%'
+				i.title LIKE '%' || #{keyword} || '%'
 			</if>
 			<if test="keyword != '' and keyfield == 'content'"> <!-- 내용 -->
-				b.content LIKE '%' || #{keyword} || '%'
+				i.content LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'tag'"> <!-- 태그 -->
+				i.content LIKE '%' || #{keyword} || '%'
 			</if>
 			<if test="keyword != '' and keyfield == 'all'"> <!-- 전체 -->
-				b.title LIKE '%' || #{keyword} || '%' or
-				m.id LIKE '%' || #{keyword} || '%' or
-				b.content LIKE '%' || #{keyword} || '%' 
+				i.title LIKE '%' || #{keyword} || '%' or
+				i.content LIKE '%' || #{keyword} || '%' 
 			</if>
 		</where>
-		 ORDER BY b.post_num DESC)a)
+		 ORDER BY i.post_num DESC)a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
-	</select>
-	
-	<select id="selectRowCount" parameterType="map" resultType="integer">
-		SELECT COUNT(*) FROM infoboard b JOIN member m ON b.mem_num = m.mem_num
-	</select>
+   </select>
+   
+   <select id="selectRowCount" parameterType="map" resultType="integer">
+      SELECT COUNT(*) FROM infoboard b JOIN member m ON b.mem_num = m.mem_num
+   </select>
+   
+   <select id="selectTagCount" parameterType="integer" resultType="integer">
+      SELECT COUNT(*) FROM infoboard where tag_num=#{tag_num}
+   </select>
 
-	<update id="updateBoard" parameterType="InfoBoardVO">
-			UPDATE infoboard SET <!-- 파일 네임이 존재할때 업로드! -->
-			<!-- 동적SQL은 부분SQL을 만드는 역할로 많이 사용됩니다. -->
-				<if test="filename!=''"> <!-- 동적SQL은 JSTL과 방식이 비슷함 -->
-				<!-- 파일네임이 존재할때 아래의 명령어만 실행함! -->
-					uploadfile=#{uploadfile},
-					filename=#{filename},
-				</if>
-				title=#{title},
-				content=#{content},
-				modify_date=SYSDATE
-			WHERE post_num=#{post_num}
-		</update>
-
+   <update id="updateBoard" parameterType="InfoBoardVO">
+         UPDATE infoboard SET 
+         <!-- 파일 네임이 존재할때 업로드! -->
+         <!-- 동적SQL은 부분SQL을 만드는 역할로 많이 사용됩니다. -->
+            <if test="filename!=''"> <!-- 동적SQL은 JSTL과 방식이 비슷함 -->
+            <!-- 파일네임이 존재할때 아래의 명령어만 실행함! -->
+               uploadfile=#{uploadfile},
+               filename=#{filename},
+            </if>
+            title=#{title},
+            content=#{content},
+            modify_date=SYSDATE,
+            anonymous=#{anonymous}
+            
+         WHERE post_num=#{post_num}
+      </update>
 </mapper>
