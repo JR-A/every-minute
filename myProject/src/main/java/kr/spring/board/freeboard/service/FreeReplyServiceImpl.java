@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.spring.board.freeboard.dao.FreeReplyLikeMapper;
 import kr.spring.board.freeboard.dao.FreeReplyMapper;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
 
@@ -16,7 +17,8 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 
 	@Resource
 	FreeReplyMapper freeReplyMapper;
-	
+	@Resource
+	FreeReplyLikeMapper freeReplyLikeMapper;
 	@Override
 	public List<FreeReplyVO> selectListReply(Map<String, Object> map) {
 		
@@ -41,6 +43,7 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 
 	@Override
 	public void deleteReply(Integer re_num) {
+		freeReplyLikeMapper.delete_like(re_num);
 		freeReplyMapper.deleteReply(re_num);
 	}
 
