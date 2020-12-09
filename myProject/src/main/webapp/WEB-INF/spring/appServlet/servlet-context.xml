@@ -22,6 +22,9 @@
 	<!-- 시간표에 보여주기 위해 사용하는 공용클래스 -->
 	<beans:bean id="timesMaker" class="kr.spring.timetable.common.TimesMaker"/>
 	
+	<!-- 학점계산기 공용클래스 -->
+	<beans:bean id="calculator" class="kr.spring.calculator.common.Calculator"/>
+	
 	<!-- popup창 호출시 tiles를 이용하지 않고 JSP를 호출해야 하는 경우 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -45,7 +48,11 @@
 	<context:component-scan 
 	               base-package="kr.spring.message.controller" />           
 	<context:component-scan 
-	               base-package="kr.spring.timetable.controller" /> 
+	               base-package="kr.spring.timetable.controller" />
+	<context:component-scan 
+	               base-package="kr.spring.calculator.controller" />
+	<context:component-scan 
+	               base-package="kr.spring.lecture.controller" />
 	               
 	<!-- tiles 설정 -->
 	<beans:bean id="tilesConfigurer"
@@ -60,6 +67,8 @@
 				<beans:value>/WEB-INF/tiles-def/infoBoard.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/customBoard.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/timetable.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/lecture.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/calculator.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/bookStore.xml</beans:value>
 			</beans:list>
 		</beans:property>
