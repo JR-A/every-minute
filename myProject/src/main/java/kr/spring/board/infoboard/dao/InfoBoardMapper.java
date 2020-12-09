@@ -37,5 +37,12 @@ public interface InfoBoardMapper { //추상메소드 처리
 	//신고하기 삭제
 	@Delete("DELETE FROM infoboard_blame_post WHERE post_num=#{post_num}")
 	public void deleteBlamePostByPostNum(Integer post_num);
+	//게시판 좋아요 삭제
+	@Delete("DELETE FROM infoboard_like_post WHERE post_num=#{post_num}")
+	public void deleteLikePostByPostNum(Integer post_num);
+	//댓글 좋아요 삭제
+	@Delete("DELETE FROM infoboard_like_comment WHERE comment_num=#{comment_num}")
+	public void deleteLikeCommentByCommentNum(Integer comment_num);
+
 	
 }

@@ -123,7 +123,7 @@
 																				
 					//마지막 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정															
 					if(endPage > totalPage){															
-						endPage = totalPage;														
+						endPage = totalPage;
 					}															
 																				
 					var add='';															

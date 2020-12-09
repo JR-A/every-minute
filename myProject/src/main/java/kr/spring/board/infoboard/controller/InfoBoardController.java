@@ -155,7 +155,7 @@ public class InfoBoardController {
 	
 	//글 등록 폼
 	@RequestMapping(value="/infoBoard/write.do",method=RequestMethod.GET)//데이터를 GET방식으로 받을경우
-	public String form() {
+	public String form() {//스트링 말고 model and view
 		return "infoBoardWrite";//board.xml로 return, 폼을 호출
 	}
 	//글 등록 처리 //데이터를 POST방식으로 받을경우

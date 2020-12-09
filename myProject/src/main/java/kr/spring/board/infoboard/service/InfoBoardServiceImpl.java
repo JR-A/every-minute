@@ -58,6 +58,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		infoBoardMapper.deleteBlamePostByPostNum(post_num);
 		infoLikeMapper.deleteLikeByPostNum(post_num);
 		infoBoardMapper.deleteReplyByPostNum(post_num);
+		infoBoardMapper.deleteLikePostByPostNum(post_num);
 		infoBoardMapper.deleteBoard(post_num);
 	}
 	@Override

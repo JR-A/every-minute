@@ -9,7 +9,7 @@ import kr.spring.board.infoboard.vo.InfoCommentLikeVO;
 public interface InfoCommentLikeMapper {
 	@Select("SELECT COUNT(*) FROM infoboard_like_comment f JOIN member_detail d ON f.mem_num=d.mem_num WHERE comment_num=#{comment_num}")
 	public int selectCountLike(int comment_num);
-	@Insert("INSERT INTO infoboard_like_comment (like_num, comment_num, mem_num) VALUES (like_num_SEQ.nextval, #{comment_num}, #{mem_num})")
+	@Insert("INSERT INTO infoboard_like_comment (like_num, comment_num, mem_num) VALUES (info_like_comment_SEQ.nextval, #{comment_num}, #{mem_num})")
 	public void insertLike(InfoCommentLikeVO infoCommentLikeVO);
 	@Select("SELECT * FROM infoboard_like_comment WHERE mem_num=#{mem_num} AND comment_num=#{comment_num}")
 	public InfoCommentLikeVO selectCheckLike(InfoCommentLikeVO infoCommentLikeVO);
