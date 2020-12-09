@@ -608,3 +608,4 @@ INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '졸업');
 INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '등록금');
 INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '학생증');
 INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, 'null');
+
