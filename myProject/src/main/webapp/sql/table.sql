@@ -592,3 +592,19 @@ VALUES (subject_seq.nextval, '핵교', '인권과 국가', '김주환', 3, '목9
 
 INSERT INTO Subject (sub_num, sub_category, sub_name, prof_name, sub_credit, sub_time, sub_classRoom, sub_capacity, sub_online, sub_remark) 
 VALUES (subject_seq.nextval, '일교', '글로벌 문화와 리더십', '김하영', 3, '금89a', 'C820', 60, 0, '병행');
+
+
+/*태그 입력*/
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '도서관');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '셔틀버스');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '와이파이');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '계절학기');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '학점·성적');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '기숙사');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '장학금');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '수강신청');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '휴복학');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '졸업');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '등록금');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, '학생증');
+INSERT INTO tag (tag_num, tag_name) VALUES (tag_seq.nextval, 'null');
