@@ -128,8 +128,42 @@
  		            FROM freeboard_comment f
  		            JOIN member m ON f.mem_num=m.mem_num 
  		            JOIN member_detail d ON m.mem_num=d.mem_num
- 		            WHERE m.mem_num=1000
+ 		            WHERE m.mem_num=#{mem_num}
  		            ORDER BY comment_num DESC)a JOIN FREEBOARD f ON a.post_num=f.post_num)
+ 		<![CDATA[
+ 		WHERE rnum >= #{start} AND rnum <= #{end}
+ 		]]>                                 
+ 	</select>
+ 	
+ 	<!-- 정보게시판 댓글 목록 -->	
+	 	<select id="selectInfoWritedListReply" parameterType="map"
+ 	                     resultType="infoReplyVO">
+		SELECT
+        comment_num,
+         content,
+ 		   TO_CHAR(reg_date,'MM/DD HH24:MI') reg_date,
+ 		   post_num,
+ 		   id,
+ 		   anonymous,
+ 		   mem_num,
+          title
+        FROM (SELECT 
+ 		        a.*,
+ 		        f.title,
+                rownum rnum
+                  FROM (SELECT
+ 		              comment_num,
+ 		              content,
+ 		              f.reg_date,
+ 		              post_num,
+ 		              id,
+ 		              anonymous,
+ 		              f.mem_num
+ 		            FROM infoboard_comment f
+ 		            JOIN member m ON f.mem_num=m.mem_num 
+ 		            JOIN member_detail d ON m.mem_num=d.mem_num
+ 		            WHERE m.mem_num=#{mem_num}
+ 		            ORDER BY comment_num DESC)a JOIN INFOBOARD f ON a.post_num=f.post_num)
  		<![CDATA[
  		WHERE rnum >= #{start} AND rnum <= #{end}
  		]]>                                 

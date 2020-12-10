@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.spring.board.freeboard.service.FreeBoardService;
-import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.service.InfoBoardService;
+import kr.spring.board.infoboard.vo.InfoReplyVO;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.PagingUtil;
@@ -154,7 +154,7 @@ public class MemberAjaxController {
 	//자유게시판에 쓴 댓글 호출   
 			@RequestMapping("/member/writedFreeBoardCommentlist.do")
 			@ResponseBody
-			public Map<String,Object> getList(
+			public Map<String,Object> geFreetList(
 					@RequestParam(value="pageNum",defaultValue="1")
 					int currentPage,
 					HttpSession session){
@@ -178,6 +178,49 @@ public class MemberAjaxController {
 				List<FreeReplyVO> list = null;
 				if(count > 0) {
 					list = memberService.selectFreeWritedListReply(map);
+				}else {
+					list = Collections.emptyList();
+				}
+
+				Map<String,Object> mapJson = 
+						new HashMap<String,Object>();
+				
+				mapJson.put("count", count);
+				mapJson.put("rowCount", 10);
+				mapJson.put("list", list);
+				
+				return mapJson;
+				
+		
+			}
+			
+			//자유게시판에 쓴 댓글 호출   
+			@RequestMapping("/member/writedInfoBoardCommentlist.do")
+			@ResponseBody
+			public Map<String,Object> getInfoList(
+					@RequestParam(value="pageNum",defaultValue="1")
+					int currentPage,
+					HttpSession session){
+				//(******주의)댓글 좋아요 처리시만 HttpSession 넣을 것
+				if(log.isDebugEnabled()) {
+					log.debug("<<currentPage>> : " + currentPage);
+				}
+
+				Map<String,Object> map = 
+						new HashMap<String,Object>();
+				MemberVO memberVO = (MemberVO)session.getAttribute("user");
+				map.put("mem_num", memberVO.getMem_num());
+				//총 댓글의 갯수
+				int count = memberService.myInfoCommentSelectRowCount(map);
+				log.debug("<<<<count>>>>>>>>:"+count);
+				PagingUtil page = new PagingUtil(currentPage,count,
+						10,10,"writedInfoBoardComment.do");
+				map.put("start", page.getStartCount());
+				map.put("end", page.getEndCount());
+				
+				List<InfoReplyVO> list = null;
+				if(count > 0) {
+					list = memberService.selectInfoWritedListReply(map);
 				}else {
 					list = Collections.emptyList();
 				}

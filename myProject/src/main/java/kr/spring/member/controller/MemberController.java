@@ -607,18 +607,18 @@ public class MemberController {
 			MemberVO memberVO = (MemberVO)session.getAttribute("user");
 			map.put("mem_num", memberVO.getMem_num());
 			//총 댓글의 갯수
-			int count = memberService.myFreeCommentSelectRowCount(map);
+			int count = memberService.myInfoCommentSelectRowCount(map);
 			log.debug("<<<<count>>>>>>>>:"+count);
 			PagingUtil page = new PagingUtil(currentPage,count,
-					10,10,"writedFreeBoardComment.do");
+					10,10,"writedInfoBoardComment.do");
 			mav.addObject("pagingHtml",page.getPagingHtml());
 			mav.addObject("page_num", currentPage);
 			mav.setViewName("writedInfoCommentLi");
 			return mav;
 		}
-		//커스텀 게시판에 쓴 댓글
+		/*//커스텀 게시판에 쓴 댓글
 		@RequestMapping("/member/writedCustomBoardComment.do")
 		public String writedCustomComment() {
 			return null;
-		}
+		}*/
 }

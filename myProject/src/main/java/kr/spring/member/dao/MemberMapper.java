@@ -12,6 +12,7 @@ import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
+import kr.spring.board.infoboard.vo.InfoReplyVO;
 import kr.spring.member.vo.MemberVO;
 
 public interface MemberMapper {
@@ -114,4 +115,10 @@ public interface MemberMapper {
 	public int myFreeCommentSelectRowCount(Map<String, Object> map);
 	//mem_num으로 자유게시판 댓글찾기
 	public List<FreeReplyVO> selectFreeWritedListReply(Map<String, Object> map);
+	//mem_num으로 정보게시판 댓글개수 찾기 
+	@Select("SELECT COUNT(*) FROM infoboard_comment f WHERE f.mem_num=#{mem_num}")
+	public int myInfoCommentSelectRowCount(Map<String, Object> map);
+	//mem_num으로 정보게시판 댓글찾기
+	public List<InfoReplyVO> selectInfoWritedListReply(Map<String, Object> map);
+
 }

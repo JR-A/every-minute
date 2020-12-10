@@ -27,7 +27,15 @@ public class InfoReplyVO {
 	private String id;
 	private String photoname;
 	private int commnet_cnt;
+	private String title;
 	
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public int getComment_num() {
 		return comment_num;
 	}

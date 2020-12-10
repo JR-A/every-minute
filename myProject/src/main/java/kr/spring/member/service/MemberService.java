@@ -7,6 +7,7 @@ import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
+import kr.spring.board.infoboard.vo.InfoReplyVO;
 import kr.spring.member.vo.MemberVO;
 
 //트랜잭션 처리하므로 작업단위를 묶음
@@ -39,4 +40,6 @@ public interface MemberService {
 	public int myCustomselectRowCount(Map<String, Object> map);
 	public int myFreeCommentSelectRowCount(Map<String, Object> map);
 	public List<FreeReplyVO> selectFreeWritedListReply(Map<String, Object> map);
+	public int myInfoCommentSelectRowCount(Map<String, Object> map);
+	public List<InfoReplyVO> selectInfoWritedListReply(Map<String, Object> map);
 }

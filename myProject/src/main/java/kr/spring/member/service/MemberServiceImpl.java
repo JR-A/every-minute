@@ -11,6 +11,7 @@ import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
+import kr.spring.board.infoboard.vo.InfoReplyVO;
 import kr.spring.member.dao.MemberMapper;
 import kr.spring.member.vo.MemberVO;
 
@@ -174,6 +175,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<FreeReplyVO> selectFreeWritedListReply(Map<String, Object> map) {
 		return memberMapper.selectFreeWritedListReply(map);
+	}
+
+	@Override
+	public List<InfoReplyVO> selectInfoWritedListReply(Map<String, Object> map) {
+		return memberMapper.selectInfoWritedListReply(map);
+	}
+
+	@Override
+	public int myInfoCommentSelectRowCount(Map<String, Object> map) {
+		return memberMapper.myInfoCommentSelectRowCount(map);
 	}
 
 

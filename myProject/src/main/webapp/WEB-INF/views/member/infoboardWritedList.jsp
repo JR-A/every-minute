@@ -22,7 +22,7 @@
 				<article class="board_view">
 						<h2><a href="${pageContext.request.contextPath}/infoBoard/detail.do?post_num=${board.post_num}">${board.title}</a></h2>
 						<p class="small">${board.content}</p>
-						<time class="small"><fmt:formatDate value="${board.modify_date}" pattern="yyyy-MM-dd HH:MM:ss"/></time>
+						<time class="small">${board.modify_date}</time>
 						${board.id}
 					<div class="comments"></div>
 				</article>
