@@ -58,7 +58,7 @@
 			</c:if>
 		</div>
 		
-		<div id="bestPost" class="card">
+		<%-- <div id="bestPost" class="card">
 			<h3>오늘의 BEST게시물</h3>
 			
 			<c:if test="${bestPost == null}">
@@ -67,7 +67,7 @@
 			
 			<c:if test="${bestPost!= null}">
 				<c:if test="${bestPost == customPostVO}">
-				<%-- <c:if test="${bestPostVO.class.simpleName == CustomPostVO}"> --%>
+				<c:if test="${bestPostVO.class.simpleName == CustomPostVO}">
 					<a class="article" href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${bestPost.post_num}&&board_num=${bestPost.board_num}">
 					<p>${bestPost.content}</p>
 					<time>
@@ -77,7 +77,7 @@
 				</a>
 				</c:if>
 				<c:if test="${bestPost == freeBoardVO}">
-				<%-- <c:if test="${bestPostVO.class.simpleName == FreeBoardVO}"> --%>
+				<c:if test="${bestPostVO.class.simpleName == FreeBoardVO}">
 					<a class="article" href="${pageContext.request.contextPath}/freeBoard/detail.do?post_num=${bestPost.post_num}">
 					<p>${bestPost.content}</p>
 					<time>
@@ -87,7 +87,7 @@
 				</a>
 				</c:if>
 				<c:if test="${bestPost == infoBoardVO}">
-				<%-- <c:if test="${bestPostVO.class.simpleName == InfoBoardVO}"> --%>
+				<c:if test="${bestPostVO.class.simpleName == InfoBoardVO}">
 					<a class="article" href="${pageContext.request.contextPath}/infoBoard/detail.do?post_num=${bestPost.post_num}">
 					<p>${bestPost.content}</p>
 					<time>
@@ -98,7 +98,7 @@
 				</c:if>
 				
 			</c:if>
-		</div>
+		</div> --%>
 	</div>
 </div>
 

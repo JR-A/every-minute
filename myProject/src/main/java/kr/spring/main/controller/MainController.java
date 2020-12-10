@@ -73,7 +73,7 @@ public class MainController {
 			log.debug("<<HOT게시판 목록_infoBoard>> : " + i_hotPostList);
 		}
 		
-		//오늘의 BEST게시물  - 게시판 중 가장 추천 수가 많은 게시글
+		/*//오늘의 BEST게시물  - 게시판 중 가장 추천 수가 많은 게시글
 		CustomPostVO customPostVO = customLikeService.custom_bestLikePost();
 		FreeBoardVO freeBoardVO = freeLikeService.free_bestLikePost();
 		InfoBoardVO infoBoardVO = infoLikeService.info_bestLikePost();
@@ -104,10 +104,10 @@ public class MainController {
 		
 		model.addAttribute("postTop3List", postTop3List);
 		model.addAttribute("infoTop3List", infoTop3List);
-		model.addAttribute("freePostTop3List", freePostTop3List);/*
+		model.addAttribute("freePostTop3List", freePostTop3List);
 		model.addAttribute("c_hotPostList", c_hotPostList);
 		model.addAttribute("f_hotPostList", f_hotPostList);
-		model.addAttribute("i_hotPostList", i_hotPostList);*/
+		model.addAttribute("i_hotPostList", i_hotPostList);
 		
 		if(bestLikeNum == c_likeNum) {
 			model.addAttribute("bestPost", customPostVO);
@@ -128,7 +128,7 @@ public class MainController {
 				log.debug("<<오늘의 BEST게시물infoBoardVO>> : " + infoBoardVO);
 			}
 		}
-
+*/
 		return "main_board";
 	}
 
