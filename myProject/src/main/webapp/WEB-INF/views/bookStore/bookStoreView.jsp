@@ -65,7 +65,7 @@
 	</c:if>
 	<input type="button" value="목록" onclick="location.href='bookStoreList.do'">
 	<c:if test="${ !empty user && user.mem_num == bookStoreVO.mem_num }">
-	<input type="button" value="수정" onclick="location.href='bookStoreUpdate.do?bs_num=${bookStoreVO.bs_num}'">
+	<input type="button" value="판매 여부" onclick="location.href='bookStoreUpdate.do?bs_num=${bookStoreVO.bs_num}'">
 	<input type="button" value="삭제" id="delete_btn">
 	<script type="text/javascript">
 		var delete_btn = document.getElementById('delete_btn');
@@ -82,13 +82,10 @@
 <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.5.1.min.js"></script>
 <script>
 	$(document).ready(function(){
-		var data = $("#isbn").val();
-		var result = data.split(" ");
-		
 		$.ajax({
 			method : "GET",
-			url : "https://dapi.kakao.com/v3/search/book?target=title,isbn",
-			data : { query: result[0] },
+			url : "https://dapi.kakao.com/v3/search/book?target=isbn",
+			data : { query: $("#isbn").val() },
 			headers: { Authorization: "KakaoAK 01be56c57f3e1447f4b6d6cad08f3f3b" }
 		}).done(function(msg){
 			console.log(msg);

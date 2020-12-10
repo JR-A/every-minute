@@ -18,7 +18,6 @@
 	</form>
 	<form:form commandName="bookStoreVO" action="bookStoreWrite.do" enctype="multipart/form-data">
 		<form:hidden path="bs_num"/>
-		<form:hidden path="isbn" value="${ isbn }"/>
 		<ul>
 			<li>
 				<form:label path="bs_selling_price">판매희망가</form:label>
@@ -43,7 +42,7 @@
 					<li><form:checkbox path="bs_method" value="택배" label="택배"/></li>
 				</ul>
 			</li>
-			<li>
+			<li id="map_data">
 				<form:label path="bs_address">직거래 장소</form:label>
 				<input type="text" name="bs_address" id="bs_address" placeholder="주소">
 				<input type="button" onclick="searchMap()" value="주소 검색"><br>
@@ -70,8 +69,8 @@
 		
 		$.ajax({
 			method : "GET",
-			url : "https://dapi.kakao.com/v3/search/book?target=title,isbn",
-			data : { query: result[0] },
+			url : "https://dapi.kakao.com/v3/search/book?target=isbn",
+			data : { query: result[1] },
 			headers: { Authorization: "KakaoAK 01be56c57f3e1447f4b6d6cad08f3f3b" }
 		}).done(function(msg){
 			console.log(msg);
@@ -80,17 +79,24 @@
 			$("#authors").append(msg.documents[0].authors);
 			$("#publisher").append(msg.documents[0].publisher);
 			$("#price").append(msg.documents[0].price);
+			$("#bookStoreVO").append("<input type='hidden' name='isbn' value='" + result[1] + "'>");
 		});
-	});
-</script>
-<script>
-	$(document).ready(function(){
+		
 		$("#submit_btn").on('click', function(){
 			var methodArr = [];
 			
 			$("input[name=bs_method]:checked").each(function(){
 				methodArr.push($(this).val());
 			});
+		});
+		
+		$("#map_data").css("display", "none");
+		$("#bs_method1").change(function(){
+			if($("#bs_method1").is(":checked")){
+				$("#map_data").css("display", "block");
+			}else{
+				$("#map_data").css("display", "none");
+			}
 		});
 	});
 </script>

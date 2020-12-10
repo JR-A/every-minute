@@ -5,7 +5,20 @@
 <mapper namespace="kr.spring.bookstore.dao.BookStoreMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
 	
 	<select id="selectList" parameterType="map" resultType="bookStoreVO">
-		SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM bookstoreboard b JOIN member m ON b.mem_num=m.mem_num ORDER BY b.bs_num DESC)a)
+		SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM bookstoreboard b JOIN member m ON b.mem_num=m.mem_num
+		<where>
+			<if test="keyword != '' and keyfield == 'isbn'">
+				b.isbn LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'bs_selling_price'">
+				b.bs_selling_price LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="keyword != '' and keyfield == 'all'">
+				b.isbn LIKE '%' || #{keyword} || '%' or
+				b.bs_selling_price LIKE '%' || #{keyword} || '%'
+			</if>
+		</where>
+		ORDER BY b.bs_num DESC)a)
 		<![CDATA[
 			WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
@@ -15,6 +28,8 @@
 	 	SELECT COUNT(*) FROM bookstoreboard b JOIN member m ON b.mem_num = m.mem_num                               
 	</select>
 
-
+	<update id="updateBoard" parameterType="bookStoreVO">
+		UPDATE bookstoreboard SET bs_complete=#{bs_complete}, modify_date=SYSDATE WHERE bs_num=#{bs_num}
+	</update>
 
 </mapper>
