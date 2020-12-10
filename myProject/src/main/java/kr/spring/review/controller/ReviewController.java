@@ -89,10 +89,6 @@ public class ReviewController {
 		subject = timetableService.selectSubject(sub_num);
 		reviewList = reviewService.selectListBySubnum(sub_num);
 		
-		System.out.println();
-		System.out.println(reviewList);
-		System.out.println();
-		
 		//수강평이 존재하는 경우
 		if(reviewList != null && reviewList.size() > 0) {
 			//평균 점수 구하기 (누적 점수를 강의평가 수로 나누기)

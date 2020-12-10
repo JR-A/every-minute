@@ -32,4 +32,22 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewMapper.selectSubjectRate(sub_num);
 	}
 
+	@Override
+	public void insertReview(ReviewVO review, SubjectRateVO subjectRate) {
+		//수강평 등록
+		reviewMapper.insertReview(review);
+		
+		//해당 과목의 총 평점레코드 존재하는지 검사
+		int cnt = reviewMapper.selectCountOfSubjectRateRecord(review);
+		
+		//첫 수강평 등록시
+		if(cnt == 0) {
+			//과목의 총평점 레코드 생성
+			reviewMapper.insertNewSubjectRate(subjectRate);
+		}else {//이후 수강평 등록시
+			//과목의 총평점 레코드에 점수 반영
+			reviewMapper.updateSubjectRate(subjectRate);
+		}
+	}
+
 }

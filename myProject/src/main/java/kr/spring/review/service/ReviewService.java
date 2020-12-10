@@ -10,4 +10,6 @@ public interface ReviewService {
 	public List<ReviewVO> selectListBySubnum(int sub_num);
 	public SubjectRateVO selectSubjectRate(int sub_num);
 
+	public void insertReview(ReviewVO review, SubjectRateVO subjectRate);
+
 }

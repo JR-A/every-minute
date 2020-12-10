@@ -7,10 +7,87 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	//새 강의평 쓰기 버튼 클릭시 강의평작성 폼 띄움
+	//새 강의평 쓰기 버튼 클릭시 폼 노출
 	$(document).on('click','a.writebutton',function(){
-		$('form.write.review').css("display", "block");
+		$('#writeReview').css("display", "block");
 	});
+	
+	//새 강의평쓰기 폼의 닫기버튼 클릭시
+	$(document).on('click','a.close',function(){
+		//폼 초기화
+		$('#writeReview input[name=sub_num]').val(0);
+		$('#writeReview input[name=homework]').val(1);
+		$('#writeReview input[name=team]').val(1);
+		$('#writeReview input[name=grade]').val(1);
+		$('#writeReview input[name=attendance]').val(1);
+		$('#writeReview input[name=exam]').val(2);
+		$('#writeReview input[name=rate]').val(3);
+		$('#writeReview textarea[name=content]').val('');
+		
+		$('.wrap dl dd a').siblings().removeClass('active');
+		$('#writeReview a[data-name="assessment_homework"]:nth-child(2)').addClass('active');
+		$('#writeReview a[data-name="assessment_team"]:nth-child(2)').addClass('active');
+		$('#writeReview a[data-name="assessment_grade"]:nth-child(2)').addClass('active');
+		$('#writeReview a[data-name="assessment_attendance"]:nth-child(2)').addClass('active');
+		$('#writeReview a[data-name="exam_times"]:nth-child(3)').addClass('active');
+		$('#writeReview a[data-name="rate"]:nth-child(3)').addClass('active');
+		
+		$('#writeReview').css("display", "none");
+	});
+	
+	//새 강의평쓰기 폼의 평가문항 클릭시
+	$(document).on('click','.wrap dl dd a',function(){
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+	});
+	
+	//새 강의평쓰기 폼의 전송 버튼 클릭시
+	$(document).on('submit','#writeReview',function(event){
+		var check = true;
+		//강의평 글자수가 20가 미만인 경우
+		if($('#writeReview textarea[name=content]').val().length < 20){
+			alert('성의 있는 강의평을 남겨주세요!')
+			$('#writeReview textarea[name=content]').focus();
+			check = false;
+		}
+		
+		if (!check) { return false; }
+		
+		var ans = confirm('강의평을 등록하시겠습니까?\n\n※등록 후에는 수정하거나 삭제할 수 없습니다.\n\n※허위/중복/저작권침해/성의없는 정보를 작성할 경우, 서비스 이용이 제한될 수 있습니다.');
+		
+		if(ans){
+			//각 항목의 점수를 input데이터에 저장
+			$('.wrap dl dd').each(function(index, item){
+				$('#writeReview input[data-order="'+index+'"]').val($(this).find('a.active').data('value'));
+			});
+			
+			//새 강의평 추가	
+			$.ajax({
+				url: '${pageContext.request.contextPath}/review/insertReview.do',
+				type: 'post',
+				data: $('#writeReview').serialize(),
+				dataType: 'json',
+				cache: false,
+				timeout: 30000,
+				success: function(data){
+					if(data.result == 'success') {
+						alert('강의평이 등록되었습니다!');
+						location.reload();
+					}else{
+						alert('강의평 등록 오류 발생!');
+					}
+				},
+				error: function(request,status,error){
+					alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+				}
+			});
+
+		}
+		
+		event.preventDefault();	//기본 이벤트 삭제
+		event.stopPropagation();
+	});
+	
 });
 </script>
 <div id="container" class="reviewDetail">
@@ -93,15 +170,14 @@ $(document).ready(function(){
     	</div>
     	</c:if>
     </div>
-    <form class="write review" style="display: none;">
+    <form id="writeReview" class="write review" style="display: none;">
     	<input type="hidden" name="sub_num" value="${subject.sub_num}">
-    	<input type="hidden" name="homework">
-    	<input type="hidden" name="team">
-    	<input type="hidden" name="grade">
-    	<input type="hidden" name="attendance">
-    	<input type="hidden" name="exam">
-    	
-    	<input type="hidden" name="rate">
+    	<input data-order="0" type="hidden" name="homework">
+    	<input data-order="1" type="hidden" name="team">
+    	<input data-order="2" type="hidden" name="grade">
+    	<input data-order="3" type="hidden" name="attendance">
+    	<input data-order="4" type="hidden" name="exam">
+    	<input data-order="5" type="hidden" name="rate">
     	
       <div class="wrap">
         <h2>새 강의평 쓰기</h2>
@@ -158,7 +234,7 @@ $(document).ready(function(){
         </dl>
         <hr>
         <textarea name="content" class="text" placeholder="이 강의에 대한 총평을 작성해주세요.
-(등록 후에는 수정 및 삭제가 불가능하므로 신중히 적어주세요.)"></textarea>
+(등록 후에는 수정 및 삭제가 불가능하므로 신중히 적어주세요. 최소 20자 이상)"></textarea>
         <input type="submit" value="작성하기" class="submit">
       </div>
     </form>
