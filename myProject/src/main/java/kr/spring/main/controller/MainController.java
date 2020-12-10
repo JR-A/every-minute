@@ -85,9 +85,11 @@ public class MainController {
 		}
 		
 		int bestLikeNum = 0;
-		int c_likeNum = customPostVO.getLike_cnt();
-		int f_likeNum = freeBoardVO.getLike_cnt();
-		int i_likeNum = infoBoardVO.getLike_cnt();
+		int c_likeNum = 0, f_likeNum = 0, i_likeNum = 0;
+		
+		if(customPostVO!=null) { c_likeNum = customPostVO.getLike_cnt(); }		
+		if(freeBoardVO!=null) { f_likeNum = freeBoardVO.getLike_cnt(); }
+		if(infoBoardVO!=null) { i_likeNum = infoBoardVO.getLike_cnt(); }
 		
 		int[] likeArr = new int[] {c_likeNum, f_likeNum, i_likeNum};
 		
@@ -99,26 +101,32 @@ public class MainController {
 		session.setAttribute("c_hotPostList", c_hotPostList);
 		session.setAttribute("f_hotPostList", f_hotPostList);
 		session.setAttribute("i_hotPostList", i_hotPostList);
-		if(bestLikeNum == c_likeNum) {
-			session.setAttribute("bestPost", customPostVO);
-		} else if(bestLikeNum == f_likeNum) {
-			session.setAttribute("bestPost", freeBoardVO);
-		} else if(bestLikeNum == i_likeNum) {
-			session.setAttribute("bestPost", infoBoardVO);
-		}
 		
 		model.addAttribute("postTop3List", postTop3List);
 		model.addAttribute("infoTop3List", infoTop3List);
-		model.addAttribute("freePostTop3List", freePostTop3List);
+		model.addAttribute("freePostTop3List", freePostTop3List);/*
 		model.addAttribute("c_hotPostList", c_hotPostList);
 		model.addAttribute("f_hotPostList", f_hotPostList);
-		model.addAttribute("i_hotPostList", i_hotPostList);
+		model.addAttribute("i_hotPostList", i_hotPostList);*/
+		
 		if(bestLikeNum == c_likeNum) {
 			model.addAttribute("bestPost", customPostVO);
+			session.setAttribute("bestPost", customPostVO);
+			if(log.isDebugEnabled()) {
+				log.debug("<<오늘의 BEST게시물customPostVO>> : " + customPostVO);
+			}
 		} else if(bestLikeNum == f_likeNum) {
 			model.addAttribute("bestPost", freeBoardVO);
+			session.setAttribute("bestPost", freeBoardVO);
+			if(log.isDebugEnabled()) {
+				log.debug("<<오늘의 BEST게시물freeBoardVO>> : " + freeBoardVO);
+			}
 		} else if(bestLikeNum == i_likeNum) {
 			model.addAttribute("bestPost", infoBoardVO);
+			session.setAttribute("bestPost", infoBoardVO);
+			if(log.isDebugEnabled()) {
+				log.debug("<<오늘의 BEST게시물infoBoardVO>> : " + infoBoardVO);
+			}
 		}
 
 		return "main_board";
