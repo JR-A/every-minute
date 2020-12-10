@@ -3,13 +3,15 @@
 <mapper namespace="kr.spring.board.customboard.dao.CustomLikeMapper">
 
 	<select id ="custom_bestLikePost" resultType="CustomPostVO">
-		SELECT * FROM 
-		    (SELECT * FROM customPost p 
-		        JOIN (SELECT post_num, COUNT(*) like_cnt  FROM customBoard_Like_Post GROUP BY post_num) lp 
-		            ON p.post_num = lp.post_num 
-				JOIN customBoard b 
-		            ON p.board_num=b.board_num  
-		        ORDER BY like_cnt DESC)
+		SELECT * FROM
+		    (SELECT * FROM 
+		        (SELECT * FROM customPost p 
+		            JOIN (SELECT post_num, COUNT(*) like_cnt  FROM customBoard_Like_Post GROUP BY post_num) lp 
+		                ON p.post_num = lp.post_num 
+		            JOIN customBoard b 
+		                ON p.board_num=b.board_num  
+		            ORDER BY like_cnt DESC)
+		        ORDER BY reg_date DESC)
 		 WHERE ROWNUM=1
 	</select>
 	

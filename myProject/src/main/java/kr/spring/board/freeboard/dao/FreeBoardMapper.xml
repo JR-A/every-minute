@@ -110,9 +110,10 @@
 		              GROUP BY post_num HAVING COUNT(*) >= 5) lp 
 		              ]]>
 		       ON f.post_num = lp.post_num ORDER BY like_cnt DESC)
-		<![CDATA[
-		WHERE ROWNUM<=2
-		]]>	
+			<![CDATA[
+			WHERE ROWNUM<=2
+			]]>	
+		ORDER BY reg_date DESC
 	</select>
 	
 	<!-- HOT게시물 (좋아요 10개 이상받은 게시글 중 top2) -->

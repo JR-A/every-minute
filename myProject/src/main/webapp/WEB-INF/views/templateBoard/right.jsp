@@ -66,15 +66,15 @@
 			<c:if test="${bestPost!= null}">
 				<c:if test="${bestPostVO == customPostVO}">
 				<%-- <c:if test="${bestPostVO.class.simpleName == CustomPostVO}"> --%>
-					<a class="article" href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${bestPostVO.post_num}&&board_num=${bestPostVO.board_num}">
+					<a class="article" href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${bestPost.post_num}&&board_num=${bestPost.board_num}">
 				</c:if>
-				<c:if test="bestPostVO == freeBoardVO">
+				<c:if test="${bestPostVO == freeBoardVO}">
 				<%-- <c:if test="${bestPostVO.class.simpleName == FreeBoardVO}"> --%>
-					<a class="article" href="${pageContext.request.contextPath}/freeBoard/detail.do?post_num=${bestPostVO.post_num}">
+					<a class="article" href="${pageContext.request.contextPath}/freeBoard/detail.do?post_num=${bestPost.post_num}">
 				</c:if>
-				<c:if test="bestPostVO == infoBoardVO">
+				<c:if test="${bestPostVO == infoBoardVO}">
 				<%-- <c:if test="${bestPostVO.class.simpleName == InfoBoardVO}"> --%>
-					<a class="article" href="${pageContext.request.contextPath}/infoBoard/detail.do?post_num=${bestPostVO.post_num}">
+					<a class="article" href="${pageContext.request.contextPath}/infoBoard/detail.do?post_num=${bestPost.post_num}">
 				</c:if>
 				
 					<p>${bestPost.content}</p>

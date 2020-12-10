@@ -22,6 +22,7 @@
             <![CDATA[
 	        WHERE ROWNUM<=2
 	        ]]>
+		ORDER BY reg_date DESC
 	</select>
 	
    <select id="selectTagList" parameterType="map" resultType="InfoBoardVO">

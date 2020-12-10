@@ -28,9 +28,10 @@
 				JOIN customBoard b 
 		            ON p.board_num=b.board_num  
 		        ORDER BY like_cnt DESC)
-	     <![CDATA[
-		 WHERE ROWNUM<=2
-		 ]]>
+		     <![CDATA[
+			 WHERE ROWNUM<=2 
+			 ]]>
+		 ORDER BY reg_date DESC
 	</select>
 	
 	<!-- 게시글 목록 --> 
