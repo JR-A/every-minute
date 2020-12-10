@@ -84,7 +84,7 @@ public class CustomCommentController {
 			map.put("post_num", post_num);
 
 			//총 댓글의 갯수
-			int count = customCommentService.selectRowCountComment(map);
+			int count = customCommentService.selectRowCountComment(post_num);
 			log.debug("<<<<count>>>>>>>>:"+count);
 			PagingUtil page = new PagingUtil(currentPage,count, rowCount,pageCount,null);
 			map.put("start", page.getStartCount());
@@ -128,11 +128,9 @@ public class CustomCommentController {
 			Map<String,String> map = new HashMap<String,String>();
 
 			MemberVO user = (MemberVO)session.getAttribute("user");
-			if(user==null) {
-				//로그인이 되어있지 않음
-				map.put("result", "logout");
-			}else if(user!=null && user.getMem_num()==mem_num) {
-				//로그인 되어 있고 로그인한 아이디와 작성자 아이디 일치
+			
+			if(user.getMem_num()==mem_num) {
+				//로그인한 아이디와 작성자 아이디 일치
 				customCommentService.deleteComment(comment_num);
 				map.put("result", "success");
 			}else {

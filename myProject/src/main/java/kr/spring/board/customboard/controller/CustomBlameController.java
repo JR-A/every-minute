@@ -28,43 +28,63 @@ public class CustomBlameController {
 	CustomBlameService customBlameService;
 	
 
-	//좋아요 insert
+	//게시글 신고 접수
 	@RequestMapping("/customBoard/insertPostBlame.do")
 	@ResponseBody
-	public Map<String,Object>  startBlame(
-			CustomBlameVO customBlameVO,
-			HttpSession session){
+	public Map<String,Object>  insertPostBlame( CustomBlameVO customBlameVO, HttpSession session){
 		
 		if(log.isDebugEnabled()) {
-			log.debug("<<CustomBlameVO>> :"+customBlameVO);
+			log.debug("<<CustomBlameVO>> 게시글 신고 접수 :"+customBlameVO);
 		}
 
 		Map<String,Object> map = new HashMap<String,Object>();
-		
 		MemberVO user= (MemberVO)session.getAttribute("user");
-		
 		Map<String,Object> mapAjax = new HashMap<String,Object>();
 		
-		//로그인 여부 - interceptor에서 처리		
-		if(user!=null) {
+		map.put("post_num", customBlameVO.getPost_num()); 
+		map.put("mem_num", user.getMem_num());
+		
+		int myCount =customBlameService.blamePostCount_user(map); //동일 회원 신고접수 중복 여부
+		
+		if(myCount > 0) {
+			mapAjax.put("result", "BlameFound"); //중복 신고 접수 
+		
+		} else{
+			//정상 신고 접수
+			customBlameVO.setMem_num(user.getMem_num());
+			customBlameService.insertPostBlame(customBlameVO);
+			mapAjax.put("result", "success");
+		}
+		
+		return mapAjax;
+	}
+	
+	//댓글 신고 접수
+	@RequestMapping("/customBoard/insertCommentBlame.do")
+	@ResponseBody
+	public Map<String,Object>  insertCommentBlame( CustomBlameVO customBlameVO, HttpSession session){
+		
+		if(log.isDebugEnabled()) {
+			log.debug("<<CustomBlameVO>> 댓글 신고 접수 :"+customBlameVO);
+		}
 
-			//총 추천의 갯수
-			map.put("post_num", customBlameVO.getPost_num());
-			map.put("mem_num", user.getMem_num());
-			int myCount =customBlameService.blameCount_user(map); //회원 중복 추천 여부
-			//int myPost = customBlameService.selectPostWriter(map); //게시글 작성자와 회원번호 동일 여부
-			log.debug("<<myCount>>:"+myCount);
-			
-			if(myCount > 0) {
-				mapAjax.put("result", "BlameFound"); //이미 추천 했습니다.
-			
-			} else{
-				//추천 등록
-				customBlameVO.setMem_num(user.getMem_num());
-				customBlameService.insertPostBlame(customBlameVO);
-				mapAjax.put("result", "success");
-			}
-			
+		Map<String,Object> map = new HashMap<String,Object>();
+		MemberVO user= (MemberVO)session.getAttribute("user");
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+		
+		map.put("comment_num", customBlameVO.getComment_num());
+		map.put("mem_num", user.getMem_num());
+		
+		int myCount =customBlameService.blameCommCount_user(map); //동일 회원 신고접수 중복 여부
+		
+		if(myCount > 0) {
+			mapAjax.put("result", "BlameFound"); //중복 신고 접수 
+		
+		} else{
+			//댓글 정상 신고 접수
+			customBlameVO.setMem_num(user.getMem_num());
+			customBlameService.insertCommBlame(customBlameVO);
+			mapAjax.put("result", "success");
 		}
 		
 		return mapAjax;

@@ -4,9 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
-<script>
-	setTimeout(function(){ location.reload(); }, 3000); // 3000밀리초 = 3초
-</script>
 
 <div class="page-main-style">
 
@@ -55,7 +52,7 @@
 						//게시글이 존재하면 해당 게시판에 있는 게시글 삭제 여부 체크
 						var hasPostCount = ${hasPostCount};
 						if(hasPostCount>0){
-							var truncate = window.confirm('게시글이 존재합니다.<br>게시판에 존재하는 모든 게시글을 삭제하시겠습니까?');
+							var truncate = window.confirm('해당 게시판에 게시글이 존재합니다.\n모든 게시글을 지우고 게시판을 삭제하시겠습니까?');
 							if(truncate){
 								location.href="deleteCustomBoard.do?board_num=${boardInfo.board_num}"; //전체 게시글 삭제 & 게시판 삭제
 							}

@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.spring.board.infoboard.dao.InfoLikeMapper;
+import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.board.infoboard.vo.InfoLikeVO;
 
 @Service("infoLikeService")
@@ -27,6 +28,11 @@ public class InfoLikeServiceImpl implements InfoLikeService{
 	@Override
 	public InfoLikeVO selectCheckLike(InfoLikeVO infoLikeVO) {
 		return infoLikeMapper.selectCheckLike(infoLikeVO);
+	}
+
+	@Override
+	public InfoBoardVO info_bestLikePost() {
+		return infoLikeMapper.info_bestLikePost();
 	}
 
 

@@ -5,10 +5,14 @@ import java.util.Map;
 import kr.spring.board.customboard.vo.CustomBlameVO;
 
 public interface CustomBlameService {
-	//중복 신고여부 확인
-	public int blameCount_user(Map<String,Object> map);
+
+	//게시글 중복 신고여부 확인
+	public int blamePostCount_user (Map<String,Object> map);
 	//게시글 신고 접수
-	public void insertPostBlame(CustomBlameVO customBlameVO);
+	public void insertPostBlame (CustomBlameVO customBlameVO);
+	
+	//댓글 중복 신고여부 확인
+	public int blameCommCount_user (Map<String,Object> map);
 	//댓글 신고 접수
-	public void insertCommentBlame(CustomBlameVO customBlameVO);
+	public void insertCommBlame(CustomBlameVO customBlameVO);
 }

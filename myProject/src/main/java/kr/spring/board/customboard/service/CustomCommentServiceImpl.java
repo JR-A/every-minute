@@ -22,8 +22,8 @@ public class CustomCommentServiceImpl implements CustomCommentService{
 	}
 
 	@Override
-	public int selectRowCountComment(Map<String, Object> map) {
-		return customCommentMapper.selectRowCountComment(map);
+	public int selectRowCountComment(Integer post_num) {
+		return customCommentMapper.selectRowCountComment(post_num);
 	}
 
 	@Override

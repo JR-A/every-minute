@@ -16,18 +16,26 @@ public class CustomBlameServiceImpl implements CustomBlameService{
 		CustomBlameMapper customBlameMapper;
 
 		@Override
-		public int blameCount_user(Map<String, Object> map) {
-			return customBlameMapper.blameCount_user(map);
+		public int blamePostCount_user(Map<String, Object> map) {
+			return customBlameMapper.blamePostCount_user(map);
 		}
 
 		@Override
 		public void insertPostBlame(CustomBlameVO customBlameVO) {
-			customBlameMapper.insertBlame(customBlameVO);
+			customBlameMapper.insertPostBlame(customBlameVO);
 		}
 
 		@Override
-		public void insertCommentBlame(CustomBlameVO customBlameVO) {
-			customBlameMapper.insertCommentBlame(customBlameVO);
+		public int blameCommCount_user(Map<String, Object> map) {
+			return customBlameMapper.blameCommCount_user(map);
 		}
+
+		@Override
+		public void insertCommBlame(CustomBlameVO customBlameVO) {
+			customBlameMapper.insertCommBlame(customBlameVO);
+		}
+
+		
+		
 		
 }

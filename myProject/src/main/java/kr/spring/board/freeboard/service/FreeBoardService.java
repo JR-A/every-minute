@@ -3,6 +3,7 @@ package kr.spring.board.freeboard.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 
 public interface FreeBoardService {
@@ -14,5 +15,7 @@ public interface FreeBoardService {
 	public void deleteBoard(Integer post_num);
 	//최근 게시글 top3
 	public List<FreeBoardVO> freeSelectTop3PostList();
+	//추천 10개 이상인 게시글 top2 목록
+	public List<CustomPostVO> free_hotPostTop2();
 
 }

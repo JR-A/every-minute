@@ -5,9 +5,14 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.board.freeboard.vo.FreeLikeVO;
 
 public interface FreeLikeMapper {
+
+	//가장 많은 추천 수를 가진 게시글
+	public FreeBoardVO free_bestLikePost();
+	
 	//게시글 추천 수
 	@Select("SELECT COUNT(*) FROM freeboard_like_post WHERE post_num = #{post_num}")
 	public int selectRowCountLike (Map<String,Object> map);

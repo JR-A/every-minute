@@ -16,10 +16,15 @@ public class CustomPostServiceImpl implements CustomPostService {
 	@Resource
 	CustomPostMapper customPostMapper;	
 
-	
+	//최근 게시글 top3 목록
 	@Override
 	public List<CustomPostVO> selectTop3PostList() {
 		return customPostMapper.selectTop3PostList();
+	}
+	//추천 10개 이상인 게시글 top2 목록
+	@Override
+	public List<CustomPostVO> custom_hotPostTop2() {
+		return customPostMapper.custom_hotPostTop2();
 	}
 	//게시글 목록
 	@Override 

@@ -9,6 +9,8 @@ public interface CustomPostService {
 	
 	//최근 게시글 top3 목록
 	public List<CustomPostVO> selectTop3PostList();
+	//추천 10개 이상인 게시글 top2 목록
+	public List<CustomPostVO> custom_hotPostTop2();
 	//게시글 목록
 	public List<CustomPostVO> selectPostList(Map<String, Object> map); 
 	//페이징처리를 위한 글 count

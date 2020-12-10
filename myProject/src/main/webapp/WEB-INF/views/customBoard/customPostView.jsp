@@ -41,47 +41,18 @@
 			}
 		});
 		
-		//댓글 신고하기
-		//$(document).on('click','.blame',function(event){
-		/* $('#confirmId').click(function(){
-			var choice = window.confirm('해당 댓글을 신고하시겠습니까?');
-			if(choice){
-				var comment_num = ${customPost.post_num};
-				$.ajax({
-					type:'post',
-					data:{post_num:post_num},
-					url:'insertCommentBlame.do',
-					dataType:'json',
-					cache:false,
-					timeout:30000,
-					success:function(data){
-						if(data.result == 'success'){
-							alert('정상적으로 신고가 접수 되었습니다');
-						}else if(data.result == 'BlameFound'){
-							alert('이미 신고하셨습니다.');
-						}else{
-							alert('신고 접수 오류 발생');
-						}
-					},
-					error:function(){
-						alert('네트워크 오류');
-					}
-				});
-			}
-		}); */
- 
 		//추천 갯수 읽기
 		function getLike_count(){
 			var post_num = ${customPost.post_num};
 			$.ajax({
 				type:'post',
 				data:{post_num:post_num},
-				url:'getLikeCount.do',
+				url:'getPostLikeCount.do',
 				dataType:'json',
 				cache:false,
 				timeout:30000,
 				success:function(data){
-					$('#like_check').text(data.like_cnt);
+					$('#like_check').text(data.like_post_cnt);
 				},
 				error:function(){
 					alert('네트워크 오류');
@@ -97,7 +68,7 @@
 				$.ajax({
 					type:'post',
 					data:{post_num:post_num},
-					url:'insertLike.do',
+					url:'insertPostLike.do',
 					dataType:'json',
 					cache:false,
 					timeout:30000,
@@ -113,7 +84,7 @@
 								 $.ajax({
 									 type:'post',
 								 	 data:{post_num:post_num},
-								 	 url:'deleteLike.do',
+								 	 url:'deletePostLike.do',
 									 dataType:'json',
 									 cache:false,
 									 timeout:30000,
@@ -272,8 +243,16 @@
 							output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
 							output += '<span class="comment-date">'+item.reg_date+'</span>';
 							
+							
+							if($('#mem_num').val()!=item.mem_num){
+								//로그인 한 회원 번호가 댓글 작성자 번호와 다르면 
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="신고" class="blame-btn">';
+							}
 							if($('#mem_num').val()==item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
 							}
@@ -494,11 +473,65 @@
 			event.preventDefault();
 		});
 		
+		//댓글 추천 등록
+		$(document).on('click','.like-btn',function(){
+			var result = confirm('해당 댓글을 추천하시겠습니까?');
+			
+			if(result) {
+				
+			}else{
+				return false;
+			}
+			
+			//댓글 번호
+			var comment_num = $(this).attr('data-num');
+			
+			$.ajax({
+				type:'post',
+				data:{comment_num:comment_num},
+				url:'insertCommentLike.do',
+				dataType:'json',
+				cache:false,
+				timeout:30000,
+				success:function(data){
+					if(data.result == 'success'){
+						//getCommentLike_count();  댓글에 달린 총 추천 수
+						alert('댓글이 추천 되었습니다');
+					} else if(data.result == 'LikeFound'){
+						alert('이미 추천하셨습니다.');
+						 var delete_choice = window.confirm('해당 댓글의 추천을 취소하시겠습니까?');
+						 if(delete_choice){
+							 $.ajax({
+								 type:'post',
+							 	 data:{comment_num:comment_num},
+							 	 url:'deleteCommentLike.do',
+								 dataType:'json',
+								 cache:false,
+								 timeout:30000,
+								 success:function(data){
+									 if(data.result == 'success'){
+										 getLike_count();
+										 alert('해당 댓글의 추천이 취소되었습니다');
+									 }
+								 }
+							 });
+						}
+					}else if(data.result == 'SameID'){
+						alert('자신이 작성한 댓글은 추천할 수 없습니다.');
+					}else{
+						alert('추천 등록 오류 발생');
+					}
+				},
+				error:function(){
+					alert('네트워크 오류');
+				}
+			});
+		});
+		
 		//댓글 삭제
 		$(document).on('click','.delete-btn',function(){
 			var result = confirm('삭제하시겠습니까?');
 			if(result) {
-				
 				
 			}else{
 				return false;
@@ -517,9 +550,7 @@
 				cache:false,
 				timeout:30000,
 				success:function(data){
-					if(data.result == 'logout'){
-						alert('로그인해야 삭제할 수 있습니다.');
-					}else if(data.result == 'success'){
+					if(data.result == 'success'){
 						alert('삭제 완료!');
 						selectData(1,$('#post_num').val());
 					}else if(data.result == 'wrongAccess'){
@@ -533,8 +564,45 @@
 				}
 			});
 		});
+		
+		//댓글 신고
+		$(document).on('click','.blame-btn',function(){
+			var result = confirm('해당 댓글을 신고하시겠습니까?');
+			if(result) {
+				
+			}else{
+				return false;
+			}
+			
+			//댓글 번호
+			var comment_num = $(this).attr('data-num');
+			//작성자 아이디
+			var mem_num = $(this).attr('data-mem');
+			$.ajax({
+				type:'post',
+				data:{comment_num:comment_num},
+				url:'insertCommentBlame.do',
+				dataType:'json',
+				cache:false,
+				timeout:30000,
+				success:function(data){
+					if(data.result == 'success'){
+						alert('정상적으로 신고가 접수 되었습니다');
+					}else if(data.result == 'BlameFound'){
+						alert('이미 신고하셨습니다.');
+					}else{
+						alert('신고 접수 오류 발생');
+					}
+				},
+				error:function(){
+					alert('네트워크 오류');
+				}
+			});
+		});
+		
 		//초기 데이터(목록) 호출
 		selectData(1,$('#post_num').val());
+		
 	});
 </script>
 
@@ -558,13 +626,23 @@
 				<!-- 수정/삭제 -->
 				<c:if test="${user.mem_num == customPost.mem_num}">
 					<li onclick="location.href='customPostModify.do?post_num=${customPost.post_num}&&board_num=${boardInfo.board_num}'">수정</li>
-					<li id="delete_btn">삭제</li>
+					<li id="delete_post_btn">삭제</li>
 					<script type="text/javascript">
-						var delete_btn = document.getElementById('delete_btn');
+						var delete_post_btn = document.getElementById('delete_post_btn');
 						//이벤트 연결
-						delete_btn.onclick=function() {
-							var choice = window.confirm('정말 삭제하시겠습니까?');
+						delete_post_btn.onclick=function() {
+							var choice = window.confirm('해당 게시글을 삭제하시겠습니까?');
 							if (choice) {
+								var commCount = ${commCount};
+								if(commCount>0){ //해당 게시글에 속한 댓글이 존재
+									var truncate = window.confirm('해당 게시글에 댓글이 존재합니다.\n정말로 게시글을 삭제하시겠습니까?');
+									if(truncate){
+										location.href="customPostDelete.do?post_num=${customPost.post_num}"; //전체 댓글 삭제 & 게시글 삭제
+									}
+									location.href="customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}";
+								
+								}
+								
 								location.href='customPostDelete.do?post_num=${customPost.post_num}';
 							}
 						};
@@ -576,7 +654,7 @@
 				<ul class="status">
 						<li class="vote" id="like_check">0</li>
 						<li class="comm">${customPost.comment_cnt}</li>
-						<c:if test="${user.mem_num == customPost.mem_num}">
+						<c:if test="${user.mem_num != customPost.mem_num}">
 							<li class="fav" id="fav_check">0</li>
 						</c:if>
 				</ul>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.infoboard.dao.InfoBoardMapper;
 import kr.spring.board.infoboard.dao.InfoLikeMapper;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
@@ -70,7 +71,11 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public List<InfoBoardVO> selectTop3InfoList() {
 		return infoBoardMapper.selectTop3InfoList();
 	}
-
+	@Override
+	public List<CustomPostVO> info_hotPostTop2() {
+		return infoBoardMapper.info_hotPostTop2();
+	}
+	
 
 
 }

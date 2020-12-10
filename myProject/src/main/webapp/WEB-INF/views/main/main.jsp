@@ -41,7 +41,8 @@
 						<a class="article"
 							href="${pageContext.request.contextPath}/freeBoard/detail.do?post_num=${freeBoardVO.post_num}">
 							<p>${freeBoardVO.content}</p>
-							<h4>title ${freeBoardVO.title}</h4> <time>
+							<h4>title ${freeBoardVO.title}</h4> 
+							<time>
 								<fmt:parseDate var="dateTempParse"
 									value="${freeBoardVO.modify_date}"
 									pattern="yyyy-MM-dd HH:mm:ss" />
@@ -51,11 +52,7 @@
 								<img class="thumbnail" alt="첨부사진"
 									src="ImageView.do?post_num=${freeBoardVO.post_num}">
 								<!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
-							</c:if> <!-- 
-                      <ul class="status">
-                        <li class="like active">좋아요 수</li>
-                        <li class="comment active">댓글 수</li>
-                     </ul> -->
+							</c:if> 
 							<hr>
 						</a>
 					</c:forEach>
@@ -99,24 +96,18 @@
 							<a class="article"
 								href="${pageContext.request.contextPath}/customBoard/customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
 								<p>${customPost.content}</p>
-								<h4>from ${customPost.title}</h4> <!-- 첨부파일 --> <c:if
+								<h4>from ${customPost.title}</h4> <!-- 첨부파일 --> 
+								<c:if
 									test="${!empty customPost.filename}">
 									<!-- !0 filename이 있으면 image가 있는거 -->
 									<img class="thumbnail" alt="첨부사진"
 										src="customPostImageView.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
 									<!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
-								</c:if> <time>
+								</c:if> 
+								<time>
 									<fmt:formatDate value="${customPost.reg_date}" type="time"
 										pattern="MM/dd HH:mm" />
 								</time>
-								<ul class="status">
-									<li class="like active">
-										<!-- 좋아요 수 -->
-									</li>
-									<li class="comment active">
-										<!-- 댓글 수 -->
-									</li>
-								</ul>
 								<hr>
 							</a>
 						</c:forEach>
@@ -125,3 +116,4 @@
 			</div>
 		</div>
 	</div>
+</div>

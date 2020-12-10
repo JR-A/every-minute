@@ -130,7 +130,8 @@ public class CustomPostController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("post_num", post_num);
 		
-		int commCount = customCommentService.selectRowCountComment(map);
+		//게시글에 속한 댓글 개수
+		int commCount = customCommentService.selectRowCountComment(post_num);
 		//int likeCount = customLikeService.selectRowCountLike(map);
 		
 		customPost.setComment_cnt(commCount);
@@ -141,6 +142,7 @@ public class CustomPostController {
 		mav.setViewName("customPostView");
 		mav.addObject("customPost", customPost);
 		mav.addObject("boardInfo", boardInfo);
+		mav.addObject("commCount", commCount);
 		return mav;
 	}
 
@@ -203,7 +205,10 @@ public class CustomPostController {
 		if(log.isDebugEnabled()) {
 			log.debug("<<CustomBoard 게시글 삭제>> : " + post_num);
 		}
-
+		
+		//해당 게시글에 속한 댓글 개수
+		int comm_cnt = customCommentService.selectRowCountComment(post_num);
+		
 		//글 삭제
 		customPostService.deletePost(post_num);
 

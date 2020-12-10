@@ -1,7 +1,5 @@
 package kr.spring.board.freeboard.service;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -37,6 +35,11 @@ public class FreeLikeServiceImpl implements FreeLikeService {
 	@Override
 	public int selectSameMember(Map<String, Object> map) {
 		return freeLikeMapper.selectSameMember(map);
+	}
+
+	@Override
+	public FreeBoardVO free_bestLikePost() {
+		return freeLikeMapper.free_bestLikePost();
 	}
 
 
