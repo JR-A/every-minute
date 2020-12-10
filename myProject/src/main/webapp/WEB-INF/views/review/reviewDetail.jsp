@@ -44,7 +44,7 @@ $(document).ready(function(){
 	//새 강의평쓰기 폼의 전송 버튼 클릭시
 	$(document).on('submit','#writeReview',function(event){
 		var check = true;
-		//강의평 글자수가 20가 미만인 경우
+		//강의평 글자수가 20자 미만인 경우
 		if($('#writeReview textarea[name=content]').val().length < 20){
 			alert('성의 있는 강의평을 남겨주세요!')
 			$('#writeReview textarea[name=content]').focus();
@@ -87,7 +87,7 @@ $(document).ready(function(){
 		event.preventDefault();	//기본 이벤트 삭제
 		event.stopPropagation();
 	});
-	
+
 });
 </script>
 <div id="container" class="reviewDetail">

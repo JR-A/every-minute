@@ -1,6 +1,7 @@
 package kr.spring.review.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.spring.member.vo.MemberVO;
@@ -28,7 +30,26 @@ public class ReviewAjaxController {
 	
 	//로그 처리(로그 대상 지정)
 	private Logger log = Logger.getLogger(this.getClass());
+	
+	
+	//강의 검색
+	@RequestMapping("/review/search.do")
+	@ResponseBody
+	public Map<String, Object> searchSubject(@RequestParam(value="keyword") String keyword){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<SubjectRateVO> subjectList = null;
 		
+		subjectList = reviewService.searchedSubjectsList(keyword);
+		
+		if(subjectList != null && subjectList.size() > 0) {
+			map.put("result", "success");
+			map.put("list", subjectList);
+		}else {
+			map.put("result", "empty");
+		}
+		
+		return map;
+	}
 	
 	//강의평 추가
 	@RequestMapping("/review/insertReview.do")
@@ -52,4 +73,5 @@ public class ReviewAjaxController {
 		
 		return map;
 	}
+	
 }

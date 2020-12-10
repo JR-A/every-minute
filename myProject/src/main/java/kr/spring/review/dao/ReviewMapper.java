@@ -9,11 +9,18 @@ import org.apache.ibatis.annotations.Update;
 
 import kr.spring.review.vo.ReviewVO;
 import kr.spring.review.vo.SubjectRateVO;
+import kr.spring.timetable.vo.SubjectVO;
 
 public interface ReviewMapper {
+	
 	//전체 수강평 목록(최신글 상위)
 	@Select("SELECT * FROM Review JOIN Subject USING(sub_num) ORDER BY post_num DESC")
 	public List<ReviewVO> selectList();
+	
+	//교수명, 과목명으로 검색한 과목목록
+	//아직 수강평이 존재하지 않는 과목도 누락되지 않도록 OUTER JOIN
+	@Select("SELECT sub_num, sub_name, prof_name, totalRate FROM Subject s LEFT OUTER JOIN SubjectRate USING(sub_num) WHERE s.sub_name LIKE '%' || #{keyword} || '%' OR prof_name LIKE '%' || #{keyword} || '%'")
+	public List<SubjectRateVO> searchedSubjectsList(String keyword);
 	
 	//특정 과목의 수강평 목록(최신글 상위)
 	@Select("SELECT * FROM Review WHERE sub_num=#{sub_num} ORDER BY post_num DESC")

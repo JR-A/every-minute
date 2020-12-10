@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.spring.review.dao.ReviewMapper;
 import kr.spring.review.vo.ReviewVO;
 import kr.spring.review.vo.SubjectRateVO;
+import kr.spring.timetable.vo.SubjectVO;
 
 @Service("reviewService")
 public class ReviewServiceImpl implements ReviewService {
@@ -20,6 +21,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewVO> selectList() {
 		return reviewMapper.selectList();
+	}
+
+	@Override
+	public List<SubjectRateVO> searchedSubjectsList(String keyword) {
+		return reviewMapper.searchedSubjectsList(keyword);
 	}
 
 	@Override

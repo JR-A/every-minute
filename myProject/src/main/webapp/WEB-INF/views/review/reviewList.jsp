@@ -5,12 +5,83 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/review.container.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	//검색 영역 제외한 곳 클릭시
+	$('html').click(function(e) { 
+		if(!$(e.target).hasClass("lectures")) { 
+			$('.lectures').remove();
+		} 
+	});
 
+	//검색 버튼 클릭시
+	$(document).on('submit','#searchForm',function(event){
+		var check = true;
+		//검색어가 2글자 미만인 경우
+		if($('#searchForm input[name=keyword]').val().length < 2){
+			alert('검색어는 2글자 이상 입력해주세요!');
+			$('#searchForm input[name=keyword]').focus();
+			check = false;
+		}
+		
+		if (!check) { return false; }
+		
+		//강의 검색(과목명, 교수명으로 검색)
+		$.ajax({
+			url: '${pageContext.request.contextPath}/review/search.do',
+			type: 'post',
+			data: $('#searchForm').serialize(),
+			dataType: 'json',
+			cache: false,
+			timeout: 30000,
+			success: function(data){
+				//검색 결과 나타내기
+				if(data.result == 'success') {
+					var output = '<div class="lectures">';
+					$(data.list).each(function(index, item){
+						output += '<a class="lecture" href="${pageContext.request.contextPath}/review/reviewDetail.do?sub_num=' + item.sub_num + '">';
+						output += 	'<h3>';
+						output += 		'<p class="name">';
+						output += 			 item.sub_name;
+						output += 		'</p>';
+						output += 		'<p class="professor">' + item.prof_name + '</p>';
+						output += 	'</h3>';
+						output += 	'<p class="rate">';
+						output += 		'<span class="star"><span class="on" style="width: ' + (item.totalRate / 5 * 100) + '%;"></span></span>';
+						output += 	'</p>';
+						output +='</a>';
+					});
+					output += '</div>';
+					
+					$('#searchForm').append(output);
+					//클래스 추가시 딜레이 주기
+					setTimeout(function(){
+				       $(".lectures").addClass("act");
+				   	}, 10);
+					
+				}else if(data.result == 'empty'){	//검색된 데이터가 존재하지 않는경우
+					alert('검색 결과가 존재하지 않습니다.');
+				}else{
+					alert('검색 오류 발생!');
+				}
+			},
+			error: function(request,status,error){
+				alert(">>code:"+request.status+"\n\n"+">>message:"+request.responseText+"\n\n"+">>error:"+error);
+			}
+		});
+		
+		event.preventDefault();	//기본 이벤트 삭제
+		event.stopPropagation();
+	});
+	
+	
+	
+});
 </script>
 <div id="container" class="lectureindex">
-	<form class="search">
+	<form id="searchForm" class="search">
 		<input type="search" name="keyword" placeholder="과목명, 교수명으로 검색" class="keyword" autocomplete="off">
-		<input type="submit" class="submit">
+		<input id="searchBtn" type="submit" class="submit">
 	</form>
 	<div class="section">
 		<h2>내 강의평</h2>

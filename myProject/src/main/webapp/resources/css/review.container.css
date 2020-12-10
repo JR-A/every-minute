@@ -11,6 +11,19 @@ div{
 
 input{
 	vertical-align: middle;
+	outline: none;
+	margin: 0;
+}
+
+input::-ms-clear,
+input::-ms-reveal{
+	display:none;width:0;height:0;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration{
+	display:none;
 }
 
 a {
@@ -90,6 +103,10 @@ h3, p{
     display: block;
     margin: 0 8px;
     border-bottom: 1px solid #f2f2f2;
+}
+
+#container div.section div.mylectures a.lecture:last-child {
+    border-bottom: none;
 }
 
 #container div.section div.mylectures a.lecture h3 {
@@ -193,4 +210,86 @@ h3, p{
     line-height: 20px;
     color: #a6a6a6;
     font-size: 14px;
+}
+
+.lectures{
+	transition-property: all;
+}
+
+.act {
+  opacity: 1 !important;
+  transition-delay: 0.1s;
+}
+
+#container div.lectures {
+    position: absolute;
+    z-index: 200;
+    padding: 12px 0;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    box-sizing: border-box;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    transition-duration: 0.6s;
+    background-color: white;
+    width: 98%;
+    opacity: 0;
+}
+
+#container div.lectures a.lecture {
+    margin: 0 8px;
+    padding: 12px 8px;
+    border-bottom: 1px solid #ededed;
+    display: block;
+}
+
+#container div.lectures a.lecture:hover {
+	background-color: #f9f9f9;
+}
+
+#container div.lectures a.lecture:last-child {
+    border-bottom: none;
+}
+
+#container div.lectures a.lecture h3 {
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+}
+
+#container div.lectures a.lecture h3 p.name {
+    margin-right: 8px;
+    color: #292929;
+    font-size: 16px;
+    font-weight: bold;
+}
+#container div.lectures a.lecture h3 p {
+    display: inline-block;
+    line-height: 20px;
+    vertical-align: top;
+}
+
+#container div.lectures a.lecture h3 p.professor {
+    color: #737373;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#container div.lectures a.lecture p.rate {
+    margin-top: 4px;
+}
+
+#container div.lectures a.lecture p.rate span.star {
+    display: block;
+    width: 60px;
+    height: 12px;
+    background: transparent url("https://everytime.kr/images/app.subject.rating.details.star.off.png") no-repeat left top;
+    background-size: 60px 12px;
+}
+
+#container div.lectures a.lecture p.rate span.star span.on {
+    float: left;
+    display: block;
+    height: 12px;
+    background: transparent url("https://everytime.kr/images/app.subject.rating.details.star.on.png") no-repeat left top;
+    background-size: 60px 12px;
 }

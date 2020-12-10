@@ -111,6 +111,14 @@
 			<mapping path="/member/changeNickname.do"/>
 			<mapping path="/member/changePasswd.do"/>
 			<mapping path="/timetable/timetableView.do"/>
+			<mapping path="/timetable/createTimetable.do"/>
+			<mapping path="/timetable/insertSubject.do"/>
+			<mapping path="/timetable/deleteSubject.do"/>
+			<mapping path="/timetable/selectCustomSubject.do"/>
+			<mapping path="/timetable/insertUpdateCustomSubject.do"/>
+			<mapping path="/timetable/selectTimetable.do"/>
+			<mapping path="/timetable/updateTimetable.do"/>
+			<mapping path="/timetable/deleteTimetable.do"/>
 			<mapping path="/customBoard/createCustomBoard.do"/>
 			<mapping path="/customBoard/updateCustomBoard.do"/>
 			<mapping path="/customBoard/deleteCustomBoard.do"/>
@@ -119,6 +127,10 @@
 			<mapping path="/customBoard/customPostWrite.do"/>	
 			<mapping path="/customBoard/customPostModify.do"/>		
 			<mapping path="/customBoard/customPostDelete.do"/>
+			<mapping path="/review/reviewList.do"/>
+			<mapping path="/review/reviewDetail.do"/>
+			<mapping path="/review/search.do"/>
+			<mapping path="/review/insertReview.do"/>
 			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		
