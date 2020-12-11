@@ -1,5 +1,7 @@
 package kr.spring.board.infoboard.service;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -12,23 +14,26 @@ public class InfoCommentLikeServiceImpl implements InfoCommentLikeService {
 
 	@Resource
 	InfoCommentLikeMapper infoCommentLikeMapper;
-	
-	//댓글의 추천수는 ajax를 사용해서 다이렉트로 추천수를 다이렉트로 보여줄 수 없음
-	//댓글목록 ajax에서 보여주기 위해 InfoReplayController listReply.do list(comment_num)를 받아와서 작업함.
-	
+
 	@Override
-	public int selectCountLike(int comment_num) {
-		return infoCommentLikeMapper.selectCountLike(comment_num);
-	}
-	
-	@Override
-	public void insertLike(InfoCommentLikeVO infoCommentLikeVO) {
-		infoCommentLikeMapper.insertLike(infoCommentLikeVO);
+	public int selectRowCountLike_R(Map<String, Object> map) {
+		return infoCommentLikeMapper.selectRowCountLike_R(map);
 	}
 
 	@Override
-	public InfoCommentLikeVO selectCheckLike(InfoCommentLikeVO infoCommentLikeVO) {
-		return infoCommentLikeMapper.selectCheckLike(infoCommentLikeVO);
+	public int selectRowCountLike_RByMem_num(Map<String, Object> map) {
+		return infoCommentLikeMapper.selectRowCountLike_RByMem_num(map);
 	}
+
+	@Override
+	public int selectSameMember_R(Map<String, Object> map) {
+		return infoCommentLikeMapper.selectSameMember_R(map);
+	}
+
+	@Override
+	public void insertLike_R(InfoCommentLikeVO infoCommentLikeVO) {
+		infoCommentLikeMapper.insertLike_R(infoCommentLikeVO);
+	}
+
 
 }

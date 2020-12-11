@@ -4,19 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.spring.board.infoboard.service.InfoCommentLikeService;
 import kr.spring.board.infoboard.service.InfoLikeService;
 import kr.spring.board.infoboard.vo.InfoCommentLikeVO;
 import kr.spring.board.infoboard.vo.InfoLikeVO;
+import kr.spring.member.vo.MemberVO;
 
 @Controller
 public class InfoLikeController {
@@ -26,7 +28,7 @@ public class InfoLikeController {
 	@Resource//       ┌ InfoLikeService를 주입받음
 	InfoLikeService infoLikeService;
 	
-	@Resource//       ┌ InfoLikeService를 주입받음
+	@Resource//       ┌ infoCommentLikeService를 주입받음
 	InfoCommentLikeService infoCommentLikeService;
 	
 	//자바빈(VO) 초기화
@@ -44,67 +46,62 @@ public class InfoLikeController {
 	//게시글 추천하기
 	@RequestMapping(value="/infoBoard/view_like.do", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> postLike(InfoLikeVO infoLikeVO, HttpServletRequest httpRequest) {
-		int post_num = Integer.parseInt(httpRequest.getParameter("post_num"));
-		int board_mem_num = Integer.parseInt(httpRequest.getParameter("board_mem_num"));
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-			log.debug("<<post_num>> : " + post_num);
-			log.debug("<<board_mem_num>> : " + board_mem_num);
-
-			infoLikeVO.setPost_num(post_num);
-			infoLikeVO.setMem_num(board_mem_num);
-
-			//추천  중복방지 SQL
-			InfoLikeVO check = infoLikeService.selectCheckLike(infoLikeVO);
-			
-			//추천 중복클릭인지 확인하는 영역!
-			if (check != null) {
-				//추천 중복
-				log.debug("<<infoLikeVO_추천 중복>> : " + check);
-				map.put("result", "Duplicated");
-			} else {
-				//추천 미중복시 실행!
-				log.debug("<<infoLikeVO_추천 통과>> : " + infoLikeVO);
-				infoLikeService.insertLike(infoLikeVO);
-				map.put("result", "success");
-			}
-
-			return map;
+	public Map<String,Object> postLike(InfoLikeVO infoLikeVO, HttpSession session) {
+		if(log.isDebugEnabled()) {
+			log.debug("<<InfoLikeVO>> :" + infoLikeVO);
 		}
-	//댓글 추천하기
-		@RequestMapping(value="/infoBoard/comment_like.do", method=RequestMethod.POST)
-		@ResponseBody// 자바 객체를 HTTP 응답 본문의 객체로 변환
-		public Map<String,Object> commentLike(InfoCommentLikeVO infoCommentLikeVO, HttpServletRequest httpRequest) {
-			//댓글의 댓글 번호
-			int comment_num = Integer.parseInt(httpRequest.getParameter("comment_num"));
-			//댓글 작성자 아이디
-			int mem_num = Integer.parseInt(httpRequest.getParameter("mem_num"));
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-				log.debug("<<comment_num>> : " + comment_num);
-				log.debug("<<mem_num>> : " + mem_num);
+		Map<String,Object> map = new HashMap<String,Object>();
+		MemberVO user= (MemberVO)session.getAttribute("user");
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+		if(user==null) {
+			//로그인 안 됨
+			mapAjax.put("result", "logout");
+		}else{
 
-				infoCommentLikeVO.setComment_num(comment_num);
-				infoCommentLikeVO.setMem_num(mem_num);
+			//총 추천의 갯수
+			map.put("post_num", infoLikeVO.getPost_num());
+			map.put("mem_num", user.getMem_num());
+			int myCount = infoLikeService.selectRowCountLikeByMem_num(map);
+			int myPost = infoLikeService.selectSameMember(map);
+			log.debug("<<myCount>>:"+myCount);
+			
+			
+			if(myCount > 0) {
 				
-				//추천  중복방지 SQL
-				InfoCommentLikeVO check = infoCommentLikeService.selectCheckLike(infoCommentLikeVO);
+				mapAjax.put("result", "LikeFound");
+			
+			}else if(myPost > 0){
+			
+				mapAjax.put("result", "SameID");
+			}else{
+				//추천	
+				infoLikeVO.setMem_num(user.getMem_num());
+				infoLikeService.insertLike(infoLikeVO);
+				mapAjax.put("result", "success");
 				
-				//추천 중복클릭인지 확인하는 영역!
-				if (check != null) {
-					//추천 중복
-					log.debug("<<infoCommentLikeVO추천 중복>> : " + check);
-					map.put("result", "Duplicated");
-				} else {
-					//추천 미중복시 실행!
-					log.debug("<<infoCommentLikeVO추천 통과>> : " + infoCommentLikeVO);
-					infoCommentLikeService.insertLike(infoCommentLikeVO);
-					map.put("result", "success");
-				}
-
-				return map;
 			}
+			
+		}
+		
+		return mapAjax;
+		}
+	//좋아요 select
+		@RequestMapping("/infoBoard/getLikeCount.do")
+		@ResponseBody
+		public Map<String,Object> getList(
+				@RequestParam("post_num") int post_num){
+
+			Map<String,Object> map = 
+					new HashMap<String,Object>();
+			map.put("post_num", post_num);
+
+			//총 추천의 갯수
+			int like_check = infoLikeService.selectRowCountLike(map);
+
+			Map<String,Object> mapAjax = 
+					new HashMap<String,Object>();
+			mapAjax.put("like_cnt", like_check);
+
+			return mapAjax;
+		}
 }

@@ -45,7 +45,7 @@
 	<div class="align-center">등록된 게시글이 없습니다.</div>						
 	</c:if>						
 	<c:if test="${count > 0}">						
-	        <div id="wrap">						
+		<div id="wrap">						
 			<c:forEach var="board" items="${list}">				
 				<article class="board_view">			
 					<a href="detail.do?post_num=${board.post_num}">		
@@ -54,21 +54,19 @@
 							<p class="small">${board.content}</p>
 							<time class="small">${board.modify_date}</time>
 							<c:if test="${0 eq board.anonymous}">${board.id}</c:if>			
-				            <c:if test="${1 eq board.anonymous}">			
-				                  	익명		
-				            </c:if>		
-				        <div style="float: right;">
-							<ul class="status">
-								<li class="attach"></li>
-								<li title="공감" class="vote">${board.like_cnt}</li>
-								<li title="댓글" class="comment">${board.reply_cnt}</li>
-							</ul>
-						</div>	
+					        <c:if test="${1 eq board.anonymous}">익명</c:if>		
+					        <div style="float: right;">
+								<ul class="status">
+									<li class="attach"></li>
+									<li title="공감" class="vote">${board.like_cnt}</li>
+									<li title="댓글" class="comment">${board.reply_cnt}</li>
+								</ul>
+							</div>	
 						</div>	
 					</a>
 				</article>			
 			</c:forEach>				
-			</div>				
+		</div>				
 		<div class="align-center" id="pagenation">${pagingHtml}</div>					
 	</c:if>						
 </div>							

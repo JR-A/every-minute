@@ -24,6 +24,8 @@
     box-sizing: border-box;
 }
 .free_post {
+    overflow: hidden;
+    clear: both;
     margin-bottom: -1px;
     box-sizing: border-box;
     border: 1px solid #e3e3e3;
@@ -107,7 +109,6 @@ article time.large {
 }
 article ul.status {
     float: right;
-    margin-top:-10px;
 }
 article hr {
     clear: both;

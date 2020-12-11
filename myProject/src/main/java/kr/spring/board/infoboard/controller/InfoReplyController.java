@@ -67,41 +67,45 @@ public class InfoReplyController {
 	//댓글 목록
 		@RequestMapping("/infoBoard/listReply.do")
 		@ResponseBody
-		public Map<String,Object> getList(@RequestParam(value="pageNum",defaultValue="1")int currentPage, @RequestParam("post_num") int post_num){
+		public Map<String,Object> getList(@RequestParam(value="pageNum",defaultValue="1")int currentPage, @RequestParam("post_num") int post_num, HttpSession session){
 			if(log.isDebugEnabled()) {
 				log.debug("<<currentPage>> : " + currentPage);
 				log.debug("<<post_num>> : " + post_num);
 			}
 
-			Map<String,Object> map = 
-					new HashMap<String,Object>();
+			Map<String,Object> map = new HashMap<String,Object>();
 			map.put("post_num", post_num);
 
 			//총 댓글의 갯수
 			int count = infoReplyService.selectRowCountReply(map);
 
-			PagingUtil page = new PagingUtil(currentPage,count,
-					rowCount,pageCount,null);
+			PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,null);
 			map.put("start", page.getStartCount());
 			map.put("end", page.getEndCount());
-	
+			
+			MemberVO memberVO = (MemberVO)session.getAttribute("user");
+			if(memberVO!=null) {
+				map.put("mem_num", memberVO.getMem_num());
+			}else {
+				map.put("mem_num", 0); 
+			}
 			
 			
 			List<InfoReplyVO> list = null;
 			if(count > 0) {
 				list = infoReplyService.selectListReply(map);
+			
 			}else {
 				list = Collections.emptyList();
 			}
 
-			log.debug("<<글목록 map에 있는 값>> : " + map);
-			log.debug("<<======================list====================>> : " + list);
 			Map<String,Object> mapJson = 
 					new HashMap<String,Object>();
+			log.debug("<<list>> : " + list);
 			mapJson.put("count", count);
 			mapJson.put("rowCount", rowCount);
 			mapJson.put("list", list);
-
+			log.debug("<<mapJson>> : " + mapJson);
 			return mapJson;
 		}
 		//댓글 삭제

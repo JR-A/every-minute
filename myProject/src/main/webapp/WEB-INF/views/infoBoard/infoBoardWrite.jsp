@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -35,39 +34,38 @@
 3. 여론조사 결과 인용"/>
 			<form:errors path="content" cssClass="error-color"/>
 		</p>
-	<div class="topics inactive">
-		<div class="direction">혹시 이 주제에 대한 글인가요?</div>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="1" class="oneCheck" id="active1"/><label for="active1" id="active">도서관</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="2" class="oneCheck" id="active2"/><label for="active2" id="active">셔틀버스</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="3" class="oneCheck" id="active3"/><label for="active3" id="active">와이파이</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="4" class="oneCheck" id="active4"/><label for="active4" id="active">계절학기</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="5" class="oneCheck" id="active5"/><label for="active5" id="active">학점·성적</label><br>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="6" class="oneCheck" id="active6"/><label for="active6" id="active">기숙사</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="7" class="oneCheck" id="active7"/><label for="active7" id="active">장학금</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="8" class="oneCheck" id="active8"/><label for="active8" id="active">수강신청</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="9" class="oneCheck" id="active9"/><label for="active9" id="active">휴복학</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="10" class="oneCheck" id="active10"/><label for="active10" id="active">졸업</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="11" class="oneCheck" id="active11"/><label for="active11" id="active">등록금</label>
-			<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="12" class="oneCheck" id="active12"/><label for="active12" id="active">학생증</label>
-			<form:checkbox onclick="oneCheckbox(this)" checked="true" path="tag_num" style="display: none;" value="13"/>
-		<div><img class="blah"/></div>
-	</div>
-	<div class="write_bottom">
-		<div class="align-left">
-		<input type="button" onclick="insertText()" class="tag"><!--태그추가-->
-		<input type="text" id="addInput" value="#">
-			<label class="fileUpload">　
-			<input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg" onchange="readURL(this);">
-			</label>
+		<div class="topics inactive">
+			<div class="direction">혹시 이 주제에 대한 글인가요?</div>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="1" class="oneCheck" id="active1"/><label for="active1" id="active">도서관</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="2" class="oneCheck" id="active2"/><label for="active2" id="active">셔틀버스</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="3" class="oneCheck" id="active3"/><label for="active3" id="active">와이파이</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="4" class="oneCheck" id="active4"/><label for="active4" id="active">계절학기</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="5" class="oneCheck" id="active5"/><label for="active5" id="active">학점·성적</label><br>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="6" class="oneCheck" id="active6"/><label for="active6" id="active">기숙사</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="7" class="oneCheck" id="active7"/><label for="active7" id="active">장학금</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="8" class="oneCheck" id="active8"/><label for="active8" id="active">수강신청</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="9" class="oneCheck" id="active9"/><label for="active9" id="active">휴복학</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="10" class="oneCheck" id="active10"/><label for="active10" id="active">졸업</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="11" class="oneCheck" id="active11"/><label for="active11" id="active">등록금</label>
+				<form:checkbox onclick="oneCheckbox(this)" path="tag_num" value="12" class="oneCheck" id="active12"/><label for="active12" id="active">학생증</label>
+				<form:checkbox onclick="oneCheckbox(this)" checked="true" path="tag_num" style="display: none;" value="13"/>
+			<div><img class="blah"/></div>
 		</div>
-		<div class="align-right">
-			<input type="checkbox" name="anonymous" value="1" id="anonymous">
-			<label for="anonymous">
-		  	<span class="anonymousSpan">익명</span>
-			</label>
-			<input type="submit" class="submit" value="">
+		<div class="write_bottom">
+			<div class="align-left">
+				<input type="button" onclick="insertText()" class="tag"><!--태그추가-->
+				<input type="text" id="addInput" value="#">
+				<label class="fileUpload">　
+					<input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg" onchange="readURL(this);">
+				</label>
+			</div>
+			<div class="align-right" style="float: right;">
+				<input type="submit" class="submit" value="">
+				<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+					<label for="anonymous"><span class="anonymousSpan">익명</span>
+				</label>
+			</div>
 		</div>
-	</div>
 	</form:form>
 </div>
 

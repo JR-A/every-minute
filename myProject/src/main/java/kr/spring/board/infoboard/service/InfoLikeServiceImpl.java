@@ -1,5 +1,7 @@
 package kr.spring.board.infoboard.service;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -26,13 +28,23 @@ public class InfoLikeServiceImpl implements InfoLikeService{
 	}
 
 	@Override
-	public InfoLikeVO selectCheckLike(InfoLikeVO infoLikeVO) {
-		return infoLikeMapper.selectCheckLike(infoLikeVO);
+	public InfoBoardVO info_bestLikePost() {
+		return infoLikeMapper.info_bestLikePost();
 	}
 
 	@Override
-	public InfoBoardVO info_bestLikePost() {
-		return infoLikeMapper.info_bestLikePost();
+	public int selectRowCountLike(Map<String, Object> map) {
+		return infoLikeMapper.selectRowCountLike(map);
+	}
+
+	@Override
+	public int selectRowCountLikeByMem_num(Map<String, Object> map) {
+		return infoLikeMapper.selectRowCountLikeByMem_num(map);
+	}
+
+	@Override
+	public int selectSameMember(Map<String, Object> map) {
+		return infoLikeMapper.selectSameMember(map);
 	}
 
 

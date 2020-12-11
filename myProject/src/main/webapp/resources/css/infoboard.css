@@ -33,7 +33,6 @@
 }
 .article > h2 {
 	margin: 0;
-    line-height: 18px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -142,7 +141,6 @@ article hr {
 /*============= 수정폼 시작 ==============*/
 /*등록,수정폼*/
 form{
-	width:100%;
 	margin:0 auto;
 }
 .board_title {
@@ -325,7 +323,8 @@ p.topics input[type="radio"] {
 	margin-top: 4px;
     padding: 0 40px 0 10px;
     height: 40px;
-    border: 1px solid #d6d6d6;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
     box-sizing: border-box;
     cursor: text;
     color: #a6a6a6;
@@ -338,7 +337,7 @@ p.topics input[type="radio"] {
 
 /*======== 페이징 여백 추가 =========*/
 #pagenation {
-	padding: 20px 0 20px 0;
+	padding: 20px 0 0 0;
 }
 /*========= 스타일 초기화 ==========*/
 
@@ -501,5 +500,5 @@ a {text-decoration: none; color: black;}
     background-position: left center;
     background-size: 12px 12px;
     cursor: pointer;}
-/*input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }*/
+input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 .submit input[type="submit"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }

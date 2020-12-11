@@ -37,11 +37,11 @@
 3. 여론조사 결과 인용" />
 			<form:errors path="content" cssClass="error-color" />
 		</p>
-		<div><img class="blah"/></div>
 		<c:if test="${!empty infoBoardVO.filename}">
-			<span>(${infoBoardVO.filename })파일이 등록되어 있습니다 다시 업로드하면 기존 파일은
+			<span class="file_height">(${infoBoardVO.filename })파일이 등록되어 있습니다 다시 업로드하면 기존 파일은
 				삭제됩니다.</span>
 		</c:if>
+		<div class="blah_height"><img class="blah"/></div>
 	<div class="write_bottom">
 		<div class="align-left">
 		<input type="button" onclick="insertText()" class="tag"><!--태그추가-->
@@ -51,7 +51,7 @@
 			</label>
 		</div>
 		<div class="align-right">
-			<input type="checkbox" name="anonymous" value="1" id="anonymous">
+			<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
 			<label for="anonymous">
 		  	<span class="anonymousSpan">익명</span>
 			</label>

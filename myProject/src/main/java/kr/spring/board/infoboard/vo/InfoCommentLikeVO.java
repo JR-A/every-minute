@@ -1,10 +1,16 @@
 package kr.spring.board.infoboard.vo;
 
 public class InfoCommentLikeVO {
-	private int comment_num;//댓글 번호
-	private int mem_num;//멤버 번호
-	private int commentLike_cnt; // 댓글 좋아요 수
+	private int like_num;
+	private int comment_num;
+	private int mem_num;
 	
+	public int getLike_num() {
+		return like_num;
+	}
+	public void setLike_num(int like_num) {
+		this.like_num = like_num;
+	}
 	public int getComment_num() {
 		return comment_num;
 	}
@@ -17,17 +23,11 @@ public class InfoCommentLikeVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
-	public int getCommentLike_cnt() {
-		return commentLike_cnt;
-	}
-	public void setCommentLike_cnt(int commentLike_cnt) {
-		this.commentLike_cnt = commentLike_cnt;
-	}
 	
 	@Override
 	public String toString() {
-		return "InfoCommentLikeVO [comment_num=" + comment_num + ", mem_num=" + mem_num + ", commentLike_cnt="
-				+ commentLike_cnt + "]";
+		return "InfoCommentLikeVO [like_num=" + like_num + ", comment_num=" + comment_num + ", mem_num=" + mem_num
+				+ "]";
 	}
 	
 }

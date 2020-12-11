@@ -7,6 +7,6 @@
 		<li><a href="#">이용규칙</a></li>
 		<li><a href="#">공지사항</a></li>
 		<li><a href="#">문의하기</a></li>
-		<li>&copy;에브리미닛</li>
+		<Strong><li>&copy;에브리미닛</li></Strong>
 	</ul>
 </div>

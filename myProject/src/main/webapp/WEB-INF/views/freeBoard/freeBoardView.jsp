@@ -163,24 +163,23 @@ $(document).ready(function(){
 					$(list).each(function(index,item){
 						var output = '<div class="item">';
 						if(item.anonymous == 1){
-							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large">익명</h4>';
+							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="25" height="25" class="picture large">익명</h4>';
 						}else if(item.anonymous == 0){
 							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
+						}
+						
+						if($('#mem_num').val()==item.mem_num){
+							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
+							
 						}
 						output += '  <div class="sub-item">';
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
+						output += '<span class="reply-date small">'+item.reg_date+'</span>';
 						output +='<span class="reply-vote" id="like_cntR" data-like="'+item.comment_num+'">'+ item.like_cntR +'<br>'+'</span>';
-						output += '<span class="reply-date">'+item.reg_date+'</span>';
 						
-						
-						if($('#mem_num').val()==item.mem_num){
-							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
-						}
-						
-						output += '      <hr size="1" noshade>';
 						output += '  </div>';
 						output += '</div>';
 												
@@ -295,10 +294,9 @@ $(document).ready(function(){
 			modifyUI += '   <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
 			modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      
 			modifyUI += '   <div id="mre_second" class="align-right">';
-			modifyUI += '      <input type="submit" value="수정">';
-			modifyUI += '      <input type="button" value="취소" class="re-reset">';
+			modifyUI += '      <input type="submit" value="수정완료" class="btn_none">';
+			modifyUI += '      <input type="button" value="취소" class="re-reset" style="color: #c62917;">';
 			modifyUI += '   </div>';
-			modifyUI += '   <hr size="1" noshade width="96%">';
 			modifyUI += '</form>';
 			
 	
@@ -307,7 +305,7 @@ $(document).ready(function(){
 		initModifyForm();
 		//지금 클릭해서 수정하고자 하는 데이터는 감추기
 		//수정버튼을 감싸고 있는 div
-		$(this).parent().hide();
+		//$(this).parent().hide();
 			
 		//수정폼을 수정하고자하는 데이터가 있는 div에 노출
 		$(this).parents('.item').append(modifyUI);
@@ -440,37 +438,58 @@ $(document).ready(function(){
 });
 </script>
 <h2 class="title"><a href="freeBoardList.do">자유게시판</a></h2>
-<div class="page-main-style-detail">
-
+<div class="page-main-style-detail" style="padding: 15px;">
 	<article>
-		<a class="article2">
-			
-			<c:if test="${empty freeboard.photoname}">
-				<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
+		<c:if test="${empty freeboard.photoname}">
+			<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
+		</c:if>
+		<c:if test="${!empty freeboard.photoname}">
+			<c:if test="${0 eq freeboard.anonymous}">
+			<img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="picture large">
 			</c:if>
-			<c:if test="${!empty freeboard.photoname}">
+			<c:if test="${1 eq freeboard.anonymous}">
+			<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
+			</c:if>
+		</c:if>
+		<div class="profile">
+			<h3 class="large">
 				<c:if test="${0 eq freeboard.anonymous}">
-				<img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="picture large">
-				</c:if>
-				<c:if test="${1 eq freeboard.anonymous}">
-				<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
-				</c:if>
-			</c:if>
-			<div class="profile">
-					<h3 class="large"><c:if test="${0 eq freeboard.anonymous}">
-						${freeboard.id}
+					${freeboard.id}
 				</c:if>
 				<c:if test="${1 eq freeboard.anonymous}">
 						익명
-				</c:if></h3>
+				</c:if>
+			</h3>
 				   <fmt:parseDate var="dateTempParse" value="${freeboard.modify_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
        				<fmt:formatDate value="${dateTempParse}" pattern="MM/dd HH:mm"/>
 	
+		</div>
+			<!-- 내 글은 쪽지보내기와 신고하기가 보이지 않음 -->
+			<!--     			┌로그인됨		 ┌로그인아이디		┌작성자아이디  -->											
+			<c:if test="${!empty user && user.mem_num != freeboard.mem_num}">																		
+					<ul class="status">																
+						<li class="messagesend" data-modal="messageSend" data-article-id="76626841" data-is-anonym="0">쪽지</li>															
+						<li class="abuse" id="btnOK">신고</li>															
+					</ul>																															
+			</c:if>
+			<div class="align-right">																			
+			<!-- 수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야함 -->																		
+			<!--     			┌로그인됨		 ┌로그인아이디		┌작성자아이디  -->											
+			<c:if test="${!empty user && user.mem_num == freeboard.mem_num}">																		
+				<input type="button" value="수정" onclick="location.href='update.do?post_num=${freeboard.post_num}'">																	
+				<input type="button" value="삭제" id="delete_btn">
+				<script type="text/javascript">
+					var delete_btn = document.getElementById('delete_btn');																
+					//이벤트 연결
+					delete_btn.onclick=function() {
+						var choice = window.confirm('정말 삭제하시겠습니까?');
+						if (choice) {															
+							location.href='delete.do?post_num=${board.post_num}';														
+						}															
+					}																
+				</script>																	
+			</c:if>	
 			</div>
-			<ul class="status">
-				<li class="messagesend" data-modal="messageSend" data-article-id="76626841" data-is-anonym="0">쪽지</li>
-				<li class="abuse">신고</li>
-			</ul>
 			<hr>
 			<h1>${freeboard.title}</h1>
 			
@@ -479,68 +498,49 @@ $(document).ready(function(){
 			<div class="align-center">
 				<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">
 			</div>
+			<p></p>
 			</c:if>
-
-		<div class ="wrapstatus">
-			<ul class="status">
-			
-					<li class="vote" id="like_check">0</li>
-					
-					<li class="comm" id="count">${freeboard.reply_cnt}</li>
-			
-			</ul>
-		</div>
+			<div class ="wrapstatus">
+				<ul class="status">
+						<li class="vote" id="like_check">0</li>
+						<li class="comm" id="count">${freeboard.reply_cnt}</li>
+				</ul>
+			</div>
+			<div class="pointer"></div>
+	</article>
 </div>
-
-	<div class="align-right">
-		<%--수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야 함 --%>
-		<c:if test="${!empty user && user.mem_num == freeboard.mem_num}">
-		<input type="button" value="수정" onclick="location.href='update.do?post_num=${freeboard.post_num}'">
-		<input type="button" value="삭제" id="delete_btn">
-		<script>
-			var delete_btn = document.getElementById('delete_btn');
-			//이벤트 연결
-			delete_btn.onclick=function(){
-				var choice = window.confirm('삭제하시겠습니까?');
-				if(choice){
-					location.href='delete.do?post_num=${freeboard.post_num}';
-				}
-			};
-		</script>
-		</c:if>
-		<input type="button" value="목록" onclick="location.href='freeBoardList.do'">
-	</div>
 	<!-- 글쓰기 끝 -->
-	<!-- 댓글 -->
-	<div id="reply_div">
-		<span class="reply-title">댓글 달기</span>
+	<div class="reply_init">
+	<!-- 댓글 목록 출력 -->
+		<div id="output"></div>
+		<div class="paging-button" style="display:none;">
+			<input type="button" value="댓글 더 보기">
+		</div>
+		<div id="loading" style="display:none;">
+			<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
+		</div>
+		<!-- 댓글 작성 시작 -->
+		<div id="reply_div">
 		<form id="re_form">
 			<input type="hidden" name="post_num"
 			       value="${freeboard.post_num}" id="post_num">
 			<input type="hidden" name="mem_num"
 			       value="${user.mem_num}" id="mem_num">
-			<textarea rows="3" cols="50"
+			<input type="text"
 			  name="content" id="content"
-			  class="rep-content"
+			  class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
 			  <c:if test="${empty user}">disabled="disabled"</c:if>
-			  ><c:if test="${empty user}">로그인해야 작성할 수 있습니다.</c:if></textarea>              
+			><c:if test="${empty user}">로그인해야 작성할 수 있습니다.</c:if></input>              
 			<c:if test="${!empty user}">
-			<div id="re_first">
-				<span class="letter-count">300/300</span>
-			</div>
-			<div id="re_second" class="align-right">
-			    <input type="checkbox" name="anonymous" value="1" checked>익명
-				<input type="submit" value="전송">
+			<div id="re_second" class="align-right">	
+				<input type="submit" class="submit" value="">													
+				<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+				<label for="anonymous">
+			  	<span class="anonymousSpan">익명</span>
+				</label>											
 			</div>
 			</c:if>
 		</form>
 	</div>
-	<!-- 댓글 목록 출력 -->
-	<div id="output"></div>
-	<div class="paging-button" style="display:none;">
-		<input type="button" value="댓글 더 보기">
-	</div>
-	<div id="loading" style="display:none;">
-		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
-	</div>
+</div>
 

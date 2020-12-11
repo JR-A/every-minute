@@ -1,7 +1,9 @@
 //========================================================댓글 작업 시작==============================																			
-	var currentPage;																			
-	var count;																			
-	var rowCount;																			
+var currentPage;																			
+var count;																			
+var rowCount;
+var likeCountR;
+	
 	//댓글 목록																			
 	function selectData(pageNum,post_num){																			
 		currentPage = pageNum;																		
@@ -38,19 +40,18 @@
 						}else if(item.anonymous == 0){														
 							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
 
-						}														
+						}
+						if($('#mem_num').val()==item.mem_num){														
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';													
+							
+						}	
 						output += '  <div class="sub-item">';														
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';														
-						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';														
-						output += item.reg_date;														
-																				
-						if($('#mem_num').val()==item.mem_num){														
-							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면												//data-num과 data-mem에 comment_num과 mem_num을 보내면 사용가능!
-							output += ' <ul class="status"><li title="공감" class="vote" id="comment_like" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'"></li></ul>';
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';													
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
-						}														
-						output += '      <hr size="1" noshade>';														
+						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
+						output += '<span class="reply-date small">'+item.reg_date+'</span>';	
+						output += '<span class="reply-vote" id="info_like_cntR" data-like="'+item.comment_num+'">'+ item.like_cntR +'<br>'+'</span>';
+																																					
 						output += '  </div>';														
 						output += '</div>';														
 																				
@@ -147,61 +148,25 @@
 	}																			
 	});
 	
-	//댓글 추천==========================================================================
-	$(document).on('click','#comment_like',function(){
-		//댓글의 댓글 번호
-		var comment_num = $(this).attr('data-num');	
-		alert(comment_num);
-		//댓글 작성자 아이디																		
-		var mem_num = $(this).attr('data-mem');
-		alert(mem_num);
-		 alert('댓글을 추천 하시겠습니까?');																			
-		    $.ajax({      																			
-		        type:'post',																			
-				data:{																	
-					comment_num:comment_num,
-					mem_num:mem_num
-		            },																			
-				url:'comment_like.do',																	
-				dataType:'json',																	
-				cache:false,																	
-				timeout:30000,																	
-				success:function(data){																	
-					if(data.result=='success'){																
-						alert('추천 성공');		
-						location.reload();			
-					}else if(data.result=='Duplicated'){																
-						alert('이미 추천한 댓글입니다');															
-					}																
-				},																	
-				error:function(){																	
-					alert('네트워크 오류!');																
-				}																	
-		    });
-	});
-	//댓글 추천 끝 ==========================================================================
-	
 	//댓글 수정 버튼 클릭시 수정폼 노출																			
 	$(document).on('click','.modify-btn',function(){																	
 		//댓글 글번호																		
 		var comment_num = $(this).attr('data-num');	
-		alert(comment_num);
 		//작성자 아이디																		
 		var mem_num = $(this).attr('data-mem');																		
 		//댓글 내용																		
 		var content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');																		
 		                                             //g:지정문자열 모두, i:대소문자 무시																		
-		//댓글 수정폼 UI																		
-		var modifyUI = '<form id="mre_form">'																		
-			modifyUI += '   <input type="hidden" name="comment_num" id="mre_num" value="'+comment_num+'">';																	
-			modifyUI += '   <input type="hidden" name="mem_num" id="mem_num" value="'+mem_num+'">';																	
-			modifyUI += '   <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';																	
-			modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      																	
-			modifyUI += '   <div id="mre_second" class="align-right">';																	
-			modifyUI += '      <input type="submit" value="수정">';																	
-			modifyUI += '      <input type="button" value="취소" class="re-reset">';																	
-			modifyUI += '   </div>';																	
-			modifyUI += '   <hr size="1" noshade width="96%">';																	
+		//댓글 수정폼 UI
+		var modifyUI = '<form id="mre_form">'
+			modifyUI += '   <input type="hidden" name="comment_num" id="mre_num" value="'+comment_num+'">';
+			modifyUI += '   <input type="hidden" name="mem_num" id="mem_num" value="'+mem_num+'">';
+			modifyUI += '   <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
+			modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      
+			modifyUI += '   <div id="mre_second" class="align-right">';
+			modifyUI += '      <input type="submit" value="수정완료" class="btn_none">';
+			modifyUI += '      <input type="button" value="취소" class="re-reset" style="color: #c62917;">';
+			modifyUI += '   </div>';
 			modifyUI += '</form>';																	
 																				
 		//이전에 이미 수정하는 댓글이 있을 경우 수정버튼을 클릭하면																		
@@ -209,7 +174,7 @@
 		initModifyForm();																		
 		//지금 클릭해서 수정하고자 하는 데이터는 감추기																		
 		//수정버튼을 감싸고 있는 div																		
-		$(this).parent().hide();																		
+		//$(this).parent().hide();																		
 																				
 		//수정폼을 수정하고자하는 데이터가 있는 div에 노출																		
 		$(this).parents('.item').append(modifyUI);																		
@@ -241,7 +206,8 @@
 			alert('내용을 입력하세요!');																	
 			$('#mre_content').focus();																	
 			return false;																	
-		}																		
+		}var choice = confirm('수정 하시겠습니까?');
+		if(choice){ 																		
 																				
 		//폼에 입력한 데이터 반환																		
 		var data = $(this).serialize();																		
@@ -289,7 +255,8 @@
 			}																	
 		});																		
 		//기본 이벤트 제거																		
-		event.preventDefault();																		
+		event.preventDefault();	
+		}
 	});																			
 																				
 	//댓글 삭제																			
