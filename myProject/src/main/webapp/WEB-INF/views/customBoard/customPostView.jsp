@@ -711,7 +711,7 @@
 <div id="reply_div">
 	<form id="comment_form">
 		<input type="hidden" name="post_num" value="${customPost.post_num}" id="post_num"> <!-- 게시글 번호 -->
-		<input type="hidden" name="mem_num" value="${user.mem_num}" id="mem_num"> <!-- 로그인 한 회원 -->
+		<input type="hidden" name="mem_num" value="${user.mem_num}" id="mem_num"> <!-- 로그인 한 회원 --> 
 		<input type="text"
 			  name="content" id="content"
 			  class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
@@ -723,8 +723,7 @@
 				<input type="checkbox" name="anonymous" value="1" checked>익명
 			</c:if>
 			<div id="re_second" class="align-right">	
-				<input type="submit" class="submit" value="">
-				</label>											
+				<input type="submit" class="submit" value="">											
 			</div>
 		</div>
 		

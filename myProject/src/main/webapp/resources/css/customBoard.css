@@ -8,7 +8,7 @@
     font-weight: bold; 
 }
 /* 타이틀 수정 */
-.custom_status {
+.custom_status {  
 	float: right;
 	font-weight: normal;
 	color: #a6a6a6;

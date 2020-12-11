@@ -6,7 +6,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <!-- 제목&소제목 -->
 <h2 class="title">
-	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
+	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a> 
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
 	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	 

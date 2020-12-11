@@ -7,7 +7,7 @@
 
 <div class="page-main-style">
  
-	<!-- 제목&소제목 -->
+	<!-- 제목&소제목 --> 
 	<h2 class="title">
 		<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 		<span id="subtitle">${boardInfo.subtitle}</span>
