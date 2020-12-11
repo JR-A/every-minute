@@ -61,7 +61,7 @@ body {
 <script type="text/javascript">
 $(document).ready(function(){
 
-	var checkId = 0; 
+	var checkId = 0;   
 	var checkEmail =0; 
 	var checkNickname =0;
 	var special = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
