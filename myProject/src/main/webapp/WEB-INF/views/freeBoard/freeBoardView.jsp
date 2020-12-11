@@ -229,12 +229,6 @@ $(document).ready(function(){
 					//댓글 목록 작업
 					$(list).each(function(index,item){
 						var output = '<div class="item">';
-						if(item.anonymous == 1){
-							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="25" height="25" class="picture large">익명</h4>';
-						}else if(item.anonymous == 0){
-							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
-						}
-						
 						if($('#mem_num').val()!=item.mem_num){
 							//로그인 한 회원 번호가 댓글 작성자 번호와 다르면 
 						
@@ -247,6 +241,11 @@ $(document).ready(function(){
 							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
 							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
 							
+						}
+						if(item.anonymous == 1){
+							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="25" height="25" class="picture large">익명</h4>';
+						}else if(item.anonymous == 0){
+							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
 						}
 						
 						output += '  <div class="sub-item">';

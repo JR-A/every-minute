@@ -3,6 +3,41 @@ var currentPage;
 var count;																			
 var rowCount;
 var likeCountR;
+
+	//댓글 신고
+	$(document).on('click','.blame-btn',function(){
+		var result = confirm('해당 댓글을 신고하시겠습니까?');
+		if(result) {
+			
+		}else{
+			return false;
+		}
+		
+		//댓글 번호
+		var comment_num = $(this).attr('data-num');
+		//작성자 아이디
+		var mem_num = $(this).attr('data-mem');
+		$.ajax({
+			type:'post',
+			data:{comment_num:comment_num},
+			url:'insertCommentBlame.do',
+			dataType:'json',
+			cache:false,
+			timeout:30000,
+			success:function(data){
+				if(data.result == 'success'){
+					alert('정상적으로 신고가 접수 되었습니다');
+				}else if(data.result == 'BlameFound'){
+					alert('이미 신고하셨습니다.');
+				}else{
+					alert('신고 접수 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류');
+			}
+		});
+	});
 	
 	//댓글 목록																			
 	function selectData(pageNum,post_num){																			
@@ -34,18 +69,26 @@ var likeCountR;
 				}else{																
 					//댓글 목록 작업															
 					$(list).each(function(index,item){															
-						var output = '<div class="item">';	 													
+						var output = '<div class="item">';
+						if($('#mem_num').val()!=item.mem_num){														
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&target_mem_num='+item.mem_num+'\'">';
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="신고" class="blame-btn">';													
+							
+						}
+						if($('#mem_num').val()==item.mem_num){
+							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
+							
+						}
+						
 						if(item.anonymous == 1){														
 							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large"> 익명</h4>';
 						}else if(item.anonymous == 0){														
 							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
 
 						}
-						if($('#mem_num').val()==item.mem_num){														
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';													
-							
-						}	
+						
 						output += '  <div class="sub-item">';														
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';														
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';

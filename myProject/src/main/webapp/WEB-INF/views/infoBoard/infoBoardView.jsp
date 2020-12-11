@@ -34,7 +34,7 @@
 			<!--     			┌로그인됨		 ┌로그인아이디		┌작성자아이디  -->											
 			<c:if test="${!empty user && user.mem_num != board.mem_num}">																		
 					<ul class="status">																
-						<li class="messagesend" data-modal="messageSend" data-article-id="76626841" data-is-anonym="0">쪽지</li>															
+						<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${board.anonymous}&&target_mem_num=${board.mem_num}';">쪽지</li>														
 						<li class="abuse" id="btnOK">신고</li>															
 					</ul>																															
 			</c:if>														

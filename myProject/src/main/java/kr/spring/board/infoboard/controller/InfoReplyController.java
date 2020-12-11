@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.board.freeboard.vo.FreeBlameVO;
+import kr.spring.board.infoboard.service.InfoBlameService;
 import kr.spring.board.infoboard.service.InfoCommentLikeService;
 import kr.spring.board.infoboard.service.InfoReplyService;
+import kr.spring.board.infoboard.vo.InfoBlameVO;
 import kr.spring.board.infoboard.vo.InfoReplyVO;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
@@ -34,6 +37,8 @@ public class InfoReplyController {
 	MemberService memberService;
 	@Resource
 	InfoCommentLikeService infoCommentLikeService;
+	@Resource
+	InfoBlameService infoBlameService;
 
 	private int rowCount = 10;
 
@@ -190,5 +195,36 @@ public class InfoReplyController {
 			mav.addObject("filename",vo.getPhotoname());
 			
 			return mav;
+		}
+		
+		//댓글 신고 접수
+		@RequestMapping("/infoBoard/insertCommentBlame.do")
+		@ResponseBody
+		public Map<String,Object> insertCommentBlame( InfoBlameVO infoBlameVO, HttpSession session){
+			
+			if(log.isDebugEnabled()) {
+				log.debug("<<infoBlameVO>> 댓글 신고 접수 :"+infoBlameVO);
+			}
+
+			Map<String,Object> map = new HashMap<String,Object>();
+			MemberVO user= (MemberVO)session.getAttribute("user");
+			Map<String,Object> mapAjax = new HashMap<String,Object>();
+			
+			map.put("comment_num", infoBlameVO.getComment_num());
+			map.put("mem_num", user.getMem_num());
+			
+			int myCount =infoBlameService.blameCommCount_user(map); //동일 회원 신고접수 중복 여부
+			
+			if(myCount > 0) {
+				mapAjax.put("result", "BlameFound"); //중복 신고 접수 
+			
+			} else{
+				//댓글 정상 신고 접수
+				infoBlameVO.setMem_num(user.getMem_num());
+				infoBlameService.insertCommentBlame(infoBlameVO);
+				mapAjax.put("result", "success");
+			}
+			
+			return mapAjax;
 		}
 }
