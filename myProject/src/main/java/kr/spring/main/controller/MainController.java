@@ -111,7 +111,6 @@ public class MainController {
 		session.setAttribute("i_hotPostList", i_hotPostList);
 		if(bestLikeNum == c_likeNum) {
 			session.setAttribute("best_customPostVO", customPostVO);
-			System.out.println("~~~~~~~"+customPostVO);
 		} else if(bestLikeNum == f_likeNum) {
 			session.setAttribute("best_freeBoardVO", freeBoardVO);
 		} else if(bestLikeNum == i_likeNum) {
