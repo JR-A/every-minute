@@ -326,7 +326,7 @@ CREATE TABLE FreeBoard_Message_Post(
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
-    parent_msg_num NOT NULL,
+    parent_msg_num NUMBER NOT NULL,
     
     CONSTRAINT freeBoard_message_post_pk PRIMARY KEY (msg_num),
     CONSTRAINT freeBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
@@ -341,7 +341,7 @@ CREATE TABLE InfoBoard_Message_Post(
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
-    parent_msg_num NOT NULL,
+    parent_msg_num NUMBER NOT NULL,
     
     CONSTRAINT infoboard_message_post_pk PRIMARY KEY (msg_num),
     CONSTRAINT infoBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
@@ -356,7 +356,7 @@ CREATE TABLE CustomBoard_Message_Post(
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
-    parent_msg_num NOT NULL,
+    parent_msg_num NUMBER NOT NULL,
     
     CONSTRAINT customBoard_message_post_pk PRIMARY KEY (msg_num),
     CONSTRAINT customBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
