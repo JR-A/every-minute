@@ -1,5 +1,6 @@
 package kr.spring.main.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -73,62 +74,59 @@ public class MainController {
 			log.debug("<<HOT게시판 목록_infoBoard>> : " + i_hotPostList);
 		}
 		
-		/*//오늘의 BEST게시물  - 게시판 중 가장 추천 수가 많은 게시글
+		//오늘의 BEST게시물  - 게시판 중 가장 추천 수가 많은 게시글
 		CustomPostVO customPostVO = customLikeService.custom_bestLikePost();
 		FreeBoardVO freeBoardVO = freeLikeService.free_bestLikePost();
 		InfoBoardVO infoBoardVO = infoLikeService.info_bestLikePost();
-		
+
 		if(log.isDebugEnabled()) {
 			log.debug("<<BEST게시물_customBoard>> : " + customPostVO);
 			log.debug("<<BEST게시물_freeBoard>> : " + freeBoardVO);
 			log.debug("<<BEST게시물_infoBoard>> : " + infoBoardVO);
 		}
-		
+
 		int bestLikeNum = 0;
 		int c_likeNum = 0, f_likeNum = 0, i_likeNum = 0;
 		
-		if(customPostVO!=null) { c_likeNum = customPostVO.getLike_cnt(); }		
-		if(freeBoardVO!=null) { f_likeNum = freeBoardVO.getLike_cnt(); }
-		if(infoBoardVO!=null) { i_likeNum = infoBoardVO.getLike_cnt(); }
-		
+        if(customPostVO!=null) { c_likeNum = customPostVO.getLike_cnt(); }      
+        if(freeBoardVO!=null) { f_likeNum = freeBoardVO.getLike_cnt(); }
+        if(infoBoardVO!=null) { i_likeNum = infoBoardVO.getLike_cnt(); }
+
+
 		int[] likeArr = new int[] {c_likeNum, f_likeNum, i_likeNum};
-		
-		for(int num : likeArr) {
-			if(num > bestLikeNum) { bestLikeNum = num; }
+
+		if(log.isDebugEnabled()) {
+			log.debug("<<BEST게시물_게시판 별 최고 추천 수>> : " + Arrays.toString(likeArr));
 		}
 		
+		for(int num : likeArr) {
+			if(num > bestLikeNum) { 
+				bestLikeNum = num; 
+			}
+		}
+
 		//데이터를 session에 저장
 		session.setAttribute("c_hotPostList", c_hotPostList);
 		session.setAttribute("f_hotPostList", f_hotPostList);
 		session.setAttribute("i_hotPostList", i_hotPostList);
-		
+		if(bestLikeNum == c_likeNum) {
+			session.setAttribute("best_customPostVO", customPostVO);
+			System.out.println("~~~~~~~"+customPostVO);
+		} else if(bestLikeNum == f_likeNum) {
+			session.setAttribute("best_freeBoardVO", freeBoardVO);
+		} else if(bestLikeNum == i_likeNum) {
+			session.setAttribute("best_infoBoardVO", infoBoardVO);
+		} else {
+			session.setAttribute("best_customPostVO", null);
+			session.setAttribute("best_freeBoardVO", null);
+			session.setAttribute("best_infoBoardVO", null);
+		}
+
 		model.addAttribute("postTop3List", postTop3List);
 		model.addAttribute("infoTop3List", infoTop3List);
 		model.addAttribute("freePostTop3List", freePostTop3List);
-		model.addAttribute("c_hotPostList", c_hotPostList);
-		model.addAttribute("f_hotPostList", f_hotPostList);
-		model.addAttribute("i_hotPostList", i_hotPostList);
 		
-		if(bestLikeNum == c_likeNum) {
-			model.addAttribute("bestPost", customPostVO);
-			session.setAttribute("bestPost", customPostVO);
-			if(log.isDebugEnabled()) {
-				log.debug("<<오늘의 BEST게시물customPostVO>> : " + customPostVO);
-			}
-		} else if(bestLikeNum == f_likeNum) {
-			model.addAttribute("bestPost", freeBoardVO);
-			session.setAttribute("bestPost", freeBoardVO);
-			if(log.isDebugEnabled()) {
-				log.debug("<<오늘의 BEST게시물freeBoardVO>> : " + freeBoardVO);
-			}
-		} else if(bestLikeNum == i_likeNum) {
-			model.addAttribute("bestPost", infoBoardVO);
-			session.setAttribute("bestPost", infoBoardVO);
-			if(log.isDebugEnabled()) {
-				log.debug("<<오늘의 BEST게시물infoBoardVO>> : " + infoBoardVO);
-			}
-		}
-*/
+
 		return "main_board";
 	}
 

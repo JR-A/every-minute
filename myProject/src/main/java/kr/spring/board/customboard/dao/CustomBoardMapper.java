@@ -22,9 +22,6 @@ public interface CustomBoardMapper {
 	//게시판 삭제
 	@Delete("DELETE FROM CustomBoard WHERE board_num=#{board_num}")
 	public void deleteCustomBoard(Integer board_num);
-	//게시판 하위 게시글 전체 삭제
-	@Delete("DELETE CustomPost WHERE board_num=#{board_num}")
-	public void deleteCustomPost(Integer board_num);
 	//게시판의 게시글 개수
 	@Select("SELECT COUNT(*) FROM CustomPost WHERE board_num = #{board_num}")
 	public int hasPostCount(int board_num);

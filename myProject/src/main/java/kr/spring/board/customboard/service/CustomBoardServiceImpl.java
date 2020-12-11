@@ -1,21 +1,26 @@
 package kr.spring.board.customboard.service;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import kr.spring.board.customboard.dao.CustomBoardMapper;
+import kr.spring.board.customboard.dao.CustomCommentMapper;
+import kr.spring.board.customboard.dao.CustomPostMapper;
 import kr.spring.board.customboard.vo.CustomBoardVO;
 
 @Service("customBoardService")
 public class CustomBoardServiceImpl implements CustomBoardService {
 
 
-	@Resource //Mapper 주입받기
+	@Resource 
 	private CustomBoardMapper customBoardMapper;
+	@Resource
+	CustomPostMapper customPostMapper;
+	@Resource
+	CustomCommentMapper customCommentMapper;	
 	
 	//게시판 목록
 	@Override
@@ -40,7 +45,6 @@ public class CustomBoardServiceImpl implements CustomBoardService {
 	//게시판 삭제
 	@Override
 	public void deleteCustomBoard(Integer board_num) {
-		customBoardMapper.deleteCustomPost(board_num);
 		customBoardMapper.deleteCustomBoard(board_num);
 	}
 	//게시판의 게시글 개수

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -132,7 +133,6 @@ public class CustomPostController {
 		
 		//게시글에 속한 댓글 개수
 		int commCount = customCommentService.selectRowCountComment(post_num);
-		//int likeCount = customLikeService.selectRowCountLike(map);
 		
 		customPost.setComment_cnt(commCount);
 		//customPost.setLike_cnt(like_cnt);
@@ -198,23 +198,47 @@ public class CustomPostController {
 		return "redirect:/customBoard/customPostList.do?board_num="+customPostVO.getBoard_num(); 
 	}
 
-	//게시글 삭제 처리
+	//게시글 삭제 처리 - 댓글이 없을 경우
 	@RequestMapping("/customBoard/customPostDelete.do")
 	public String deletePost(@RequestParam int post_num, Model model, HttpServletRequest request) {
 
 		if(log.isDebugEnabled()) {
-			log.debug("<<CustomBoard 게시글 삭제>> : " + post_num);
+			log.debug("<<CustomBoard 게시글 삭제_댓글 X>> : " + post_num);
 		}
+		//게시판 번호 구하기
+		CustomPostVO customPostVO = customPostService.selectCustomPost(post_num);
+		//게시글 삭제
+		customPostService.deletePost(post_num);
 		
-		//해당 게시글에 속한 댓글 개수
-		int comm_cnt = customCommentService.selectRowCountComment(post_num);
+		model.addAttribute("message", "게시글 삭제 완료!!");
+		model.addAttribute("url", request.getContextPath()+"/customBoard/customPostList.do?board_num="+customPostVO.getBoard_num());
+
+		return "common/result";
+	}
+	
+	//게시글 삭제 처리 - 댓글이 있을 경우
+	@RequestMapping("/customBoard/customPostDeleteIncludeComm.do")
+	public String deletePostIncludeComm(@RequestParam int post_num, Model model, HttpServletRequest request) {
+
+		if(log.isDebugEnabled()) {
+			log.debug("<<CustomBoard 게시글 삭제_댓글 O>> : " + post_num);
+		}
+		//게시판 번호 구하기
+		CustomPostVO customPostVO = customPostService.selectCustomPost(post_num);
 		
-		//글 삭제
+		List<Integer> commList = customCommentService.selectCommNum(post_num); //게시글에 존재하는 댓글 번호 구하기
+			
+		for(int i = 0; i < commList.size(); i++){ //존재하는 댓글 수만큼 반복
+			customCommentService.deleteComment(commList.get(i));  //댓글 삭제 처리
+		}
+		//게시글 삭제
 		customPostService.deletePost(post_num);
 
-		model.addAttribute("message", "글 삭제 완료!!");
-		model.addAttribute("url", request.getContextPath()+"/main/main_board.do");
-
+		if (log.isDebugEnabled()) { log.debug("<<게시글에 달린 댓글 번호>> : " +  commList.toString()); }
+		
+		model.addAttribute("message", "게시글 삭제 완료!!");
+		model.addAttribute("url", request.getContextPath()+"/customBoard/customPostList.do?board_num="+customPostVO.getBoard_num());
+		
 		return "common/result";
 		
 	}

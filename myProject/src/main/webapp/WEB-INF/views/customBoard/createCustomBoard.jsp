@@ -28,7 +28,6 @@
 	        	$('#imageImg').attr('src', image_gray);
 	        	type = 0;
 	        }
-	        alert("click ->" + type);
 		});
 
 	   //사진형 클릭시
@@ -43,7 +42,6 @@
 	        	$('#imageImg').attr('src', image_red);
 	        	type = 1;
 	         }
-	        alert("click ->" + type);
 		 });  
 	   
 		//익명허용 여부
