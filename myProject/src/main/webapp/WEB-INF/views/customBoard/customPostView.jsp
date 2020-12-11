@@ -247,14 +247,14 @@
 							if($('#mem_num').val()!=item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 다르면 
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&taregt_mem_num='+item.mem_num+'\'">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="신고" class="blame-btn">';
 							}
 							if($('#mem_num').val()==item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">'; 
 							}
 							output += '      <hr size="1" noshade>';
 							output += '  </div>';
@@ -620,7 +620,7 @@
 			<ul class="status">
 				<!-- 쪽지/신고 -->
 				<c:if test="${customPost.mem_num != user.mem_num}">
-					<li class="messagesend">쪽지</li>
+					<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${customPost.anonymous}&&taregt_mem_num=${customPost.mem_num}';">쪽지</li>
 					<li class="blame">신고</li>
 				</c:if>
 				<!-- 수정/삭제 -->
@@ -634,16 +634,18 @@
 							var choice = window.confirm('해당 게시글을 삭제하시겠습니까?');
 							if (choice) {
 								var commCount = ${commCount};
-								if(commCount>0){ //해당 게시글에 속한 댓글이 존재
+								if(commCount>0){ //댓글 있음
 									var truncate = window.confirm('해당 게시글에 댓글이 존재합니다.\n정말로 게시글을 삭제하시겠습니까?');
-									if(truncate){
-										location.href="customPostDelete.do?post_num=${customPost.post_num}"; //전체 댓글 삭제 & 게시글 삭제
+									if(truncate){								
+										location.href='customPostDeleteIncludeComm.do?post_num=${customPost.post_num}';
+									}else{
+										location.href='customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}';
 									}
-									location.href="customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}";
-								
 								}
-								
-								location.href='customPostDelete.do?post_num=${customPost.post_num}';
+								//댓글 없음
+								else{ 
+									location.href='customPostDelete.do?post_num=${customPost.post_num}';
+								}
 							}
 						};
 					</script>

@@ -31,7 +31,13 @@
 		     <![CDATA[
 			 WHERE ROWNUM<=2 
 			 ]]>
-		 ORDER BY reg_date DESC
+	</select>
+	
+	<!-- 게시판에 달린 게시글 번호 -->
+	<select id="selectPostNum" parameterType="Integer" resultType="Integer"> 
+		SELECT post_num FROM customBoard b JOIN customPost p 
+			ON b.board_num=p.board_num 
+		WHERE b.board_num = #{board_num}
 	</select>
 	
 	<!-- 게시글 목록 --> 

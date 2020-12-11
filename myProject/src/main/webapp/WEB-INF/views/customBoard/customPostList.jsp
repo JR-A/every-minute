@@ -39,8 +39,8 @@
 		<%--수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야 함 --%>
 		<c:if test="${!empty user && user.mem_num == boardInfo.mem_num}">
 			<ul class="status" style="cursor: pointer;">
-				<li><a onclick="location.href='updateCustomBoard.do?board_num=${boardInfo.board_num}'">수정</a></li>
-				<li id="delete_btn">삭제</li>
+				<li><a onclick="location.href='updateCustomBoard.do?board_num=${boardInfo.board_num}'">수정</a></li> <!-- 게시판 수정 -->
+				<li id="delete_btn">삭제</li> <!-- 게시판 삭제 -->
 			</ul>
 			
 			<script>
@@ -54,9 +54,11 @@
 						if(hasPostCount>0){
 							var truncate = window.confirm('해당 게시판에 게시글이 존재합니다.\n모든 게시글을 지우고 게시판을 삭제하시겠습니까?');
 							if(truncate){
-								location.href="deleteCustomBoard.do?board_num=${boardInfo.board_num}"; //전체 게시글 삭제 & 게시판 삭제
+								location.href="deleteCustomBoardInsertPost.do?board_num=${boardInfo.board_num}"; //전체 게시글 삭제 & 게시판 삭제
 							}
-							lacation.href="customPostList.do?board_num=${boardInfo.board_num}";
+							else{
+								lacation.href="customPostList.do?board_num=${boardInfo.board_num}";
+							}
 						} 
 						//게시글이 없다면 바로 삭제
 						location.href="deleteCustomBoard.do?board_num=${boardInfo.board_num}";

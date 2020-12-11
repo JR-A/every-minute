@@ -1,5 +1,7 @@
 package kr.spring.board.customboard.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.spring.board.customboard.service.CustomBoardService;
+import kr.spring.board.customboard.service.CustomCommentService;
+import kr.spring.board.customboard.service.CustomPostService;
 import kr.spring.board.customboard.vo.CustomBoardVO;
+import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.member.vo.MemberVO;
 
 @Controller
@@ -25,6 +30,10 @@ public class CustomBoardController {
 
 	@Resource
 	CustomBoardService customBoardService;
+	@Resource
+	CustomPostService customPostService;
+	@Resource
+	CustomCommentService customCommentService;
 
 	//자바빈 초기화
 	@ModelAttribute
@@ -69,7 +78,7 @@ public class CustomBoardController {
 		return "redirect:/main/main_board.do";
 	}
 
-	//게시판 삭제
+	//게시판 삭제_게시글 없음
 	@RequestMapping("/customBoard/deleteCustomBoard.do")
 	public String deleteBoard(@RequestParam int board_num, Model model, HttpServletRequest request) {
 		
@@ -77,6 +86,33 @@ public class CustomBoardController {
 			log.debug("<<사용자 게시판 삭제>> : " + board_num);
 		}
 		
+		//게시판 삭제
+		customBoardService.deleteCustomBoard(board_num);
+		
+		model.addAttribute("message", "게시판 삭제 완료!!");
+		model.addAttribute("url", request.getContextPath()+"/main/main_board.do");
+		
+		return "common/result";
+	}
+	
+	//게시판 삭제_게시글 있음
+	@RequestMapping("/customBoard/deleteCustomBoardInsertPost.do")
+	public String deleteBoardinsertPost(@RequestParam int board_num, Model model, HttpServletRequest request) {
+		
+		if(log.isDebugEnabled()) {
+			log.debug("<<CustomBoard 게시판 삭제_게시글 O>> : " + board_num);
+		}
+		
+		List<Integer> postList = customPostService.selectPostNum(board_num); //게시판에 달린 게시글 번호 구하기
+		
+		for(int i = 0; i < postList.size(); i++){ //존재하는 게시글 수만큼 반복
+			List<Integer> commList = customCommentService.selectCommNum(i); //게시글에 달린 댓글 번호
+			
+			for(int commNum = 0; commNum < commList.size(); commNum++){ //존재하는 댓글 수만큼 반복
+				customCommentService.deleteComment(commList.get(commNum)); 
+			}
+			customPostService.deletePost(postList.get(i)); 
+		}
 		//게시판 삭제
 		customBoardService.deleteCustomBoard(board_num);
 		

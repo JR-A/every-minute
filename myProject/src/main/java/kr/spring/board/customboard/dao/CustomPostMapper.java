@@ -24,7 +24,9 @@ public interface CustomPostMapper {
 	public void insertPost(CustomPostVO postVO);
 	//게시글 수정
 	public void customPostUpdate(CustomPostVO postVO);
-	//게시글 삭제
+	//게시글 삭제_댓글 없음
 	@Delete("DELETE FROM CustomPost WHERE post_num=#{post_num}")
 	public void deletePost(Integer post_num);
+	//게시판에 달린 게시글 번호
+	public List<Integer> selectPostNum(int board_num);
 }

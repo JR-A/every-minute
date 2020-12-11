@@ -28,4 +28,7 @@ public interface CustomCommentMapper {
 	//게시글 삭제시 댓글이 존재하면 게시글에 속한 댓글 삭제
 	@Delete("DELETE FROM customboard_comment WHERE post_num=#{post_num}")
 	public void deleteCommentByPostNum(Integer post_num);
+	//게시글에 달린 댓글 번호
+	@Select("SELECT comment_num FROM customPost p JOIN customBoard_comment c ON p.post_num = c.post_num  WHERE p.post_num = #{post_num}")
+	public List<Integer> selectCommNum(int post_num);
 }

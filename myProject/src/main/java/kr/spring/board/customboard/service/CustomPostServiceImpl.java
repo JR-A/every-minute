@@ -7,6 +7,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.spring.board.customboard.dao.CustomBlameMapper;
+import kr.spring.board.customboard.dao.CustomFavoriteMapper;
+import kr.spring.board.customboard.dao.CustomLikeMapper;
 import kr.spring.board.customboard.dao.CustomPostMapper;
 import kr.spring.board.customboard.vo.CustomPostVO;
 
@@ -15,6 +18,14 @@ public class CustomPostServiceImpl implements CustomPostService {
 
 	@Resource
 	CustomPostMapper customPostMapper;	
+	@Resource
+	CustomBlameMapper customBlameMapper;	
+	@Resource
+	CustomLikeMapper customLikeMapper;	
+	@Resource
+	CustomFavoriteMapper customFavoriteMapper;	
+	/*@Resource
+	CustomMessageMapper CustommessageMapper;*/	
 
 	//최근 게시글 top3 목록
 	@Override
@@ -41,9 +52,13 @@ public class CustomPostServiceImpl implements CustomPostService {
 	public CustomPostVO selectCustomPost(Integer post_num) {
 		return customPostMapper.selectCustomPost(post_num);
 	}
-	//게시글 삭제
+	//게시글 삭제_댓글 없음
 	@Override
 	public void deletePost(Integer post_num) {
+		customLikeMapper.deletePostLike(post_num);
+		customFavoriteMapper.deleteFavorite(post_num);
+		customBlameMapper.deletePostBlame(post_num);
+		//custmoMessageMapper.deletePostMessage(post_num);
 		customPostMapper.deletePost(post_num);
 	}
 	//게시글 작성
@@ -51,10 +66,15 @@ public class CustomPostServiceImpl implements CustomPostService {
 	public void insertPost(CustomPostVO postVO) {
 		customPostMapper.insertPost(postVO);
 	}
+	//게시글 수정
 	@Override
 	public void customPostUpdate(CustomPostVO postVO) {
 		customPostMapper.customPostUpdate(postVO);
 	}
-	
+	//게시판에 달린 게시글 번호 
+	@Override
+	public List<Integer> selectPostNum(int board_num) {
+		return customPostMapper.selectPostNum(board_num);
+	}
 	
 }

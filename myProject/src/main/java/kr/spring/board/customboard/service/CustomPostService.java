@@ -23,4 +23,6 @@ public interface CustomPostService {
 	public void insertPost(CustomPostVO postVO);
 	//게시글 수정
 	public void customPostUpdate(CustomPostVO postVO);
+	//게시판에 달린 게시글 번호
+	public List<Integer> selectPostNum(int board_num);
 }
