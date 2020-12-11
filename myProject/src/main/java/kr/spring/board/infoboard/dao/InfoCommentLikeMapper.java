@@ -21,4 +21,4 @@ public interface InfoCommentLikeMapper {
 	//게시글 추천 삭제
 	@Delete("DELETE FROM infoboard_like_comment WHERE comment_num = #{comment_num}")
 	public void delete_like(Integer comment_num);
-}
+} 

@@ -20,7 +20,7 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 	@Resource
 	InfoCommentLikeMapper infoCommentLikeMapper;
 	
-	@Override
+	@Override 
 	public List<InfoReplyVO> selectListReply(Map<String, Object> map) {
 		return infoReplyMapper.selectListReply(map);
 	}

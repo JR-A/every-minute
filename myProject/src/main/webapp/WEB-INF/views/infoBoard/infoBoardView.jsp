@@ -190,7 +190,7 @@ $("#btnOK").click(function(){
 
 
 	//댓글 추천 등록
-	$(document).on('click','#info_like_cntR',function(event){
+	$(document).on('click','#info_like_cntR',function(event){ 
 		var choice = window.confirm('이 댓글을 추천하시겠습니까?!!');
 		if(choice){
 			var comment_num = $(this).attr('data-like');
@@ -200,7 +200,7 @@ $("#btnOK").click(function(){
 				url:'insertReplyLike.do',
 				dataType:'json',
 				cache:false,
-				timeout:30000,
+				timeout:30000, 
 				success:function(data){
 					if(data.result == 'success'){
 						alert('추천 되었습니다');

@@ -19,7 +19,7 @@ public interface InfoBoardMapper { //추상메소드 처리
 	//하나의 메소드에 하나의 sql문만 처리해야합니다.
 	public List<InfoBoardVO> selectList(Map<String, Object> map);
 	public List<InfoBoardVO> selectTagList(Map<String, Integer> map);
-	public int selectRowCount(Map<String, Object> map);//목록에 관련됨
+	public int selectRowCount(Map<String, Object> map);//목록에 관련됨 
 	public int selectTagCount(Integer tag_num);//태그목록에 관련됨
 	@Insert("INSERT INTO infoboard (post_num, mem_num, tag_num, title, content, uploadfile, filename, anonymous)VALUES(INFOBOARD_POST_SEQ.nextval, #{mem_num}, #{tag_num}, #{title}, #{content}, #{uploadfile}, #{filename}, #{anonymous})") //tag_num은 fk무결성 제약조건에 위배되어 제외시킴, anonymous기능은 아직 구현하지 않아서 제외시킴(NOY NULL이라 NullPointerException 발생)
 	public void insertBoard(InfoBoardVO board);

@@ -14,7 +14,7 @@
 		<div><span onclick="oneCheckbox4()" class="4">계절학기</span></div>					
 		<div><span onclick="oneCheckbox5()" class="5">학점·성적</span></div>					
 		<div><span onclick="oneCheckbox6()" class="6">기숙사</span></div>					
-		<div><span onclick="oneCheckbox7()" class="7">장학금</span></div>					
+		<div><span onclick="oneCheckbox7()" class="7">장학금</span></div>					 
 		<div><span onclick="oneCheckbox8()" class="8">수강신청</span></div>					
 		<div><span onclick="oneCheckbox9()" class="9">휴복학</span></div>					
 		<div><span onclick="oneCheckbox10()" class="10">졸업</span></div>					

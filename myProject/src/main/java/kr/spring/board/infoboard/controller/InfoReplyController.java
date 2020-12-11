@@ -94,14 +94,14 @@ public class InfoReplyController {
 			List<InfoReplyVO> list = null;
 			if(count > 0) {
 				list = infoReplyService.selectListReply(map);
-			
+			 
 			}else {
 				list = Collections.emptyList();
 			}
 
 			Map<String,Object> mapJson = 
 					new HashMap<String,Object>();
-			log.debug("<<list>> : " + list);
+			log.debug("<<list>> : " + list); 
 			mapJson.put("count", count);
 			mapJson.put("rowCount", rowCount);
 			mapJson.put("list", list);

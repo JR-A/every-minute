@@ -35,7 +35,7 @@ public class InfoBoardController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource//       ┌ BoardService를 주입받음
-	InfoBoardService InfoBoardService;
+	InfoBoardService InfoBoardService; 
 
 	@Resource
 	InfoReplyService InfoReplyService;

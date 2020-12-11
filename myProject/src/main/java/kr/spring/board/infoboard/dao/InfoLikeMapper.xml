@@ -12,5 +12,5 @@
 		     ORDER BY reg_date DESC)
 		 WHERE ROWNUM=1
 	</select>
-	
+	 
 </mapper> 

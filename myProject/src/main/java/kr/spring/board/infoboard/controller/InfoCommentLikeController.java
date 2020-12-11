@@ -22,7 +22,7 @@ public class InfoCommentLikeController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource
-	InfoBoardService infoBoardService;
+	InfoBoardService infoBoardService; 
 	
 	@Resource
 	InfoCommentLikeService infoCommentLikeService;

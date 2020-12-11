@@ -12,7 +12,7 @@
 	<!-- HOT게시물 (좋아요 10개 이상받은 게시글 중 top2) -->
 	<select id="info_hotPostTop2" resultType="infoBoardVO">
 		SELECT * FROM 
-		    (SELECT * FROM infoBoard i
+		    (SELECT * FROM infoBoard i 
 		        JOIN (SELECT post_num, COUNT(*) like_cnt 
 		            FROM infoBoard_Like_Post 
 		            <![CDATA[

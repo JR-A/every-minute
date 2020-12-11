@@ -28,7 +28,7 @@ public class InfoLikeController {
 	@Resource//       ┌ InfoLikeService를 주입받음
 	InfoLikeService infoLikeService;
 	
-	@Resource//       ┌ infoCommentLikeService를 주입받음
+	@Resource//       ┌ infoCommentLikeService를 주입받음 
 	InfoCommentLikeService infoCommentLikeService;
 	
 	//자바빈(VO) 초기화

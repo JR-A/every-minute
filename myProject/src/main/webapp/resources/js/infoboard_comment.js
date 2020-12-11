@@ -139,7 +139,7 @@ var likeCountR;
 		var remain = 300 - inputLength;																		
 		remain += '/300';																		
 		if($(this).attr('id')=='content'){																		
-			//등록폼 글자수																	
+			//등록폼 글자수										 							
 			$('#re_first .letter-count').text(remain);																	
 		}else{																		
 			//수정폼 글자수																	

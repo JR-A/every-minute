@@ -27,4 +27,4 @@ public interface InfoLikeMapper {
 	//게시글 추천 삭제
 	@Delete("DELETE FROM infoboard_like_post WHERE post_num=#{post_num}")
 	public void deleteLikeByPostNum(Integer post_num);
-}
+} 
