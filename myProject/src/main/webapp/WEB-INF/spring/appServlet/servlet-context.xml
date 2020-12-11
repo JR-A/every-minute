@@ -132,6 +132,11 @@
 			<mapping path="/review/reviewDetail.do"/>
 			<mapping path="/review/search.do"/>
 			<mapping path="/review/insertReview.do"/>
+			<mapping path="/bookStore/bookStoreList.do"/>
+			<mapping path="/bookStore/bookStoreSearch.do"/>
+			<mapping path="/bookStore/bookStoreWrite.do"/>
+			<mapping path="/bookStore/bookStoreView.do"/>
+			<mapping path="/bookStore/bookStoreModify.do"/>
 			<beans:bean class="kr.spring.interceptor.LoginCheckInterceptor"/>
 		</interceptor>
 		

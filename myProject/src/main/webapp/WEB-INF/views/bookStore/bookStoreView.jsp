@@ -8,18 +8,28 @@
 			<tr>
 				<td id="thumbnail" width="100"></td>
 				<td>
-					<p id="title"></p>
-					<p id="authors"></p>
-					<p id="publisher"></p>
-					<p id="price"></p>
+					<h2 id="title"></h2>
+					<p id="authors"><span class="authors_title">저자</span><br></p>
+					<p id="publisher"><span class="publisher_title">출판사</span><br></p>
+					<h3 id="price"></h3>
 				</td>
 			</tr>
 		</table>
 	<ul>
-		<li class="list">판매희망가 : ${ bookStoreVO.bs_selling_price }</li>
-		<li class="list">책 상태 : ${ bookStoreVO.bs_condition }</li>
-		<li class="list">거래 방법 : ${ bookStoreVO.bs_method }</li>
-		<li class="list"><input type="button" value="쪽지보내기" onclick="location.href='../message/write.do'">간략한 내용 : ${ bookStoreVO.bs_comment }</li>
+		<li class="list"><label>판매희망가</label>${ bookStoreVO.bs_selling_price }원</li>
+		<li class="list">
+			<label>책 상태</label>${ bookStoreVO.bs_condition }<br>
+			<c:if test="${ !empty bookStoreVO.filename }">
+			<div>책 사진</div>
+			<img src="imageView.do?bs_num=${ bookStoreVO.bs_num }" style="max-width: 300px;">
+			</c:if>
+		</li>
+		<li class="list"><label>거래 방법</label>${ bookStoreVO.bs_method }</li>
+		<li class="list">
+			<label>간략한 내용</label>${ bookStoreVO.bs_comment }
+			<input type="button" class="message_btn" value="쪽지보내기"
+				onclick="location.href='../message/sendMessage.do?anony=0&&target_mem_num=${bookStoreVO.mem_num}'">
+		</li>
 	</ul>
 	<c:if test="${ !empty bookStoreVO.bs_address }">
 	<div>직거래 장소</div>
@@ -57,15 +67,9 @@
 		});    
 	</script>
 	</c:if>
-	<c:if test="${ !empty bookStoreVO.filename }">
-	<div>책 사진</div>
-	<div class="align-center">
-		<img src="imageView.do?bs_num=${ bookStoreVO.bs_num }" style="max-width: 970px;">
-	</div>
-	</c:if>
-	<input type="button" value="목록" onclick="location.href='bookStoreList.do'">
+	<input type="button" class="list_btn" value="목록" onclick="location.href='bookStoreList.do'">
 	<c:if test="${ !empty user && user.mem_num == bookStoreVO.mem_num }">
-	<input type="button" value="판매 여부" onclick="location.href='bookStoreUpdate.do?bs_num=${bookStoreVO.bs_num}'">
+	<input type="button" class="complete_btn" value="판매 여부" onclick="location.href='bookStoreUpdate.do?bs_num=${bookStoreVO.bs_num}'">
 	<input type="button" value="삭제" id="delete_btn">
 	<script type="text/javascript">
 		var delete_btn = document.getElementById('delete_btn');
@@ -93,7 +97,7 @@
 			$("#title").append(msg.documents[0].title);
 			$("#authors").append(msg.documents[0].authors);
 			$("#publisher").append(msg.documents[0].publisher);
-			$("#price").append(msg.documents[0].price);
+			$("#price").append(msg.documents[0].price + "원");
 		});
 	});
 </script>

@@ -6,12 +6,34 @@ a{
 td{
 	border: 1px solid #ddd !important;
 }
+.authors_title,
+.publisher_title{
+	font-size: 10px;
+	color: #999;
+}
 ul{
 	padding: 0;
 }
 .list{
-	padding: 10px 0;
+	padding: 20px 0;
 	margin: 10px 0 !important;
 	border: 1px solid #ddd;
 	padding-left: 30px;
+}
+.list label{
+	display: inline-block;
+	width: 100px;
+}
+.list input{
+	float: right;
+	margin-right: 10px;
+}
+.message_btn,
+.list_btn,
+.complete_btn,
+#delete_btn{
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
 }

@@ -9,18 +9,46 @@ form{
 td{
 	border: 1px solid #ddd !important;
 }
+.authors_title,
+.publisher_title{
+	font-size: 10px;
+	color: #999;
+}
 ul{
 	padding: 0;
 }
 .list{
-	padding: 10px 0;
+	padding: 20px 0;
 	margin: 10px 0 !important;
 	border: 1px solid #ddd;
 	padding-left: 30px;
+}
+.list>label{
+	display: inline-block;
+	width: 150px;
+}
+.search_map{
+	display: inline-block;
+	border: 1px solid #ddd;
+}
+#bs_address{
+	border: none;
+	width: 250px;
+}
+.map_btn{
+	border: none;
+	padding: 5px;
 }
 #map{
 	width: 100%;
 	height: 300px;
 	margin: 10px 0;
 	margin-left: -20px;
+}
+#submit_btn,
+.back_btn{
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 5px;
 }

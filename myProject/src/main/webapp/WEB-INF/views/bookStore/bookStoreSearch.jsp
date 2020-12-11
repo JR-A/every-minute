@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bookStoreSearch.css">
 <div class="page-main-style">
 	<form action="bookStoreSearch.do">
-		<div class="align-center">
-			<input type="text" name="query" placeholder="ISBN 또는 책제목 검색">
-			<input type="submit" value="검색">
+		<div class="align-center search_form">
+			<input class="search_txt" type="text" name="query" placeholder="ISBN 또는 책제목 검색">
+			<input class="search_btn" type="submit" value="검색">
 		</div>
 	</form>
 	
@@ -23,9 +23,9 @@
 			<tr>
 				<td width="100"><img src="${ book.thumbnail }"></td>
 				<td>
-					<p>${ book.title }</p>
-					<p>${ book.publisher }</p>
-					<p>${ book.price }</p>
+					<h2>${ book.title }</h2>
+					<p><span class="publisher_title">출판사</span><br>${ book.publisher }</p>
+					<h3>${ book.price }원</h3>
 				</td>
 				<td class="submit" width="30"><input type="submit" value="선택"></td>
 			</tr>

@@ -9,10 +9,10 @@
 			<tr>
 				<td id="thumbnail" width="100"></td>
 				<td>
-					<p id="title"></p>
-					<p id="authors"></p>
-					<p id="publisher"></p>
-					<p id="price"></p>
+					<h2 id="title"></h2>
+					<p id="authors"><span class="authors_title">저자</span><br></p>
+					<p id="publisher"><span class="publisher_title">출판사</span><br></p>
+					<h3 id="price"></h3>
 				</td>
 			</tr>
 		</table>
@@ -41,8 +41,10 @@
 			</li>
 			<li class="list" id="map_data">
 				<form:label path="bs_address">직거래 장소</form:label>
-				<input type="text" name="bs_address" id="bs_address" placeholder="주소">
-				<input type="button" onclick="searchMap()" value="주소 검색"><br>
+				<div class="search_map">
+					<input type="text" name="bs_address" id="bs_address" placeholder="주소">
+					<input class="map_btn" type="button" onclick="searchMap()" value="주소 검색">
+				</div>
 				<div id="map"></div>
 			</li>
 			<li class="list">
@@ -52,7 +54,7 @@
 		</ul>
 		<div class="align-center">
 			<input type="submit" id="submit_btn" value="등록">
-			<input type="button" value="목록" onclick="location.href='bookStoreList.do'">
+			<input type="button" class="back_btn" value="목록" onclick="location.href='bookStoreList.do'">
 		</div>
 	</form:form>
 </div>
@@ -75,7 +77,7 @@
 			$("#title").append(msg.documents[0].title);
 			$("#authors").append(msg.documents[0].authors);
 			$("#publisher").append(msg.documents[0].publisher);
-			$("#price").append(msg.documents[0].price);
+			$("#price").append(msg.documents[0].price + "원");
 			$("#bookStoreVO").append("<input type='hidden' name='isbn' value='" + result[1] + "'>");
 		});
 		
@@ -85,6 +87,30 @@
 			$("input[name=bs_method]:checked").each(function(){
 				methodArr.push($(this).val());
 			});
+			
+			if($("#bs_selling_price").val()==""){
+				alert("판매희망가를 적어주세요.");
+				$("#bs_selling_price").focus();
+				return false;
+			}
+			
+			if($("input[name=bs_condition]:radio:checked").length<1){
+				alert("책 상태를 선택하세요.");
+				return false;
+			}
+			
+			if(!$("input[name=bs_method]").is(":checked")){
+				alert("거래 방법을 선택하세요.");
+				return false;
+			}
+			
+			if($("#bs_method1").is(":checked")){
+				if($("#bs_address").val()==""){
+					alert("주소를 검색해주세요");
+					$("#bs_address").focus();
+					return false;
+				}
+			}
 		});
 		
 		$("#map_data").css("display", "none");

@@ -3,6 +3,8 @@ package kr.spring.bookstore.vo;
 import java.io.IOException;
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class BookStoreVO {

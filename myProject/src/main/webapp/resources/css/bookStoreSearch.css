@@ -9,6 +9,24 @@ form{
 td{
 	border: 1px solid #ddd !important;
 }
+.search_form{
+	border: 1px solid #ddd;
+	width: 500px;
+	margin: auto;
+}
+.search_txt{
+	width: 445px;
+	border: none;
+}
+.search_btn{
+	border: none;
+	padding: 5px 9.5px;
+	cursor: pointer;
+}
+.publisher_title{
+	font-size: 10px;
+	color: #999;
+}
 .submit>input{
 	cursor: pointer;
 	height: 176px;
