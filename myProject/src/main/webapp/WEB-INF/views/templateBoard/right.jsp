@@ -33,7 +33,7 @@
 					<a class="article" href="${pageContext.request.contextPath}/infoBoard/detail.do?post_num=${infoPost.post_num}">
 						<p>${infoPost.content}</p>
 						<%-- <time>
-							<fmt:formatDate value="${infoPost.reg_date}" type="time" pattern="MM/dd HH:mm" />
+							${infoPost.reg_date}
 						</time> --%>
 						<h4>from 정보게시판</h4>
 						<hr>

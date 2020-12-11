@@ -245,7 +245,7 @@
 							if($('#mem_num').val()!=item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 다르면 
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&taregt_mem_num='+item.mem_num+'\'">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&target_mem_num='+item.mem_num+'\'">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="신고" class="blame-btn">';
 							}
 							if($('#mem_num').val()==item.mem_num){
@@ -617,7 +617,7 @@
 			<ul class="status">
 				<!-- 쪽지/신고 -->
 				<c:if test="${customPost.mem_num != user.mem_num}">
-					<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${customPost.anonymous}&&taregt_mem_num=${customPost.mem_num}';">쪽지</li>
+					<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${customPost.anonymous}&&target_mem_num=${customPost.mem_num}';">쪽지</li>
 					<li class="blame">신고</li>
 				</c:if>
 				<!-- 수정/삭제 -->
