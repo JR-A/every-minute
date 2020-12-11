@@ -23,8 +23,8 @@
 		</div>
 		<div class="card">
 			<div class="menus">
-				<a class="myarticle" href="location.href='${pageContext.request.contextPath}/member/writedBoardlist.do'">내가 쓴 글</a>
-				<a class="mycommentarticle" href="location.href='${pageContext.request.contextPath}/member/writedCommentList.do'">댓글 단 글</a>
+				<a class="myarticle" href="${pageContext.request.contextPath}/member/writedBoardlist.do">내가 쓴 글</a>
+				<a class="mycommentarticle" href="${pageContext.request.contextPath}/member/writedCommentList.do">댓글 단 글</a>
 				<hr>
 			</div>
 		</div>
