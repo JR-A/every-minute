@@ -3,12 +3,13 @@
 td{
 	cursor: pointer;
 	border: 1px solid #ddd !important;
+	padding: 10px !important;
 }
 td:hover{
 	background-color: #ddd;
 }
 a{
-	color: black;
+	color: #666;
 }
 .top{
 	border: 1px solid #ddd;

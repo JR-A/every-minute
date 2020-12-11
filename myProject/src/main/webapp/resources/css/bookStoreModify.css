@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+a{
+	color: #666;
+}
+.complete_form{
+	border: 1px solid #ddd;
+	width: 400px;
+	margin: auto;
+	padding: 20px;
+}
+.submit_form{
+	margin-top: 20px;
+}
+.submit_btn{
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
