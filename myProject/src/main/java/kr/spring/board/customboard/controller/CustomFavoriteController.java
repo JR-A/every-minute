@@ -73,9 +73,27 @@ public class CustomFavoriteController {
 	@RequestMapping("/customBoard/deleteFavorite.do")
 	@ResponseBody
 	public Map<String,Object>  deleteLike(CustomFavoriteVO customFavoriteVO, HttpSession session){
-		
+
 		if(log.isDebugEnabled()) {
-			log.debug("<<CustomFavoriteVO 즐겨찾기 취소>> :" + customFavoriteVO);
+			log.debug("<<CustomFavoriteVO 즐겨찾기 취소_회원>> :" + customFavoriteVO);
+		}
+		
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+
+		//회원 번호 세팅
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		//게시글 번호 얻기
+		int post_num = customFavoriteVO.getPost_num();
+		//로그인 한 회원번호
+		int mem_num = user.getMem_num();
+		//게시글 즐겨찾기 취소
+		customFavoriteService.deleteFavorite_mem(post_num, mem_num);
+		
+		mapAjax.put("result", "success");
+		
+		/*
+		if(log.isDebugEnabled()) {
+			log.debug("<<CustomFavoriteVO 즐겨찾기 취소_게시글>> :" + customFavoriteVO);
 		}
 
 		Map<String,Object> mapAjax = new HashMap<String,Object>();
@@ -86,10 +104,10 @@ public class CustomFavoriteController {
 		customFavoriteService.deleteFavorite(post_num);
 		
 		mapAjax.put("result", "success");
-
+*/
 		return mapAjax;
 	}
-
+	
 	//게시글을 즐겨찾기한 수
 	@RequestMapping("/customBoard/getFavCount.do")
 	@ResponseBody

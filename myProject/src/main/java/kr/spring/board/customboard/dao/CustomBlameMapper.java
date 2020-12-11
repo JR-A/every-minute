@@ -25,11 +25,4 @@ public interface CustomBlameMapper {
 	@Insert ("INSERT INTO customboard_blame_comment (blame_num, comment_num, mem_num) VALUES(custom_blame_comment_seq.NEXTVAL, #{comment_num}, #{mem_num})")
 	public void insertCommBlame(CustomBlameVO customBlameVO);
 	
-	//게시글 신고 삭제
-	@Delete ("DELETE FROM customboard_blame_post WHERE post_num=#{post_num}")
-	public void deletePostBlame(int post_num);
-	//댓글 신고 삭제
-	@Delete ("DELETE FROM customboard_blame_comment WHERE comment_num=#{comment_num}")
-	public void deleteCommBlame(int comment_num);
-	
 }

@@ -293,10 +293,6 @@ public class CustomPostController {
 		model.addAttribute("boardInfo", boardInfo);
 		return "redirect:/customBoard/customPostDetail.do?board_num="+customPostVO.getBoard_num()+"&&post_num="+customPostVO.getPost_num();
 		
-		/*model.addAttribute("message", "글 수정 완료!!");
-		model.addAttribute("url", request.getContextPath()+"/main/main_board.do");
-
-		return "common/result";*/
 		
 	}
 

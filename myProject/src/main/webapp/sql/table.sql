@@ -317,92 +317,22 @@ CREATE TABLE CustomBoard_Favorite(
     CONSTRAINT customBoard_favorite_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
 --------------------------------------------------쪽지-----------------------------------------------------------
---(게시글)
-CREATE TABLE FreeBoard_Message_Post(
-    msg_num NUMBER NOT NULL,
-    post_num NUMBER NOT NULL,
+
+CREATE TABLE Message_Post(
+    msg_num NUMBER NOT NULL ,
     mem_num NUMBER NOT NULL,
     target_mem_num NUMBER NOT NULL,
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
     parent_msg_num NUMBER NOT NULL,
+    anonymous NUMBER(1),
     
-    CONSTRAINT freeBoard_message_post_pk PRIMARY KEY (msg_num),
-    CONSTRAINT freeBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
-    CONSTRAINT freeBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT freeBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+    CONSTRAINT messagepost_pk PRIMARY KEY (msg_num),
+    CONSTRAINT messagepost_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT messagepost_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
-CREATE TABLE InfoBoard_Message_Post(
-    msg_num NUMBER NOT NULL,
-    post_num NUMBER NOT NULL,
-    mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
-    content VARCHAR2(255) NOT NULL,
-    msg_check NUMBER DEFAULT 0 NOT NULL,
-    reg_date DATE DEFAULT SYSDATE NOT NULL,
-    parent_msg_num NUMBER NOT NULL,
-    
-    CONSTRAINT infoboard_message_post_pk PRIMARY KEY (msg_num),
-    CONSTRAINT infoBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
-    CONSTRAINT infoBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT infoBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
-CREATE TABLE CustomBoard_Message_Post(
-    msg_num NUMBER NOT NULL,
-    post_num NUMBER NOT NULL,
-    mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
-    content VARCHAR2(255) NOT NULL,
-    msg_check NUMBER DEFAULT 0 NOT NULL,
-    reg_date DATE DEFAULT SYSDATE NOT NULL,
-    parent_msg_num NUMBER NOT NULL,
-    
-    CONSTRAINT customBoard_message_post_pk PRIMARY KEY (msg_num),
-    CONSTRAINT customBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
-    CONSTRAINT customBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT customBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
---(댓글)
-CREATE TABLE FreeBoard_Message_Comment(
-    msg_num NUMBER NOT NULL,
-    comment_num NUMBER NOT NULL,
-    mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
-    content VARCHAR2(255) NOT NULL,
-    msg_check NUMBER DEFAULT 0 NOT NULL,
-    reg_date DATE DEFAULT SYSDATE NOT NULL,
-    CONSTRAINT freeBoard_message_comment_pk PRIMARY KEY (msg_num),
-    CONSTRAINT freeBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
-    CONSTRAINT freeBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT freeBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
-CREATE TABLE InfoBoard_Message_Comment(
-    msg_num NUMBER NOT NULL,
-    comment_num NUMBER NOT NULL,
-    mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
-    content VARCHAR2(255) NOT NULL,
-    msg_check NUMBER DEFAULT 0 NOT NULL,
-    reg_date DATE DEFAULT SYSDATE NOT NULL,
-    CONSTRAINT infoboard_message_comment_pk PRIMARY KEY (msg_num),
-    CONSTRAINT infoBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
-    CONSTRAINT infoBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT infoBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
-CREATE TABLE CustomBoard_Message_Comment(
-    msg_num NUMBER NOT NULL,
-    comment_num NUMBER NOT NULL,
-    mem_num NUMBER NOT NULL,
-    target_mem_num NUMBER NOT NULL,
-    content VARCHAR2(255) NOT NULL,
-    msg_check NUMBER DEFAULT 0 NOT NULL,
-    reg_date DATE DEFAULT SYSDATE NOT NULL,
-    CONSTRAINT customBoard_message_comment_pk PRIMARY KEY (msg_num),
-    CONSTRAINT customBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
-    CONSTRAINT customBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT customBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
-);
+
 --------------------------------------------------시간표-----------------------------------------------------------
 
 CREATE TABLE Timetable(
@@ -508,67 +438,6 @@ CREATE TABLE BookStoreBoard(
 
 
 
--------------------------------------------쪽지기능--------------------------------------------------------
-
-  CREATE TABLE "C##SUNNY"."MESSAGE_COMMENT" 
-   (	"MSG_NUM" NUMBER NOT NULL ENABLE, 
-	"COMMENT_NUM" NUMBER NOT NULL ENABLE, 
-	"MEM_NUM" NUMBER NOT NULL ENABLE, 
-	"TARGET_MEM_NUM" NUMBER NOT NULL ENABLE, 
-	"CONTENT" VARCHAR2(255 BYTE) NOT NULL ENABLE, 
-	"MSG_CHECK" NUMBER DEFAULT 0 NOT NULL ENABLE, 
-	"REG_DATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
-	"BOARD_WHICH" VARCHAR2(10 BYTE) NOT NULL ENABLE, 
-	 CONSTRAINT "MESSAGECOMMENT_COMMENT_FK" FOREIGN KEY ("COMMENT_NUM")
-	  REFERENCES "C##SUNNY"."COMM" ("COMMENT_NUM") ENABLE, 
-	 CONSTRAINT "MESSAGECOMMENT_MEM_FK" FOREIGN KEY ("MEM_NUM")
-	  REFERENCES "C##SUNNY"."MEMBER" ("MEM_NUM") ENABLE, 
-	 CONSTRAINT "MESSAGECOMMENT_TARGET_MEM_FK" FOREIGN KEY ("TARGET_MEM_NUM")
-	  REFERENCES "C##SUNNY"."MEMBER" ("MEM_NUM") ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-  CREATE UNIQUE INDEX "C##SUNNY"."MESSAGECOMMENT_PK" ON "C##SUNNY"."MESSAGE_COMMENT" ("MSG_NUM") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
-ALTER TABLE "C##SUNNY"."MESSAGE_COMMENT" ADD CONSTRAINT "MESSAGECOMMENT_PK" PRIMARY KEY ("MSG_NUM")
-  USING INDEX "C##SUNNY"."MESSAGECOMMENT_PK"  ENABLE;
-
-
-  
-  CREATE TABLE "C##SUNNY"."MESSAGE_POST" 
-   (	"MSG_NUM" NUMBER NOT NULL ENABLE, 
-	"MEM_NUM" NUMBER NOT NULL ENABLE, 
-	"TARGET_MEM_NUM" NUMBER NOT NULL ENABLE, 
-	"CONTENT" VARCHAR2(255 BYTE) NOT NULL ENABLE, 
-	"MSG_CHECK" NUMBER DEFAULT 0 NOT NULL ENABLE, 
-	"REG_DATE" DATE DEFAULT SYSDATE NOT NULL ENABLE, 
-	"PARENT_MSG_NUM" NUMBER NOT NULL ENABLE, 
-	"ANONYMOUS" NUMBER(1,0), 
-	 CONSTRAINT "MESSAGEPOST_MEM_FK" FOREIGN KEY ("MEM_NUM")
-	  REFERENCES "C##SUNNY"."MEMBER" ("MEM_NUM") ENABLE, 
-	 CONSTRAINT "MESSAGEPOST_TARGET_MEM_FK" FOREIGN KEY ("TARGET_MEM_NUM")
-	  REFERENCES "C##SUNNY"."MEMBER" ("MEM_NUM") ENABLE
-   ) SEGMENT CREATION IMMEDIATE 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-  CREATE UNIQUE INDEX "C##SUNNY"."MESSAGEPOST_PK" ON "C##SUNNY"."MESSAGE_POST" ("MSG_NUM") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-ALTER TABLE "C##SUNNY"."MESSAGE_POST" ADD CONSTRAINT "MESSAGEPOST_PK" PRIMARY KEY ("MSG_NUM")
-  USING INDEX "C##SUNNY"."MESSAGEPOST_PK"  ENABLE;
-
-
-
- 
 -----------------------------------------------SEQUENCE--------------------------------------------
 CREATE SEQUENCE member_seq START WITH 1000;	--Member의 mem_num
 
@@ -615,10 +484,7 @@ CREATE SEQUENCE review_seq START WITH 60000; --Review의 post_num
 
 CREATE SEQUENCE bookstore_seq START WITH 50000; --BookStoreBoard의 bs_num
 
-CREATE SEQUENCE  "C##SUNNY"."MESSAGEPOST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 800 CACHE 20 NOORDER  NOCYCLE;
-
-CREATE SEQUENCE  "C##SUNNY"."MESSAGECOMMENT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  NOCYCLE;
-
+CREATE SEQUENCE messagepost_seq START WITH 1; --Message_Post의 msg_num
 
 ------------------------------------------------------------------------------------------------
 ------------------------------------------Data 삽입 ----------------------------------------

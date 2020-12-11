@@ -80,7 +80,6 @@
 							alert('이미 추천하셨습니다.');
 							 var delete_choice = window.confirm('추천을 취소하시겠습니까?');
 							 if(delete_choice){
-								 var post_num = ${customPost.post_num};
 								 $.ajax({
 									 type:'post',
 								 	 data:{post_num:post_num},
@@ -151,7 +150,6 @@
 							alert('이미 즐겨찾기에 등록하셨습니다');
 							var delete_choice = window.confirm('즐겨찾기를 취소하시겠습니까?');
 							 if(delete_choice){
-								 var post_num = ${customPost.post_num};
 								 $.ajax({
 									 type:'post',
 								 	 data:{post_num:post_num},
@@ -483,8 +481,7 @@
 				return false;
 			}
 			
-			//댓글 번호
-			var comment_num = $(this).attr('data-num');
+			var comment_num = $(this).attr('data-num'); //댓글 번호
 			
 			$.ajax({
 				type:'post',
@@ -552,7 +549,7 @@
 				success:function(data){
 					if(data.result == 'success'){
 						alert('삭제 완료!');
-						selectData(1,$('#post_num').val());
+						location.reload(); //해당 페이지 reload()
 					}else if(data.result == 'wrongAccess'){
 						alert('타인의 글을 삭제할 수 없습니다.');
 					}else{

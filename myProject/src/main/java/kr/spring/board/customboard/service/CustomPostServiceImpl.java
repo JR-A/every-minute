@@ -57,8 +57,6 @@ public class CustomPostServiceImpl implements CustomPostService {
 	public void deletePost(Integer post_num) {
 		customLikeMapper.deletePostLike(post_num);
 		customFavoriteMapper.deleteFavorite(post_num);
-		customBlameMapper.deletePostBlame(post_num);
-		//custmoMessageMapper.deletePostMessage(post_num);
 		customPostMapper.deletePost(post_num);
 	}
 	//게시글 작성

@@ -71,6 +71,16 @@ public class CustomLikeServiceImpl implements CustomLikeService{
 	public CustomPostVO custom_bestLikePost() {
 		return customLikeMapper.custom_bestLikePost();
 	}
+
+	@Override
+	public void deletePostLike_mem(int post_num, int mem_num) {
+		customLikeMapper.deletePostLike_mem(post_num, mem_num);
+	}
+
+	@Override
+	public void deleteCommLike_mem(Integer comment_num, int mem_num) {
+		customLikeMapper.deleteCommLike_mem(comment_num, mem_num);
+	}
 	
 	
 }
