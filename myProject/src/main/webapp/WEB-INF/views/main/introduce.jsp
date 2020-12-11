@@ -39,17 +39,12 @@
 
     </header>
         <div id="slider">
-                <div class="main_wrap">
-					<div class="main_title">오픈 API 통합포털</div>
-					<div class="main_subtitle">
-						금융결제원은 오픈 파이낸스 시대에 맞춰 API를 활용한 개방형 플랫폼을 통해<br>
-						금융회사 및 핀테크 기업과 함께 개방형 혁신으로 나아갑니다.
-					</div>
-					<div class="main_btn">
-						<a href="/intro/openApiTotalPortal" class="home_btn">시작하기</a>
-					</div>
-				</div>
-        </div>
+		<div class="jb-box">
+			<video muted autoplay loop>
+				<source src="${pageContext.request.contextPath}/resources/video/movie.mp4" type="video/mp4">
+			</video>
+		</div>
+	</div>
     <div id="overflow">
         <section class="content_text">
             <div class="fade_up_1" data-aos="fade-up">
