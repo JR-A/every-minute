@@ -7,7 +7,7 @@
 <!-- 댓글 목록 -->
  	<select id="selectListReply" parameterType="map"
  	                     resultType="infoReplyVO">
- 		SELECT
+ 		SELECT 
  		    comment_num,
  		    content,
  		   TO_CHAR(reg_date,'MM-DD HH24:MI') reg_date,
@@ -16,7 +16,7 @@
  		   anonymous,
  		   mem_num,
  		   like_cnt
- 		FROM (SELECT 
+ 		FROM (SELECT  
  		        a.*,
  		        rownum rnum
  		      FROM (SELECT

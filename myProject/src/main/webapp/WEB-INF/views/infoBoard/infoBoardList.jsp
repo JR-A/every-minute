@@ -20,7 +20,7 @@
 		<div><span onclick="oneCheckbox10()" class="10">졸업</span></div>					
 		<div><span onclick="oneCheckbox11()" class="11">등록금</span></div>					
 		<div><span onclick="oneCheckbox12()" class="12">학생증</span></div>					
-	</div>						
+	</div>						 
 	<form action="infoBoardList.do" id="search_form" method="get"> <!-- get방식으로 http의 post_num= 을 넘겨줌 -->						
 		<ul class="search_info">					
 			<li>				

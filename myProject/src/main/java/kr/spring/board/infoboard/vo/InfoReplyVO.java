@@ -28,7 +28,7 @@ public class InfoReplyVO {
 	private String photoname;
 	private int like_cnt;
 	//내가 쓴댓글 목록에서 글 제목 받아오려고 넣음
-	private String title;
+	private String title;  
 	
 	public int getComment_num() {
 		return comment_num;

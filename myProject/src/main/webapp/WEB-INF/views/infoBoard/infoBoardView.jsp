@@ -19,7 +19,7 @@
 				</c:if>															
 				<c:if test="${1 eq board.anonymous}">															
 				<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">															
-				</c:if>															
+				</c:if>					 										
 			</c:if>																
 			<div class="profile">																
 				 <c:if test="${0 eq board.anonymous}">															

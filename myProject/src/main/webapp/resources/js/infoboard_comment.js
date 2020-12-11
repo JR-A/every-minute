@@ -11,7 +11,7 @@ var likeCountR;
 		if(pageNum == 1){																		
 			//처음 호출시는 해당 ID의 div의 내부 내용물을 제거																	
 			$('#output').empty();																	
-		}
+		} 
 		//로딩 이미지 노출																		
 		$('#loading').show();
 
