@@ -615,6 +615,10 @@ CREATE SEQUENCE review_seq START WITH 60000; --Review의 post_num
 
 CREATE SEQUENCE bookstore_seq START WITH 50000; --BookStoreBoard의 bs_num
 
+CREATE SEQUENCE  "C##SUNNY"."MESSAGEPOST_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 800 CACHE 20 NOORDER  NOCYCLE;
+
+CREATE SEQUENCE  "C##SUNNY"."MESSAGECOMMENT_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1000 CACHE 20 NOORDER  NOCYCLE;
+
 
 ------------------------------------------------------------------------------------------------
 ------------------------------------------Data 삽입 ----------------------------------------
