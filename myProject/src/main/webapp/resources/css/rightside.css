@@ -20,9 +20,10 @@ dl, ul, ol, menu, li {
 }
 
 #main_right{
-	width: 280px;
+	width: 270px;
     height: 725px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    float: right;
     font-family: "맑은 고딕";
 }
 
@@ -58,6 +59,11 @@ div.card h3 > a {
     color: #c62917;
     font-size: 14px;
     font-weight: bold;
+}
+
+div.card > div.board{
+	width: auto;
+	float: none;
 }
 
 div.card > div.board > a {
