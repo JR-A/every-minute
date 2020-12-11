@@ -28,17 +28,30 @@
 		<table>
 			<c:forEach var="bookStoreVO" items="${ list }">
 			<tr>
-				<td onclick="location.href='bookStoreView.do?bs_num=${ bookStoreVO.bs_num }'">
+				<c:if test="${ bookStoreVO.bs_complete == 0 }">
+				<td class="table_form1" onclick="location.href='bookStoreView.do?bs_num=${ bookStoreVO.bs_num }'">
 				<div class="info">
 					<div>ISBN : ${ bookStoreVO.isbn }</div>
 					<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
 					<div>판매희망가 : ${ bookStoreVO.bs_selling_price }</div>
 				</div>
 				<div class="complete">
-					<c:if test="${ bookStoreVO.bs_complete == 0 }"><div>판매중</div></c:if>
-					<c:if test="${ bookStoreVO.bs_complete > 0 }"><div>판매 완료</div></c:if>
+					<div>판매중</div>
 				</div>
 				</td>
+				</c:if>
+				<c:if test="${ bookStoreVO.bs_complete > 0 }">
+				<td class="table_form2" onclick="location.href='bookStoreView.do?bs_num=${ bookStoreVO.bs_num }'">
+				<div class="info">
+					<div>ISBN : ${ bookStoreVO.isbn }</div>
+					<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
+					<div>판매희망가 : ${ bookStoreVO.bs_selling_price }</div>
+				</div>
+				<div class="complete">
+					<div>판매 완료</div>
+				</div>
+				</td>
+				</c:if>
 			</tr>
 			</c:forEach>
 		</table>

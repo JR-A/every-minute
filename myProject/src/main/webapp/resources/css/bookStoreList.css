@@ -5,8 +5,9 @@ td{
 	border: 1px solid #ddd !important;
 	padding: 10px !important;
 }
-td:hover{
-	background-color: #ddd;
+.table_form1:hover{
+	background-color: #333;
+	color: #fff;
 }
 a{
 	color: #666;
@@ -46,4 +47,7 @@ input{
 }
 .option{
 	display: inline;
+}
+.table_form2{
+	color: #ddd !important;
 }

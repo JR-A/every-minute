@@ -111,6 +111,13 @@
 					return false;
 				}
 			}
+			
+			var choice = window.confirm("게시글 등록 후 판매 여부 외에는 수정이 불가합니다.\n그래도 등록하시겠습니까?");
+			if(choice){
+				return true;
+			}else{
+				return false;
+			}
 		});
 		
 		$("#map_data").css("display", "none");
