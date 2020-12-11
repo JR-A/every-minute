@@ -1,6 +1,5 @@
 package kr.spring.board.customboard.service;
 
-import java.util.List;
 import java.util.Map;
 
 import kr.spring.board.customboard.vo.CustomLikeVO;
@@ -19,8 +18,11 @@ public interface CustomLikeService {
 	public int selectPostWriter(Map<String,Object> map);
 	//게시글 추천 등록
 	public void insertPostLike (CustomLikeVO customLikeVO);
-	//게시글 추천 삭제
+	
+	//게시글 추천 삭제_게시글 (게시글에 존재하는 모든 즐겨찾기 삭제)
 	public void deletePostLike(Integer post_num);
+	//게시글 추천 삭제_회원 (회원이 게시글에 추가한 즐겨찾기만 삭제)
+	public void deletePostLike_mem(int post_num, int mem_num);
 	
 	//댓글 추천 수
 	public int selectRowCount_commLike (Map<String,Object> map);
@@ -30,7 +32,10 @@ public interface CustomLikeService {
 	public int selectCommWriter(Map<String,Object> map);
 	//댓글 추천 등록
 	public void insertCommLike (CustomLikeVO customLikeVO);
-	//댓글 추천 삭제
+	
+	//댓글 추천 삭제_게시글 (게시글에 존재하는 모든 즐겨찾기 삭제)
 	public void deleteCommLike(Integer comment_num);
+	//댓글 추천 삭제_게시글 _회원 (회원이 게시글에 추가한 즐겨찾기만 삭제)
+	public void deleteCommLike_mem(Integer comment_num, int mem_num);
 	
 }

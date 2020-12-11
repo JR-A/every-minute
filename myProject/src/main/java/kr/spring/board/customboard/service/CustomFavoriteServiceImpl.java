@@ -35,5 +35,10 @@ public class CustomFavoriteServiceImpl implements CustomFavoriteService{
 		customFavoriteMapper.deleteFavorite(post_num);
 	}
 
+	@Override
+	public void deleteFavorite_mem(int post_num, int mem_num) {
+		customFavoriteMapper.deleteFavorite_mem(post_num, mem_num);
+	}
+
 	
 }

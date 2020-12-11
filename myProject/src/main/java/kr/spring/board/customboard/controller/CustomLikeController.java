@@ -82,13 +82,17 @@ public class CustomLikeController {
 		if(log.isDebugEnabled()) {
 			log.debug("<<CustomLikeVO 게시글 추천 취소>> :"+customLikeVO);
 		}
-
-		Map<String,Object> mapAjax = new HashMap<String,Object>();
 		
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+
+		//회원 번호 세팅
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		//게시글 번호 얻기
 		int post_num = customLikeVO.getPost_num();
+		//추천한 회원 번호 얻기
+		int mem_num = user.getMem_num();
 		//게시글 추천 취소
-		customLikeService.deletePostLike(post_num);
+		customLikeService.deletePostLike_mem(post_num, mem_num);
 		
 		mapAjax.put("result", "success");
 
@@ -164,13 +168,17 @@ public class CustomLikeController {
 		if(log.isDebugEnabled()) {
 			log.debug("<<CustomLikeVO 댓글 추천 취소>> :"+customLikeVO);
 		}
-
-		Map<String,Object> mapAjax = new HashMap<String,Object>();
 		
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+
+		//회원 번호 세팅
+		MemberVO user = (MemberVO)session.getAttribute("user");
 		//댓글 번호 얻기
 		int comment_num = customLikeVO.getComment_num();
+		//추천한 회원 번호 얻기
+		int mem_num = user.getMem_num();
 		//댓글 추천 취소
-		customLikeService.deleteCommLike(comment_num);
+		customLikeService.deleteCommLike_mem(comment_num, mem_num);
 		
 		mapAjax.put("result", "success");
 

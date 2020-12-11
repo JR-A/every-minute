@@ -80,7 +80,6 @@
 							alert('이미 추천하셨습니다.');
 							 var delete_choice = window.confirm('추천을 취소하시겠습니까?');
 							 if(delete_choice){
-								 var post_num = ${customPost.post_num};
 								 $.ajax({
 									 type:'post',
 								 	 data:{post_num:post_num},
@@ -151,7 +150,6 @@
 							alert('이미 즐겨찾기에 등록하셨습니다');
 							var delete_choice = window.confirm('즐겨찾기를 취소하시겠습니까?');
 							 if(delete_choice){
-								 var post_num = ${customPost.post_num};
 								 $.ajax({
 									 type:'post',
 								 	 data:{post_num:post_num},
@@ -247,7 +245,7 @@
 							if($('#mem_num').val()!=item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 다르면 
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&taregt_mem_num='+item.mem_num+'\'">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&target_mem_num='+item.mem_num+'\'">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="신고" class="blame-btn">';
 							}
 							if($('#mem_num').val()==item.mem_num){
@@ -483,8 +481,7 @@
 				return false;
 			}
 			
-			//댓글 번호
-			var comment_num = $(this).attr('data-num');
+			var comment_num = $(this).attr('data-num'); //댓글 번호
 			
 			$.ajax({
 				type:'post',
@@ -552,7 +549,7 @@
 				success:function(data){
 					if(data.result == 'success'){
 						alert('삭제 완료!');
-						selectData(1,$('#post_num').val());
+						location.reload(); //해당 페이지 reload()
 					}else if(data.result == 'wrongAccess'){
 						alert('타인의 글을 삭제할 수 없습니다.');
 					}else{
@@ -620,7 +617,7 @@
 			<ul class="status">
 				<!-- 쪽지/신고 -->
 				<c:if test="${customPost.mem_num != user.mem_num}">
-					<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${customPost.anonymous}&&taregt_mem_num=${customPost.mem_num}';">쪽지</li>
+					<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${customPost.anonymous}&&target_mem_num=${customPost.mem_num}';">쪽지</li>
 					<li class="blame">신고</li>
 				</c:if>
 				<!-- 수정/삭제 -->
