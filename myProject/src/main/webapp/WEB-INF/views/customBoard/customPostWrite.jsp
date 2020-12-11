@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
@@ -9,10 +9,10 @@
 	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
-	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	 
+	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	
 		<p id="anony_alert">* ${boardInfo.title}(은/는) 익명으로 작성할 수 없습니다 *</p>
 	</c:if>
-</h2>  
+</h2>
 
 <form:form commandName="customPostVO" id="write_customform" action="customPostWrite.do" enctype="multipart/form-data">
 	<input type="hidden" id="board_num" name="board_num" value="${boardInfo.board_num}"/>
@@ -31,10 +31,13 @@
 			</div>
 			<div class="align-right" style="float: right;">
 				<input type="submit" class="submit" value="">
+				<c:if test="${boardInfo.anonymous == 1}"> <!-- 익명 허용 게시판 -->
+					<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+					<label for="anonymous"><span class="anonymousSpan">익명</span>
+				</c:if>
 			</div>
 		</div>
 </form:form>
-
 	<!-- 
 	<input type="checkbox" name="anonymous" value="1" checked>	
 	<label for="anonymous">익명</label>

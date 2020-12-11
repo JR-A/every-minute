@@ -18,6 +18,10 @@
 	line-height: 30px;
 }
  
+ /* 익명 체크박스 스타일 적용*/
+ input#anonymous {
+    display: none;
+}
 
 /* 사진 */
 a.article > img.thumbnail {

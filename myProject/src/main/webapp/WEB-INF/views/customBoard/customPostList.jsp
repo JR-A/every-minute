@@ -90,10 +90,12 @@
 							<!-- 작성일 -->
 							<time class="small"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 						</div>
+					</div>
 					</c:if>
 					
 					<!-- 익명 게시글 -->
 					<c:if test="${customPost.anonymous == 1}">
+					<div style="overflow: hidden;">
 						<!-- 프로필 사진 -->	
 						<c:if test="${empty member.photoname}">
 							<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large">	
@@ -103,11 +105,10 @@
 							<h3 class="large">익명</h3>
 							<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 						</div>
-					</c:if>
-					<span id="div_content"></span>
-					
 					</div>
-					<!-- 내용 -->		
+					</c:if>
+					<!-- 내용 -->	
+					<span id="div_content">
 					<p class="customSmall">${customPost.content}</p>
 					<c:if test="${boardInfo.type == 1}"> <!-- 사진형 게시판일 경우만 목록에 사진 보이게 -->
 						<!-- 첨부파일 -->
@@ -119,13 +120,14 @@
 					</c:if>
 					<div class ="wrapstatus">
 						<ul class="status">
-								<li class="vote" id="like_check">${customPost.like_cnt}</li>
-								<li class="comm">${customPost.comment_cnt}</li>
-								<li class="fav">${customPost.fav_cnt}</li>
+							<li class="vote" id="like_check">${customPost.like_cnt}</li>
+							<li class="comm">${customPost.comment_cnt}</li>
+							<li class="fav">${customPost.fav_cnt}</li>
 						</ul>
 						<span style="visibility:hidden;">span</span>
 					</div>
-					</a>
+					</span>
+				</a>
 				</article>
 			</c:forEach>
 		<div class="align-center" id="pagenation">${pagingHtml}</div>
