@@ -26,7 +26,7 @@ public class InfoReplyVO {
 	private int anonymous;
 	private String id;
 	private String photoname;
-	private int like_cntR;
+	private int like_cnt;
 	//내가 쓴댓글 목록에서 글 제목 받아오려고 넣음
 	private String title;
 	
@@ -78,11 +78,12 @@ public class InfoReplyVO {
 	public void setPhotoname(String photoname) {
 		this.photoname = photoname;
 	}
-	public int getLike_cntR() {
-		return like_cntR;
+	
+	public int getLike_cnt() {
+		return like_cnt;
 	}
-	public void setLike_cntR(int like_cntR) {
-		this.like_cntR = like_cntR;
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
 	}
 	public String getTitle() {
 		return title;
@@ -90,12 +91,10 @@ public class InfoReplyVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 	@Override
 	public String toString() {
 		return "InfoReplyVO [comment_num=" + comment_num + ", post_num=" + post_num + ", mem_num=" + mem_num
 				+ ", content=" + content + ", reg_date=" + reg_date + ", anonymous=" + anonymous + ", id=" + id
-				+ ", photoname=" + photoname + ", like_cntR=" + like_cntR + ", title=" + title + "]";
+				+ ", photoname=" + photoname + ", like_cnt=" + like_cnt + ", title=" + title + "]";
 	}
-	
 }

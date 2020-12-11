@@ -50,7 +50,7 @@ var likeCountR;
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';														
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
 						output += '<span class="reply-date small">'+item.reg_date+'</span>';	
-						output += '<span class="reply-vote" id="info_like_cntR" data-like="'+item.comment_num+'">'+ item.like_cntR +'<br>'+'</span>';
+						output += '<span class="reply-vote" id="info_like_cntR" data-like="'+item.comment_num+'">'+ item.like_cnt +'<br>'+'</span>';
 																																					
 						output += '  </div>';														
 						output += '</div>';														

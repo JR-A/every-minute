@@ -135,6 +135,7 @@ public class InfoReplyController {
 			}else if(user!=null && user.getMem_num()==mem_num) {
 				//로그인 되어 있고 로그인한 아이디와 작성자 아이디 일치
 				infoReplyService.deleteReply(comment_num);
+				
 				map.put("result", "success");
 			}else {
 				//로그인 아이디와 작성자 아이디 불일치

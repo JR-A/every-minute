@@ -18,7 +18,5 @@ public interface InfoBoardService {
 	public InfoBoardVO selectBoard(Integer post_num);
 	public void updateBoard(InfoBoardVO board);
 	public void deleteBoard(Integer post_num);
-	//댓글 기능 보류 public List<InfoBoardVO> readReply(Integer post_num);
-	//신고기능 
 	public void insertBlameBoard(InfoBoardVO infoBoardVO);
 }

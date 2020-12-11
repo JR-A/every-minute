@@ -188,25 +188,7 @@ $("#btnOK").click(function(){
 
 //======================================================== 추천 작업 시작 ==============================
 
-	//댓글추천 갯수 읽기
-	function getLike_countR(){
-		var comment_num = ${infoReplyVO.comment_num};
-		$.ajax({
-			type:'post',
-			data:{comment_num:comment_num},
-			url:'getReplyLikeCount.do',
-			dataType:'json',
-			cache:false,
-			timeout:30000,
-			success:function(data){
-				$('#replyLike').text(data.like_cntR);
-			},
-			error:function(){
-				alert('네트워크 오류');
-			}
-		});
-	}
-	
+
 	//댓글 추천 등록
 	$(document).on('click','#info_like_cntR',function(event){
 		var choice = window.confirm('이 댓글을 추천하시겠습니까?!!');
@@ -239,7 +221,6 @@ $("#btnOK").click(function(){
 			});
 		}
 	});
-	getLike_countR();
 	//추천 등록
 	$(document).on('click','#post_like',function(event){
 		var choice = window.confirm('이 글을 추천하시겠습니까?');

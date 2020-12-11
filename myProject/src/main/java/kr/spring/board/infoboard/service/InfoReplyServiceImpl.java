@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.spring.board.infoboard.dao.InfoCommentLikeMapper;
 import kr.spring.board.infoboard.dao.InfoReplyMapper;
 import kr.spring.board.infoboard.vo.InfoReplyVO;
 
@@ -16,6 +17,8 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 
 	@Resource
 	InfoReplyMapper infoReplyMapper;
+	@Resource
+	InfoCommentLikeMapper infoCommentLikeMapper;
 	
 	@Override
 	public List<InfoReplyVO> selectListReply(Map<String, Object> map) {
@@ -39,8 +42,7 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 	}
 
 	@Override
-	public void deleteReply(Integer re_num) {
-		infoReplyMapper.deleteReply(re_num);
+	public void deleteReply(Integer comment_num) {
+		infoReplyMapper.deleteReply(comment_num);
 	}
-
 }

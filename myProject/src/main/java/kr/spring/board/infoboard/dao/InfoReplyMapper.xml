@@ -14,19 +14,23 @@
  		   post_num,
  		   id,
  		   anonymous,
- 		   mem_num
+ 		   mem_num,
+ 		   like_cnt
  		FROM (SELECT 
  		        a.*,
  		        rownum rnum
  		      FROM (SELECT
- 		              comment_num,
+ 		              f.comment_num,
  		              content,
  		              f.reg_date,
  		              post_num,
  		              id,
  		              anonymous,
- 		              f.mem_num
+ 		              f.mem_num,
+ 		              like_cnt
+
  		            FROM infoboard_comment f
+ 		            LEFT OUTER JOIN (SELECT comment_num, COUNT(*) like_cnt FROM infoboard_like_comment GROUP BY comment_num) c ON f.comment_num=c.comment_num
  		            JOIN member m ON f.mem_num=m.mem_num 
  		            JOIN member_detail d ON m.mem_num=d.mem_num
  		            WHERE post_num = #{post_num}
