@@ -165,7 +165,7 @@
  	<div id="infoChange">
  		<h2>계정 관리</h2>
  		<ul>
- 		<li><a href="${pageContext.request.contextPath}/member/boardManagement.do">게시판 관리</a></li>
+<%--  		<li><a href="${pageContext.request.contextPath}/member/boardManagement.do">게시판 관리</a></li> --%>
  		<li><a href="${pageContext.request.contextPath}/member/changePasswd.do">비밀번호 변경</a></li>
  		<li><a href="${pageContext.request.contextPath}/member/changeEmail.do">이메일 변경</a></li>
  		<li><a href="${pageContext.request.contextPath}/member/changeNickname.do">닉네임 변경</a></li>

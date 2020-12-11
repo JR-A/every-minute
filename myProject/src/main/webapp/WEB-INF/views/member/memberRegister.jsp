@@ -7,6 +7,55 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<style>
+body {
+    margin: 0;
+    height: 100%;
+    background: #f5f6f7;
+    font-family: Dotum,'돋움',Helvetica,sans-serif;
+}
+ 
+ .page-main-style{
+ 	padding-top:150px;
+ } 
+ 
+ ul{
+ font-weight:bold;
+ }
+ 
+ li{
+ padding-bottom:20px;
+ font-size:14px;
+ }
+
+ label{
+ padding-top:5px;
+ }	
+ li input{
+ 	height:25px;
+ } 
+
+ .message-ck{
+ padding-left:128px;
+ }
+ 
+ input[type="submit"]{
+ border-style:revert;
+ width:160px;
+ }
+ 
+ input[type="button"]{
+ border-style:revert;
+ }
+ .logo{
+ background: transparent url("https://everytime.kr/images/index.login.logo.png") no-repeat;
+ width: 360px;
+ margin-bottom: 15px;
+ height: 60px;
+ margin-left:30px;
+ }
+</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
@@ -272,41 +321,45 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+	
 <div class="page-main-style">
-	<h2>회원가입</h2>
+	
+	
 	<form:form id="register_form" action="memberRegister.do" commandName="memberVO">
+		<h1 class="logo"></h1>
 		<%-- 필드가 없는 에러 표시 --%>
-		<form:errors element="div" cssClass="error-color"/>
+		<form:errors element="div" cssClass="error-color"/>		
 		<ul>
 			<li>
+				
 				<label for="id">아이디</label>
 				<form:input path="id"/>
 				<input type="button" id="confirmId" value="ID중복체크">
 				<%-- 로딩gif --%>
 				<img id="loading" src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif" width="16" height="16" style="display:none;">
-				<span id="message_id"></span> <%-- 아이디 중복체크 메세지 --%>
-				<form:errors path="id" cssClass="error-color"/> <%-- 아이디 유효성체크 오류메시지,서버단에서 하는 유효성체크(어노테이션방식,동적으로 메시지 출력됨) --%>
+				<span id="message_id" class="message-ck"></span> <%-- 아이디 중복체크 메세지 --%>
+				<form:errors class="error-m" path="id" cssClass="error-color"/> <%-- 아이디 유효성체크 오류메시지,서버단에서 하는 유효성체크(어노테이션방식,동적으로 메시지 출력됨) --%>
 			</li>
 			<li>
 				<label for="passwd">비밀번호</label>
 				<form:password path="passwd"/>
-				<span id="message_passwd"></span>
-				<form:errors path="passwd" cssClass="error-color"/>
+				<span id="message_passwd" class="message-ck"></span>
+				<form:errors class="error-m" path="passwd" cssClass="error-color"/>
 			</li>
 			<li>
 				<label for="email">이메일</label> <%-- 어노테이션 유효성 테스트 위해 email html태그가 아닌 커스텀태그 사용(태그에서 유효성 체크 하지 않고 서버단에서 체크하는것 테스트) --%>
 				<form:input path="email"/>
 				<input type="button" id="confirmEmail" value="이메일 중복체크">
-				<span id="message_email"></span>
-				<form:errors path="email" cssClass="error-color"/>
+				<span id="message_email" class="message-ck"></span>
+				<form:errors class="error-m" path="email" cssClass="error-color"/>
 			</li>
 			<li>(가입후 이메일로 확인메일이 전송됩니다)</li>
 			<li>
 				<label for="nickname">닉네임</label>
 				<form:input path="nickname"/>
 				<input type="button" id="confirmNickname" value="닉네임 중복체크">
-				<span id="message_nickname"></span>
-				<form:errors path="nickname"/>
+				<span id="message_nickname" class="message-ck"></span>
+				<form:errors class="error-m" path="nickname"/>
 			</li>
 			<li>
 				<label for="major">학과</label>
@@ -322,7 +375,7 @@ $(document).ready(function(){
 				<label for="zipcode">우편번호</label>
 				<form:input path="zipcode"  placeholder="우편번호" readonly="true"/>
 				 <input type="button"  onclick="addressApi();" value="우편번호 찾기">  
-				<form:errors path="zipcode"/>
+				<form:errors class="error-m" path="zipcode"/>
 			</li>
 			<li>
 				<label for="address1">주소</label>
@@ -336,8 +389,8 @@ $(document).ready(function(){
 			</li>
 		</ul>
 		<div class="align-center">
-			<input type="submit" value="전송">
-			<input type="button" value="홈으로 " onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'">
+			<input type="submit" value="가입하기">
+			<!-- <input type="button" value="홈으로 " onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'"> -->
 		</div>
 	</form:form>
 </div>
