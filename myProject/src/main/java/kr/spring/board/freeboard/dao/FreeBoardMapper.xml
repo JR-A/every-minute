@@ -108,10 +108,10 @@
 	<!-- 최근 게시글3개 목록 -->
 	<select id="freeSelectTop3PostList" resultType="freeBoardVO">
 		SELECT * FROM 
-			(SELECT post_num,mem_num, content, modify_date , uploadfile, filename, anonymous, title ,  ROW_NUMBER() OVER(ORDER BY post_num DESC) AS rank  
+			(SELECT post_num,mem_num, content, modify_date , uploadfile, filename, anonymous, title , ROW_NUMBER() OVER(ORDER BY post_num DESC) AS rank  
 				FROM freeboard)
 		<![CDATA[
-		where rank<=3
+		where rank<=5
 		]]>	
 	</select>
 	

@@ -21,26 +21,28 @@ p{
 
 #container {
     margin: 80px auto 0 auto;
-    height: 700px;
+    height: 735px;
     box-sizing: border-box;
 }
 
 #container.community {
     position: relative;
-    margin: 0 auto 25px auto;
+    margin: 10px auto 25px auto;
     overflow: hidden;
 }
 
 #container > div.main {
-    position: relative;
-    left: 190px;
-    margin: 0 10px;
-    width: 750px;
+    /*position: relative;*/
+    /*left: 190px;*/
+    float:left;
+    width: 800px;
     height: 700px;
+    margin-left: 10px;
 }
 
 #container > div.leftside {
-    position: absolute;
+    /*position: absolute;*/
+    float: left;
     top: 0;
     width: 175px;
     height: 300px;
@@ -61,6 +63,10 @@ p{
     overflow: hidden;
     background-color: #fff;
     padding: 0;
+}
+
+#container div.card > div.board > a:hover {
+	background-color: #f9f9f9;
 }
 
 #container div.card > form.logged {

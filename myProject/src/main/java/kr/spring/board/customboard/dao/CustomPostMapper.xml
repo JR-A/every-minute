@@ -4,14 +4,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="kr.spring.board.customboard.dao.CustomPostMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
 	
-	<!-- 최근 게시글3개 목록 -->
+	<!-- 최근 게시글5개 목록 -->
 	<select id="selectTop3PostList" resultType="customPostVO">
 		SELECT * FROM 
 			(SELECT p.post_num, p.board_num, p.mem_num, p.content, p.reg_date , p.uploadfile, p.filename, p.anonymous, b.title ,  ROW_NUMBER() OVER(ORDER BY post_num DESC) AS rank  
 				FROM customPost p join customBoard b 
 				on p.board_num=b.board_num)
 		<![CDATA[
-		where rank<=3
+		where rank<=5
 		]]>	
 	</select>
 	

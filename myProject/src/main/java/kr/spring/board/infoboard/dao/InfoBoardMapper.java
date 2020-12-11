@@ -12,7 +12,7 @@ import kr.spring.board.infoboard.vo.InfoBoardVO;
 
 public interface InfoBoardMapper { //추상메소드 처리
 	//최근 작성된 게시글 3개
-	@Select(" SELECT * FROM (SELECT * FROM infoboard ORDER BY TO_NUMBER(post_num) DESC ) WHERE ROWNUM <= 3")
+	@Select(" SELECT * FROM (SELECT * FROM infoboard ORDER BY TO_NUMBER(post_num) DESC ) WHERE ROWNUM <= 5")
 	public List<InfoBoardVO> selectTop3InfoList();
 	//추천 10개 이상인 게시글 top2 목록
 	public List<CustomPostVO> info_hotPostTop2();
