@@ -16,6 +16,9 @@
 			</tr>
 		</table>
 	<ul>
+		<c:if test="${ bookStoreVO.bs_complete > 0 }">
+		<li class="list"><h2>판매 완료된 상품입니다.</h2></li>
+		</c:if>
 		<li class="list"><label>판매희망가</label>${ bookStoreVO.bs_selling_price }원</li>
 		<li class="list">
 			<label>책 상태</label>${ bookStoreVO.bs_condition }<br>
@@ -32,8 +35,10 @@
 		</li>
 	</ul>
 	<c:if test="${ !empty bookStoreVO.bs_address }">
-	<div>직거래 장소</div>
-	<div id="map" style="width:100%;height:300px; margin: 10px auto;"></div>
+	<div class="map_form">
+		<div>직거래 장소</div>
+		<div id="map" style="width:100%;height:300px; margin: 10px auto;"></div>
+	</div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=52fbe82671d809b72a435af5d996bef6&libraries=services"></script>
 	<script type="text/javascript">
 		var mapContainer = document.getElementById('map'),

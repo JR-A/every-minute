@@ -5,6 +5,7 @@ a{
 }
 .complete_form{
 	border: 1px solid #ddd;
+	border-radius: 5px;
 	width: 400px;
 	margin: auto;
 	padding: 20px;
