@@ -317,22 +317,92 @@ CREATE TABLE CustomBoard_Favorite(
     CONSTRAINT customBoard_favorite_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
 );
 --------------------------------------------------쪽지-----------------------------------------------------------
-
-CREATE TABLE Message_Post(
-    msg_num NUMBER NOT NULL ,
+--(게시글)
+CREATE TABLE FreeBoard_Message_Post(
+    msg_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
     target_mem_num NUMBER NOT NULL,
     content VARCHAR2(255) NOT NULL,
     msg_check NUMBER DEFAULT 0 NOT NULL,
     reg_date DATE DEFAULT SYSDATE NOT NULL,
     parent_msg_num NUMBER NOT NULL,
-    anonymous NUMBER(1),
     
-    CONSTRAINT messagepost_pk PRIMARY KEY (msg_num),
-    CONSTRAINT messagepost_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
-    CONSTRAINT messagepost_target_mem_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+    CONSTRAINT freeBoard_message_post_pk PRIMARY KEY (msg_num),
+    CONSTRAINT freeBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES FreeBoard(post_num),
+    CONSTRAINT freeBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
 );
-
+CREATE TABLE InfoBoard_Message_Post(
+    msg_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    parent_msg_num NUMBER NOT NULL,
+    
+    CONSTRAINT infoboard_message_post_pk PRIMARY KEY (msg_num),
+    CONSTRAINT infoBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES InfoBoard(post_num),
+    CONSTRAINT infoBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Message_Post(
+    msg_num NUMBER NOT NULL,
+    post_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    parent_msg_num NUMBER NOT NULL,
+    
+    CONSTRAINT customBoard_message_post_pk PRIMARY KEY (msg_num),
+    CONSTRAINT customBoard_message_post_p_fk FOREIGN KEY (post_num) REFERENCES CustomPost(post_num),
+    CONSTRAINT customBoard_message_post_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_message_post_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+--(댓글)
+CREATE TABLE FreeBoard_Message_Comment(
+    msg_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT freeBoard_message_comment_pk PRIMARY KEY (msg_num),
+    CONSTRAINT freeBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES FreeBoard_Comment(comment_num),
+    CONSTRAINT freeBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT freeBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE InfoBoard_Message_Comment(
+    msg_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT infoboard_message_comment_pk PRIMARY KEY (msg_num),
+    CONSTRAINT infoBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES InfoBoard_Comment(comment_num),
+    CONSTRAINT infoBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT infoBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
+CREATE TABLE CustomBoard_Message_Comment(
+    msg_num NUMBER NOT NULL,
+    comment_num NUMBER NOT NULL,
+    mem_num NUMBER NOT NULL,
+    target_mem_num NUMBER NOT NULL,
+    content VARCHAR2(255) NOT NULL,
+    msg_check NUMBER DEFAULT 0 NOT NULL,
+    reg_date DATE DEFAULT SYSDATE NOT NULL,
+    CONSTRAINT customBoard_message_comment_pk PRIMARY KEY (msg_num),
+    CONSTRAINT customBoard_message_comment_c_fk FOREIGN KEY (comment_num) REFERENCES CustomBoard_Comment(comment_num),
+    CONSTRAINT customBoard_message_comment_m_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num),
+    CONSTRAINT customBoard_message_comment_tm_fk FOREIGN KEY (target_mem_num) REFERENCES Member (mem_num)
+);
 --------------------------------------------------시간표-----------------------------------------------------------
 
 CREATE TABLE Timetable(
@@ -438,6 +508,19 @@ CREATE TABLE BookStoreBoard(
 
 
 
+-------------------------------------------쪽지기능--------------------------------------------------------
+  CREATE TABLE MESSAGE_POST(	
+  MSG_NUM NUMBER NOT NULL, 
+	MEM_NUM NUMBER NOT NULL, 
+	TARGET_MEM_NUM NUMBER NOT NULL, 
+	CONTENT VARCHAR2(255) NOT NULL, 
+	MSG_CHECK NUMBER DEFAULT  NOT NULL, 
+	REG_DATE DATE DEFAULT SYSDATE NOT NULL, 
+	PARENT_MSG_NUM NUMBER NOT NULL, 
+	ANONYMOUS NUMBER(1), 
+	 CONSTRAINT MESSAGEPOST_MEM_FK FOREIGN KEY (MEM_NUM)
+	 CONSTRAINT MESSAGEPOST_TARGET_MEM_FK FOREIGN KEY (TARGET_MEM_NUM)
+   );
 -----------------------------------------------SEQUENCE--------------------------------------------
 CREATE SEQUENCE member_seq START WITH 1000;	--Member의 mem_num
 
@@ -484,7 +567,8 @@ CREATE SEQUENCE review_seq START WITH 60000; --Review의 post_num
 
 CREATE SEQUENCE bookstore_seq START WITH 50000; --BookStoreBoard의 bs_num
 
-CREATE SEQUENCE messagepost_seq START WITH 1; --Message_Post의 msg_num
+CREATE SEQUENCE MESSAGEPOST_SEQ  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 800; --MESSAGE_POST의 MSG_NUM
+
 
 ------------------------------------------------------------------------------------------------
 ------------------------------------------Data 삽입 ----------------------------------------

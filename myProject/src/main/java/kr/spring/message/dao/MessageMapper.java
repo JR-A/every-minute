@@ -17,7 +17,7 @@ public interface MessageMapper {
 	public List<MessageVO> selectSendList(Map<String, Object> map);
 	public int selectSendRowCount(Map<String, Object> map);
 	@Insert("INSERT INTO message_post (msg_num, mem_num, target_mem_num, content,parent_msg_num,anonymous) "
-			+ "VALUES(MESSAGECOMMENT_SEQ.nextval, #{mem_num}, #{target_mem_num}, #{content}, #{parent_msg_num}, #{anonymous})")
+			+ "VALUES(MESSAGEPOST_SEQ.nextval, #{mem_num}, #{target_mem_num}, #{content}, #{parent_msg_num}, #{anonymous})")
 	public void insertBoard(MessageVO message);
 	@Select("SELECT * FROM message_post b JOIN member m ON b.mem_num=m.mem_num WHERE b.msg_num=#{msg_num}")
 	public MessageVO selectMessage(Integer msg_num);
