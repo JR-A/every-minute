@@ -34,7 +34,7 @@ var likeCountR;
 				}else{																
 					//댓글 목록 작업															
 					$(list).each(function(index,item){															
-						var output = '<div class="item">';														
+						var output = '<div class="item">';	 													
 						if(item.anonymous == 1){														
 							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large"> 익명</h4>';
 						}else if(item.anonymous == 0){														

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>							
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>							
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 							
-							
+							 
 <h2 class="title">							
 	<a href="infoBoardList.do">정보게시판</a>						
 </h2>							

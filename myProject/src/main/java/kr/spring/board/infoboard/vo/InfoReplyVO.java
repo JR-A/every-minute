@@ -2,7 +2,7 @@ package kr.spring.board.infoboard.vo;
 
 public class InfoReplyVO {
 	
-	/*CREATE TABLE infoBoard_Comment(
+	/*CREATE TABLE infoBoard_Comment( 
 			comment_num NUMBER NOT NULL,
 			post_num NUMBER NOT NULL,
 			mem_num NUMBER NOT NULL,

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <h2 class="title">
-	<a href="infoBoardList.do">정보게시판</a>
+	<a href="infoBoardList.do">정보게시판</a> 
 </h2>
 <div class="page-main-style-detail">
 	<form:form commandName="infoBoardVO" action="update.do"

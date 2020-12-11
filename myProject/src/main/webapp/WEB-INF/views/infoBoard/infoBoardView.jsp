@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>																			
     																			
-<h2 class="title">																			
+<h2 class="title">				 															
 	<a href="infoBoardList.do">정보게시판</a>																		
 </h2>																			
 <div class="page-main-style-detail">																			
