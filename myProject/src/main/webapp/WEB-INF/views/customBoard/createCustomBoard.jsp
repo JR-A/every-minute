@@ -88,7 +88,7 @@
 		</ul>
 	  <div id="anonymous_opt">
 	       <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
-	      익명성을 보장하는 익명 게시판인가요?
+	      <label for="check_anony">익명성을 보장하는 익명 게시판인가요?</label>
 	  </div>
       <!-- 기본형 -->
       <div id="simpleType">

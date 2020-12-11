@@ -39,56 +39,16 @@
 
     </header>
         <div id="slider">
-                <div class="wrap">
-                    <div class="line">
-                    <div class="left">
-                        <div class="content">
-                        <span class="spanSlow">EveryMinute</span>
-                        </div>
-                    </div><!--
-                    --><div class="right">
-                        <div class="content">
-                        <span class="spanSlow">EveryMinute</span>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="line">
-                    <div class="left">
-                        <div class="content">
-                        <span class="spanSlow">UNIVERSITY</span>
-                        </div>
-                    </div><!--
-                    --><div class="right">
-                        <div class="content">
-                        <span class="spanSlow">UNIVERSITY</span>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="line">
-                        <div class="left">
-                            <div class="content">
-                            <span class="spanFast">SERVICE</span>
-                            </div>
-                        </div><!--
-                        --><div class="right">
-                            <div class="content">
-                            <span class="spanFast">SERVICE</span>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="line">
-                            <div class="left">
-                            <div class="content">
-                                <span class="spanSlow">WEB</span>
-                            </div>
-                            </div><!--
-                            --><div class="right">
-                            <div class="content">
-                                <span class="spanSlow">WEB</span>
-                            </div>
-                            </div>
-                        </div>
-                </div> 
+                <div class="main_wrap">
+					<div class="main_title">오픈 API 통합포털</div>
+					<div class="main_subtitle">
+						금융결제원은 오픈 파이낸스 시대에 맞춰 API를 활용한 개방형 플랫폼을 통해<br>
+						금융회사 및 핀테크 기업과 함께 개방형 혁신으로 나아갑니다.
+					</div>
+					<div class="main_btn">
+						<a href="/intro/openApiTotalPortal" class="home_btn">시작하기</a>
+					</div>
+				</div>
         </div>
     <div id="overflow">
         <section class="content_text">
