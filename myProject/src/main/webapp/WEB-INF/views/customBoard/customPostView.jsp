@@ -705,7 +705,7 @@
 	</div>
 	<div id="loading" style="display:none;">
 		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
-	</div>
+	</div> 
 </div>
 <!-- 댓글 -->
 <div id="reply_div">

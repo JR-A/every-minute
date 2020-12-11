@@ -11,7 +11,7 @@
 	   //타입체크
 	   var type = $('#type').val();
 	   
-	   var simple_red = '${pageContext.request.contextPath}/resources/images/customBoard/simpleType1.png'; 
+	   var simple_red = '${pageContext.request.contextPath}/resources/images/customBoard/simpleType1.png';  
 	   var simple_gray = '${pageContext.request.contextPath}/resources/images/customBoard/simpleType0.png'; 
 	   var image_red = '${pageContext.request.contextPath}/resources/images/customBoard/imgType1.png';  
 	   var image_gray = '${pageContext.request.contextPath}/resources/images/customBoard/imgType0.png'; 

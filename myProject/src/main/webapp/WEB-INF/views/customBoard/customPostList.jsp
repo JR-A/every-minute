@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css"> 
 
 <div class="page-main-style">
  
