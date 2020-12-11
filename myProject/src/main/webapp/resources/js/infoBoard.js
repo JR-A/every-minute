@@ -9,7 +9,7 @@
 				.css("object-fit", "contain")																
 				.css("border", "1px solid #e3e3e3")																
 				.css("margin-top", 15)																
-				.css("margin-bottom", 15)			
+				.css("margin-bottom", 15)			 
 				.css("margin-left", 15);
 			}																	
 			reader.readAsDataURL(input.files[0]);																	

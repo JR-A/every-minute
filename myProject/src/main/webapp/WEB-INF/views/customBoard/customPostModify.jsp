@@ -9,7 +9,7 @@
 	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
-	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	
+	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	 
 			<p id="alert">* 해당 게시판은 익명 처리가 불가능합니다 *</p>
 	</c:if>
 </h2>

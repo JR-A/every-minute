@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
 
 <div class="page-main-style">
-
+ 
 	<!-- 제목&소제목 -->
 	<h2 class="title">
 		<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>

@@ -8,7 +8,7 @@
 <script type="text/javascript">
    $(document).ready(function() {
 	   //타입체크
-	   var type = $('#type').val();
+	   var type = $('#type').val(); 
 	   
 	   var simple_red = '${pageContext.request.contextPath}/resources/images/customBoard/simpleType1.png'; 
 	   var simple_gray = '${pageContext.request.contextPath}/resources/images/customBoard/simpleType0.png'; 

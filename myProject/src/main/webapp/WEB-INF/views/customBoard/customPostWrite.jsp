@@ -12,7 +12,7 @@
 	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	
 		<p id="anony_alert">* ${boardInfo.title}(은/는) 익명으로 작성할 수 없습니다 *</p>
 	</c:if>
-</h2>
+</h2>  
 
 <form:form commandName="customPostVO" id="write_customform" action="customPostWrite.do" enctype="multipart/form-data">
 	<input type="hidden" id="board_num" name="board_num" value="${boardInfo.board_num}"/>

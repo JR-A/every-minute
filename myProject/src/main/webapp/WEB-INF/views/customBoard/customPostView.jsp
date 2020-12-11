@@ -11,7 +11,7 @@
 		var currentPage;
 		var count;
 		var rowCount;
-		
+		  
 		//게시글 신고하기
 		//$(document).on('click','.blame',function(event){
 		$('.blame').click(function(){
