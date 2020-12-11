@@ -15,4 +15,9 @@ public interface CustomBlameService {
 	public int blameCommCount_user (Map<String,Object> map);
 	//댓글 신고 접수
 	public void insertCommBlame(CustomBlameVO customBlameVO);
+	
+	//게시글 신고 삭제
+	public void deletePostBlame(int post_num);
+	//댓글 신고 삭제
+	public void deleteCommBlame(int comment_num);
 }

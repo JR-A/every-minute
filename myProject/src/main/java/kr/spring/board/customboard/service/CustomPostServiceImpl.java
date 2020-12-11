@@ -56,6 +56,7 @@ public class CustomPostServiceImpl implements CustomPostService {
 	@Override
 	public void deletePost(Integer post_num) {
 		customLikeMapper.deletePostLike(post_num);
+		customBlameMapper.deletePostBlame(post_num);
 		customFavoriteMapper.deleteFavorite(post_num);
 		customPostMapper.deletePost(post_num);
 	}

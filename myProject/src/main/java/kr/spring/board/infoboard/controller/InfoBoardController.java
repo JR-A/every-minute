@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.infoboard.service.InfoBoardService;
 import kr.spring.board.infoboard.service.InfoLikeService;
 import kr.spring.board.infoboard.service.InfoReplyService;
@@ -197,10 +198,12 @@ public class InfoBoardController {
 	    //댓글 갯수
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("post_num", post_num);
-        int count = InfoReplyService.selectRowCountReply(map);
+
+		//게시글에 속한 댓글 개수
+		int commCount = InfoReplyService.selectRowCountReply(post_num);
         
         InfoBoardVO board = InfoBoardService.selectBoard(post_num);
-        board.setReply_cnt(count);
+        board.setReply_cnt(commCount);
         
         //개시판 좋아요 수
         int likeCount = InfoLikeService.selectCountLike(post_num);
@@ -218,6 +221,7 @@ public class InfoBoardController {
         mav.setViewName("infoBoardView");
         mav.addObject("board", board);
         mav.addObject("likeCount", likeCount);
+		mav.addObject("commCount", commCount);
 
         return mav;
      }
@@ -282,22 +286,59 @@ public class InfoBoardController {
 		//타일스 설정에 아래 뷰 이름이 없으면 단독으로 JSP 호출
 		return "common/result";
 	}	
-	//글삭제
+	//글삭제 - 댓글 미존재
 	@RequestMapping("/infoBoard/delete.do")
 	//												┌게시판 번호  ┌Controller에서 생성한 데이터를 담아서 View로 전달할 때 사용하는 객체.						
 	public String submitDelete(@RequestParam int post_num, Model model, HttpServletRequest request) {
-	//																							└ 경로
+		
 		if (log.isDebugEnabled()) {
 			log.debug("<<게시판 글 삭제>> : " + post_num);
 		}
-		
 		//글 삭제
 		InfoBoardService.deleteBoard(post_num);
 			
 		//View에 표시할 메시지 Model 객체를 파라미터로 받는다.
 		model.addAttribute("message", "글삭제 완료");
 		model.addAttribute("url", request.getContextPath()+"/infoBoard/infoBoardList.do");
+		
 		return "common/result";
 	}
-	
+	//글 삭제 - 댓글 존재
+	@RequestMapping("/infoBoard/infoBoardDeleteIncludeComm")
+	public String deletePostIncludeComm(@RequestParam int post_num, Model model, HttpServletRequest request) {
+
+		if(log.isDebugEnabled()) {
+			log.debug("<<게시판 글 삭제>> : " + post_num);
+		}
+		
+		List<Integer> commList = InfoReplyService.selectReplyNum(post_num); //게시글에 존재하는 댓글 번호 구하기
+			
+		for(int i = 0; i < commList.size(); i++){ //존재하는 댓글 수만큼 반복
+			InfoReplyService.deleteReply(commList.get(i));  //댓글 삭제 처리
+		}
+		//게시글 삭제
+		InfoBoardService.deleteBoard(post_num);
+
+		if (log.isDebugEnabled()) { log.debug("<<게시글에 달린 댓글 번호>> : " +  commList.toString()); }
+		
+		model.addAttribute("message", "게시글 삭제 완료!!");
+		model.addAttribute("url", request.getContextPath()+"/infoBoard/infoBoardList.do");
+		
+		return "common/result";
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

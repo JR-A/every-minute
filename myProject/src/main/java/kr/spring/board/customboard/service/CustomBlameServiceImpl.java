@@ -35,6 +35,16 @@ public class CustomBlameServiceImpl implements CustomBlameService{
 			customBlameMapper.insertCommBlame(customBlameVO);
 		}
 
+		@Override
+		public void deletePostBlame(int post_num) {
+			customBlameMapper.deletePostBlame(post_num);
+		}
+
+		@Override
+		public void deleteCommBlame(int comment_num) {
+			customBlameMapper.deleteCommBlame(comment_num);
+		}
+
 		
 		
 		

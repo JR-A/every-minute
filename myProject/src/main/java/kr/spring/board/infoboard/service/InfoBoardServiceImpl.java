@@ -75,6 +75,13 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	public List<CustomPostVO> info_hotPostTop2() {
 		return infoBoardMapper.info_hotPostTop2();
 	}
+	//게시글 삭제_댓글 없음
+	/*@Override
+	public void deletePost(Integer post_num) {
+		infoBoardMapper.deletePostLike(post_num);
+		infoBoardMapper.deleteFavorite(post_num);
+		infoBoardMapper.deletePost(post_num);
+	}*/
 	
 
 

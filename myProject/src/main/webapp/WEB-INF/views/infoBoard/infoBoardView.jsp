@@ -49,10 +49,21 @@
 					//이벤트 연결
 					delete_btn.onclick=function() {
 						var choice = window.confirm('정말 삭제하시겠습니까?');
-						if (choice) {															
-							location.href='delete.do?post_num=${board.post_num}';														
+						if (choice) {	
+							var commCount = ${commCount};
+							if(commCount>0){ //댓글 있음
+								var truncate = window.confirm('해당 게시글에 댓글이 존재합니다.\n정말로 게시글을 삭제하시겠습니까?');
+								if(truncate){								
+									location.href='infoBoardDeleteIncludeComm.do?post_num=${board.post_num}';
+								}else{
+									location.href='infoBoardDetail.do?post_num=${board.post_num}';
+								}
+							}
+							else{
+								location.href='delete.do?post_num=${board.post_num}';														
+							}
 						}															
-					}																
+					};																
 				</script>																	
 			</c:if>	
 			</div>															

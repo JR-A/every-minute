@@ -77,7 +77,7 @@ public class InfoReplyController {
 			map.put("post_num", post_num);
 
 			//총 댓글의 갯수
-			int count = infoReplyService.selectRowCountReply(map);
+			int count = infoReplyService.selectRowCountReply(post_num);
 
 			PagingUtil page = new PagingUtil(currentPage,count,rowCount,pageCount,null);
 			map.put("start", page.getStartCount());

@@ -46,6 +46,7 @@ public class CustomCommentServiceImpl implements CustomCommentService{
 	@Override
 	public void deleteComment(Integer comment_num) {
 		customLikeMapper.deleteCommLike(comment_num);
+		customBlameMapper.deleteCommBlame(comment_num);
 		customCommentMapper.deleteComment(comment_num);
 	}
 	//게시글에 달린 댓글 번호

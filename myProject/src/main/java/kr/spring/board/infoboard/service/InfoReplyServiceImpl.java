@@ -26,11 +26,6 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 	}
 
 	@Override
-	public int selectRowCountReply(Map<String, Object> map) {
-		return infoReplyMapper.selectRowCountReply(map);
-	}
-
-	@Override
 	public void insertReply(InfoReplyVO boardReply) {
 		infoReplyMapper.insertReply(boardReply);
 		
@@ -40,9 +35,22 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 	public void updateReply(InfoReplyVO boardReply) {
 		infoReplyMapper.updateReply(boardReply);
 	}
-
+	//댓글 삭제
 	@Override
 	public void deleteReply(Integer comment_num) {
+		infoCommentLikeMapper.deleteReplyLike(comment_num);
 		infoReplyMapper.deleteReply(comment_num);
 	}
+	//게시글에 달린 댓글 번호
+	@Override
+	public List<Integer> selectReplyNum(int post_num) {
+		return infoReplyMapper.selectReplyNum(post_num);
+	}
+	//댓글 개수
+	@Override
+	public int selectRowCountReply(Integer post_num) {
+		return infoReplyMapper.selectRowCountReply(post_num);
+	}
+
+	
 }
