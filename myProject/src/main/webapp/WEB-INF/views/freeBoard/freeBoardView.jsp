@@ -513,7 +513,7 @@ $(document).ready(function(){
 	selectData(1,$('#post_num').val());
 });
 </script>
-<h2 class="title"><a href="freeBoardList.do">자유게시판</a></h2>
+<h2 class="titleBoard"><a href="freeBoardList.do">자유게시판</a></h2>
 <div class="page-main-style-detail"style="padding: 15px;">
 
 	<article>

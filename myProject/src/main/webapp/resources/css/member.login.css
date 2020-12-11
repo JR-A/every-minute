@@ -19,7 +19,7 @@ a {
 	width: 360px;
     margin-bottom: 15px;
     height: 60px;
-    background: transparent url("https://everytime.kr/images/index.login.logo.png") no-repeat;
+    background: transparent url("../images/index.login.logo.png") no-repeat;
 }
 
 #container h1.logo a {

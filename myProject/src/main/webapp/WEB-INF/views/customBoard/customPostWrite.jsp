@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <!-- 제목&소제목 -->
-<h2 class="title">
+<h2 class="titleBoard">
 	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>

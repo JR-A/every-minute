@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <title>Document</title>
+    <title>에브리미닛</title>
 </head>
 <body id="introduce">
     <header>
@@ -24,7 +24,7 @@
                     <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="에브리미닛">
                 </a>
                 <p>
-                    <span class="name multiple">EVERYMINUTE</span>
+                    <span class="name multiple">에브리미닛</span>
                     <span class="subname">이젠대학교</span>
                 </p>
             </div>
@@ -39,12 +39,16 @@
 
     </header>
         <div id="slider">
-		<div class="jb-box">
-			<video muted autoplay loop>
-				<source src="${pageContext.request.contextPath}/resources/video/movie.mp4" type="video/mp4">
-			</video>
+			<div class="jb-box">
+				<video autoplay muted loop>
+					<source src="${pageContext.request.contextPath}/resources/video/movie.mp4" type="video/mp4">
+				</video>
+				<div class="jb-text">
+	    			<p>지금 에브리미닛을 시작하세요!</p>
+	  			</div>
+			</div>
 		</div>
-	</div>
+		
     <div id="overflow">
         <section class="content_text">
             <div class="fade_up_1" data-aos="fade-up">

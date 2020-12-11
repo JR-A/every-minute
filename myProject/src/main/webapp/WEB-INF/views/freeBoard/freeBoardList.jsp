@@ -31,7 +31,7 @@
 	href="${pageContext.request.contextPath}/resources/css/freeBoard.css">
 
 <div class="page-main-style-">
-	<h2 class="title">
+	<h2 class="titleBoard">
 		<a
 			href="${pageContext.request.contextPath}/freeBoard/freeBoardList.do">자유게시판</a>
 	</h2>

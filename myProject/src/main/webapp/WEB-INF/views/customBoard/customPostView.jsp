@@ -602,7 +602,7 @@
 </script>
 
 <!-- 제목&소제목 -->
-<h2 class="title">
+<h2 class="titleBoard">
 	<a id="title" href="customPostList.do?post_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
