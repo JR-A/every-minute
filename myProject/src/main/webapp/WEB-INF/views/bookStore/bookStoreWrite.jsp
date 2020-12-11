@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bookStoreWrite.css">
 <div class="page-main-style">
 	<form>
 		<input type="hidden" id="searchIsbn" value="${ isbn }">
@@ -19,36 +20,32 @@
 	<form:form commandName="bookStoreVO" action="bookStoreWrite.do" enctype="multipart/form-data">
 		<form:hidden path="bs_num"/>
 		<ul>
-			<li>
+			<li class="list">
 				<form:label path="bs_selling_price">판매희망가</form:label>
 				<input type="text" id="bs_selling_price" name="bs_selling_price" placeholder="예) 15000">
 			</li>
-			<li>
+			<li class="list">
 				<form:label path="bs_comment">간략한 내용</form:label>
 				<input type="text" id="bs-comment" name="bs_comment" placeholder="예) 필기량 많음, 저녁 6시 이후 거래 가능">
 			</li>
-			<li>
-				<form:label path="bs_condition">책 상태</form:label><br>
-				<ul>
-					<li><form:radiobutton path="bs_condition" value="하" label="하"/></li>
-					<li><form:radiobutton path="bs_condition" value="중" label="중"/></li>
-					<li><form:radiobutton path="bs_condition" value="상" label="상"/></li>
-				</ul>
+			<li class="list">
+				<form:label path="bs_condition">책 상태</form:label>
+				<form:radiobutton path="bs_condition" value="하" label="하"/>
+				<form:radiobutton path="bs_condition" value="중" label="중"/>
+				<form:radiobutton path="bs_condition" value="상" label="상"/>
 			</li>
-			<li>
-				<form:label path="bs_method">거래 방법</form:label><br>
-				<ul>
-					<li><form:checkbox path="bs_method" value="직거래" label="직거래"/></li>
-					<li><form:checkbox path="bs_method" value="택배" label="택배"/></li>
-				</ul>
+			<li class="list">
+				<form:label path="bs_method">거래 방법</form:label>
+				<form:checkbox path="bs_method" value="직거래" label="직거래"/>
+				<form:checkbox path="bs_method" value="택배" label="택배"/>
 			</li>
-			<li id="map_data">
+			<li class="list" id="map_data">
 				<form:label path="bs_address">직거래 장소</form:label>
 				<input type="text" name="bs_address" id="bs_address" placeholder="주소">
 				<input type="button" onclick="searchMap()" value="주소 검색"><br>
-				<div id="map" style="width: 410px; height: 300px; margin-top: 10px;"></div>
+				<div id="map"></div>
 			</li>
-			<li>
+			<li class="list">
 				<label for="upload">책 사진</label>
 				<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg">
 			</li>

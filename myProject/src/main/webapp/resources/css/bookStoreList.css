@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+td{
+	cursor: pointer;
+	border: 1px solid #ddd !important;
+}
+td:hover{
+	background-color: #ddd;
+}
+a{
+	color: black;
+}
+.top{
+	border: 1px solid #ddd;
+	width: 500px;
+	margin: auto;
+}
+.top>select{
+	border: none;
+}
+#keyword{
+	width: 390px;
+}
+.search_btn{
+	padding: 5px 7.9px;
+	cursor: pointer;
+}
+.info{
+	float: left;
+}
+.complete{
+	float: right;
+}
+input{
+	border: none; 
+}
+.menu{
+	float: right;
+	margin-bottom: 10px;
+}
+.nav1, .nav2{
+	height: 30px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.option{
+	display: inline;
+}

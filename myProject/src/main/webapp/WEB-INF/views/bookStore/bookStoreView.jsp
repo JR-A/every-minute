@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bookStoreView.css">
 <div class="page-main-style">
 	<input type="hidden" id="isbn" value="${ bookStoreVO.isbn }">
 	<table>
@@ -15,11 +16,10 @@
 			</tr>
 		</table>
 	<ul>
-		<li>작성자 : ${ bookStoreVO.id }</li>
-		<li>판매희망가 : ${ bookStoreVO.bs_selling_price }</li>
-		<li>책 상태 : ${ bookStoreVO.bs_condition }</li>
-		<li>거래 방법 : ${ bookStoreVO.bs_method }</li>
-		<li>간략한 내용 : ${ bookStoreVO.bs_comment }</li>
+		<li class="list">판매희망가 : ${ bookStoreVO.bs_selling_price }</li>
+		<li class="list">책 상태 : ${ bookStoreVO.bs_condition }</li>
+		<li class="list">거래 방법 : ${ bookStoreVO.bs_method }</li>
+		<li class="list"><input type="button" value="쪽지보내기" onclick="location.href='../message/write.do'">간략한 내용 : ${ bookStoreVO.bs_comment }</li>
 	</ul>
 	<c:if test="${ !empty bookStoreVO.bs_address }">
 	<div>직거래 장소</div>

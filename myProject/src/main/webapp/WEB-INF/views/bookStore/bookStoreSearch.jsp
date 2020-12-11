@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bookStoreSearch.css">
 <div class="page-main-style">
 	<form action="bookStoreSearch.do">
 		<div class="align-center">
@@ -27,7 +27,7 @@
 					<p>${ book.publisher }</p>
 					<p>${ book.price }</p>
 				</td>
-				<td width="30"><input type="submit" value="선택"></td>
+				<td class="submit" width="30"><input type="submit" value="선택"></td>
 			</tr>
 		</table>
 	</form>

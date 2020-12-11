@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+a{
+	color: black;
+}
+td{
+	border: 1px solid #ddd !important;
+}
+ul{
+	padding: 0;
+}
+.list{
+	padding: 10px 0;
+	margin: 10px 0 !important;
+	border: 1px solid #ddd;
+	padding-left: 30px;
+}
