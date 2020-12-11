@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*==========================*/
 
 /*==========페이지 기본 스타일 시작======*/
 .page-main-style{
@@ -8,6 +9,19 @@
 .one-page{
 	width:600px;
 	margin:0 auto;
+}
+.modify-btn{
+	margin: 0px 3px 0px 15px;
+}
+.modify-btn, .delete-btn {
+    float: right;
+    border: 0px;
+    background: none;
+    margin: 0;
+    padding: 0 3px;
+    color: #a6a6a6;
+    font-size: 12px;
+    cursor: pointer;
 }
 /*==========페이지 기본 스타일 끝 ======*/
 

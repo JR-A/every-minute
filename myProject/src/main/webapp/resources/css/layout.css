@@ -249,6 +249,9 @@ div.paging-button{
 	text-align:right;
 }
 div#output{
+	border-left: 1px solid #e3e3e3;
+	border-right: 1px solid #e3e3e3;
+	border-bottom: 1px solid #e3e3e3;
 	clear:both;
 }
 form#mre_form{

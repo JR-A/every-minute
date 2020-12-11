@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.board.freeboard.dao.FreeBlameMapper;
 import kr.spring.board.freeboard.dao.FreeBoardMapper;
 import kr.spring.board.freeboard.dao.FreeLikeMapper;
 import kr.spring.board.freeboard.dao.FreeReplyLikeMapper;
@@ -25,6 +26,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	FreeLikeMapper freeLikeMapper;
 	@Resource
 	FreeReplyLikeMapper freeReplyLikeMapper;
+	@Resource
+	FreeBlameMapper freeBlameMapper;
 	
 	@Override
 	public List<FreeBoardVO> selectList(Map<String, Object> map) {
@@ -55,8 +58,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public void deleteBoard(Integer post_num) {
+		freeBlameMapper.deleteBlamePostByPostNum(post_num);
 		//추천이 있으면 추천을 먼제 삭제
-		freeReplyLikeMapper.delete_like(post_num);
 		freeLikeMapper.delete_like(post_num);
 		//댓글이 존재하면 댓글을 우선 삭제하고 부모글을 삭제
 		freeReplyMapper.deleteReplyByPostNum(post_num);

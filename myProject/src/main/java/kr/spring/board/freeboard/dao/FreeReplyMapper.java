@@ -1,3 +1,4 @@
+
 package kr.spring.board.freeboard.dao;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public interface FreeReplyMapper {
 		@Delete("DELETE FROM freeboard_comment WHERE comment_num=#{comment_num}")
 		public void deleteReply(Integer re_num);
 		//부모글 삭제시 댓글이 존재하면 부모글 삭제전 댓글 삭제
-		@Delete("DELETE FROM freeboard_comment WHERE post_num=#{post_num}")
+		@Delete("DELETE FROM freeboard_comment WHERE post_num=#{post_num} and comment_num=#{comment_num}")
 		public void deleteReplyByPostNum(Integer post_num);
+		//게시글에 달린 댓글 번호
+		@Select("SELECT comment_num FROM freeboard f JOIN freeBoard_comment c ON f.post_num = c. post_num WHERE f.post_num=#{post_num}")
+		public List<Integer> selectCommNum(int post_num);
 }

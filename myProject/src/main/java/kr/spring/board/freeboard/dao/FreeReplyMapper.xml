@@ -39,5 +39,8 @@
  		WHERE rnum >= #{start} AND rnum <= #{end}
  		]]>                                 
  	</select>
-
+<delete id = "deleteBoard" parameterType="Integer">
+	DELETE FROM freeboard f WHERE post_num=#{post_num}
+	(select comment_num FROM freeboard_comment c WHERE c.post_num = f.post_num )
+</delete>
 </mapper>

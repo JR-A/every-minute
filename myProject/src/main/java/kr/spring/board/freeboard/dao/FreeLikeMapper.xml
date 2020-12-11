@@ -3,14 +3,12 @@
 <mapper namespace="kr.spring.board.freeboard.dao.FreeLikeMapper">
 	
 	<select id="free_bestLikePost" resultType="FreeBoardVO">
-		SELECT * FROM 
-		    (SELECT * FROM 
-		        (SELECT * FROM freeBoard f 
-		            JOIN (SELECT post_num, COUNT(*) like_cnt 
-		                FROM freeBoard_Like_Post GROUP BY post_num) lp 
-		                    ON f.post_num = lp.post_num ORDER BY like_cnt DESC)
-		        ORDER BY reg_date DESC)
-		 WHERE ROWNUM=1
-	</select>
+      SELECT * FROM 
+           (SELECT * FROM freeBoard f 
+               JOIN (SELECT post_num, COUNT(*) like_cnt 
+                   FROM freeBoard_Like_Post GROUP BY post_num) lp 
+                       ON f.post_num = lp.post_num ORDER BY like_cnt DESC)
+       WHERE ROWNUM=1
+   </select>
 	
 </mapper> 

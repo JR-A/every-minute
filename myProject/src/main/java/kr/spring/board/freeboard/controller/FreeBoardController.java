@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.service.FreeBoardService;
 import kr.spring.board.freeboard.service.FreeLikeService;
 import kr.spring.board.freeboard.service.FreeReplyLikeService;
@@ -194,7 +195,8 @@ public class FreeBoardController {
 		public String form(@RequestParam int post_num,Model model) {
 			
 			FreeBoardVO freeboardVO = freeBoardService.selectBoard(post_num);
-			model.addAttribute("freeboardVO",freeboardVO);
+			System.out.println(freeboardVO);
+			model.addAttribute("free",freeboardVO);
 		
 			return "freeBoardModify";
 		}
@@ -244,6 +246,48 @@ public class FreeBoardController {
 			return "common/result";
 		}
 
+		//게시글 삭제 처리 - 댓글이 없을 경우
+		@RequestMapping("/freeBoard/freePostDelete.do")
+		public String deletePost(@RequestParam int post_num, Model model, HttpServletRequest request) {
+
+			if(log.isDebugEnabled()) {
+				log.debug("<<CustomBoard 게시글 삭제_댓글 X>> : " + post_num);
+			}
+			
+			//게시글 삭제
+			freeBoardService.deleteBoard(post_num);
+			
+			model.addAttribute("message", "게시글 삭제 완료!!");
+			model.addAttribute("url",request.getContextPath()+"/freeBoard/freeBoardList.do");
+			return "common/result";
+		}
+		
+		//게시글 삭제 처리 - 댓글이 있을 경우
+		@RequestMapping("/freeBoard/freeCommentDelete.do")
+		public String deletePostIncludeComm(@RequestParam int post_num, Model model, HttpServletRequest request) {
+
+			if(log.isDebugEnabled()) {
+				log.debug("<<CustomBoard 게시글 삭제_댓글 O>> : " + post_num);
+			}
+			//게시판 번호 구하기
+			FreeBoardVO freeBoardVO = freeBoardService.selectBoard(post_num);
+			
+			List<Integer> commList = replyService.selectCommNum(post_num); //게시글에 존재하는 댓글 번호 구하기
+				
+			for(int i = 0; i < commList.size(); i++){ //존재하는 댓글 수만큼 반복
+				replyService.deleteReply(commList.get(i));
+			}
+			//게시글 삭제
+			freeBoardService.deleteBoard(post_num);
+			
+			if (log.isDebugEnabled()) { log.debug("<<게시글에 달린 댓글 번호>> : " +  commList.toString()); }
+			
+			model.addAttribute("message", "게시글 삭제 완료!!");
+			model.addAttribute("url",request.getContextPath()+"/freeBoard/freeBoardList.do");
+			
+			return "common/result";
+			
+		}
 		
 }
 

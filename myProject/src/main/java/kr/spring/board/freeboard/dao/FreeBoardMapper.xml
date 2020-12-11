@@ -100,6 +100,11 @@
 	WHERE post_num=#{post_num}
 </update>
 
+<!-- <delete id = "deleteBoard" parameterType="Integer">
+	DELETE FROM freeboard f JOIN freeboard_comment c using(comment_num)
+	where f.post_num=#{post_num}
+</delete> -->
+
 	<!-- 최근 게시글3개 목록 -->
 	<select id="freeSelectTop3PostList" resultType="freeBoardVO">
 		SELECT * FROM 
@@ -111,18 +116,17 @@
 	</select>
 	
 	<!-- HOT게시물 (좋아요 10개 이상받은 게시글 중 top2) -->
-	<select id="free_hotPostTop2" resultType="freeBoardVO">
-	SELECT * FROM 
-	    (SELECT * FROM freeBoard f 
-	        JOIN (SELECT post_num, COUNT(*) like_cnt 
-	            FROM freeBoard_Like_Post 		
+   <select id="free_hotPostTop2" resultType="freeBoardVO">
+   SELECT * FROM 
+       (SELECT title,content,TO_CHAR(reg_date,'YY/MM HH24:MI') reg_date, f.post_num FROM freeBoard f 
+           JOIN (SELECT post_num, COUNT(*) like_cnt 
+               FROM freeBoard_Like_Post       
                 <![CDATA[
                 GROUP BY post_num HAVING COUNT(*) >= 5) lp 
                 ]]>
              ON f.post_num = lp.post_num ORDER BY like_cnt DESC)
-	 	 <![CDATA[
+        <![CDATA[
          WHERE ROWNUM<=2
          ]]>
-	ORDER BY reg_date DESC
-	</select>
+   </select>
 </mapper>

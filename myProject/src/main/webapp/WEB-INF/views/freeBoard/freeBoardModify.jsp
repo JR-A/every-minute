@@ -9,7 +9,7 @@
 
 <h2 class="title"><a href="freeBoardList.do">자유게시판</a></h2>
 <div class="page-main-style-detail" id=container>
-	<form:form commandName="freeBoardVO" action="freeBoardWrite.do" enctype="multipart/form-data">
+	<form:form commandName="free" action="update.do" enctype="multipart/form-data">
 		<form:hidden path="post_num"/>
 		<form:errors element="div" cssClass="error-color"/>
 		<p class="board_p">

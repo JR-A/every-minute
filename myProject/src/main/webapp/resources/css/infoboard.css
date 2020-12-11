@@ -502,3 +502,20 @@ a {text-decoration: none; color: black;}
     cursor: pointer;}
 input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 .submit input[type="submit"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+.message-btn {
+margin-left: 8px;
+}
+.message-btn , .blame-btn {
+	float:right;
+    border: 0px;
+    background: none;
+    padding: 0 3px;
+    height: 20px;
+    line-height: 20px;
+    color: #a6a6a6;
+    font-size: 12px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 12px 12px;
+    cursor: pointer;
+}
