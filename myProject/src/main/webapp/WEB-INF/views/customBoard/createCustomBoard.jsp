@@ -69,32 +69,34 @@
 	<form:hidden path="type"/>
 	<form:hidden path="anonymous"/>
 	
-	<div class="align-center">
-		<input type="button" class="delete_btn" onclick="location.href='${pageContext.request.contextPath}/main/main_board.do'" alt="삭제버튼">	
-		<h2 id="customBoard_comm">새 게시판 만들기</h2>
-		
-		<input type="submit" value="완료">
+	<div class="customH2Title">	
+		<h2 id="customBoard_comm" style="font-size: 24px;">사용자 게시판 만들기</h2>
+		<pre class="text_left" style="color: #a6a6a6;">각 테마에 맞는 사용자 게시판을 
+직접 생성하여 성향이 맞는 교원과 소통 할 수 있습니다.</pre>
 	</div>
 		<ul id="createCustomBoard_ul">
 			<li>
-				<form:input path="title" placeholder="제목을 입력하세요" autocomplete="off" style="height:40px; width:450px; margin-bottom:15px;"/>
+				<p class="float_left">먼저 게시판 이름이 필요해요 :)</p>
+				<form:input class="custom_title" path="title" placeholder="게시판 이름을 입력해 주세요." autocomplete="off"/>
 				<form:errors path="title" cssClass="error-color"/>
 			</li>
 			<li>
-				<form:input path="subtitle"  placeholder="게시판에 대해 간단하게 설명해주세요" autocomplete="off" style="height:80px; width:500px"/>
+				<p class="float_left">게시판 설명</p>
+				<form:input class="custom_title" path="subtitle"  placeholder="게시판에 대해 간단하게 설명해주세요" autocomplete="off"/>
 				<form:errors path="subtitle" cssClass="error-color"/>
 			</li>
-		</ul>	
-		
-		
-      <h2>형식</h2>
+		</ul>
+	  <div id="anonymous_opt">
+	       <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
+	      익명성을 보장하는 익명 게시판인가요?
+	  </div>
       <!-- 기본형 -->
       <div id="simpleType">
          <div id="simpleType_img">
             <img id="simpleImg" alt="기본형" src="${pageContext.request.contextPath}/resources/images/customBoard/simpleType1.png">
          </div>
          <div id="Type_text">
-            <p><b style="font-size: 130%;">기본형</b><br>여러 글을 빠르게 읽을 수 있는 기본 형식</p>
+            <p><b style="font-size: 120%;line-height: 28px;">기본형</b><br>여러 글을 빠르게 읽을 수 있는 기본 형식</p>
          </div>
       </div>
       <span class="clear-both;"></span>
@@ -104,23 +106,11 @@
             <img id="imageImg" alt="사진형" src="${pageContext.request.contextPath}/resources/images/customBoard/imgType0.png">
          </div>
          <div id="Type_text" style="display: inline">
-            <p><b style="font-size: 130%;">사진형</b><br>글 목록에 사진이 노출되는 형식</p>
+            <p><b style="font-size: 120%;line-height: 28px;">사진형</b><br>글 목록에 사진이 노출되는 형식</p>
          </div>         
       </div>
       <span class="clear-both;"></span>
-
-		
-	  <h2>추가설정</h2>
-	  <div id="anonymous_opt">
-	      <h4 id="anonymouse_check">익명허용</h4> 
-		  <label class="switch">
- 			 <input type="checkbox" id="check_anony" checked>
-			 <span class="slider round"></span>
-		  </label>
-		  <p id="anony" style="display:none;">OFF</p>
-		  <p id="anony">ON</p>
-	  </div>
-			
+			<input type="submit" class="customOK" value="완료">
 	</form:form>
 </div>
  

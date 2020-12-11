@@ -1,15 +1,7 @@
 @charset "UTF-8";
-
-/*==========페이지 기본 스타일 시작======*/
-.page-main-style-info{
-	width:100%;
-	margin:0 auto;
+*{
+	    font-family: "맑은 고딕";
 }
-.one-page{
-	width:600px;
-	margin:0 auto;
-}
-/*==========페이지 기본 스타일 끝 ======*/
 
 
 /*======== 게시판 디자인 시작 ========*/
@@ -241,12 +233,7 @@ input.submit {
 }
 
 
-#main_right {
-	width: 1280px;
-    margin: 0 auto;
-    font-size: 10pt;
-    font-family: "맑은 고딕";
-}
+
 /*============= 글작성폼  끝===========*/
 
 /*================ 태그선택 =================*/

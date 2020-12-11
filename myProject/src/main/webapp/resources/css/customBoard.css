@@ -1,5 +1,70 @@
 @charset "UTF-8";
 /*==========메인 목록 시작======*/
+.float_left {
+	float: left;
+	margin: 0 0 5px 33px;
+}
+/*======== 게시판 생성 디자인 시작 ========*/
+.create_custBoard {
+    width: 1280px;
+    margin: 0 auto;
+}
+#custBoard_form{
+	width: 580px;
+	margin-top:40px;
+	border: 1px solid #a6a6a6;
+    border-radius: 10px;
+}
+.text_left {
+	text-align: left;
+}
+.customH2Title{
+	margin: 30px 0px 30px 25px;
+}
+#simpleImg, #imageImg {
+	width: 50px;
+	margin-left: 27px;
+}
+.customOK{
+	display: block;
+    width: 530px;
+    height: 40px;
+    border: 0;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #c62917;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*======== 게시판 생성 디자인 끝 ========*/
+/*==========페이지 기본 스타일 시작======*/
+.page-main-style-info{
+	width:100%;
+	margin:0 auto;
+}
+.one-page{
+	width:600px;
+	margin:0 auto;
+}
+/*==========페이지 기본 스타일 끝 ======*/
+
+/*======= 이미지 게시판 이미지 미리보기 조절 ========*/
+.customListImage {
+    display: contents;
+}
+.customListImage > img {
+	width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border: 1px solid rgb(227, 227, 227);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+/*======= 이미지 게시판 이미지 미리보기 조절 끝 ========*/
 /* 제목 */
 #customBoard_title { 
     line-height: 20px;
@@ -126,19 +191,23 @@ h2.title > #anony_alert {
 /*=========제목 & 소제목 ==========*/
 
 /*======== 게시판 디자인 시작 ========*/
-.title {
-    padding: 15px;
-    border: 1px solid #d6d6d6;
+.custom_title {
     box-sizing: border-box;
-    text-decoration:none ;
-    color:#000000;
-} 	
-#title {
+    margin-top: 4px;
+    margin-bottom: 20px;
+    padding: 8px;
+    width: 530px;
+    height: 40px;
+    line-height: 24px;
+    border: 1px solid #ededed;
+    border-radius: 12px;
     color: #292929;
-    font-size: 22px;
-    font-weight: bold;
-    text-decoration: none;
-}
+    font-size: 12px;
+    background-color: #f9f9f9;
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 24px 24px;
+}	
 #subtitle {
     color: #666;
     font-family: "맑은 고딕", 돋움, tahoma;
@@ -240,18 +309,15 @@ div#comment_second > #anony_alert {
 	display: inline;
 }
 #createCustomBoard_ul {
-	padding-inline-start: 0px;
+	text-align: center;
+	margin: 0px;
+    padding: 0px;
 }
 #updateCustomBoard_ul{
 	padding-inline-start: 0px;
 }
 #customBoardVO {
 	border: 0px;
-}
-
-#simpleType_img>img #imageType_img>img{
-	width: 65px;
-	height: 65px;
 }
 
 #simpleType {
@@ -276,6 +342,7 @@ div#comment_second > #anony_alert {
 #imageType {
 	width: 100%;
 	float: left;
+	margin-bottom: 40px;
 }
 
 #imageType_img {
@@ -347,7 +414,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
+#anonymous_opt{
+	margin-bottom: 40px;
+}
 #anonymous_opt>p {
 	margin:0px;
 	display:inline-block;

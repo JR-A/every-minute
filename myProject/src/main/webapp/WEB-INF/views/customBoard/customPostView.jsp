@@ -720,7 +720,7 @@
 		<c:if test="${!empty user}">
 		<div id="comment_second" class="align-right">
 			<c:if test="${boardInfo.anonymous == 1}"> <!-- 익명 허용 게시판 -->
-				<input type="checkbox" name="anonymous" value="1" checked>익명
+				<input type="checkbox" name="anonymous" value="1" checked style="display: none;">
 			</c:if>
 			<div id="re_second" class="align-right">	
 				<input type="submit" class="submit" value="">											
