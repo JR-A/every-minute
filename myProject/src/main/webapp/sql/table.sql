@@ -320,7 +320,6 @@ CREATE TABLE CustomBoard_Favorite(
 --(게시글)
 CREATE TABLE FreeBoard_Message_Post(
     msg_num NUMBER NOT NULL,
-    post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
     target_mem_num NUMBER NOT NULL,
     content VARCHAR2(255) NOT NULL,
@@ -335,7 +334,6 @@ CREATE TABLE FreeBoard_Message_Post(
 );
 CREATE TABLE InfoBoard_Message_Post(
     msg_num NUMBER NOT NULL,
-    post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
     target_mem_num NUMBER NOT NULL,
     content VARCHAR2(255) NOT NULL,
@@ -350,7 +348,6 @@ CREATE TABLE InfoBoard_Message_Post(
 );
 CREATE TABLE CustomBoard_Message_Post(
     msg_num NUMBER NOT NULL,
-    post_num NUMBER NOT NULL,
     mem_num NUMBER NOT NULL,
     target_mem_num NUMBER NOT NULL,
     content VARCHAR2(255) NOT NULL,

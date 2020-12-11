@@ -70,6 +70,7 @@
 				<beans:value>/WEB-INF/tiles-def/review.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/calculator.xml</beans:value>
 				<beans:value>/WEB-INF/tiles-def/bookStore.xml</beans:value>
+				<beans:value>/WEB-INF/tiles-def/message.xml</beans:value>
 			</beans:list>
 		</beans:property>
 	</beans:bean>

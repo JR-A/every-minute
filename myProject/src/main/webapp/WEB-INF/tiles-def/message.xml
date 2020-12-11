@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="messageList" extends="main">
+		<put-attribute name="title" value="메시지 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/message/messageList.jsp" />
+	</definition>
+	<definition name="messageSend" extends="main">
+		<put-attribute name="title" value="메시지  쓰기" />
+		<put-attribute name="body" value="/WEB-INF/views/message/messageSend.jsp" />
+	</definition>
+	<definition name="messageWrite" extends="main">
+		<put-attribute name="title" value="메시지  쓰기" />
+		<put-attribute name="body" value="/WEB-INF/views/message/messageWrite.jsp" />
+	</definition>
+	<definition name="messageView" extends="main">
+		<put-attribute name="title" value="메세지 보기"/>
+		<put-attribute name="body" value="/WEB-INF/views/message/messageView.jsp"/>
+	</definition>
+</tiles-definitions>
+
+
+
+
+
+
+

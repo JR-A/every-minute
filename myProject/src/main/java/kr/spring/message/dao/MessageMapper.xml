@@ -2,9 +2,47 @@
 <!DOCTYPE mapper   
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
-<mapper namespace="kr.spring.message.dao.MessageMapper"> <!-- interface 전체 경로까지 모두 명시해야 자동매핑  -->
-
-
-
-
+<mapper namespace="kr.spring.message.dao.MessageMapper"> 
+	<select id="selectList" parameterType="map" resultType="MessageVO">
+		SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT b.*,m.id, s.id target_id FROM  message_post b 
+        JOIN member m ON b.mem_num = m.mem_num 
+        JOIN member s ON s.mem_num = b.target_mem_num 
+		 WHERE b.target_mem_num = #{mem_num}
+		 AND b.parent_msg_num=0
+		 ORDER BY b.msg_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<select id="selectRowCount" parameterType="map" resultType="integer">
+		SELECT COUNT(*) FROM message_post b JOIN member m ON b.mem_num = m.mem_num
+		 WHERE b.target_mem_num = #{mem_num}
+		 AND b.parent_msg_num=0
+	</select>  
+	
+	<select id="selectSendList" parameterType="map" resultType="MessageVO">
+		SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT b.*,m.id, s.id target_id FROM  message_post b 
+        JOIN member m ON b.mem_num = m.mem_num 
+        JOIN member s ON s.mem_num = b.target_mem_num 
+		 WHERE b.mem_num = #{mem_num}
+		 ORDER BY b.msg_num DESC)a)
+		<![CDATA[
+		WHERE rnum >= #{start} AND rnum <= #{end}
+		]]>
+	</select>
+	
+	<select id="selectSendRowCount" parameterType="map" resultType="integer">
+		SELECT COUNT(*) FROM message_post b JOIN member m ON b.mem_num = m.mem_num
+		 WHERE b.mem_num = #{mem_num}
+	</select>  
+	
+	<select id="selectReplyList" parameterType="integer" resultType="MessageVO">
+		SELECT b.*,m.id, s.id target_id FROM  message_post b 
+        JOIN member m ON b.mem_num = m.mem_num
+        JOIN member s ON s.mem_num = b.target_mem_num 
+		 WHERE parent_msg_num = #{msg_num}
+		 ORDER BY b.msg_num DESC
+	</select>
+	
 </mapper>
