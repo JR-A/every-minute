@@ -30,7 +30,7 @@ var likeCountR;
 				var list = data.list;																
 																				
 				if(count < 0 || list == null){																
-					alert('목록 호출 오류 발생!');															
+					alert('목록 호출 오류 발생');															
 				}else{																
 					//댓글 목록 작업															
 					$(list).each(function(index,item){															
@@ -73,7 +73,7 @@ var likeCountR;
 			error:function(){																	
 				//로딩 이미지 감추기																
 				$('#loading').hide();																
-				alert('네트워크 오류!!!!!!!!!!!!!');																
+				alert('네트워크 오류');																
 			}																	
 		});																		
 	}																			
@@ -112,11 +112,11 @@ var likeCountR;
 					//호출함															
 					location.reload();															
 				}else{																
-					alert('등록시 오류 발생!');															
+					alert('등록시 오류 발생');															
 				}																
 			},																	
 			error:function(){																	
-				alert('네트워크 오류!');																
+				alert('네트워크 오류');																
 			}																	
 		});																		
 		//기본 이벤트 제거																		
@@ -203,7 +203,7 @@ var likeCountR;
 	//댓글 수정																			
 	$(document).on('submit','#mre_form',function(event){																			
 		if($('#mre_content').val()==''){																		
-			alert('내용을 입력하세요!');																	
+			alert('내용을 입력하세요');																	
 			$('#mre_content').focus();																	
 			return false;																	
 		}var choice = confirm('수정 하시겠습니까?');
@@ -251,7 +251,7 @@ var likeCountR;
 				}																
 			},																	
 			error:function(){																	
-				alert('댓글 수정시 네크워크 오류!');																
+				alert('댓글 수정시 네크워크 오류');																
 			}																	
 		});																		
 		//기본 이벤트 제거																		
@@ -277,7 +277,7 @@ var likeCountR;
 				if(data.result == 'logout'){																
 					alert('로그인해야 삭제할 수 있습니다.');															
 				}else if(data.result == 'success'){																
-					alert('삭제 완료!');															
+					alert('삭제 완료');															
 					location.reload();															
 				}else if(data.result == 'wrongAccess'){																
 					alert('타인의 글을 삭제할 수 없습니다.');															
@@ -286,7 +286,7 @@ var likeCountR;
 				}																
 			},																	
 			error:function(){																	
-				alert('네트워크 오류 발생!');																
+				alert('네트워크 오류 발생');																
 			}																	
 		});																		
 	});																			

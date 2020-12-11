@@ -239,7 +239,7 @@
 							output += '  <div class="sub-item">';
 							//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 							output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
-							output += '<span class="comment-date">'+item.reg_date+'</span>';
+							output += '<span class="comment-date small">'+item.reg_date+'</span>';
 							
 							
 							if($('#mem_num').val()!=item.mem_num){
@@ -254,7 +254,6 @@
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">'; 
 							}
-							output += '      <hr size="1" noshade>';
 							output += '  </div>';
 							output += '</div>';
 													
@@ -362,18 +361,17 @@
 			//댓글 내용
 			var content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
 			                                             //g:지정문자열 모두, i:대소문자 무시
-			//댓글 수정폼 UI
-			var modifyUI = '<form id="mre_form">'
-				modifyUI += '   <input type="hidden" name="comment_num" id="mre_num" value="'+comment_num+'">';
-				modifyUI += '   <input type="hidden" name="mem_num" id="mem_num" value="'+mem_num+'">';
-				modifyUI += '   <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
-				modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      
-				modifyUI += '   <div id="mre_second" class="align-right">';
-				modifyUI += '      <input type="submit" value="수정">';
-				modifyUI += '      <input type="button" value="취소" class="re-reset">';
-				modifyUI += '   </div>';
-				modifyUI += '   <hr size="1" noshade width="96%">';
-				modifyUI += '</form>';
+//댓글 수정폼 UI
+		var modifyUI = '<form id="mre_form">'
+			modifyUI += '   <input type="hidden" name="comment_num" id="mre_num" value="'+comment_num+'">';
+			modifyUI += '   <input type="hidden" name="mem_num" id="mem_num" value="'+mem_num+'">';
+			modifyUI += '   <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
+			modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      
+			modifyUI += '   <div id="mre_second" class="align-right">';
+			modifyUI += '      <input type="submit" value="수정완료" class="btn_none">';
+			modifyUI += '      <input type="button" value="취소" class="re-reset" style="color: #c62917;">';
+			modifyUI += '   </div>';
+			modifyUI += '</form>';
 				
 		
 			//이전에 이미 수정하는 댓글이 있을 경우 수정버튼을 클릭하면
@@ -605,7 +603,7 @@
 
 <!-- 제목&소제목 -->
 <h2 class="title">
-	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
+	<a id="title" href="customPostList.do?post_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
 </h2>
@@ -676,18 +674,18 @@
 				<!-- 작성자 아이디 -->
 				<div class="profile">
 					<c:if test="${customPost.anonymous == 0}"> <!-- 익명처리 off -->
-						<h3 class="large">${customPost.id}</h3>
+						<h3 class="large" style="display: contents;">${customPost.id}</h3>
 					</c:if>
 					<c:if test="${customPost.anonymous == 1}"> <!-- 익명처리 on  -->
-						<h3 class="large">익명</h3>
+						<h3 class="large" style="display: contents;">익명</h3>
 					</c:if>
 					<!-- 작성일 -->
-					<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
+					<time class="small"style="display: grid;"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 				</div>
 				
 				<hr>
 				<!-- 내용 -->		
-				<p class="small">
+				<p>
 					${customPost.content}
 				</p>
 				<div class="align-center">
@@ -700,40 +698,38 @@
 	</article>
 </div>
 
+<!-- 댓글 목록 -->
+<div id="output">
+	<div class="paging-button" style="display:none;">
+		<input type="button" value="댓글 더 보기">
+	</div>
+	<div id="loading" style="display:none;">
+		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
+	</div>
+</div>
 <!-- 댓글 -->
-<div id="comment_div">
-	<span class="comment-title">댓글 달기</span>
+<div id="reply_div">
 	<form id="comment_form">
-		<input type="hidden" name="post_num"
-		       value="${customPost.post_num}" id="post_num"> <!-- 게시글 번호 -->
-		<input type="hidden" name="mem_num"
-		       value="${user.mem_num}" id="mem_num"> <!-- 로그인 한 회원 -->
-		<textarea rows="3" cols="50" name="content" id="content" class="rep-content"></textarea>              
+		<input type="hidden" name="post_num" value="${customPost.post_num}" id="post_num"> <!-- 게시글 번호 -->
+		<input type="hidden" name="mem_num" value="${user.mem_num}" id="mem_num"> <!-- 로그인 한 회원 -->
+		<input type="text"
+			  name="content" id="content"
+			  class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
+			  <c:if test="${empty user}">disabled="disabled"</c:if>
+			>              
 		<c:if test="${!empty user}">
-		<div id="comment_first">
-			<span class="letter-count">300/300</span>
-		</div>
 		<div id="comment_second" class="align-right">
 			<c:if test="${boardInfo.anonymous == 1}"> <!-- 익명 허용 게시판 -->
 				<input type="checkbox" name="anonymous" value="1" checked>익명
 			</c:if>
-			<c:if test="${boardInfo.anonymous == 0}"> <!-- 익명 미허용 게시판 -->
-				<span id="anony_alert">* ${boardInfo.title}(은/는) 익명으로 작성할 수 없습니다 *</span>
-			</c:if>
-			<input type="submit" value="전송">
+			<div id="re_second" class="align-right">	
+				<input type="submit" class="submit" value="">
+				</label>											
+			</div>
 		</div>
 		
 		</c:if>
 	</form>
-</div>
-
-<!-- 댓글 목록 -->
-<div id="output"></div>
-<div class="paging-button" style="display:none;">
-	<input type="button" value="댓글 더 보기">
-</div>
-<div id="loading" style="display:none;">
-	<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
 </div>
 
 

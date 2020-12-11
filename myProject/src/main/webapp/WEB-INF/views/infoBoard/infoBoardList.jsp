@@ -37,7 +37,7 @@
 			<li>				
 				<input type="submit" value="" id="submit">			
 			</li>				
-		</ul>					
+		</ul>				
 		<input type="button" value="새 글을 작성해주세요!" onclick="location.href='write.do'" id="writeBtn">					
 	</form>						
 							

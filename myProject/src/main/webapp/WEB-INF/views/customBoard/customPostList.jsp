@@ -10,39 +10,14 @@
 	<!-- 제목&소제목 -->
 	<h2 class="title">
 		<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
-		<br>
 		<span id="subtitle">${boardInfo.subtitle}</span>
-	</h2>
-	
-	<form action="customPostList.do" id="search_form" method="get">
-		<!-- 유효성 검사를 하지 않을 경우에는 form:hidden 사용금지 -->
-		<input type="hidden" name="board_num" value="${boardInfo.board_num}"/> 
-		<ul class="search">
-			<li>
-				<select name="keyfield" id="keyfield">
-					<option value="all">전체</option>		
-					<option value="hashtag">해시태그</option>
-					<option value="content">글 내용</option>
-				</select>
-			</li>
-			<li>
-				<input type="text" name="keyword" id="keyword">
-			</li>
-			<li>
-				<input type="submit" value="찾기">
-				<input type="button" value="글 작성" onclick="location.href='customPostWrite.do?board_num=${boardInfo.board_num}'">
-			</li>
-		</ul>
-	</form>
-	
-	<div class="align-right">
+		<div class="align-right custom_status">
 		<%--수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야 함 --%>
 		<c:if test="${!empty user && user.mem_num == boardInfo.mem_num}">
 			<ul class="status" style="cursor: pointer;">
 				<li><a onclick="location.href='updateCustomBoard.do?board_num=${boardInfo.board_num}'">수정</a></li> <!-- 게시판 수정 -->
 				<li id="delete_btn">삭제</li> <!-- 게시판 삭제 -->
 			</ul>
-			
 			<script>
 				var delete_btn = document.getElementById('delete_btn');
 				//이벤트 연결
@@ -66,8 +41,30 @@
 				};
 			</script>
 		</c:if>
-	</div>	
+	</div>
+	</h2>
 	
+	<form action="customPostList.do" id="search_form" method="get">
+		<!-- 유효성 검사를 하지 않을 경우에는 form:hidden 사용금지 -->
+		<input type="hidden" name="board_num" value="${boardInfo.board_num}"/> 
+		<ul class="search_info">					
+			<li>				
+				<select name="keyfield" id="keyfield">			
+					<option value="all">전체</option>		
+					<option value="tag">태그</option>		
+					<option value="title">글 제목</option>		
+					<option value="content">글 내용</option>		
+				</select>			
+			</li>
+			<li>				
+				<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요.">			
+			</li>				
+			<li>				
+				<input type="submit" value="" id="submit">			
+			</li>											
+		</ul>	
+		<input id="writeBtn" type="button" value="새 글을 작성해주세요!" onclick="location.href='customPostWrite.do?board_num=${boardInfo.board_num}'">	
+	</form>	
 	<!-- 게시글 목록 -->
 	<c:if test="${count == 0}">
 		<div class="align-center">등록된 게시글이 없습니다.</div>
@@ -79,9 +76,10 @@
 				<a class="article" href="customPostDetail.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}">
 					<!-- 실명 게시글 -->
 					<c:if test="${customPost.anonymous == 0}"> 
-						<!-- 프로필 사진 -->	
+					<!-- 프로필 사진 -->	
+					<div style="overflow: hidden;">
 						<c:if test="${empty member.photoname}">
-							<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large">	
+							<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large customPicture">	
 						</c:if>
 						<c:if test="${!empty member.photoname}">
 							<img src="${pageContext.request.contextPath}/member/photoView.do" class="picture large">
@@ -90,7 +88,7 @@
 						<div class="profile">
 							<h3 class="large">${customPost.id}</h3>
 							<!-- 작성일 -->
-							<time class="large"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
+							<time class="small"><fmt:formatDate value="${customPost.reg_date}" pattern="MM/dd HH:mm"/></time>
 						</div>
 					</c:if>
 					
@@ -107,20 +105,18 @@
 						</div>
 					</c:if>
 					<span id="div_content"></span>
+					
+					</div>
 					<!-- 내용 -->		
-					
-					<p class="small">${customPost.content}</p>
-					
+					<p class="customSmall">${customPost.content}</p>
 					<c:if test="${boardInfo.type == 1}"> <!-- 사진형 게시판일 경우만 목록에 사진 보이게 -->
 						<!-- 첨부파일 -->
 						<c:if test="${!empty customPost.filename}"> <!-- filename이 있으면 image가 있는거 -->
-							<div class="align-left">
+							<div class="customListImage">
 								<img src="customPostImageView.do?post_num=${customPost.post_num}&&board_num=${customPost.board_num}" style="max-width:150px;"> <!-- 세션에 없기 때문에 get방식으로 넘겨줘야 함 -->
 							</div>
 						</c:if>
 					</c:if>
-					</a>
-					
 					<div class ="wrapstatus">
 						<ul class="status">
 								<li class="vote" id="like_check">${customPost.like_cnt}</li>
@@ -129,10 +125,10 @@
 						</ul>
 						<span style="visibility:hidden;">span</span>
 					</div>
-					
+					</a>
 				</article>
 			</c:forEach>
-		<div class="align-center">${pagingHtml}</div>
+		<div class="align-center" id="pagenation">${pagingHtml}</div>
 	</c:if>
 </div>
 

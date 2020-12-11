@@ -23,16 +23,16 @@
 		<form:errors path="content" cssClass="error-color"/>
 	</p>
 	<!-- 첨부파일 -->
-	<input multiple="multiple" type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg">
-	
-	<c:if test="${boardInfo.anonymous == 1}"> <!--  익명 게시판 -->	
-		<p class="check_anony">
-			<input type="checkbox" id="check_anony" name="anonymous" value="1" checked>익명
-		</p>
-	</c:if>
-	<div class="align-center">
-		<input type="submit" value="등록">
-	</div>
+	<div class="write_bottom">
+			<div class="align-left">
+				<label class="fileUpload">　
+					<input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg" onchange="readURL(this);">
+				</label>
+			</div>
+			<div class="align-right" style="float: right;">
+				<input type="submit" class="submit" value="">
+			</div>
+		</div>
 </form:form>
 
 	<!-- 
