@@ -52,8 +52,7 @@
 					<div class="data">
 						<div><h2>${ bookStoreVO.title }</h2></div>
 						<div><span class="intro">저자</span> ${ bookStoreVO.authors }</div>
-						<div><span class="intro">출판사</span> ${ bookStoreVO.publisher }</div>
-						<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
+						<div><span class="intro">출판사</span> ${ bookStoreVO.publisher }</div><br>
 						<div><span class="sell">${ bookStoreVO.bs_selling_price }</span> <span class="price">${ bookStoreVO.price }</span></div>
 					</div>
 				</div>
