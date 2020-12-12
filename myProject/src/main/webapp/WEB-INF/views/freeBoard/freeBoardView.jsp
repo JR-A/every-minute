@@ -512,44 +512,40 @@ $(document).ready(function(){
 	selectData(1,$('#post_num').val());
 });
 </script>
-<h2 class="titleBoard"><a href="freeBoardList.do">자유게시판</a></h2>
-<div class="page-main-style-detail"style="padding: 15px;">
-
+<h2 class="titleBoard">
+	<a href="freeBoardList.do">자유게시판</a>
+</h2>
+<div class="page-main-style-detail" style="padding: 15px;">
 	<article>
-	<c:if test="${empty freeboard.photoname}">
-				<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
-			</c:if>
+		<a class="article2">
+		<c:if test="${empty freeboard.photoname}">
+			<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
+		</c:if>
 			
 			
-			<c:if test="${!empty freeboard.photoname}">
-				<c:if test="${0 eq freeboard.anonymous}">
-				<img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="picture large">
-				</c:if>
-				
-				<c:if test="${1 eq freeboard.anonymous}">
-				<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
-				</c:if>
+		<c:if test="${!empty freeboard.photoname}">
+			<c:if test="${0 eq freeboard.anonymous}">
+			<img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="picture large">
 			</c:if>
-			<div class="profile">
-					<h3 class="large">
-					<c:if test="${0 eq freeboard.anonymous}">
-						${freeboard.id}
-				</c:if>
-				<c:if test="${1 eq freeboard.anonymous}">
-						익명
-				</c:if>
-				</h3>
-				   <fmt:parseDate var="dateTempParse" value="${freeboard.modify_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-       				<fmt:formatDate value="${dateTempParse}" pattern="MM/dd HH:mm"/>
-	
-			</div>
+			<c:if test="${1 eq freeboard.anonymous}">
+			<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
+			</c:if>
+		</c:if>
+		<div class="profile">
+			<h3 class="large">
+			<c:if test="${0 eq freeboard.anonymous}">${freeboard.id}</c:if>
+			<c:if test="${1 eq freeboard.anonymous}">익명</c:if>
+			</h3>
+			<fmt:parseDate var="dateTempParse" value="${freeboard.modify_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+       		<fmt:formatDate value="${dateTempParse}" pattern="MM/dd HH:mm"/>
+		</div>
 			<c:if test="${!empty user && user.mem_num != freeboard.mem_num}">
 			<ul class="status">
 				<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${freeboard.anonymous}&&target_mem_num=${freeboard.mem_num}';">쪽지</li>		
-						<li class="abuse" id="btnOK">신고</li>	
+				<li class="abuse" id="btnOK">신고</li>	
 			</ul>
 			</c:if>
-			<div class="align-right">
+		<div class="align-right">
 		<%--수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야 함 --%>
 		<c:if test="${!empty user && user.mem_num == freeboard.mem_num}">
 		<input type="button" value="수정" onclick="location.href='update.do?post_num=${freeboard.post_num}'">
@@ -577,62 +573,59 @@ $(document).ready(function(){
 			};
 		</script>
 		</c:if>
-		
-	</div>
-			<hr>
-			<h1>${freeboard.title}</h1>
-			
-				${freeboard.content}
-			<c:if test="${!empty freeboard.filename}"> <!-- filename이 비어있지 않는다면 아래의 div를 실행 -->
-			<div class="align-center">
-				<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">
-			</div>
-			</c:if>
-
+		</div>
+		<hr>
+		<h1>${freeboard.title}</h1>
+		${freeboard.content}
+		<c:if test="${!empty freeboard.filename}"> <!-- filename이 비어있지 않는다면 아래의 div를 실행 -->
+		<div class="align-center">
+			<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">
+		</div>
+		</c:if>
 		<div class ="wrapstatus">
 			<ul class="status">
-			
-					<li class="vote" id="like_check">0</li>
-					
-					<li class="comm" id="count">${freeboard.reply_cnt}</li>
-			
+				<li class="vote" id="like_check">0</li>
+				<li class="comm" id="count">${freeboard.reply_cnt}</li>
 			</ul>
 		</div>
-			<div class="pointer"></div>
+		<div class="pointer"></div>
+		</a>
 	</article>
 </div>
-	<!-- 글쓰기 끝 -->
-		<div class="reply_init">
+<!-- 글쓰기 끝 -->
+		
 <!-- 댓글 목록 출력 -->
-		<div id="output"></div>
-		<div class="paging-button" style="display:none;">
-			<input type="button" value="댓글 더 보기">
-		</div>
-		<div id="loading" style="display:none;">
-			<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
-		</div>
+	<div id="output"></div>
+	<div class="paging-button" style="display:none;">
+		<input type="button" value="댓글 더 보기">
+	</div>
+	<div id="loading" style="display:none;">
+		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
+	</div>
+	
 		<!-- 댓글 작성 시작 -->
+	<div class="reply_init">
 		<div id="reply_div">
-		<form id="re_form">
-			<input type="hidden" name="post_num"
-			       value="${freeboard.post_num}" id="post_num">
-			<input type="hidden" name="mem_num"
-			       value="${user.mem_num}" id="mem_num">
-			<input type="text"
-			  name="content" id="content"
-			   class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
-			  <c:if test="${empty user}">disabled="disabled"</c:if>
+			<form id="re_form">
+				<input type="hidden" name="post_num"
+			       	value="${freeboard.post_num}" id="post_num">
+				<input type="hidden" name="mem_num"
+			       	value="${user.mem_num}" id="mem_num">
+				<input type="text"
+			  		name="content" id="content" class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
+			  	<c:if test="${empty user}">disabled="disabled"</c:if>
 			  ><c:if test="${empty user}">로그인해야 작성할 수 있습니다.</c:if></input>              
 			<c:if test="${!empty user}">
-	<div id="re_second" class="align-right">	
+			<div id="re_second" class="align-right">	
 				<input type="submit" class="submit" value="">													
 				<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
 				<label for="anonymous">
-			  	<span class="anonymousSpan">익명</span>
+			  		<span class="anonymousSpan">익명</span>
 				</label>	
 			</div>
 			</c:if>
 		</form>
+	</div>
 	</div>
 	<!-- 댓글 목록 출력 -->
 	<div id="output"></div>
@@ -642,4 +635,4 @@ $(document).ready(function(){
 	<div id="loading" style="display:none;">
 		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
 	</div>
-
+	

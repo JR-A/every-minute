@@ -14,11 +14,11 @@ dl, ul, ol, menu, li {
     margin: 0;
     padding: 0;
 }
-
+/*
 ul#menu {
     padding: revert;
 }
-
+*/
 div.subject{
 	letter-spacing: -0.7px;
 	
