@@ -243,11 +243,12 @@ $(document).ready(function(){
 							
 						}
 						if(item.anonymous == 1){
-							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="25" height="25" class="picture large">익명</h4>';
+							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large">익명</h4>';
+						}else if(item.anonymous == 0 && item.photoname == null){
+							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large">' + item.id + '</h4>';
 						}else if(item.anonymous == 0){
-							output += '  <h4><img src="replayImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
+							output += '  <h4><img src="freeReplyImageView.do?mem_num='+item.mem_num+'" width="30" height="30" class="picture large">' + item.id + '</h4>';
 						}
-						
 						output += '  <div class="sub-item">';
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
@@ -526,7 +527,7 @@ $(document).ready(function(){
 			
 		<c:if test="${!empty freeboard.photoname}">
 			<c:if test="${0 eq freeboard.anonymous}">
-			<img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="picture large">
+			<img src="freeReplyImageView.do?mem_num=${freeboard.mem_num}"width="100" height="100" class="picture large">
 			</c:if>
 			<c:if test="${1 eq freeboard.anonymous}">
 			<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
@@ -589,6 +590,7 @@ $(document).ready(function(){
 				<li class="comm" id="count">${freeboard.reply_cnt}</li>
 			</ul>
 		</div>
+		<div class="pointer"></div>	
 		</a>
 	</article>
 </div>
@@ -597,7 +599,7 @@ $(document).ready(function(){
 <!-- 댓글 목록 출력 -->
 	<div id="output"></div>
 	<div class="paging-button" style="display:none;">
-		<input type="button" value="댓글 더 보기">
+		<input id="more_comment" type="button" value="댓글 더 보기">
 	</div>
 	<div id="loading" style="display:none;">
 		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
@@ -628,10 +630,7 @@ $(document).ready(function(){
 	</div>
 	</div>
 	<!-- 댓글 목록 출력 -->
-	<div id="output"></div>
-	<div class="paging-button" style="display:none;">
-		<input type="button" value="댓글 더 보기">
-	</div>
+
 	<div id="loading" style="display:none;">
 		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
 	</div>

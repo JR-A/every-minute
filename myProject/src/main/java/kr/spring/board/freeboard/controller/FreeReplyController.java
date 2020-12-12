@@ -197,7 +197,7 @@ public class FreeReplyController {
 			return map;
 		}
 		
-		@RequestMapping("/freeBoard/replayImageView.do")
+		@RequestMapping("/freeBoard/freeReplyImageView.do")
 		public ModelAndView viewImage(@RequestParam int mem_num) {
 			
 			MemberVO vo = memberService.selectMember(mem_num);

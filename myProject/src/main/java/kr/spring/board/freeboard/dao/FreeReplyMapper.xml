@@ -15,7 +15,8 @@
  		   id,
  		   anonymous,
  		   mem_num,
- 		  like_cntR
+ 		  like_cntR,
+ 		  photoname
  		FROM (SELECT 
  		        a.*,
  		        rownum rnum
@@ -27,8 +28,8 @@
  		              id,
  		              f.anonymous,
  		              f.mem_num,
- 		              like_cntR
- 		              
+ 		              like_cntR,
+ 		              photoname
  		            FROM freeboard_comment f
  		            LEFT OUTER JOIN (SELECT COUNT(*) like_cntR,comment_num FROM freeboard_like_comment GROUP BY comment_num)c ON f.comment_num = c.comment_num
  		            JOIN member m ON f.mem_num=m.mem_num 

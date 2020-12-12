@@ -263,6 +263,15 @@ div#freeBoard_title{
     font-size: 14px;
     font-weight: bold;
 }
+#more_comment{
+	border: 1px solid #e3e3e3;
+	background-color: rgba(0,0,0,0); 
+	color: black; 
+	padding: 5px;
+	margin-top:1px;
+
+}
+
 
 input:focus {outline:none;}
 a {text-decoration: none; color: black;}
