@@ -12,8 +12,8 @@
 	<!-- HOT게시물 (좋아요 10개 이상받은 게시글 중 top2) -->
 	<select id="info_hotPostTop2" resultType="infoBoardVO">
 		SELECT * FROM 
-		    (SELECT * FROM infoBoard i 
-		        JOIN (SELECT post_num, COUNT(*) like_cnt 
+		   (SELECT title,content,TO_CHAR(reg_date,'YY/MM HH24:MI') reg_date, i.post_num FROM infoBoard i 
+            JOIN (SELECT post_num, COUNT(*) like_cnt 
 		            FROM infoBoard_Like_Post 
 		            <![CDATA[
               		GROUP BY post_num HAVING COUNT(*) >= 5) lp 
@@ -22,7 +22,6 @@
             <![CDATA[
 	        WHERE ROWNUM<=2
 	        ]]>
-		ORDER BY reg_date DESC
 	</select>
 	
    <select id="selectTagList" parameterType="map" resultType="InfoBoardVO">

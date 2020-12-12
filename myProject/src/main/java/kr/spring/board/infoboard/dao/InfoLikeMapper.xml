@@ -4,12 +4,10 @@
 
 	<select id ="info_bestLikePost" resultType="InfoBoardVO">
 		SELECT * FROM 
-		     (SELECT * FROM 
-		        (SELECT * FROM infoBoard i 
-		            JOIN (SELECT post_num, COUNT(*) like_cnt 
-		                FROM infoBoard_Like_Post GROUP BY post_num) lp 
-		                    ON i.post_num = lp.post_num ORDER BY like_cnt DESC)
-		     ORDER BY reg_date DESC)
+	        (SELECT * FROM infoBoard i 
+	            JOIN (SELECT post_num, COUNT(*) like_cnt 
+	                FROM infoBoard_Like_Post GROUP BY post_num) lp 
+	                    ON i.post_num = lp.post_num ORDER BY like_cnt DESC)
 		 WHERE ROWNUM=1
 	</select>
 	 
