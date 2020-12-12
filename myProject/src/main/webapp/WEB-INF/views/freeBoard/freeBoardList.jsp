@@ -64,7 +64,7 @@
 							<time class="small">${freeboard.modify_date}</time>
 							<c:if test="${0 eq freeboard.anonymous}">${freeboard.id}</c:if>			
 					        <c:if test="${1 eq freeboard.anonymous}">익명</c:if>
-							<div class="wrapstatus">
+							<div class ="wrapstatus" style="float:right">
 								<ul class="status">
 									<li class="vote" id="like_check">${freeboard.like_cnt}</li>
 									<li class="comm">${freeboard.reply_cnt}</li>

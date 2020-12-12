@@ -312,8 +312,9 @@ $(document).ready(function(){
 					//댓글 작성이 성공하면 새로 삽입한 글을
 					//포함해서 첫번째 페이지의 게시글들을 다시
 					//호출함
-					$('#count').text(data.reply_cnt);
-					selectData(1,$('#post_num').val());
+					/* $('#count').text(data.reply_cnt);
+					selectData(1,$('#post_num').val()); */
+					location.reload();
 				}else{
 					alert('등록시 오류 발생!');
 				}
@@ -517,7 +518,7 @@ $(document).ready(function(){
 </h2>
 <div class="page-main-style-detail" style="padding: 15px;">
 	<article>
-		<a class="article2">
+		<a>
 		<c:if test="${empty freeboard.photoname}">
 			<img src="https://cf-fpi.everytime.kr/0.png" width="100" height="100" class="picture large">
 		</c:if>
@@ -582,13 +583,12 @@ $(document).ready(function(){
 			<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">
 		</div>
 		</c:if>
-		<div class ="wrapstatus">
+		<div class ="wrapstatus" style="float:right">
 			<ul class="status">
 				<li class="vote" id="like_check">0</li>
 				<li class="comm" id="count">${freeboard.reply_cnt}</li>
 			</ul>
 		</div>
-		<div class="pointer"></div>
 		</a>
 	</article>
 </div>
