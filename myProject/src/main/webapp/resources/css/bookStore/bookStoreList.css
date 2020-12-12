@@ -6,7 +6,10 @@ td{
 	padding: 10px !important;
 }
 .table_form1:hover{
-	background-color: #333;
+	background-color: #c62917;
+	color: #fff;
+}
+.table_form1:hover span{
 	color: #fff;
 }
 a{
@@ -45,7 +48,7 @@ a{
 	font-size: 9px;
 }
 .sell{
-	color: red;
+	color: #c62917;
 	font-size: 20px;
 	font-weight: 800;
 }
@@ -71,5 +74,8 @@ input{
 	display: inline;
 }
 .table_form2{
+	color: #ddd !important;
+}
+.table_form2 span{
 	color: #ddd !important;
 }

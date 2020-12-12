@@ -50,6 +50,7 @@
 			<li class="list">
 				<label for="upload">책 사진</label>
 				<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg">
+				<div class="img_wrap"><img id="img"></div>
 			</li>
 		</ul>
 		<div class="align-center">
@@ -133,7 +134,31 @@
 				$("#map_data").css("display", "none");
 			}
 		});
+		
+		var sel_file;
+		
+		$("#upload").on("change", handleImgFileSelect);
 	});
+	
+	function handleImgFileSelect(e){
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		
+		filesArr.forEach(function(f){
+			if(!f.type.match("image.*")){
+				alert("이미지만 가능합니다.");
+				return;
+			}
+			
+			sel_file = f;
+			
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#img").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(f);
+		});
+	}
 </script>
 <script>
 	var mapContainer = document.getElementById('map'),

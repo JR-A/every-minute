@@ -45,6 +45,13 @@ ul{
 	margin: 10px 0;
 	margin-left: -20px;
 }
+.img_wrap{
+	width: 200px;
+	margin-top: 10px;
+}
+.img_wrap img{
+	max-width: 100%;
+}
 #submit_btn,
 .back_btn{
 	border: none;
