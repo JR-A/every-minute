@@ -12,3 +12,4 @@ public interface InfoBlameService {
 	//댓글 신고 접수
 	public void insertCommentBlame(InfoBlameVO infoBlameVO);
 }
+ 

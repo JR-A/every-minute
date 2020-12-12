@@ -21,5 +21,5 @@ public interface InfoCommentLikeMapper {
 	//댓글 추천 삭제_게시글 (게시글에 존재하는 모든 댓글 삭제)
 	@Delete("DELETE FROM infoboard_like_comment WHERE comment_num = #{comment_num}")
 	public void deleteReplyLike(Integer comment_num);
-		
+		 
 } 

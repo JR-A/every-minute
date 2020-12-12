@@ -4,6 +4,10 @@
 	float: left;
 	margin: 0 0 5px 33px;
 }
+.marginBtn {
+	margin: 0px;
+    margin-left: 7px;
+}
 /*======== 게시판 생성 디자인 시작 ========*/
 .create_custBoard {
     width: 1280px;
@@ -182,7 +186,7 @@ div.card > div.board > a.article > ul.status > li.comment.active {
 /*==========페이지 기본 스타일 끝 ======*/
 
 /*=========제목 & 소제목 ==========*/
-h2.title > #anony_alert {
+#anony_alert {
 	color:red;
     float: right;
     font-size:12px;

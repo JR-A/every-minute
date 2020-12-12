@@ -9,7 +9,7 @@ var likeCountR;
 		var result = confirm('해당 댓글을 신고하시겠습니까?');
 		if(result) {
 			
-		}else{
+		}else{ 
 			return false;
 		}
 		

@@ -7,7 +7,7 @@
 	<a href="infoBoardList.do">정보게시판</a>						
 </h2>							
 <div class="page-main-style-info">							
-	<div class="pointer">						
+	<div class="pointer">			 			
 		<div><span onclick="oneCheckbox1()" class="1">도서관</span></div>					
 		<div><span onclick="oneCheckbox2()" class="2">셔틀버스</span></div>					
 		<div><span onclick="oneCheckbox3()" class="3">와이파이</span></div>					

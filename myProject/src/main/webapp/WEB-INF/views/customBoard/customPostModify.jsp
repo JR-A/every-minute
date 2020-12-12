@@ -30,13 +30,22 @@
 		<br>
 		<span id="alert">(${customPostVO.filename})파일이 등록되어 있습니다. 다시 업로드하면 기존 파일은 삭제됩니다.</span>
 	</c:if>
-	
-	<c:if test="${boardInfo.anonymous == 1}"> <!--  익명 게시판 -->	
-		<p class="check_anony">
-			<input type="checkbox" id="check_anony" name="anonymous" value="1" checked>익명
-		</p>
-	</c:if>
-	<div class="align-center" id="submitModify">
-		<input type="submit" value="등록">
+	<div class="write_bottom">
+		<div class="align-left">
+		<input type="button" onclick="insertText()" class="tag"><!--태그추가-->
+		<input type="text" id="addInput" value="#">
+			<label class="fileUpload">　
+			<input type="file" name="upload" id="fileUpload" accept="image/gif,image/png,image/jpeg" onchange="readURL(this);">
+			</label>
+		</div>
+		<div class="align-right">
+			<c:if test="${boardInfo.anonymous == 1}"> <!--  익명 게시판 -->	
+			<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+			</c:if>
+			<label for="anonymous">
+		  	<span class="anonymousSpan"></span>
+			</label>
+			<input type="submit" class="submit" value="">
+		</div>
 	</div>
 </form:form>

@@ -19,4 +19,9 @@ public interface InfoBlameMapper {
 	//신고하기 삭제
 	@Delete("DELETE FROM infoboard_blame_post WHERE post_num=#{post_num}")
 	public void deleteBlamePostByPostNum(Integer post_num);
+	
+	//댓글 신고하기 삭제
+	@Delete("DELETE FROM infoboard_blame_comment WHERE comment_num=#{comment_num}")
+	public void deleteBlamePostByCommentNum(Integer comment_num);
 }
+ 

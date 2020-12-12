@@ -19,4 +19,4 @@ public interface InfoBoardService {
 	public void updateBoard(InfoBoardVO board);
 	public void deleteBoard(Integer post_num);
 	public void insertBlameBoard(InfoBoardVO infoBoardVO);
-}
+} 

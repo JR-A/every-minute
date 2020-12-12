@@ -37,7 +37,7 @@
 						<li class="messagesend" onclick="location.href='../message/sendMessage.do?anony=${board.anonymous}&&target_mem_num=${board.mem_num}';">쪽지</li>														
 						<li class="abuse" id="btnOK">신고</li>															
 					</ul>																															
-			</c:if>														
+			</c:if>			 											
 			<div class="align-right">																			
 			<!-- 수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야함 -->																		
 			<!--     			┌로그인됨		 ┌로그인아이디		┌작성자아이디  -->											

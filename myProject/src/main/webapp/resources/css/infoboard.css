@@ -321,7 +321,9 @@ p.topics input[type="radio"] {
     background: #f9f9f9 url(https://everytime.kr/images/new/container.write.background.png) no-repeat right center;
     background-size: 40px 40px;
 }
-
+#btnOK {
+	margin-left: 3px;
+}
 /*=====================*/
 
 /*======== 페이징 여백 추가 =========*/
@@ -480,7 +482,7 @@ a {text-decoration: none; color: black;}
 .align-right > input[type="button"] {
 	border: 0px; 
 	background: none;
-    padding: 0 3px;
+    padding: 0 2px;
     height: 20px;
     line-height: 20px;
     color: #a6a6a6;

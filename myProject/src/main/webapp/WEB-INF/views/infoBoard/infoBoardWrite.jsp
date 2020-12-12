@@ -61,8 +61,8 @@
 			</div>
 			<div class="align-right" style="float: right;">
 				<input type="submit" class="submit" value="">
-				<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
-					<label for="anonymous"><span class="anonymousSpan">익명</span>
+				<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked" >
+					<label for="anonymous"><span class="anonymousSpan"></span>
 				</label>
 			</div>
 		</div>

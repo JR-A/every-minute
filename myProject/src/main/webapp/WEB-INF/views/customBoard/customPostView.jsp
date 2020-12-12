@@ -251,7 +251,7 @@
 							if($('#mem_num').val()==item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn marginBtn">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">'; 
 							}
 							output += '  </div>';
@@ -719,8 +719,8 @@
 			>              
 		<c:if test="${!empty user}">
 		<div id="comment_second" class="align-right">
-			<c:if test="${boardInfo.anonymous == 1}"> <!-- 익명 허용 게시판 -->
-				<input type="checkbox" name="anonymous" value="1" checked style="display: none;">
+			<c:if test="${customPost.anonymous == 1}"> <!-- 익명 허용 게시판 -->
+				<input type="checkbox" name="anonymous" value="1" checked="checked" style="display: none;">
 			</c:if>
 			<div id="re_second" class="align-right">	
 				<input type="submit" class="submit" value="">											

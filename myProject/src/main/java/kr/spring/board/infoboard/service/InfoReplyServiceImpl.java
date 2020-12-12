@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.spring.board.infoboard.dao.InfoBlameMapper;
 import kr.spring.board.infoboard.dao.InfoCommentLikeMapper;
 import kr.spring.board.infoboard.dao.InfoReplyMapper;
 import kr.spring.board.infoboard.vo.InfoReplyVO;
@@ -19,6 +20,8 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 	InfoReplyMapper infoReplyMapper;
 	@Resource
 	InfoCommentLikeMapper infoCommentLikeMapper;
+	@Resource
+	InfoBlameMapper infoBlameMapper;
 	
 	@Override 
 	public List<InfoReplyVO> selectListReply(Map<String, Object> map) {
@@ -38,6 +41,7 @@ public class InfoReplyServiceImpl implements InfoReplyService {
 	//댓글 삭제
 	@Override
 	public void deleteReply(Integer comment_num) {
+		infoBlameMapper.deleteBlamePostByCommentNum(comment_num);
 		infoCommentLikeMapper.deleteReplyLike(comment_num);
 		infoReplyMapper.deleteReply(comment_num);
 	}

@@ -25,7 +25,7 @@ public class InfoBlameServiceImpl implements InfoBlameService{
 		return infoBlameMapper.blameCommCount_user(map);
 	}
 
-	@Override
+	@Override 
 	public void insertCommentBlame(InfoBlameVO infoBlameVO) {
 		infoBlameMapper.insertCommBlame(infoBlameVO);
 	}
