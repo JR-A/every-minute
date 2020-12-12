@@ -430,6 +430,11 @@ CREATE TABLE BookStoreBoard(
     uploadfile BLOB,
     filename VARCHAR2(100),
     isbn VARCHAR2(100) NOT NULL,
+    title VARCHAR2(100) NOT NULL,
+    authors VARCHAR2(100) NOT NULL,
+    publisher VARCHAR2(100) NOT NULL,
+    price NUMBER NOT NULL,
+    thumbnail VARCHAR2(4000) NOT NULL
 
     CONSTRAINT bookstoreboard_pk PRIMARY KEY (bs_num),
     CONSTRAINT bookstoreboard_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)

@@ -31,9 +31,14 @@
 				<c:if test="${ bookStoreVO.bs_complete == 0 }">
 				<td class="table_form1" onclick="location.href='bookStoreView.do?bs_num=${ bookStoreVO.bs_num }'">
 				<div class="info">
-					<div>ISBN : ${ bookStoreVO.isbn }</div>
-					<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
-					<div>판매희망가 : ${ bookStoreVO.bs_selling_price }</div>
+					<div class="thumbnail"><img src="${ bookStoreVO.thumbnail }"></div>
+					<div class="data">
+						<div><h2>${ bookStoreVO.title }</h2></div>
+						<div><span class="intro">저자</span> ${ bookStoreVO.authors }</div>
+						<div><span class="intro">출판사</span> ${ bookStoreVO.publisher }</div>
+						<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
+						<div><span class="sell">${ bookStoreVO.bs_selling_price }</span> <span class="price">${ bookStoreVO.price }</span></div>
+					</div>
 				</div>
 				<div class="complete">
 					<div>판매중</div>
@@ -43,9 +48,14 @@
 				<c:if test="${ bookStoreVO.bs_complete > 0 }">
 				<td class="table_form2" onclick="location.href='bookStoreView.do?bs_num=${ bookStoreVO.bs_num }'">
 				<div class="info">
-					<div>ISBN : ${ bookStoreVO.isbn }</div>
-					<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
-					<div>판매희망가 : ${ bookStoreVO.bs_selling_price }</div>
+					<div class="thumbnail"><img src="${ bookStoreVO.thumbnail }"></div>
+					<div class="data">
+						<div><h2>${ bookStoreVO.title }</h2></div>
+						<div><span class="intro">저자</span> ${ bookStoreVO.authors }</div>
+						<div><span class="intro">출판사</span> ${ bookStoreVO.publisher }</div>
+						<div>거래 방법 : ${ bookStoreVO.bs_method }</div>
+						<div><span class="sell">${ bookStoreVO.bs_selling_price }</span> <span class="price">${ bookStoreVO.price }</span></div>
+					</div>
 				</div>
 				<div class="complete">
 					<div>판매 완료</div>

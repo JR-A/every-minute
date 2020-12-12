@@ -79,6 +79,11 @@
 			$("#publisher").append(msg.documents[0].publisher);
 			$("#price").append(msg.documents[0].price + "원");
 			$("#bookStoreVO").append("<input type='hidden' name='isbn' value='" + result[1] + "'>");
+			$("#bookStoreVO").append("<input type='hidden' name='title' value='" + msg.documents[0].title + "'>");
+			$("#bookStoreVO").append("<input type='hidden' name='authors' value='" + msg.documents[0].authors + "'>");
+			$("#bookStoreVO").append("<input type='hidden' name='publisher' value='" + msg.documents[0].publisher + "'>");
+			$("#bookStoreVO").append("<input type='hidden' name='price' value='" + msg.documents[0].price + "'>");
+			$("#bookStoreVO").append("<input type='hidden' name='thumbnail' value='" + msg.documents[0].thumbnail + "'>");
 		});
 		
 		$("#submit_btn").on('click', function(){

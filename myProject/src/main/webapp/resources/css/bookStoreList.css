@@ -30,8 +30,30 @@ a{
 .info{
 	float: left;
 }
+.thumbnail{
+	float: left;
+}
 .complete{
 	float: right;
+}
+.data{
+	float: left;
+	margin-left: 10px;
+}
+.intro{
+	color: #666;
+	font-size: 9px;
+}
+.sell{
+	color: red;
+	font-size: 20px;
+	font-weight: 800;
+}
+.price{
+	color: #666;
+	font-size: 15px;
+	font-weight: 800;
+	text-decoration: line-through;
 }
 input{
 	border: none; 

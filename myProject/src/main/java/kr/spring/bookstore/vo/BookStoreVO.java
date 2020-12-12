@@ -22,6 +22,11 @@ public class BookStoreVO {
 	private int bs_complete;
 	private String id;
 	private String isbn;
+	private String title;
+	private String authors;
+	private String publisher;
+	private int price;
+	private String thumbnail;
 	
 	public void setUpload(MultipartFile upload) throws IOException {
 		setUploadfile(upload.getBytes());
@@ -112,13 +117,34 @@ public class BookStoreVO {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-
-	@Override
-	public String toString() {
-		return "BookStoreVO [bs_num=" + bs_num + ", mem_num=" + mem_num + ", bs_selling_price=" + bs_selling_price
-				+ ", bs_comment=" + bs_comment + ", bs_condition=" + bs_condition + ", bs_method=" + bs_method
-				+ ", bs_address=" + bs_address + ", reg_date=" + reg_date + ", modify_date=" + modify_date
-				+ ", filename=" + filename + ", bs_complete=" + bs_complete + ", id=" + id + ", isbn=" + isbn + "]";
+	public String getTitle() {
+		return title;
 	}
-
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getAuthors() {
+		return authors;
+	}
+	public void setAuthors(String authors) {
+		this.authors = authors;
+	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 }
