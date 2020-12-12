@@ -178,6 +178,7 @@ public class MemberAjaxController {
 				List<FreeReplyVO> list = null;
 				if(count > 0) {
 					list = memberService.selectFreeWritedListReply(map);
+					log.debug("<<list>>"+ list);
 				}else {
 					list = Collections.emptyList();
 				}

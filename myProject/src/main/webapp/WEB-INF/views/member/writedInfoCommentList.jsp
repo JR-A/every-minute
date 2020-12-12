@@ -37,7 +37,7 @@ $(document).ready(function(){
 					//댓글 목록 작업
 					$(list).each(function(index,item){
 						var output = '<div class="item">';
-						output+='<h2>'+item.title+'</h2>';
+						output+='<h2><a href="${pageContext.request.contextPath}/infoBoard/detail.do?post_num='+item.post_num+'">'+item.title+'</a></h2>';
 						if(item.anonymous == 1){
 							output += '  <h4><img src="https://cf-fpi.everytime.kr/0.png" width="30" height="30" class="picture large">익명</h4>';
 						}else if(item.anonymous == 0){
@@ -47,22 +47,15 @@ $(document).ready(function(){
 						//output += '    <p>' + item.re_content.replace(/\n/g,'<br>') + '</p>';
 						output += '    <p>' + item.content.replace(/</gi,'&lt;').replace(/>/gi,'&gt;') + '</p>';
 						output += '<span class="reply-date">'+item.reg_date+'</span>';
-						
-						if($('#mem_num').val()==item.mem_num){
-							//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
-							output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">';
-						}
-						output += '      <hr size="1" noshade>';
 						output += '  </div>';
 						output += '</div>';
 												
 						//문서 객체에 추가
 						$('#output').append(output);
-					}); 
 					
-				
+					});
 				}
+				
 			},
 			error:function(){
 				//로딩 이미지 감추기
@@ -71,7 +64,7 @@ $(document).ready(function(){
 			}
 		});
 	}
-
+	
 	//page_num 으로 글목록호출
 	selectData($('#page_num').val());
 });
