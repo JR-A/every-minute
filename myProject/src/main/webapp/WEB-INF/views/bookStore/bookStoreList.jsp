@@ -8,10 +8,11 @@
 			<div class="top">
 				<select class="option" name="keyfield" id="keyfield">
 					<option value="all">전체</option>
+					<option value="title">제목</option>
 					<option value="isbn">ISBN</option>
 					<option value="bs_selling_price">가격</option>
 				</select>
-				<input type="text" name="keyword" id="keyword" placeholder="ISBN 또는 판매희망가로 검색">
+				<input type="text" name="keyword" id="keyword" placeholder="원하는 책을 찾으세요.">
 				<input class="search_btn" type="submit" value="검색">
 			</div>
 		</form>
