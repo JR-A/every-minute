@@ -5,12 +5,37 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
+<style type="text/css">
+	.form{
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		margin: auto;
+		margin-top: 20px;
+		width: 400px;
+		padding: 10px;
+	}
+	.txt{
+		text-align: center;
+	}
+	.link{
+		margin: auto;
+		text-align: center;
+		width: 200px;
+		padding: 5px;
+		margin-top: 20px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		background-color: #ddd;
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
-<h2>이메일 인증이 완료되었습니다!</h2>><br>
-
-<h1><a href="${pageContext.request.contextPath}/member/memberLogin.do">로그인하시겠습니까?</a></h1> 
-
+	<div class="form">
+		<div class="txt"><h2>이메일 인증이 완료되었습니다.</h2></div>
+		<div class="link" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do'">
+			로그인하시겠습니까?
+		</div>
+	</div>
 </body>
 </html>

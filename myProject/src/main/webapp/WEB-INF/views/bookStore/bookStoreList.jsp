@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bookStoreList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bookStore/bookStoreList.css">
 <div class="page-main-style">
 	<div>
 		<form action="bookStoreList.do" id="search_form" method="get">

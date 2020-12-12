@@ -5,25 +5,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-	ul{
-	 padding-left:288px;
+	.delete_form{
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		margin: auto;
+		margin-top: 20px;
+		width: 400px;
+		padding: 10px;
+		color: #666;
 	}
-	#text{
-	padding-left:59px;
+	.delete_txt{
+		text-align: center;
 	}
-	input[type="button"]{
-	margin-top:50px;
+	.main_btn{
+		text-align: center;
+		margin-top: 20px;
 	}
-		
+	.main_btn>input{
+		border: none;
+		padding: 5px 10px;
+		border-radius: 5px;
+	}
 </style>
 <title>회원 탈퇴완료</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 </head>
 <body>
-<ul>
-	 
-	<li id="text">탈퇴가 완료되었습니다.</li>
-  <li><input type="button" class="M_Btn" onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'" value="메인으로"></li>
-</ul>
+	<div class="delete_form">
+		<div class="delete_txt">탈퇴가 완료되었습니다.</div>
+		<div class="main_btn">
+			<input type="button"onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'" value="메인으로">
+		</div>
+	</div>
 </body>
 </html>
