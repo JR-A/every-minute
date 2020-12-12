@@ -9,8 +9,8 @@
 	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a> 
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
-	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	 
-			<p id="alert">* 해당 게시판은 익명 처리가 불가능합니다 *</p>
+	<c:if test="${boardInfo.anonymous == 0}"> <!-- 실명 게시판 -->	
+		<p id="anony_alert">* ${boardInfo.title}(은/는) 익명으로 작성할 수 없습니다 *</p>
 	</c:if>
 </h2>
 
@@ -28,7 +28,7 @@
 	<input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg">
 	<c:if test="${!empty customPostVO.filename}">
 		<br>
-		<span id="alert">(${customPostVO.filename})파일이 등록되어 있습니다. 다시 업로드하면 기존 파일은 삭제됩니다.</span>
+		<span style="font-size:14px; margin-left: 775px;">현재 첨부된 파일 : <span style="color:red">"${customPostVO.filename}"</span></span>
 	</c:if>
 	<div class="write_bottom">
 		<div class="align-left">

@@ -27,7 +27,6 @@
 	        	$('#imageImg').attr('src', image_gray);
 	        	type = 0;
 	        }
-	        alert("click ->" + type);
 		});
 
 	   //사진형 클릭시
@@ -42,7 +41,6 @@
 	        	$('#imageImg').attr('src', image_red);
 	        	type = 1;
 	         }
-	        alert("click ->" + type);
 		 }); 
 	   
 	 //익명허용 여부
@@ -58,14 +56,13 @@
 			}else{
 				$('#anonymous').val(0); //미허용
 			}
-			alert($('#anonymous').val());
 		});
 		
    });
 	
 </script>
 
-<div class="update_custBoard">
+<div class="update_custBoard" style="width: 1280px; margin: 0 auto;">
 	<form:form commandName="customBoardVO" action="updateCustomBoard.do" id="custBoard_form">
 	
 	<!-- type과 anonymous 전달 -->	 
@@ -74,28 +71,26 @@
 	<form:hidden path="board_num"/>
 	
 	<div class="customH2Title">	
-		<h2 id="customBoard_comm" style="font-size: 24px;">사용자 게시판 수정</h2>
-		<pre class="text_left" style="color: #a6a6a6;">각 테마에 맞는 사용자 게시판을 
-직접 생성하여 성향이 맞는 교원과 소통 할 수 있습니다.</pre>
+		<h2 id="customBoard_comm" style="font-size: 24px;">
+			<a id="title" href="customPostList.do?board_num=${customBoardVO.board_num}">[${customBoardVO.title}]</a> 수정
+		</h2>
+		<pre class="text_left" style="color: #a6a6a6;">각 테마에 맞는 사용자 게시판을 직접 생성하여 성향이 맞는 교원과 소통 할 수 있습니다.</pre>
 	</div>
 		<ul id="createCustomBoard_ul">
 			<li>
-				<p class="float_left">먼저 게시판 이름이 필요해요 :)</p>
+				<p class="float_left">* 수정할 게시판 제목을 입력해주세요 :)</p>
 				<form:input class="custom_title" path="title" placeholder="게시판 이름을 입력해 주세요." autocomplete="off"/>
 				<form:errors path="title" cssClass="error-color"/>
 			</li>
 			<li>
-				<p class="float_left">게시판 설명</p>
+				<p class="float_left">* 게시판 설명</p>
 				<form:input class="custom_title" path="subtitle"  placeholder="게시판에 대해 간단하게 설명해주세요" autocomplete="off"/>
 				<form:errors path="subtitle" cssClass="error-color"/>
 			</li>
 		</ul>
 		
-	  <c:if test="${customBoardVO.type == 0}">
-		  <div id="anonymous_opt">
-		       <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
-		     <label for="check_anony">익명성을 보장하는 익명 게시판인가요?</label>
-		  </div>
+		<p class="float_left">* 형식</p>
+	    <c:if test="${customBoardVO.type == 0}">
 	      <!-- 기본형 -->
 	      <div id="simpleType">
 	         <div id="simpleType_img">
@@ -114,14 +109,10 @@
 	         <div id="Type_text" style="display: inline">
 	            <p><b style="font-size: 120%;line-height: 28px;">사진형</b><br>글 목록에 사진이 노출되는 형식</p>
 	         </div>         
-      	</div>
+      	  </div>
 	      <span class="clear-both;"></span>
 	  </c:if>
 	  <c:if test="${customBoardVO.type == 1}">
-	  	<div id="anonymous_opt">
-		       <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
-		      <label for="check_anony">익명성을 보장하는 익명 게시판인가요?</label>
-		 </div>
 	      <!-- 기본형 -->
 	      <div id="simpleType">
 	         <div id="simpleType_img">
@@ -143,13 +134,39 @@
 	      </div>
 	      <span class="clear-both;"></span>
 	  </c:if>
-
+		  
+	  <!-- 익명 허용 여부 -->  
+	  <p class="float_left">* 익명 허용</p>
 	  <div id="anonymous_opt">
 		  <c:if test="${customBoardVO.anonymous == 0}"> <!-- 익명 불허 게시판 -->
+		  	 <!-- <div id="anonymous_opt">
+		       <input type="checkbox" id="check_anony" style="margin-left: 35px;">
+		 	 </div> -->
+		 	 <div id="anonymous_opt">
+			 	 <label class="switch">
+		 			 <input type="checkbox" id="check_anony">
+					 <span class="slider round"></span>
+				  </label>
+				 <p id="anony">OFF</p>
+				 <p id="anony" style="display:none;">ON</p>	
+			 </div>
 		  </c:if>
 		  <c:if test="${customBoardVO.anonymous == 1}"> <!-- 익명 허용 게시판 -->
+		  	<!-- <div id="anonymous_opt">
+		       <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
+		     <label for="check_anony">익명성을 보장하는 익명 게시판인가요?</label>
+		 	</div> -->
+		 	<div id="anonymous_opt">
+		    	<!-- <label for="check_anony"><b style="font-size: 130%; margin-left: 35px;">익명 허용</b></label> -->
+			 	<label class="switch">
+		 			 <input type="checkbox" id="check_anony" checked>
+					 <span class="slider round"></span>
+				  </label>
+				 <p id="anony" style="display:none;">OFF</p>
+				 <p id="anony">ON</p>
+			</div> 
 		  </c:if>
-	  </div>
+	  </div> 
 	<input type="submit" class="customOK" value="완료">
 	</form:form>
 </div>

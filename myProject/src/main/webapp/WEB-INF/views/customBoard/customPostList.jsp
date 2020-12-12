@@ -78,11 +78,11 @@
 					<c:if test="${customPost.anonymous == 0}"> 
 					<!-- 프로필 사진 -->	
 					<div style="overflow: hidden;">
-						<c:if test="${empty member.photoname}">
-							<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large customPicture">	
+						<c:if test="${empty customPost.photoname}">
+							<img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">	
 						</c:if>
-						<c:if test="${!empty member.photoname}">
-							<img src="${pageContext.request.contextPath}/member/photoView.do" class="picture large">
+						<c:if test="${!empty customPost.photoname}">
+							<img src="profileImageView.do?mem_num=${customPost.mem_num}" class="picture large">
 						</c:if>
 						<!-- 작성자 아이디 -->
 						<div class="profile">
@@ -98,7 +98,7 @@
 					<div style="overflow: hidden;">
 						<!-- 프로필 사진 -->	
 						<c:if test="${empty member.photoname}">
-							<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large">	
+							<img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">
 						</c:if>
 						<!-- 작성자 아이디 -->
 						<div class="profile">

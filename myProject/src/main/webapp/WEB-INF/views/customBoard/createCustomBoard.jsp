@@ -86,10 +86,13 @@
 				<form:errors path="subtitle" cssClass="error-color"/>
 			</li>
 		</ul>
-	  <div id="anonymous_opt">
+	
+	 <!--익명여부
+	 <div id="anonymous_opt">
 	       <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
 	      <label for="check_anony">익명성을 보장하는 익명 게시판인가요?</label>
-	  </div>
+	  </div> -->
+	  
       <!-- 기본형 -->
       <div id="simpleType">
          <div id="simpleType_img">
@@ -110,7 +113,19 @@
          </div>         
       </div>
       <span class="clear-both;"></span>
-			<input type="submit" class="customOK" value="완료">
+      
+      <!-- 익명 허용 -->
+	  <p class="float_left">익명 허용</p>
+      <div id="anonymous_opt">
+		  <label class="switch">
+ 			 <input type="checkbox" id="check_anony" checked style="margin-left: 35px;">
+			 <span class="slider round"></span>
+		  </label>
+		  <p id="anony" style="display:none;">OFF</p>
+		  <p id="anony">ON</p>
+	  </div>
+      
+	  <input type="submit" class="customOK" value="완료">
 	</form:form>
 </div>
  

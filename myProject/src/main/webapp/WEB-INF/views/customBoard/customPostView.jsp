@@ -603,7 +603,7 @@
 
 <!-- 제목&소제목 -->
 <h2 class="titleBoard">
-	<a id="title" href="customPostList.do?post_num=${boardInfo.board_num}">${boardInfo.title}</a>
+	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
 </h2>
@@ -659,16 +659,16 @@
 			<c:if test="${!empty customPost}">
 				<!-- 프로필 사진 -->	
 				<c:if test="${customPost.anonymous == 0}"> <!-- 익명처리 off -->
-					<c:if test="${empty member.photoname}">
-					<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large">	
-				</c:if>
-				<c:if test="${!empty member.photoname}">
-					<img src="${pageContext.request.contextPath}/member/photoView.do" class="picture large">
+					<c:if test="${empty customPost.photoname}">
+						<img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">
+					</c:if>
+					<c:if test="${!empty customPost.photoname}">
+						<img src="profileImageView.do?mem_num=${customPost.mem_num}" class="picture large">
 					</c:if>
 				</c:if>
 				
 				<c:if test="${customPost.anonymous == 1}"> <!-- 익명처리 on  -->
-					<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" class="picture large">	
+					<img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="30" height="30" class="picture large">
 				</c:if>
 				
 				<!-- 작성자 아이디 -->
@@ -712,18 +712,15 @@
 	<form id="comment_form">
 		<input type="hidden" name="post_num" value="${customPost.post_num}" id="post_num"> <!-- 게시글 번호 -->
 		<input type="hidden" name="mem_num" value="${user.mem_num}" id="mem_num"> <!-- 로그인 한 회원 --> 
-		<input type="text"
-			  name="content" id="content"
-			  class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
-			  <c:if test="${empty user}">disabled="disabled"</c:if>
-			>              
+		<input type="text" name="content" id="content" class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다.">              
 		<c:if test="${!empty user}">
 		<div id="comment_second" class="align-right">
-			<c:if test="${customPost.anonymous == 1}"> <!-- 익명 허용 게시판 -->
-				<input type="checkbox" name="anonymous" value="1" checked="checked" style="display: none;">
-			</c:if>
 			<div id="re_second" class="align-right">	
-				<input type="submit" class="submit" value="">											
+				<input type="submit" class="submit" value="">	
+				<c:if test="${boardInfo.anonymous == 1}"> <!-- 익명 허용 게시판 -->
+					<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+					<label for="anonymous"><span class="anonymousSpan">익명</span>
+				</c:if>										
 			</div>
 		</div>
 		

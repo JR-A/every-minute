@@ -55,6 +55,8 @@
                                 ON p.post_num=f_n.post_num
 							JOIN Member m 
 								ON p.mem_num = m.mem_num 
+							JOIN Member_detail d
+								ON p.mem_num = d.mem_num
 						WHERE board_num = #{board_num}
 							<if test="keyword != '' and keyfield == 'hashtag'">
 								 and content LIKE '%' || #{keyword} || '%'
@@ -89,7 +91,11 @@
 	
 	<!-- 게시글 수정 -->
 	<update id="customPostUpdate" parameterType="customPostVO">
-		UPDATE CustomPost SET content=#{content}, uploadfile=#{uploadfile}, filename=#{filename}, anonymous=#{anonymous}
+		UPDATE CustomPost SET 
+		    <if test="filename!=''">
+		        uploadfile=#{uploadfile}, filename=#{filename},
+			</if>
+		    content=#{content}, anonymous=#{anonymous}, modify_date=SYSDATE
 		WHERE post_num=#{post_num}
 	</update>
 	

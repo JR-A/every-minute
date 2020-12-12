@@ -20,6 +20,7 @@ public class CustomPostVO {
 	private String filename; //파일명
 	private int anonymous; //익명여부
 
+	private String photoname; //작성자 프로필 사진
 	private String title; //게시판 번호
 	private String id; //작성자
 	private int comment_cnt; //댓글 수
@@ -143,6 +144,14 @@ public class CustomPostVO {
 
 	public void setFav_cnt(int fav_cnt) {
 		this.fav_cnt = fav_cnt;
+	}
+
+	public String getPhotoname() {
+		return photoname;
+	}
+
+	public void setPhotoname(String photoname) {
+		this.photoname = photoname;
 	}
 
 	@Override

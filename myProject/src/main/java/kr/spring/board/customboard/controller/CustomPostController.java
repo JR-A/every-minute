@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -25,8 +24,8 @@ import kr.spring.board.customboard.service.CustomBoardService;
 import kr.spring.board.customboard.service.CustomCommentService;
 import kr.spring.board.customboard.service.CustomPostService;
 import kr.spring.board.customboard.vo.CustomBoardVO;
-import kr.spring.board.customboard.vo.CustomCommentVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.CustomPagingUtil;
 
@@ -41,6 +40,8 @@ public class CustomPostController {
 	CustomBoardService customBoardService;
 	@Resource
 	CustomCommentService customCommentService;
+	@Resource
+	MemberService memberService;
 
 	//게시글 자바빈(VO) 초기화
 	@ModelAttribute
@@ -161,6 +162,20 @@ public class CustomPostController {
 		
 		return mav;
 	}
+	//프로필사진 출력
+	@RequestMapping("/customBoard/profileImageView.do")
+	public ModelAndView viewImage(@RequestParam int mem_num) {
+		
+		MemberVO vo = memberService.selectMember(mem_num);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("imageView");
+									//byte[]타입의 데이터
+		mav.addObject("imageFile",vo.getPhoto());
+		mav.addObject("filename",vo.getPhotoname());
+		
+		return mav;
+	}
 
 	//게시글 작성
 	@RequestMapping(value="/customBoard/customPostWrite.do",method=RequestMethod.GET)
@@ -245,7 +260,7 @@ public class CustomPostController {
 	
 	//게시글 수정 폼 호출
 	@RequestMapping(value="/customBoard/customPostModify.do", method=RequestMethod.GET)
-	public String updateForm(@RequestParam(value="board_num") int board_num, @RequestParam int post_num, Model model) {
+	public String updateForm(@RequestParam int board_num, @RequestParam int post_num, Model model) {
 		
 		//게시판 title, subtitle
 		CustomBoardVO boardInfo = customBoardService.selectCustomBoard(board_num); //게시판 정보

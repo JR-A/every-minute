@@ -18,7 +18,7 @@ public interface CustomPostMapper {
 	//페이징처리를 위한 글 count
 	public int selectRowCount(Integer board_num);
 	//자바빈 얻기
-	@Select("SELECT * FROM (SELECT * FROM CustomPost p JOIN member m ON p.mem_num=m.mem_num) WHERE post_num=#{post_num}")
+	@Select("SELECT * FROM (SELECT * FROM CustomPost p JOIN member m ON p.mem_num=m.mem_num JOIN member_detail d ON p.mem_num = d.mem_num) WHERE post_num=#{post_num}")
 	public CustomPostVO selectCustomPost(Integer post_num);
 	//게시글 작성
 	public void insertPost(CustomPostVO postVO);
