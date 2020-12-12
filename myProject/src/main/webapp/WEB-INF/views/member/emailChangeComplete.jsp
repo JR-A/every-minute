@@ -4,10 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+	body{
+	margin:15% auto;
+	text-align:center;
+	}
+
+	div{
+	background-color: blanchedalmond;
+	}
+</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <title>Insert title here</title>
 </head>
 <body>
-	이메일 변경이 완료되었습니다 !
-	 <h1><a href="${pageContext.request.contextPath}/member/memberLogin.do">로그인</a></h1> 
+	<div>
+		<ul style="list-style:none">
+			<li>이메일 변경이 완료되었습니다 !</li>
+			<li><input type="button" class="R_Btn" onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do'" value="로그인"></li>
+		</ul> 
+	</div>
 </body>
 </html>

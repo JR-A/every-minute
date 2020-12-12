@@ -4,8 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	
@@ -118,52 +120,54 @@
 </script>
 </head>
 <body>
- <fieldset>
+ <fieldset class="mypage_fieldset">
  	<div id="myInfo">
  		<ul>
- 			<li><h1>내정보</h1></li>
+ 			<li><h2>내정보</h2></li>
  			<c:if test="${empty user.photoname}">
-				<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" width="100" height="100" class="my-photo1">			
+				<img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="100" height="100" class="my-photo1">			
 				<div>
-				<input type="button" id="photo_btn" value="이미지 수정">
+				<input type="button" class="Mypage_Btn" id="photo_btn" value="사진 변경">
 			</div>
 			<div id="photo_choice" style="display:none;">
-				<input type="file" id="upload" name="upload" accept="image/gif,image/png,image/jpeg">
-				<input type="button" value="확인" id="photo_submit">
-				<input type="button" value="취소" id="photo_reset">      
+				<label id="upload_label" for="upload">파일 선택</label>
+				<input type="file" id="upload" class="Mypage_Btn" name="upload" accept="image/gif,image/png,image/jpeg">
+				<input type="button" class="Mypage_Btn" value="확인" id="photo_submit">
+				<input type="button" class="Mypage_Btn" value="취소" id="photo_reset">      
 			</div>
 			</c:if>	
  			<c:if test="${!empty user.photoname}">
 				<img src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100" class="my-photo1">
 				<div>
-				<input type="button" id="photo_btn" value="이미지 수정">
-				<input type="button" id="default_photo_btn" value="기본 이미지">
+				<input type="button" class="Mypage_Btn" id="photo_btn" value="이미지 수정">
+				<input type="button" class="Mypage_Btn" id="default_photo_btn" value="기본 이미지">
 			</div>
 			<div id="photo_choice" style="display:none;">
-				<input type="file" id="upload" accept="image/gif,image/png,image/jpeg">
-				<input type="button" value="전송" id="photo_submit">
-				<input type="button" value="취소" id="photo_reset">      
+				<label id="upload_label" for="upload">파일 선택</label>
+				<input type="file" class="Mypage_Btn" id="upload" accept="image/gif,image/png,image/jpeg">
+				<input type="button" class="Mypage_Btn" value="확인" id="photo_submit">
+				<input type="button" class="Mypage_Btn" value="취소" id="photo_reset">      
 			</div>
 			</c:if>		
- 				<li>닉네임:${user.nickname}</li>
+ 				<li><b>닉네임</b> <a>${user.nickname}</a></li>
  			<c:if test="${!empty user.major}">
- 				<li>학과:${user.major}</li>
+ 				<li><b>학과</b> <a>${user.major}</a></li>
  			</c:if> 			
  			 <c:if test="${empty user.major}">
- 				<li>학과:미입력</li>
+ 				<li><b>학과</b> <a>미입력</a></li>
  			</c:if>				
  			<c:if test="${!empty user.stu_num}">
- 				<li>학번:${user.stu_num}</li>
+ 				<li><b>학번</b> <a>${user.stu_num}</a></li>
  			</c:if> 			
  			 <c:if test="${empty user.stu_num}">
- 				<li>학번:미입력</li>
+ 				<li><b>학번</b> <a>미입력</a></li>
  			</c:if> 
  		</ul>
  	</div>
  </fieldset>
- <fieldset>
+ <fieldset class="mypage_fieldset">
  	<div id="infoChange">
- 		<h2>계정 관리</h2>
+ 		<h2 id="fieldset_h2">계정 관리</h2>
  		<ul>
 <%--  		<li><a href="${pageContext.request.contextPath}/member/boardManagement.do">게시판 관리</a></li> --%>
  		<li><a href="${pageContext.request.contextPath}/member/changePasswd.do">비밀번호 변경</a></li>

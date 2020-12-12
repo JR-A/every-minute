@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 </head>
 <body>
 <h2>이메일 인증이 완료되었습니다!</h2>><br>

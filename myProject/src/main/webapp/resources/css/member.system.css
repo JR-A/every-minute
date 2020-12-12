@@ -1,0 +1,142 @@
+@charset "UTF-8"; 
+
+
+ul{
+list-style:none;	
+	
+}
+
+ form{
+	width:500px;
+	margin:0 auto;
+	border: 1px solid #d6d6d6;
+	padding:10px 10px 10px 30px;
+} 
+
+#nowPassword{
+	padding-bottom:10px;
+}
+
+.M_input{
+	border: 1px solid #d6d6d6;
+	width:258px;
+	margin-left:70px;
+}
+
+.R_input{
+	border: 1px solid #d6d6d6;
+	width:258px;
+	margin-left:127px;
+}
+
+.F_input{
+	border: 1px solid #d6d6d6;
+    width: 258px;
+    margin-left: 32px;
+	margin-top:20px;
+}
+.M_Btn{
+	background-color: #f9f9f9;
+	width:264px;
+	margin-left:70px;
+	border: 1px solid #d6d6d6;
+	color: #999;
+}
+.R_Btn{
+	background-color: #f9f9f9;
+	width:264px;
+	border: 1px solid #d6d6d6;
+	color: #999;
+}
+
+.Mypage_Btn{
+	background-color: #f9f9f9;
+	border: 1px solid #d6d6d6;
+	color: #999;
+}
+#upload{
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0;
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0;
+	
+		
+}
+#upload_label{
+	display: inline-block; 
+	padding:2px; 
+	color: #999; 
+	font-size: inherit; 
+	line-height: normal;  
+	background-color: #f9f9f9; 
+	cursor: pointer; 
+	border: 1px solid #d6d6d6; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em;
+
+}
+.nickname_M_Btn{
+	background-color: #f9f9f9;
+	width:265px;
+	margin-left:109px;
+	border: 1px solid #d6d6d6;
+	color: #999;
+}
+#M_delete_btns{
+	padding-top:20px;
+	color: #999;
+}
+
+#dform{
+	width:420px;
+	
+}
+
+.error-text{
+	padding-left:100px;
+	
+}
+
+#pass1,#pass2{
+	
+padding-left:70px;
+}
+
+.mypage_fieldset{
+	
+	border: 1px solid #d6d6d6;
+	width:50%;
+	margin-left:200px;
+}
+
+.mypage_fieldset ul li a{
+	font-size:14px;
+}
+
+#infoChange a:link{
+	text-decoration:none; color:black;
+	
+}
+
+#infoChange a:visited{
+	text-decoration:none; color:black;
+	
+}
+
+#infoChange a:hover{
+	text-decoration:none; color:red;
+	
+}
+
+#fieldset_h2{
+	padding-left:38px;
+	
+}
+
+li b{
+	font-size:11px;
+}

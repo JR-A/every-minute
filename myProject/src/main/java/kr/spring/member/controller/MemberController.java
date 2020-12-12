@@ -112,7 +112,8 @@ public class MemberController {
 				if(member.getAuthstatus()>0) {
 				check = member.isCheckedPasswd(memberVO.getPasswd());
 				}else {
-					return "member/emailNotAuth"; 
+					result.reject("notAuthMember");
+					return formLogin(); 
 				}
 			}
 			

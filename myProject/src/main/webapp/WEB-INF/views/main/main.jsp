@@ -10,7 +10,7 @@
 		<div class="card pconly">
 			<form class="logged">
 				<c:if test="${empty user.photoname}">
-				<img class="picture" src="${pageContext.request.contextPath}/resources/images/blank.jpg" width="100" height="100">			
+				<img class="picture" src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="100" height="100">			
 				</c:if>
 				<c:if test="${!empty user.photoname}">
 				<img class="picture" src="${pageContext.request.contextPath}/member/photoView.do" width="100" height="100">				

@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
@@ -17,6 +18,8 @@ body {
  
  .page-main-style{
  	padding-top:150px;
+ 	display:flex;
+ 	justify-content:center;
  } 
  
  ul{
@@ -39,20 +42,25 @@ body {
  padding-left:128px;
  }
  
- input[type="submit"]{
- border-style:revert;
- width:160px;
- }
  
- input[type="button"]{
- border-style:revert;
- }
+
  .logo{
  background: transparent url("https://everytime.kr/images/index.login.logo.png") no-repeat;
  width: 360px;
  margin-bottom: 15px;
  height: 60px;
  margin-left:30px;
+ }
+ #register_form{
+	width:600px;
+	margin:0 auto;
+	border: 1px solid #d6d6d6;
+	padding:10px 10px 10px 30px;
+	
+}
+ 
+ #register_form label{
+ position: absolute;
  }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout.css">
@@ -333,8 +341,8 @@ $(document).ready(function(){
 			<li>
 				
 				<label for="id">아이디</label>
-				<form:input path="id"/>
-				<input type="button" id="confirmId" value="ID중복체크">
+				<form:input path="id" class="R_input"/>
+				<input type="button" id="confirmId" value="ID중복체크" class="Mypage_Btn">
 				<%-- 로딩gif --%>
 				<img id="loading" src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif" width="16" height="16" style="display:none;">
 				<span id="message_id" class="message-ck"></span> <%-- 아이디 중복체크 메세지 --%>
@@ -342,54 +350,54 @@ $(document).ready(function(){
 			</li>
 			<li>
 				<label for="passwd">비밀번호</label>
-				<form:password path="passwd"/>
+				<form:password path="passwd" class="R_input"/>
 				<span id="message_passwd" class="message-ck"></span>
 				<form:errors class="error-m" path="passwd" cssClass="error-color"/>
 			</li>
 			<li>
 				<label for="email">이메일</label> <%-- 어노테이션 유효성 테스트 위해 email html태그가 아닌 커스텀태그 사용(태그에서 유효성 체크 하지 않고 서버단에서 체크하는것 테스트) --%>
-				<form:input path="email"/>
-				<input type="button" id="confirmEmail" value="이메일 중복체크">
+				<form:input path="email" class="R_input"/>
+				<input type="button" id="confirmEmail" value="이메일 중복체크" class="Mypage_Btn">
 				<span id="message_email" class="message-ck"></span>
 				<form:errors class="error-m" path="email" cssClass="error-color"/>
 			</li>
 			<li>(가입후 이메일로 확인메일이 전송됩니다)</li>
 			<li>
 				<label for="nickname">닉네임</label>
-				<form:input path="nickname"/>
-				<input type="button" id="confirmNickname" value="닉네임 중복체크">
+				<form:input path="nickname" class="R_input"/>
+				<input type="button" id="confirmNickname" value="닉네임 중복체크" class="Mypage_Btn">
 				<span id="message_nickname" class="message-ck"></span>
 				<form:errors class="error-m" path="nickname"/>
 			</li>
 			<li>
 				<label for="major">학과</label>
-				<form:input path="major"/>
+				<form:input path="major" class="R_input"/>
 				<form:errors path="major"/>
 			</li>
 			<li>
 				<label for="stu_num">학번</label>
-				<form:input path="stu_num"/>
+				<form:input path="stu_num" class="R_input"/>
 				<form:errors path="stu_num"/>
 			</li>	
 			<li>
 				<label for="zipcode">우편번호</label>
-				<form:input path="zipcode"  placeholder="우편번호" readonly="true"/>
-				 <input type="button"  onclick="addressApi();" value="우편번호 찾기">  
+				<form:input path="zipcode"  placeholder="우편번호" readonly="true" class="R_input"/>
+				 <input type="button"  onclick="addressApi();" value="우편번호 찾기" class="Mypage_Btn">  
 				<form:errors class="error-m" path="zipcode"/>
 			</li>
 			<li>
 				<label for="address1">주소</label>
-				<form:input path="address1" placeholder="주소" readonly="true"/>
+				<form:input path="address1" placeholder="주소" readonly="true" class="R_input"/>
 				<form:errors path="address1"/>
 			</li>
 			<li>
 				<label for="address2">나머지 주소</label>
-				<form:input path="address2"/>
+				<form:input path="address2" class="R_input"/>
 				<form:errors path="address2"/>
 			</li>
 		</ul>
 		<div class="align-center">
-			<input type="submit" value="가입하기">
+			<input type="submit" value="가입하기" class="R_Btn">
 			<!-- <input type="button" value="홈으로 " onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'"> -->
 		</div>
 	</form:form>

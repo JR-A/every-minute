@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -45,21 +46,29 @@
 </head>
 <body>
 <form:form id="form" action="changeEmail.do" method="post" commandName="memberVO">
-	<form:errors element="span" cssClass="error-color"/>
+	<form:errors element="span" cssClass="error-color error-text"/>
 	<ul>
 		<li>
-			<label for="email">현재 이메일</label>
-			<form:input path="email"/>	
+			
+			<form:input class="M_input" path="email" placeholder="현재 이메일"/>	
 			<span id="nick1"></span>
 		</li>
 		<li>
-			<label for="changeEmail">변경할 이메일</label>
-			<input type="text" id="changeEmail" name="changeEmail">
+			
+			<input type="text" class="M_input" id="changeEmail" name="changeEmail" placeholder="새 이메일">
 		</li>
-		<li>(변경할 이메일로 승인메일이 전송됩니다.)</li>
+		<li style="
+    padding-left: 74px;
+		">(변경할 이메일로 승인메일이 전송됩니다.)</li>
 	</ul>
-	<input type="submit" value="전송">
-	<input type="button" onclick="history.go(-1)" value="뒤로">
+	<ul>
+		<li>
+			<input class="M_Btn" type="submit" value="확인">
+		</li>
+		<li>
+			<input  class="M_Btn" type="button" onclick="history.go(-1)" value="취소">
+		</li>
+	</ul>
 </form:form>
 </body>
 </html>

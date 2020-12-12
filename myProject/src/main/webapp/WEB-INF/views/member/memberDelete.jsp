@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <meta charset="UTF-8">
 <title>계정 삭제</title>
@@ -50,20 +51,19 @@
 </script>
 </head>
 <body>
-<h1>회원 탈퇴</h1>
 <form:form id="dform" action="deleteMember.do" method="post" commandName="memberVO">
 	<form:hidden path="mem_num"/>
-	<form:errors element="span" cssClass="error-color"/><br>
+	<form:errors element="span" cssClass="error-color error-text"/><br>
 	<span id="pass3"></span><br>
-	<label for="passwd">비밀번호</label>
-	<form:password path="passwd"/>
+	
+	<form:password class="M_input" path="passwd" placeholder="비밀번호"/>
 	<span id="pass1"></span><br>
-	<label for="passwdCk">비밀번호확인</label>
-	<input type="password" id="passwdCk">
+	
+	<input type="password" class="M_input" id="passwdCk" placeholder="비밀번호 확인">
 	<span id="pass2"></span><br>
-	<div>
-	<input type="submit" value="확인">
-	<input type="button" onclick="history.go(-1)" value="뒤로">
+	<div id="M_delete_btns">
+	<input type="submit" class="M_Btn" value="회원 탈퇴">
+	<input type="button" class="M_Btn" onclick="history.go(-1)" value="취소">
 	</div>
 </form:form>
 </body>

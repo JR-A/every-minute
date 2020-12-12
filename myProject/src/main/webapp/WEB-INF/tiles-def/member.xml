@@ -13,6 +13,10 @@
     	<put-attribute name="title" value="회원탈퇴"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberDelete.jsp"/>  
     </definition>
+        <definition name="memberDeleteComplete" extends="main">
+    	<put-attribute name="title" value="회원탈퇴 완료"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/deleteComplete.jsp"/>  
+    </definition>
     <definition name="memberChangeE" extends="main">
     	<put-attribute name="title" value="이메일변경"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberChangeEmail.jsp"/>  
@@ -28,6 +32,10 @@
     <definition name="memberChangePasswd" extends="main">
     	<put-attribute name="title" value="비밀번호 변경"/>
     	<put-attribute name="body" value="/WEB-INF/views/member/memberChangePassword.jsp"/>  
+    </definition>
+    <definition name="memberChangePasswdComplete" extends="main">
+    	<put-attribute name="title" value="비밀번호 완료"/>
+    	<put-attribute name="body" value="/WEB-INF/views/member/passwordChangeComplete.jsp"/>  
     </definition>
         <definition name="writedBoardLi" extends="main1">
     	<put-attribute name="title" value="내가 쓴 글 목록"/>

@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -71,27 +72,33 @@
 </head>
 <body>
 <form:form id="form" action="changePasswd.do" method="post" commandName="memberVO">
-	<form:errors element="div" cssClass="error-color"/>
+	<form:errors element="div" cssClass="error-color error-text"/>
 	<ul>
-		<li>
-			<label for="passwd">현재 비밀번호</label>
-			<form:password path="passwd"/>
+		<li id="nowPassword">
+			
+			<form:password class="M_input" path="passwd" placeholder="현재 비밀번호"/>
 		</li>		
 		<li>
-			<label for=>변경할 비밀번호</label>
-			<input type="password" id="changePasswd" name="changePasswd">		
+			
+			<input type="password" class="M_input" id="changePasswd" name="changePasswd" placeholder="새 비밀번호">		
 		</li>
 		<li>
-			(비밀번호변경은 4자리이상 15자리 이하로만 가능합니다)
+		<!-- 	(비밀번호변경은 4자리이상 15자리 이하로만 가능합니다) -->
 		</li>
 		<li>
-			<label for="changePasswdCk">변경할 비밀번호 확인</label>
-			<input type="password" id="changePasswdCk">
+			
+			<input type="password" class="M_input" id="changePasswdCk" placeholder="새 비밀번호 확인">
 		</li>
 	</ul>
 	<div>
-		<input type="submit" value="확인">
-		<input type="button" value="뒤로" onclick="history.go(-1)">
+		<ul>
+			<li>
+				<input class="M_Btn" type="submit" value="확인">
+			</li>
+			<li>	
+				<input class="M_Btn" type="button" value="취소" onclick="history.go(-1)">
+			</li>
+		</ul>
 	</div>
 </form:form>
 </body>

@@ -4,13 +4,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 <style type="text/css">
 .error-color{color:red;}
+
+#find_form{
+	width:447px;
+	margin:15% auto;
+	border: 1px solid #d6d6d6;
+	padding:10px 10px 10px 30px;
+	
+}
+
+ul li strong{
+	padding-left:20px;
+}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#form').submit(function(){
+		$('#find_form').submit(function(){
 				
 			var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 			
@@ -33,19 +46,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form:form id="form" action="findId.do" method="post" commandName="memberVO">
+<div id="container" class="login">
+	<form:form id="find_form" action="findId.do" method="post" commandName="memberVO">
 
-		<b>가입시 기입했던 이메일을 입력해주세요</b><br>
-		<b>이메일로 아이디/비밀번호가 전송됩니다.</b>
+		
+		
 	<ul>
+		<li><strong>가입시 기입했던 이메일을 입력해주세요</strong></li>
+		<li><strong>이메일로 아이디/비밀번호가 전송됩니다</strong></li>
 		<li>
-			<label for="email">이메일</label>
-			<form:input path="email"/>	
+			
+			<form:input path="email" class="F_input" placeholder="이메일"/>	
 			<form:errors element="div" cssClass="error-color"/>
 		</li> 
 	</ul>
-	<input type="submit" value="전송">
-	<input type="button" onclick="history.go(-1)" value="뒤로">
-</form:form>
+	<input type="submit" class="M_Btn" value="전송">
+	<input type="button" class="M_Btn" onclick="history.go(-1)" value="뒤로">
+	</form:form>
+</div>
 </body>
 </html>

@@ -1,13 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+	ul{
+	 padding-left:288px;
+	}
+	#text{
+	padding-left:59px;
+	}
+	input[type="button"]{
+	margin-top:50px;
+	}
+		
+</style>
+<title>회원 탈퇴완료</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member.system.css">
 </head>
 <body>
-<h1>회원탈퇴 완료</h1> 
-<input type="button" value="홈으로" onclick="location.replace('${pageContext.request.contextPath}/main/introduce.do')">
+<ul>
+	 
+	<li id="text">탈퇴가 완료되었습니다.</li>
+  <li><input type="button" class="M_Btn" onclick="location.href='${pageContext.request.contextPath}/main/introduce.do'" value="메인으로"></li>
+</ul>
 </body>
 </html>

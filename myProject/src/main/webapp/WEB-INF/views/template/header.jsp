@@ -11,7 +11,7 @@
 			<img src="${pageContext.request.contextPath}/member/photoView.do" width="25" height="25" class="my-photo">
 		</c:if>
 		<c:if test="${!empty user && empty user.photoname}">
-			<img src="${pageContext.request.contextPath}/resources/images/blank.jpg" width="25" height="25" class="my-photo">
+			<img src="${pageContext.request.contextPath}/resources/images/customBoard/profile0.png" width="25" height="25" class="my-photo">
 		</c:if>
 		<c:if test="${!empty user}">
 	        <a href="${pageContext.request.contextPath}/message/messageList.do" title="쪽지함" class="icon message">쪽지함</a>
