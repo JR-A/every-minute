@@ -371,7 +371,7 @@ $(document).ready(function(){
 			modifyUI += '   <textarea rows="3" cols="50" name="content" id="mre_content" class="rep-content">'+content+'</textarea>';
 			modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      
 			modifyUI += '   <div id="mre_second" class="align-right">';
-			modifyUI += '      <input type="submit" value="수정">';
+			modifyUI += '      <input type="submit" value="수정완료" class="btn_none">';
 			modifyUI += '      <input type="button" value="취소" class="re-reset" style="color: #c62917;">';
 			modifyUI += '   </div>';
 			modifyUI += '</form>';
@@ -382,7 +382,7 @@ $(document).ready(function(){
 		initModifyForm();
 		//지금 클릭해서 수정하고자 하는 데이터는 감추기
 		//수정버튼을 감싸고 있는 div
-		$(this).parent().hide();
+		//$(this).parent().hide();
 			
 		//수정폼을 수정하고자하는 데이터가 있는 div에 노출
 		$(this).parents('.item').append(modifyUI);
@@ -598,7 +598,7 @@ $(document).ready(function(){
 		
 <!-- 댓글 목록 출력 -->
 	<div id="output"></div>
-	<div class="paging-button" style="display:none;">
+	<div class="paging-button">
 		<input id="more_comment" type="button" value="댓글 더 보기">
 	</div>
 	<div id="loading" style="display:none;">
@@ -606,7 +606,6 @@ $(document).ready(function(){
 	</div>
 	
 		<!-- 댓글 작성 시작 -->
-	<div class="reply_init">
 		<div id="reply_div">
 			<form id="re_form">
 				<input type="hidden" name="post_num"
@@ -614,9 +613,9 @@ $(document).ready(function(){
 				<input type="hidden" name="mem_num"
 			       	value="${user.mem_num}" id="mem_num">
 				<input type="text"
-			  		name="content" id="content" class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다."
+			  		name="content" id="content" class="rep-content" placeholder="댓글은 최대 300자까지 작성 가능합니다.">
 			  	<c:if test="${empty user}">disabled="disabled"</c:if>
-			  ><c:if test="${empty user}">로그인해야 작성할 수 있습니다.</c:if></input>              
+			  	<c:if test="${empty user}">로그인해야 작성할 수 있습니다.</c:if>           
 			<c:if test="${!empty user}">
 			<div id="re_second" class="align-right">	
 				<input type="submit" class="submit" value="">													
@@ -627,7 +626,6 @@ $(document).ready(function(){
 			</div>
 			</c:if>
 		</form>
-	</div>
 	</div>
 	<!-- 댓글 목록 출력 -->
 
