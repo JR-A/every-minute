@@ -11,16 +11,18 @@
 
 	<!-- HOT게시물 (좋아요 10개 이상받은 게시글 중 top2) -->
 	<select id="info_hotPostTop2" resultType="infoBoardVO">
-		SELECT * FROM 
-		   (SELECT title,content,TO_CHAR(reg_date,'YY/MM HH24:MI') reg_date, i.post_num FROM infoBoard i 
+		 SELECT * FROM 
+		   (SELECT title,content,TO_CHAR(reg_date,'YY/MM HH24:MI') reg_date, i.post_num, like_cnt, reply_cnt FROM infoBoard i 
             JOIN (SELECT post_num, COUNT(*) like_cnt 
 		            FROM infoBoard_Like_Post 
-		            <![CDATA[
+					<![CDATA[
               		GROUP BY post_num HAVING COUNT(*) >= 5) lp 
               		]]>
-                    ON i.post_num = lp.post_num ORDER BY like_cnt DESC)
-            <![CDATA[
-	        WHERE ROWNUM<=2
+                    ON i.post_num = lp.post_num 
+                    LEFT OUTER JOIN (SELECT COUNT(*) reply_cnt, post_num  FROM infoboard_comment GROUP BY post_num) r ON i.post_num=r.post_num
+                ORDER BY like_cnt DESC) 
+			<![CDATA[
+	        WHERE ROWNUM<=2 
 	        ]]>
 	</select>
 	

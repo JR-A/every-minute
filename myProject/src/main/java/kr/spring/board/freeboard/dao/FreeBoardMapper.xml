@@ -117,16 +117,18 @@
 	
 	<!-- HOT게시물 (좋아요 10개 이상받은 게시글 중 top2) -->
    <select id="free_hotPostTop2" resultType="freeBoardVO">
-   SELECT * FROM 
-       (SELECT title,content,TO_CHAR(reg_date,'YY/MM HH24:MI') reg_date, f.post_num FROM freeBoard f 
-           JOIN (SELECT post_num, COUNT(*) like_cnt 
-               FROM freeBoard_Like_Post       
-                <![CDATA[
-                GROUP BY post_num HAVING COUNT(*) >= 5) lp 
-                ]]>
-             ON f.post_num = lp.post_num ORDER BY like_cnt DESC)
-        <![CDATA[
-         WHERE ROWNUM<=2
-         ]]>
+	   SELECT * FROM 
+	       (SELECT title,content,TO_CHAR(reg_date,'YY/MM HH24:MI') reg_date, f.post_num, like_cnt, reply_cnt FROM freeBoard f 
+	           JOIN (SELECT post_num, COUNT(*) like_cnt 
+	               FROM freeBoard_Like_Post       
+					<![CDATA[
+	                GROUP BY post_num HAVING COUNT(*) >= 5) lp 
+	                ]]>
+	             ON f.post_num = lp.post_num 
+	             LEFT OUTER JOIN (SELECT COUNT(*) reply_cnt, post_num  FROM freeboard_comment GROUP BY post_num) r ON f.post_num=r.post_num
+	             ORDER BY like_cnt DESC)
+			 <![CDATA[
+	         WHERE ROWNUM<=2
+	         ]]>
    </select>
 </mapper>

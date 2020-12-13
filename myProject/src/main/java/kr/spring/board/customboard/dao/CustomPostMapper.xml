@@ -21,15 +21,17 @@
 		    (SELECT * FROM customPost p 
 		        JOIN (SELECT post_num, COUNT(*) like_cnt  
 		        	FROM customBoard_Like_Post 
-	            		<![CDATA[
+						<![CDATA[
 		        		GROUP BY post_num HAVING COUNT(*) >= 5) lp 
 		        		]]>
 		            ON p.post_num = lp.post_num 
 				JOIN customBoard b 
-		            ON p.board_num=b.board_num  
+		            ON p.board_num=b.board_num 
+                LEFT OUTER JOIN (SELECT COUNT(*) comment_cnt, post_num  FROM customBoard_comment GROUP BY post_num) c_n 
+                    ON p.post_num=c_n.post_num
 		        ORDER BY like_cnt DESC)
-		     <![CDATA[
-			 WHERE ROWNUM<=2 
+		 	 <![CDATA[
+			 WHERE ROWNUM<=2
 			 ]]>
 	</select>
 	
