@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/customBoard.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <!-- 제목&소제목 -->
-<h2 class="title">
+<h2 class="titleBoard">
 	<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 	<br>
 	<span id="subtitle">${boardInfo.subtitle}</span>
@@ -30,13 +30,18 @@
 				<label class="fileUpload">
 					<input type="file" name="upload" id="upload" accept="image/gif,image/png,image/jpeg" onchange="readURL(this);">
 				</label>
-				<input type="submit" class="submit" value="">
-				<c:if test="${customPostVO.anonymous==1}">
-					<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
-					<label for="anonymous">
-						<span class="anonymousSpan">익명</span>
-					</label>
-				</c:if>
+				<div class="align-right" style="float: right;">
+					<input type="submit" class="submit" value="">
+					<c:if test="${boardInfo.anonymous==1}"> <!-- 실명게시판 -->
+						<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+						<label for="anonymous">
+							<span class="anonymousSpan">익명</span>
+						</label>
+					</c:if>
+					<c:if test="${boardInfo.anonymous==0}"> <!-- 익명게시판 -->
+						<input type="checkbox" name="anonymous" value="0" id="anonymous" checked="checked" style="display:none;">
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</div>
