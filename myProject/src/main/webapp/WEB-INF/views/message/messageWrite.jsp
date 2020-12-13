@@ -13,9 +13,9 @@
 				<form:input path="target_id"/>
 				<form:errors path="target_id" cssClass="error-color"/>
 			</li>
-			<li>
-				<label for="content">쪽지내용</label>
-				<form:textarea path="content"/>
+			<li style="margin-top: 50px; margin-bottom: 50px;">
+				<label for="content">보낼 쪽지 입력</label>
+				<form:textarea path="content"  style="border:1px solid gray; height: 150px;"/>
 				<form:errors path="content" cssClass="error-color"/>
 			</li>
 		</ul>

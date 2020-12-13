@@ -2,34 +2,83 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<!-- 쪽지함 스타일 css--------------------------- -->
+<style>
+
+ #title{
+  line-height:10;
+ text-align:center;
+ }
+ 
+ #title2{
+ text-align:center;
+ font-size:12px;
+ margin:0px;
+ padding:0;
+ 
+ }
+ 
+ #title3{
+ text-align:left;
+ height:20px;
+ }
+ 
+ .content{
+ line-height:20;
+ }
+ 
+ .list{
+
+ font-size:15px;
+ text-align: right;
+ }
+ 
+ .date{
+ line-height:5;
+ }
+ 
+ .content{
+ line-height:5;
+ }
+ 
+ 
+</style>
+<!-- -------------------------------------------------- -->
+
+
 <div class="page-main-style">
-	<h2>쪽지함</h2>
-	<ul>
+	<h3 id="title">쪽지함</h3>
+	<br>
+	<div id="title2">
+	<h3>쪽지 내용</h3>
+	</div>
+	<hr size="1" width="100%" noshade="noshade">
+	<ul class="list">
 		<li>보낸사람 : ${messageVO.id}</li>
 		<li>쪽지 작성일 : ${messageVO.reg_date}</li>
 	</ul>
-
-	<br>
-	<h4>쪽지 내용</h4>
-	<hr size="1" width="100%" noshade="noshade">
-	<p>
+	<p class="content">
 		${messageVO.content}
 	</p>
-	<hr size="1" width="100%" noshade="noshade">
 		<c:if test="${!empty replyList}">
 		<br>
-		<h2>답장</h2>
+		<div id="title3">
+		<h3 style="margin-top:70px;">답장</h3>
+		</div>
 		<hr size="1" width="100%" noshade="noshade">
 		<c:forEach var="reply" items="${replyList}">
 		<ul>
-			<li>${reply.content}</li>
-			<li>보낸 날짜 : ${reply.reg_date}</li>
+			<li id="content">${reply.content}</li>
+			<li id="date" style="float:right; position: relative; bottom: 27px">보낸 날짜 : ${reply.reg_date}</li>
 		</ul>
 		<hr size="1" width="100%" noshade="noshade">
 		</c:forEach>
 		</c:if>
 	<c:if test="${messageVO.mem_num != user.mem_num}">
-	<h2>답장 쓰기</h2>
+	<div class="reply">
+	<h2 style="margin-top: 80px;">답장 쓰기</h2>
+	</div>
 	<form:form commandName="messageVO" action="write.do">
 	    <input type="hidden" name="target_mem_num" value="${messageVO.mem_num}"/>
 		<input type="hidden" name="anonymous" value="0"/>
@@ -37,18 +86,18 @@
 		<form:errors element="div" cssClass="error-color"/>
 		<ul>
 			<li>
-				<label for="content">답장 내용</label>
-				<textarea rows="4" cols="30" id="content" name="content"></textarea>
+				<label for="content" style="line-height:5; font-size:15px; font-weight: 800;">답장 내용</label>
+				<textarea rows="4" cols="30" id="content" name="content" style="border: 1px solid gray; height:150px;"></textarea>
 				<form:errors path="content" cssClass="error-color"/>
 			</li>
 		</ul>
 		<div class="align-center">
-			<input type="submit" value="전송">
+			<input type="submit" value="전송" style="margin-top:50px;">
 			<input type="button" value="쪽지목록" onclick="location.href='messageList.do'">
 		</div>
 	</form:form>
 	</c:if>
 	<c:if test="${messageVO.mem_num == user.mem_num}">
-		<input type="button" value="쪽지목록" onclick="location.href='messageList.do'">
+		<input type="button" value="쪽지목록" onclick="location.href='messageList.do'" style="float:right;">
 	</c:if>
 </div>
