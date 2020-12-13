@@ -11,6 +11,9 @@
 	<h2 class="titleBoard">
 		<a id="title" href="customPostList.do?board_num=${boardInfo.board_num}">${boardInfo.title}</a>
 		<br>
+		<c:if test="${empty boardInfo.subtitle}">
+			<span id="subtitle">&nbsp;</span>
+		</c:if>
 		<span id="subtitle">${boardInfo.subtitle}</span>
 		<div class="align-right custom_status">
 		<%--수정 삭제의 경우는 로그인이 되어있고 로그인한 회원번호와 작성자 회원번호가 일치해야 함 --%>
