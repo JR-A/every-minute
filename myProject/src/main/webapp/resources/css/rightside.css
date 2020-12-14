@@ -91,7 +91,7 @@ div.card > div.board > a.article > p.title {
 
 div.card > div.board > a.article > p.small {
     height: 32px;
-    line-height: 19px;
+    line-height: 16px;
     color: #737373;
     font-size: 12px;
 }
