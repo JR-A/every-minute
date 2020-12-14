@@ -43,7 +43,7 @@ body {
  
 
  .logo{
- background: transparent url("https://everytime.kr/images/index.login.logo.png") no-repeat;
+ background: transparent url(../resources/images/index.login.logo.png) no-repeat;
  width: 360px;
  margin-bottom: 15px;
  height: 60px;
