@@ -175,6 +175,11 @@ public class FreeBoardController {
 			int likeCount= freeLikeService.selectRowCountLike(map);
 			
 			FreeBoardVO freeboard = freeBoardService.selectBoard(post_num);
+			
+			//html비허용
+	        freeboard.setTitle(StringUtil.useNoHtml(freeboard.getTitle()));
+	        freeboard.setContent(StringUtil.useBrNoHtml(freeboard.getContent()));
+			
 			freeboard.setReply_cnt(count);
 			freeboard.setLike_cnt(likeCount);
 			return new ModelAndView("freeBoardView","freeboard",freeboard);

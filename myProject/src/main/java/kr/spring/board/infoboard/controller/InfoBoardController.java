@@ -28,6 +28,7 @@ import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.board.infoboard.vo.InfoLikeVO;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.PagingUtil;
+import kr.spring.util.StringUtil;
 
 @Controller
 public class InfoBoardController {
@@ -135,6 +136,12 @@ public class InfoBoardController {
 			//목록을 호출
 			list = InfoBoardService.selectList(map);
 			
+			//html 미허용
+			for(InfoBoardVO infoBoard : list) {
+				infoBoard.setTitle(StringUtil.useNoHtml(infoBoard.getTitle()));
+				infoBoard.setContent(StringUtil.useBrNoHtml(infoBoard.getContent()));
+			}
+			
 			if (log.isDebugEnabled()) {
 				log.debug("<<글 목록>> : " +  list);
 			}
@@ -203,6 +210,11 @@ public class InfoBoardController {
 		int commCount = InfoReplyService.selectRowCountReply(post_num);
         
         InfoBoardVO board = InfoBoardService.selectBoard(post_num);
+		
+		//html비허용
+        board.setTitle(StringUtil.useNoHtml(board.getTitle()));
+        board.setContent(StringUtil.useBrNoHtml(board.getContent()));
+        
         board.setReply_cnt(commCount);
         
         //개시판 좋아요 수

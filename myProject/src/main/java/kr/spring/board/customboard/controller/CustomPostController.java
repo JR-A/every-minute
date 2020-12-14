@@ -93,6 +93,7 @@ public class CustomPostController {
 		if(count > 0) {			
 			postList = customPostService.selectPostList(map);
 			
+			//html 미허용 & 줄바꿈 허용
 			for(CustomPostVO customPost : postList) {
 				customPost.setContent(StringUtil.useBrNoHtml(customPost.getContent()));
 			}
@@ -133,6 +134,8 @@ public class CustomPostController {
 
 		//게시글 자바빈 반환
 		CustomPostVO customPost = customPostService.selectCustomPost(post_num); //게시글 정보
+		//html 비허용&줄바꿈 허용
+		customPost.setContent(StringUtil.useBrNoHtml(customPost.getContent()));
 		
 		//댓글 개수, 추천 수
 		Map<String, Object> map = new HashMap<String, Object>();

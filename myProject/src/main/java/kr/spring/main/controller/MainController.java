@@ -10,13 +10,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.board.customboard.service.CustomBoardService;
 import kr.spring.board.customboard.service.CustomLikeService;
 import kr.spring.board.customboard.service.CustomPostService;
-import kr.spring.board.customboard.vo.CustomBoardVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.service.FreeBoardService;
 import kr.spring.board.freeboard.service.FreeLikeService;
@@ -25,6 +22,7 @@ import kr.spring.board.infoboard.service.InfoBoardService;
 import kr.spring.board.infoboard.service.InfoLikeService;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 import kr.spring.member.service.MemberService;
+import kr.spring.util.StringUtil;
 
 @Controller
 public class MainController {
@@ -55,6 +53,19 @@ public class MainController {
 		List<CustomPostVO> postTop3List =customPostService.selectTop3PostList(); 
 		List<InfoBoardVO> infoTop3List =InfoBoardService.selectTop3InfoList();
 		List<FreeBoardVO> freePostTop3List =freeBoardService.freeSelectTop3PostList();
+	
+		for(CustomPostVO post : postTop3List) {
+		   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		}
+		for(InfoBoardVO post : infoTop3List) {
+		   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		}
+		for(FreeBoardVO post : freePostTop3List) {
+		   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		}
 
 
 		if(log.isDebugEnabled()) {
@@ -72,7 +83,8 @@ public class MainController {
 			log.debug("<<HOT게시판 목록_customBoard>> : " + c_hotPostList);
 			log.debug("<<HOT게시판 목록_freeBoard>> : " + f_hotPostList);
 			log.debug("<<HOT게시판 목록_infoBoard>> : " + i_hotPostList);
-		}
+		} 
+	      
 		
 		//오늘의 BEST게시물  - 게시판 중 가장 추천 수가 많은 게시글
 		CustomPostVO customPostVO = customLikeService.custom_bestLikePost();
