@@ -172,6 +172,24 @@ div.card > div.board > a.article > ul.status > li.comment.active {
     height: 0;
     border: 0;
 }
+#more_comment{
+	border: 1px solid #e3e3e3;
+	background-color: rgba(0,0,0,0); 
+	color: black; 
+	padding: 5px;
+	margin-top:1px;
+
+}
+.reply-vote{
+	background-position: left center;
+	padding-left: 15px;
+	background-size: 12px 12px;
+	color: #c62917;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	background-image:url(https://everytime.kr/images/new/container.articles.vote.png);
+}
+
 
 /*==========메인 목록 끝======*/
 /*==========페이지 기본 스타일 시작======*/
@@ -583,7 +601,7 @@ textarea.rep-content{
 
 /*========== 댓글 rep-output 보더 작업 ===========*/
 #output {
-	border-top: 1px solid #e3e3e3;
+	/* border-top: 1px solid #e3e3e3; */
 	border-left: 1px solid #e3e3e3;
 	border-right: 1px solid #e3e3e3;
 	border-bottom: 1px solid #e3e3e3;
@@ -679,6 +697,7 @@ form#write_customform{
     margin: 0px;
     border-bottom: 1px solid #e3e3e3;
     background-color: #fff;
+    height: 80px;
 }
 .board_p > textarea {
 	width: 100%;

@@ -25,9 +25,11 @@ import kr.spring.board.customboard.service.CustomCommentService;
 import kr.spring.board.customboard.service.CustomPostService;
 import kr.spring.board.customboard.vo.CustomBoardVO;
 import kr.spring.board.customboard.vo.CustomPostVO;
+import kr.spring.board.freeboard.vo.FreeBoardVO;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.CustomPagingUtil;
+import kr.spring.util.StringUtil;
 
 @Controller
 public class CustomPostController {
@@ -90,6 +92,10 @@ public class CustomPostController {
 		//CustomPostVO를 postList에 담음
 		if(count > 0) {			
 			postList = customPostService.selectPostList(map);
+			
+			for(CustomPostVO customPost : postList) {
+				customPost.setContent(StringUtil.useBrNoHtml(customPost.getContent()));
+			}
 
 			if(log.isDebugEnabled()) {
 				log.debug("<<Custom게시판-글 목록>> : " + postList);

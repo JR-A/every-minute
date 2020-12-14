@@ -19,7 +19,7 @@
 	<input type="hidden" id="writer" name="writer" value="${user.id}"/>
 	<!-- 작성내용 -->
 	<p class="board_p">
-		<form:textarea path="content" cols="100" rows="8" placeholder="글 내용을 입력하세요."/>
+		<form:textarea path="content" id="txtForm"  placeholder="글 내용을 입력하세요."/>
 		<form:errors path="content" cssClass="error-color"/>
 	</p>
 	<div><img class="blah"/></div>

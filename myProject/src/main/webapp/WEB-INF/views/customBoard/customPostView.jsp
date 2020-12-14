@@ -244,15 +244,15 @@
 							
 							if($('#mem_num').val()!=item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 다르면 
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="추천" class="like-btn">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="쪽지" class="message-btn" onclick="location.href=\'../message/sendMessage.do?anony='+item.anonymous+'&target_mem_num='+item.mem_num+'\'">';
 								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="신고" class="blame-btn">';
 							}
 							if($('#mem_num').val()==item.mem_num){
 								//로그인 한 회원 번호가 댓글 작성자 번호와 같으면
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="공감" class="like-btn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn marginBtn">';
-								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn">'; 
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="추천" class="like-btn">';
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="삭제" class="delete-btn marginBtn">'; 
+								output += '  <input type="button" data-num="'+item.comment_num+'" data-mem="'+item.mem_num+'" value="수정" class="modify-btn">';
 							}
 							output += '  </div>';
 							output += '</div>';
@@ -361,7 +361,7 @@
 			//댓글 내용
 			var content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
 			                                             //g:지정문자열 모두, i:대소문자 무시
-//댓글 수정폼 UI
+		//댓글 수정폼 UI
 		var modifyUI = '<form id="mre_form">'
 			modifyUI += '   <input type="hidden" name="comment_num" id="mre_num" value="'+comment_num+'">';
 			modifyUI += '   <input type="hidden" name="mem_num" id="mem_num" value="'+mem_num+'">';
@@ -369,7 +369,7 @@
 			modifyUI += '   <div id="mre_first"><span class="letter-count">300/300</span></div>';      
 			modifyUI += '   <div id="mre_second" class="align-right">';
 			modifyUI += '      <input type="submit" value="수정완료" class="btn_none">';
-			modifyUI += '      <input type="button" value="취소" class="re-reset" style="color: #c62917;">';
+			modifyUI += '      <input type="button" value="취소" class="comment-reset" style="color: #c62917;">';
 			modifyUI += '   </div>';
 			modifyUI += '</form>';
 				
@@ -468,6 +468,25 @@
 			//기본 이벤트 제거
 			event.preventDefault();
 		});
+		
+		/*//댓글추천 개수
+		function getCommentLike_count(){
+			var comment_num = ${customCommentVO.comment_num}; 
+			$.ajax({
+				type:'post',
+				data:{comment_num:comment_num},
+				url:'getCommentLikeCount.do',
+				dataType:'json',
+				cache:false,
+				timeout:30000,
+				success:function(data){
+					$('#commLike_cnt').text(data.commLike_cnt);
+				},
+				error:function(){
+					alert('네트워크 오류');
+				}
+			});
+		}*/
 		
 		//댓글 추천 등록
 		$(document).on('click','.like-btn',function(){
@@ -702,14 +721,14 @@
 </div>
 
 <!-- 댓글 목록 -->
-<div id="output">
-	<div class="paging-button" style="display:none;">
-		<input type="button" value="댓글 더 보기">
-	</div>
-	<div id="loading" style="display:none;">
-		<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
-	</div> 
+<div id="output"></div>
+<div class="paging-button">
+	<input id="more_comment" type="button" value="댓글 더 보기">
 </div>
+<div id="loading" style="display:none;">
+	<img src="${pageContext.request.contextPath}/resources/images/ajax-loader.gif">
+</div> 
+
 <!-- 댓글 -->
 <div id="reply_div">
 	<form id="comment_form">

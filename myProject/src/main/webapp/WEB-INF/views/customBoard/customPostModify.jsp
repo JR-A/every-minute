@@ -20,7 +20,7 @@
 	<input type="hidden" id="writer" name="writer" value="${user.id}"/>
 	<!-- 작성내용 -->
 	<p class="board_p">
-		<form:textarea path="content" cols="100" rows="8"></form:textarea>
+		<form:textarea path="content" id="txtForm"></form:textarea>
 		<form:errors path="content" cssClass="error-color"/>
 	</p>
 	<c:if test="${!empty customPostVO.filename}">
@@ -36,11 +36,19 @@
 			</label>
 		</div>
 		<div class="align-right">
-			<c:if test="${customPostVO.anonymous==1}">
-				<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
-				<label for="anonymous">
-					<span class="anonymousSpan">익명</span>
-				</label>
+			<c:if test="${boardInfo.anonymous==1}">
+				<c:if test="${customPostVO.anonymous==0}"> <!-- 실명으로 글 작성 -->
+					<input type="checkbox" name="anonymous" value="0" id="anonymous">
+					<label for="anonymous">
+						<span class="anonymousSpan">익명</span>
+					</label>
+				</c:if>
+				<c:if test="${customPostVO.anonymous==1}"> <!-- 실명으로 글 작성 -->
+					<input type="checkbox" name="anonymous" value="1" id="anonymous" checked="checked">
+					<label for="anonymous">
+						<span class="anonymousSpan">익명</span>
+					</label>
+				</c:if>
 			</c:if>
 			<input type="submit" class="submit" value="">
 		</div>
