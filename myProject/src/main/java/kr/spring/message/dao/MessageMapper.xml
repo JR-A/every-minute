@@ -8,7 +8,6 @@
         JOIN member m ON b.mem_num = m.mem_num 
         JOIN member s ON s.mem_num = b.target_mem_num 
 		 WHERE b.target_mem_num = #{mem_num}
-		 AND b.parent_msg_num=0
 		 ORDER BY b.msg_num DESC)a)
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
@@ -18,7 +17,6 @@
 	<select id="selectRowCount" parameterType="map" resultType="integer">
 		SELECT COUNT(*) FROM message_post b JOIN member m ON b.mem_num = m.mem_num
 		 WHERE b.target_mem_num = #{mem_num}
-		 AND b.parent_msg_num=0
 	</select>  
 	
 	<select id="selectSendList" parameterType="map" resultType="MessageVO">
