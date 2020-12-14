@@ -21,7 +21,7 @@ public interface MessageMapper {
 	public void insertBoard(MessageVO message);
 	@Select("SELECT * FROM message_post b JOIN member m ON b.mem_num=m.mem_num WHERE b.msg_num=#{msg_num}")
 	public MessageVO selectMessage(Integer msg_num);
-	@Delete("DELETE FROM spboard WHERE board_num = #{board_num}")
+	@Delete("DELETE FROM message_post WHERE msg_num = #{msg_num}")
 	public void deleteBoard(Integer msg_num);
 	@Update("UPDATE message_post SET msg_check=1 WHERE msg_num=#{msg_num}")
 	public void updateMsg_check(Integer msg_num);

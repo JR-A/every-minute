@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -157,5 +158,23 @@ public class MessageController {
 		model.addAttribute("replyList", replyList);
 
 		return "messageView";
+	}
+	
+	//글삭제
+	@RequestMapping("/message/delete.do")
+	//												┌게시판 번호  ┌Controller에서 생성한 데이터를 담아서 View로 전달할 때 사용하는 객체.						
+	public String submitDelete(@RequestParam int msg_num, Model model, HttpServletRequest request) {
+	//																							└
+		if (log.isDebugEnabled()) {
+			log.debug("<<쪽지 삭제>> : " + msg_num);
+		}
+		
+		//글 삭제
+		messageService.deleteBoard(msg_num);
+		
+		//View에 표시할 메시지 Model 객체를 파라미터로 받는다.
+		model.addAttribute("message", "쪽지삭제 완료");
+		model.addAttribute("msg_num", msg_num);
+		return "redirect:/message/messageList.do";
 	}
 }

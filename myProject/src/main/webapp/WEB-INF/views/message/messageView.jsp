@@ -94,10 +94,22 @@
 		<div class="align-center">
 			<input type="submit" value="전송" style="margin-top:50px;">
 			<input type="button" value="쪽지목록" onclick="location.href='messageList.do'">
+			<input type="button" value="삭제" onclick="location.href='messageList.do'" id="delete_btn">
 		</div>
 	</form:form>
 	</c:if>
 	<c:if test="${messageVO.mem_num == user.mem_num}">
+	    <input type="button" value="삭제" onclick="location.href='messageList.do'" id="delete_btn" style="float:right;">
 		<input type="button" value="쪽지목록" onclick="location.href='messageList.do'" style="float:right;">
 	</c:if>
+	<script type="text/javascript">
+		var delete_btn = document.getElementById('delete_btn');
+		//이벤트 연결
+		delete_btn.onclick=function() {
+			var choice = window.confirm('정말 삭제하시겠습니까?');
+			if (choice) {
+				location.href='delete.do?msg_num=${messageVO.msg_num}';
+			}
+		}
+	</script>
 </div>
