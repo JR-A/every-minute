@@ -9,6 +9,10 @@
 		<put-attribute name="title" value="메시지 목록" />
 		<put-attribute name="body" value="/WEB-INF/views/message/messageList.jsp" />
 	</definition>
+	<definition name="messageList2" extends="main">
+		<put-attribute name="title" value="메시지 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/message/messageList2.jsp" />
+	</definition>
 	<definition name="messageSend" extends="main">
 		<put-attribute name="title" value="메시지  쓰기" />
 		<put-attribute name="body" value="/WEB-INF/views/message/messageSend.jsp" />

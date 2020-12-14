@@ -103,7 +103,7 @@ public class MessageController {
 		}
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("messageList");
+		mav.setViewName("messageList2");
 		mav.addObject("count",count);
 		mav.addObject("list",list);
 		return mav;
@@ -152,7 +152,7 @@ public class MessageController {
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		MessageVO vo = messageService.selectMessage(msg_num);
 		List<MessageVO> replyList = null;
-		if(vo.getMem_num() != user.getMem_num()) {
+		if(vo.getMem_num() != user.getMem_num() || (vo.getTarget_mem_num() == user.getMem_num() && vo.getMem_num() == user.getMem_num())) {
 			//쪽지 읽기 처리
 			messageService.updateMsg_check(msg_num);
 			replyList = messageService.selectReplyList(msg_num);

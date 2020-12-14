@@ -70,6 +70,10 @@ $(document).ready(function(){
 	<hr size="1" width="100%" noshade="noshade">
 	<ul class="list">
 		<li>보낸사람 : ${messageVO.id}</li>
+		<li>
+		         받은 사람 : 
+		   <c:if test="${messageVO.anonymous == 0}">${messageVO.id}</c:if>
+		   <c:if test="${messageVO.anonymous == 1}">익명</c:if></li>
 		<li>쪽지 작성일 : ${messageVO.reg_date}</li>
 	</ul>
 	<p class="content">
