@@ -577,8 +577,8 @@ $(document).ready(function(){
 		</c:if>
 		</div>
 		<hr>
-		<h1>${freeboard.title}</h1>
-		${freeboard.content}
+		<h2 class="large">${freeboard.title}</h1>
+		<p class="large">${freeboard.content}</p>
 		<c:if test="${!empty freeboard.filename}"> <!-- filename이 비어있지 않는다면 아래의 div를 실행 -->
 		<div class="align-center">
 			<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">

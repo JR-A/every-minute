@@ -272,6 +272,21 @@ div#freeBoard_title{
 
 }
 
+h2.large {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #292929;
+}
+
+p.large {
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #000000;
+    font-size: 14px;
+    padding: 0;
+}
 
 input:focus {outline:none;}
 a {text-decoration: none; color: black;}

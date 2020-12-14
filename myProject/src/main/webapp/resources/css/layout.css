@@ -329,7 +329,7 @@ li, a{
 .sub-item > p {
 	max-width: 995px;
     overflow-wrap: break-word;
-	font-size: 14px;
+	font-size: 13px;
 	margin: 7px 0px;
 }
 .modify-btn, .delete-btn {
