@@ -11,7 +11,7 @@
 		<ul>
 			<li>
 				<label for="content">쪽지내용</label>
-				<form:textarea path="content"/>
+				<form:textarea path="content" style="border:1px solid gray; height: 150px;"/>
 				<form:errors path="content" cssClass="error-color"/>
 			</li>
 		</ul>

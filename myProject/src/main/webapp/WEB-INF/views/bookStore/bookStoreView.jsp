@@ -15,10 +15,8 @@
 				</td>
 			</tr>
 		</table>
+	<c:if test="${ bookStoreVO.bs_complete == 0 }">
 	<ul>
-		<c:if test="${ bookStoreVO.bs_complete > 0 }">
-		<li class="list"><h2>판매 완료된 상품입니다.</h2></li>
-		</c:if>
 		<li class="list"><label>판매희망가</label>${ bookStoreVO.bs_selling_price }원</li>
 		<li class="list">
 			<label>책 상태</label>${ bookStoreVO.bs_condition }<br>
@@ -71,6 +69,10 @@
 		    } 
 		});    
 	</script>
+	</c:if>
+	</c:if>
+	<c:if test="${ bookStoreVO.bs_complete > 0 }">
+	<li class="list"><h2>판매 완료된 상품입니다.</h2></li>
 	</c:if>
 	<input type="button" class="list_btn" value="목록" onclick="location.href='bookStoreList.do'">
 	<c:if test="${ !empty user && user.mem_num == bookStoreVO.mem_num }">
