@@ -19,6 +19,8 @@ import kr.spring.timetable.service.TimetableService;
 import kr.spring.timetable.vo.SubjectVO;
 import kr.spring.timetable.vo.TimetableVO;
 
+import kr.spring.util.*;
+
 @Controller
 public class ReviewController {
 	
@@ -59,6 +61,11 @@ public class ReviewController {
 		
 		//전체 수강평 목록
 		reviewList = reviewService.selectList();
+		
+		//수강평 목록 - HTML태그 불허, 줄바꿈 허용
+		for(ReviewVO review : reviewList) {
+			review.setContent(StringUtil.useBrHtml(review.getContent()));
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		//뷰이름설정
