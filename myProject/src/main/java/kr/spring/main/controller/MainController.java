@@ -53,19 +53,24 @@ public class MainController {
 		List<CustomPostVO> postTop3List =customPostService.selectTop3PostList(); 
 		List<InfoBoardVO> infoTop3List =InfoBoardService.selectTop3InfoList();
 		List<FreeBoardVO> freePostTop3List =freeBoardService.freeSelectTop3PostList();
-	
-		for(CustomPostVO post : postTop3List) {
-		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		
+		if(postTop3List != null && postTop3List.size() > 0) {
+			for(CustomPostVO post : postTop3List) {
+			   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+			}
 		}
-		for(InfoBoardVO post : infoTop3List) {
-		   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
-		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		if(infoTop3List != null && infoTop3List.size() > 0) {
+			for(InfoBoardVO post : infoTop3List) {
+			   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+			   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+			}
 		}
-		for(FreeBoardVO post : freePostTop3List) {
-		   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
-		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		if(freePostTop3List != null && freePostTop3List.size() > 0) {
+			for(FreeBoardVO post : freePostTop3List) {
+			   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+			   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+			}
 		}
-
 
 		if(log.isDebugEnabled()) {
 			log.debug("<<Custom게시판-최근 게시글 top3 목록>> : " + postTop3List);
@@ -78,18 +83,23 @@ public class MainController {
 		List<FreeBoardVO> f_hotPostList =freeBoardService.free_hotPostTop2(); 
 		List<InfoBoardVO> i_hotPostList =InfoBoardService.info_hotPostTop2(); 
 		
-		for(CustomPostVO post : c_hotPostList) {
-	       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
-	    }
-	    for(InfoBoardVO post : i_hotPostList) {
-	       post.setTitle(StringUtil.useNoHtml(post.getTitle()));
-	       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
-	    }
-	    for(FreeBoardVO post : f_hotPostList) {
-	       post.setTitle(StringUtil.useNoHtml(post.getTitle()));
-	       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
-	    }
-		
+		if(c_hotPostList != null && c_hotPostList.size() > 0) {
+			for(CustomPostVO post : c_hotPostList) {
+		       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+			}
+		}
+		if(i_hotPostList != null && i_hotPostList.size() > 0) {
+		    for(InfoBoardVO post : i_hotPostList) {
+		       post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+		       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		    }
+		}
+		if(f_hotPostList != null && f_hotPostList.size() > 0) {
+		    for(FreeBoardVO post : f_hotPostList) {
+		       post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+		       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+		    }
+		}
 		if(log.isDebugEnabled()) {
 			log.debug("<<HOT게시판 목록_customBoard>> : " + c_hotPostList);
 			log.debug("<<HOT게시판 목록_freeBoard>> : " + f_hotPostList);
@@ -103,9 +113,9 @@ public class MainController {
 		InfoBoardVO infoBoardVO = infoLikeService.info_bestLikePost();
 		
 		//html 비허용&줄바꿈 허용
-		customPostVO.setContent(StringUtil.useBrNoHtml(customPostVO.getContent()));
-		freeBoardVO.setContent(StringUtil.useBrNoHtml(freeBoardVO.getContent()));
-		infoBoardVO.setContent(StringUtil.useBrNoHtml(infoBoardVO.getContent()));
+		if(customPostVO != null) customPostVO.setContent(StringUtil.useBrNoHtml(customPostVO.getContent()));
+		if(freeBoardVO != null) freeBoardVO.setContent(StringUtil.useBrNoHtml(freeBoardVO.getContent()));
+		if(infoBoardVO != null) infoBoardVO.setContent(StringUtil.useBrNoHtml(infoBoardVO.getContent()));
 
 		if(log.isDebugEnabled()) {
 			log.debug("<<BEST게시물_customBoard>> : " + customPostVO);
