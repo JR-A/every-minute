@@ -11,6 +11,9 @@ $(document).ready(function(){
 			$('#content').focus();
 			return false;
 		}
+	});	
+
+
 });
 </script>
 <div class="page-main-style">
