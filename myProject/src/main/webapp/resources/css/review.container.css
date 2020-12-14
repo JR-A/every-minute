@@ -54,6 +54,7 @@ h3, p{
     box-sizing: border-box;
     background-color: #fff;
     border: none;
+    left: 320px;
 }
 #container form.search input.keyword {
     padding: 12px 20px 12px 20px;
