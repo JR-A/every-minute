@@ -2,12 +2,15 @@ package kr.spring.message.vo;
 
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 public class MessageVO {
 
 	private int msg_num;
 	private int post_num;
 	private int mem_num;
 	private int target_mem_num;
+	@NotEmpty
 	private String content;
 	private int msg_check;
 	private Date reg_date;

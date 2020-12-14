@@ -39,6 +39,8 @@ public class MessageController {
 		return new MessageVO();
 	}
 
+	
+	//쪽지리스트	
 	@RequestMapping("/message/messageList.do")
 	public ModelAndView process(@RequestParam(value="pageNum", defaultValue="1") int currentPage,HttpSession session) {
 
@@ -72,6 +74,8 @@ public class MessageController {
 		return mav;
 	}
 
+	
+	//받은 쪽지 리스트
 	@RequestMapping("/message/messageSendList.do")
 	public ModelAndView processSend(@RequestParam(value="pageNum", defaultValue="1") int currentPage,HttpSession session) {
 
@@ -105,7 +109,7 @@ public class MessageController {
 		return mav;
 	}
 
-	
+	//답장쓰기
 	@RequestMapping(value="/message/sendMessage.do")
 	public String formMessage(@RequestParam int anony, @RequestParam int target_mem_num,Model model) {
 		
@@ -141,7 +145,7 @@ public class MessageController {
 		return "redirect:/message/messageList.do";
 	}
 
-	//메세지 상세보기
+	//쪽지 상세보기
 	@RequestMapping("/message/messageView.do")
 	public String message(@RequestParam int msg_num, Model model,HttpSession session) throws Exception{
 
@@ -160,7 +164,7 @@ public class MessageController {
 		return "messageView";
 	}
 	
-	//글삭제
+	//쪽지 삭제
 	@RequestMapping("/message/delete.do")
 	//												┌게시판 번호  ┌Controller에서 생성한 데이터를 담아서 View로 전달할 때 사용하는 객체.						
 	public String submitDelete(@RequestParam int msg_num, Model model, HttpServletRequest request) {
@@ -169,7 +173,7 @@ public class MessageController {
 			log.debug("<<쪽지 삭제>> : " + msg_num);
 		}
 		
-		//글 삭제
+		//쪽지 삭제
 		messageService.deleteBoard(msg_num);
 		
 		//View에 표시할 메시지 Model 객체를 파라미터로 받는다.
@@ -177,4 +181,5 @@ public class MessageController {
 		model.addAttribute("msg_num", msg_num);
 		return "redirect:/message/messageList.do";
 	}
+	
 }

@@ -46,7 +46,21 @@
 </style>
 <!-- -------------------------------------------------- -->
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//submit 이벤트 발생시 아이디 중복 체크 여부 확인
+	$('#form_submit').submit(function(){
+		if($('#content').val()==''){
+			alert('쪽지 내용을 입력해주세요');
+			$('#content').focus();
+			return false;
+		}
+	});	
 
+
+});
+</script>
 <div class="page-main-style">
 	<h3 id="title">쪽지함</h3>
 	<br>
@@ -79,7 +93,7 @@
 	<div class="reply">
 	<h2 style="margin-top: 80px;">답장 쓰기</h2>
 	</div>
-	<form:form commandName="messageVO" action="write.do">
+	<form:form commandName="messageVO" action="write.do" id="form_submit">
 	    <input type="hidden" name="target_mem_num" value="${messageVO.mem_num}"/>
 		<input type="hidden" name="anonymous" value="0"/>
 		<input type="hidden" name="parent_msg_num" value="${messageVO.msg_num}"/>
