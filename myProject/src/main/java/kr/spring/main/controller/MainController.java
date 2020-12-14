@@ -55,7 +55,6 @@ public class MainController {
 		List<FreeBoardVO> freePostTop3List =freeBoardService.freeSelectTop3PostList();
 	
 		for(CustomPostVO post : postTop3List) {
-		   post.setTitle(StringUtil.useNoHtml(post.getTitle()));
 		   post.setContent(StringUtil.useBrNoHtml(post.getContent()));
 		}
 		for(InfoBoardVO post : infoTop3List) {
@@ -79,6 +78,18 @@ public class MainController {
 		List<FreeBoardVO> f_hotPostList =freeBoardService.free_hotPostTop2(); 
 		List<InfoBoardVO> i_hotPostList =InfoBoardService.info_hotPostTop2(); 
 		
+		for(CustomPostVO post : c_hotPostList) {
+	       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+	    }
+	    for(InfoBoardVO post : i_hotPostList) {
+	       post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+	       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+	    }
+	    for(FreeBoardVO post : f_hotPostList) {
+	       post.setTitle(StringUtil.useNoHtml(post.getTitle()));
+	       post.setContent(StringUtil.useBrNoHtml(post.getContent()));
+	    }
+		
 		if(log.isDebugEnabled()) {
 			log.debug("<<HOT게시판 목록_customBoard>> : " + c_hotPostList);
 			log.debug("<<HOT게시판 목록_freeBoard>> : " + f_hotPostList);
@@ -90,6 +101,11 @@ public class MainController {
 		CustomPostVO customPostVO = customLikeService.custom_bestLikePost();
 		FreeBoardVO freeBoardVO = freeLikeService.free_bestLikePost();
 		InfoBoardVO infoBoardVO = infoLikeService.info_bestLikePost();
+		
+		//html 비허용&줄바꿈 허용
+		customPostVO.setContent(StringUtil.useBrNoHtml(customPostVO.getContent()));
+		freeBoardVO.setContent(StringUtil.useBrNoHtml(freeBoardVO.getContent()));
+		infoBoardVO.setContent(StringUtil.useBrNoHtml(infoBoardVO.getContent()));
 
 		if(log.isDebugEnabled()) {
 			log.debug("<<BEST게시물_customBoard>> : " + customPostVO);

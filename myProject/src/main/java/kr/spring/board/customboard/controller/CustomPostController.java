@@ -134,6 +134,7 @@ public class CustomPostController {
 
 		//게시글 자바빈 반환
 		CustomPostVO customPost = customPostService.selectCustomPost(post_num); //게시글 정보
+		
 		//html 비허용&줄바꿈 허용
 		customPost.setContent(StringUtil.useBrNoHtml(customPost.getContent()));
 		
