@@ -408,7 +408,6 @@ $(document).ready(function(){
 		$('#mre_form').remove();
 	}
 	
-	//댓글 수정
 	$(document).on('submit','#mre_form',function(event){
 		if($('#mre_content').val()==''){
 			alert('내용을 입력하세요!');
@@ -467,7 +466,11 @@ $(document).ready(function(){
 		});
 		//기본 이벤트 제거
 		event.preventDefault();
+		}else{
+		false;
 		}
+		//기본 이벤트 제거
+		event.preventDefault();
 	});
 	
 	//댓글 삭제
