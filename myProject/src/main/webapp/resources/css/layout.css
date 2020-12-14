@@ -81,7 +81,8 @@ span.name.multiple {
 	background-color: #f2f2f2;
 }
 .group > ul {
-	text-align: center;
+	padding-right: 150px; 
+	padding-left: 150px;
 }
 .group > ul li{
 	display: inline-block;

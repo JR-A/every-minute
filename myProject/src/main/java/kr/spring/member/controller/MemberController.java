@@ -617,9 +617,9 @@ public class MemberController {
 			mav.setViewName("writedInfoCommentLi");
 			return mav;
 		}
-		/*//커스텀 게시판에 쓴 댓글
+		//커스텀 게시판에 쓴 댓글
 		@RequestMapping("/member/writedCustomBoardComment.do")
 		public String writedCustomComment() {
-			return null;
-		}*/
+			return "writedCommentLi";
+		}
 }
