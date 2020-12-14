@@ -532,8 +532,8 @@
 				<option value="2017-1" <c:if test="${semester=='2017-1'}">selected</c:if>>2017년 1학기</option>
 				<option value="2016-2" <c:if test="${semester=='2016-2'}">selected</c:if>>2016년 2학기</option>
 				<option value="2016-1" <c:if test="${semester=='2016-1'}">selected</c:if>>2016년 1학기</option>
-				<option value="2015-2" <c:if test="${semester=='2017-2'}">selected</c:if>>2015년 2학기</option>
-				<option value="2015-1" <c:if test="${semester=='2017-1'}">selected</c:if>>2015년 1학기</option>
+				<option value="2015-2" <c:if test="${semester=='2015-2'}">selected</c:if>>2015년 2학기</option>
+				<option value="2015-1" <c:if test="${semester=='2015-1'}">selected</c:if>>2015년 1학기</option>
 			</select>
 		</form>
 		<div class="title">
