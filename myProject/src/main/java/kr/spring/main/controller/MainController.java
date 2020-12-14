@@ -65,8 +65,8 @@ public class MainController {
 		
 		//HOT게시물 목록  - 게시판 별 추천수가 5개 이상인 top2 
 		List<CustomPostVO> c_hotPostList =customPostService.custom_hotPostTop2(); 
-		List<CustomPostVO> f_hotPostList =freeBoardService.free_hotPostTop2(); 
-		List<CustomPostVO> i_hotPostList =InfoBoardService.info_hotPostTop2(); 
+		List<FreeBoardVO> f_hotPostList =freeBoardService.free_hotPostTop2(); 
+		List<InfoBoardVO> i_hotPostList =InfoBoardService.info_hotPostTop2(); 
 		
 		if(log.isDebugEnabled()) {
 			log.debug("<<HOT게시판 목록_customBoard>> : " + c_hotPostList);

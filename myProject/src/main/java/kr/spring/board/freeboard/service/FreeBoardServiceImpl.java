@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.dao.FreeBlameMapper;
 import kr.spring.board.freeboard.dao.FreeBoardMapper;
 import kr.spring.board.freeboard.dao.FreeLikeMapper;
@@ -74,7 +73,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	//추천 10개 이상인 게시글 top2 목록
 	@Override
-	public List<CustomPostVO> free_hotPostTop2() {
+	public List<FreeBoardVO> free_hotPostTop2() {
 		return freeBoardMapper.free_hotPostTop2();
 	}
 	

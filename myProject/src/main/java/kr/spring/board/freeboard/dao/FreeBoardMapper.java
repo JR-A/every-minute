@@ -6,9 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
-import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.freeboard.vo.FreeBoardVO;
 
 public interface FreeBoardMapper {
@@ -24,6 +22,6 @@ public interface FreeBoardMapper {
 	//최근 게시글 top3
 	public List<FreeBoardVO> freeSelectTop3PostList();
 	//추천 10개 이상인 게시글 top2 목록
-	public List<CustomPostVO> free_hotPostTop2();
+	public List<FreeBoardVO> free_hotPostTop2();
 
 }

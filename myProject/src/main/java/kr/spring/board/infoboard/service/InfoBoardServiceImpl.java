@@ -72,7 +72,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 		return infoBoardMapper.selectTop3InfoList();
 	}
 	@Override
-	public List<CustomPostVO> info_hotPostTop2() {
+	public List<InfoBoardVO> info_hotPostTop2() {
 		return infoBoardMapper.info_hotPostTop2();
 	}
 	//게시글 삭제_댓글 없음

@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
-import kr.spring.board.customboard.vo.CustomPostVO;
 import kr.spring.board.infoboard.vo.InfoBoardVO;
 
 public interface InfoBoardMapper { //추상메소드 처리
@@ -15,7 +14,7 @@ public interface InfoBoardMapper { //추상메소드 처리
 	@Select(" SELECT * FROM (SELECT * FROM infoboard ORDER BY TO_NUMBER(post_num) DESC ) WHERE ROWNUM <= 5")
 	public List<InfoBoardVO> selectTop3InfoList();
 	//추천 10개 이상인 게시글 top2 목록
-	public List<CustomPostVO> info_hotPostTop2();
+	public List<InfoBoardVO> info_hotPostTop2();
 	//하나의 메소드에 하나의 sql문만 처리해야합니다.
 	public List<InfoBoardVO> selectList(Map<String, Object> map);
 	public List<InfoBoardVO> selectTagList(Map<String, Integer> map);
