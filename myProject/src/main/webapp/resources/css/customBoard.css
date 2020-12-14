@@ -240,7 +240,7 @@ div.card > div.board > a.article > ul.status > li.comment.active {
 }
 .customSmall {
 	margin: 0px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     max-height: 100px;
     line-height: 20px;
     white-space: normal;
@@ -706,4 +706,11 @@ ul {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     padding-inline-start: 40px;
+}
+
+p.large {
+    padding-bottom: 15px;
+    line-height: 20px;
+    color: #000000;
+    font-size: 15px;
 }

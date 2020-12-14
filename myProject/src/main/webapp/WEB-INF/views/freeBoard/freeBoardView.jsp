@@ -408,7 +408,6 @@ $(document).ready(function(){
 		$('#mre_form').remove();
 	}
 	
-	//댓글 수정
 	$(document).on('submit','#mre_form',function(event){
 		if($('#mre_content').val()==''){
 			alert('내용을 입력하세요!');
@@ -467,7 +466,11 @@ $(document).ready(function(){
 		});
 		//기본 이벤트 제거
 		event.preventDefault();
+		}else{
+		false;
 		}
+		//기본 이벤트 제거
+		event.preventDefault();
 	});
 	
 	//댓글 삭제
@@ -577,8 +580,8 @@ $(document).ready(function(){
 		</c:if>
 		</div>
 		<hr>
-		<h1>${freeboard.title}</h1>
-		${freeboard.content}
+		<h2 class="large">${freeboard.title}</h1>
+		<p class="large">${freeboard.content}</p>
 		<c:if test="${!empty freeboard.filename}"> <!-- filename이 비어있지 않는다면 아래의 div를 실행 -->
 		<div class="align-center">
 			<img src="imageView.do?post_num=${freeboard.post_num}" style="max-width: 500px;">

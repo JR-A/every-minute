@@ -68,9 +68,9 @@
 			</c:if>	
 			</div>															
 			<hr>																
-			<h1>${board.title}</h1>											
+			<h2 class="large">${board.title}</h1>											
 			<p>																
-				${board.content}
+				<p class="large">${board.content}</p>
 				<c:if test="${!empty board.filename}"> <!-- filename이 비어있지 않는다면 아래의 div를 실행 -->																
 					<div class="align-center">															
 						<img src="imageView.do?post_num=${board.post_num}" style="max-width: 500px;">														

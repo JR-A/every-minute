@@ -34,7 +34,7 @@
  		            JOIN member m ON f.mem_num=m.mem_num 
  		            JOIN member_detail d ON m.mem_num=d.mem_num
  		            WHERE post_num = #{post_num}
- 		            ORDER BY comment_num DESC)a) 
+ 		            ORDER BY comment_num ASC)a) 
  		<![CDATA[
  		WHERE rnum >= #{start} AND rnum <= #{end}
  		]]>                                 

@@ -688,7 +688,7 @@
 				
 				<hr>
 				<!-- 내용 -->		
-				<p>
+				<p class="large">
 					${customPost.content}
 				</p>
 				<div class="align-center">
