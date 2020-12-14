@@ -30,6 +30,7 @@ import kr.spring.board.freeboard.vo.FreeReplyVO;
 import kr.spring.member.service.MemberService;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.PagingUtil;
+import kr.spring.util.StringUtil;
 
 @Controller
 public class FreeBoardController {
@@ -96,6 +97,11 @@ public class FreeBoardController {
 		List<FreeBoardVO> list = null;
 		if(count > 0) {
 			list = freeBoardService.selectList(map);
+			
+			for(FreeBoardVO freeBoard : list) {
+				freeBoard.setTitle(StringUtil.useNoHtml(freeBoard.getTitle()));
+				freeBoard.setContent(StringUtil.useBrNoHtml(freeBoard.getContent()));
+			}
 			
 			if(log.isDebugEnabled()) {
 				log.debug("<<글 목록>>:"+list);
