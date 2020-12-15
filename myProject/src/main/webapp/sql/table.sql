@@ -434,7 +434,7 @@ CREATE TABLE BookStoreBoard(
     authors VARCHAR2(100) NOT NULL,
     publisher VARCHAR2(100) NOT NULL,
     price NUMBER NOT NULL,
-    thumbnail VARCHAR2(4000) NOT NULL
+    thumbnail VARCHAR2(4000) NOT NULL,
 
     CONSTRAINT bookstoreboard_pk PRIMARY KEY (bs_num),
     CONSTRAINT bookstoreboard_mem_fk FOREIGN KEY (mem_num) REFERENCES Member (mem_num)
