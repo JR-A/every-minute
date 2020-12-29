@@ -21,16 +21,12 @@ SpringMVC기반 시간표 관리 커뮤니티 웹 어플리케이션
 ![erd2](https://user-images.githubusercontent.com/62992052/103277416-46092700-4a0c-11eb-9ecf-19b584bab5e1.png)
 ## Demo
 - 메인화면 & 회원
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hO7-EDY1fvo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Main_Member]](https://www.youtube.com/embed/hO7-EDY1fvo)
 - 게시판
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MDVIjmQvs9Q" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Board]](https://www.youtube.com/embed/MDVIjmQvs9Q)
  - 시간표  & 강의평가
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Xb2cYX0vqg4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Timeatable_Review]](https://www.youtube.com/embed/Xb2cYX0vqg4)
 - 책방
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TtdgpF763Go" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![Bookstore]](https://www.youtube.com/embed/TtdgpF763Go)
 - 쪽지
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FK6_Tb9Cgss" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Message]](https://www.youtube.com/embed/FK6_Tb9Cgss)
