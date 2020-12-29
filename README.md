@@ -7,15 +7,18 @@ SpringMVC기반 시간표 관리 커뮤니티 웹 어플리케이션
   - 2020.11.12 ~ 2020.12.12
  
 ## 개발 환경
-  -  Windows 10 64bit
-  -  JDK 1.8
-  -  eGov Spring Framework 4.3.22 Release
+  - Windows 10 64bit
+  - JDK 1.8
+  - eGov Spring Framework 4.3.22 Release
   - Oracle 11g
-  -  Apache Tomcat v9.0
+  - Apache Tomcat v9.0
   - Spring MVC
+  - ojdbc8 19.7.0.0
 ## 기술 스택
+  - Maven활용 - Tiles, Jackson 라이브러리, AspectJ
   - Ajax
-  - 지도API
+  - MailSender,주소API,책API,지도API
+  - html2canvas 라이브러리
 ## 테이블 설계
 ![erd1](https://user-images.githubusercontent.com/62992052/103277406-41447300-4a0c-11eb-821b-231dca615e90.png)
 ![erd2](https://user-images.githubusercontent.com/62992052/103277416-46092700-4a0c-11eb-9ecf-19b584bab5e1.png)
