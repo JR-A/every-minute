@@ -108,6 +108,11 @@ public class ReviewController {
 			intAttendance = subjectRate.getAttendance() / subjectRate.getTotalCount();
 			intExam = subjectRate.getExam() / subjectRate.getTotalCount();
 		}
+		
+		//수강평 목록 - HTML태그 불허, 줄바꿈 허용
+		for(ReviewVO review : reviewList) {
+			review.setContent(StringUtil.useBrHtml(review.getContent()));
+		}
 			
 		ModelAndView mav = new ModelAndView();
 		//뷰이름설정
