@@ -129,14 +129,14 @@ div.card > div.board > a.article > ul.status > li {
     background-position: left center;
 }
 
-div.card > div.board > a.article > ul.status > li.vote.active {
+div.card > div.board > a.article > ul.status > li.vote {
     color: #c62917;
-    background-image: url("https://everytime.kr/images/new/container.articles.vote.active.png");
+    background-image: url("https://everytime.kr/images/new/container.articles.vote.png");
 }
 
-div.card > div.board > a.article > ul.status > li.comment.active {
-    color: #0ca5af;
-    background-image: url("https://everytime.kr/images/new/container.articles.comment.active.png");
+div.card > div.board > a.article > ul.status > li.comment {
+    color: #0ca5af;  
+    background-image: url("https://everytime.kr/images/new/container.articles.comment.png");
 }
 
 hr {

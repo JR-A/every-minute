@@ -22,8 +22,8 @@
 						<p class="small">${freeBoardVO.content}</p>
 						<h4>자유게시판</h4>
 						<ul class="status">
-							<li class="vote active">${freeBoardVO.like_cnt}</li>
-							<li class="comment active">${freeBoardVO.reply_cnt}</li>
+							<li class="vote">${freeBoardVO.like_cnt}</li>
+							<li class="comment">${freeBoardVO.reply_cnt}</li>
 						</ul>
 						<hr>
 					</a>
@@ -38,8 +38,8 @@
 						<p class="small">${infoPost.content}</p>
 						<h4>정보게시판</h4>
 						<ul class="status">
-							<li class="vote active">${infoPost.like_cnt}</li>
-							<li class="comment active">${infoPost.reply_cnt}</li>
+							<li class="vote">${infoPost.like_cnt}</li>
+							<li class="comment">${infoPost.reply_cnt}</li>
 						</ul>
 						<hr>
 					</a>
@@ -53,8 +53,8 @@
 						<p class="title">${customPost.content}</p>
 						<h4>${customPost.title}</h4>
 						<ul class="status">
-							<li class="vote active">${customPost.like_cnt}</li>
-							<li class="comment active">${customPost.comment_cnt}</li>
+							<li class="vote">${customPost.like_cnt}</li>
+							<li class="comment">${customPost.comment_cnt}</li>
 						</ul>
 						<hr>
 					</a>
